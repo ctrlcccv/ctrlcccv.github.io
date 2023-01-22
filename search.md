@@ -7,7 +7,10 @@ hide_description: true
 ---
 
 <div id="search-demo-container">
-  <input type="search" id="search-input" placeholder="search...">
+  <div class="search_bar">
+    <span class="icon icon-search"></span>
+    <input type="search" id="search-input" placeholder="검색어를 입력하세요.">
+  </div>
   <ul id="results-container"></ul>
 </div>
 
@@ -19,8 +22,8 @@ hide_description: true
     searchInput: document.getElementById('search-input'),
     resultsContainer: document.getElementById('results-container'),
     json: '/search.json',
-    searchResultTemplate: '<li><a href="{url}?query={query}" title="{desc}"><strong class="tit">{title}</strong><span class="date">{date}</span></a></li>',
-    noResultsText: '검색 결과가 없습니다.',
+    searchResultTemplate: '<li><a href="{url}?query={query}" title="{title}"><strong class="tit">{title}</strong><span class="date">{date}</span></a></li>',
+    noResultsText: '<li class="data_none">검색 결과가 없습니다.</li>',
     limit: 10,
     fuzzy: false,
     exclude: ['Welcome']
