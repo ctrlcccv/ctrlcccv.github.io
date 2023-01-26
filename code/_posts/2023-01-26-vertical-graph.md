@@ -1,17 +1,50 @@
 ---
 layout: post
-title: Introducing Hydejack 9
+title: 세로형 막대 그래프
 image: 
-  path: /assets/img/blog/jeremy-bishop@0,5x.jpg
+  path: /assets/img/blog/vertical-graph.webp
 description: >
-  Version 9 is the most complete version of Hydejack yet.
-  Modernized design, big headlines, and big new features.
-sitemap: false
+  검색어 설명~~
+keywords: > 
+  테스트
+sitemap: true
 comments: true
 ---
 
-Version 9 is the most complete version of Hydejack yet.
-{:.lead}
+그래프의 퍼센트와 목록이 유동적으로 바뀌어도 자동으로 정렬되는 세로형 막대그래프를 만들었다.
+
+## HTML
+
+```html
+  <div class="graph_wrap">
+    <strong class="tit">제목</strong>
+    <div class="graph">
+      <!-- 기준 -->
+      <ul class="y-axis">
+        <li><span>35</span></li>
+        <li><span>30</span></li>
+        <li><span>25</span></li>
+        <li><span>20</span></li>
+        <li><span>15</span></li>
+        <li><span>10</span></li>
+        <li><span>5</span></li>
+        <li><span>0</span></li>
+      </ul>
+      <!-- 목록 -->
+      <ul class="x-axis">
+        <li><span>목록1</span></li>
+        <li><span>목록2</span></li>
+        <li><span>목록3</span></li>
+      </ul>
+      <!-- 바 그래프 (백분율 만큼 heigh값) -->
+      <ul class="bar">
+        <li style="height:100%;"><span></span></li>
+        <li style="height:70%;"><span></span></li>
+        <li style="height:30%;"><span></span></li>
+      </ul>
+    </div>
+  </div>
+```
 
 [Modernized](#linking-in-style) [design](#whats-in-the-cards), [big headlines](#ready-for-the-big-screen), big new features: [Built-In Search](#built-in-search), [Sticky Table of Contents](#sticky-table-of-contents), and [Auto-Hiding Navbar](#auto-hiding-navbar). That [and more](#and-much-more) is Hydejack 9.
 
