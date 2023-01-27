@@ -1,17 +1,18 @@
 ---
 layout: post
-title: 세로형 막대 그래프
+title: >
+  [CSS] 세로형 막대 그래프
 image: 
   path: /assets/img/blog/vertical-graph.webp
 description: >
-  검색어 설명~~
+  데이터에 따라 유동적으로 정렬되는 세로형 막대그래프 CSS 코드 예제
 keywords: > 
   테스트
 sitemap: true
 comments: true
 ---
 
-그래프의 퍼센트와 목록이 유동적으로 바뀌어도 자동으로 정렬되는 세로형 막대그래프를 만들었다.
+CSS를 활용하여 데이터에 따라 유동적으로 정렬되는 세로형 막대그래프를 만들었다.
 
 ## HTML
 
@@ -45,78 +46,27 @@ comments: true
     </div>
   </div>
 ```
+기준점, 목록, 그래프 3개의 리스트로 나눴고, 그래프는 백분율만큼 높이가 늘어나는 방식이다.
 
-[Modernized](#linking-in-style) [design](#whats-in-the-cards), [big headlines](#ready-for-the-big-screen), big new features: [Built-In Search](#built-in-search), [Sticky Table of Contents](#sticky-table-of-contents), and [Auto-Hiding Navbar](#auto-hiding-navbar). That [and more](#and-much-more) is Hydejack 9.
+## CSS
 
-- Table of Contents
-{:toc .large-only}
+```css
+  .graph_wrap {max-width: 864px;margin: 0 auto;padding:20px;}
+  .graph_wrap .tit {display: block;text-align: center;font-size: 16px;font-weight: 500;color: #333333;}
+  .graph {position: relative;height: 185px;margin-top: 15px;}
+  .graph .y-axis {position: absolute;width: 100%;height: 100%;z-index: 1;}
+  .graph .y-axis > li {position: relative;width:calc(100% - 20px);height: calc(100% / 8);margin-left: 20px;border-top: 1px solid #8c8c8c;text-align: left;}
+  .graph .y-axis > li span {position: absolute;top: -7px;left: -20px;font-size: 12px;line-height: 1;}
+  .graph .x-axis {display: flex;justify-content: space-around;position: absolute;bottom: -8px;left: 20px;width: calc(100% - 20px);text-align: center;z-index: 2;}
+  .graph .x-axis > li {font-size: 12px;}
+  .graph .bar {display: flex;justify-content: space-around;align-items: flex-end;position: absolute;bottom: 16px;left: 20px;width: calc(100% - 20px);height: calc(100% - 16px);text-align: center;z-index: 3;}
+  .graph .bar > li {width: 100%;margin: 0 10px;}
+  .graph .bar > li span {display: inline-block;width: 100%;height: 100%;max-width: 80px;background: #8ab4f8;}
+  .graph .bar:before {content:'';position: absolute;top: -2px;left: 3px;width: 1px;height: calc(100% + 4px);background: #8c8c8c;}
+```
 
-## Linking in Style
+그래프의 백분율 값뿐만 아니라 목록의 수도 변동되어서, [display:flex](https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Flexible_Box_Layout){:target="_blank"} 속성을 사용하여 정렬했다.  
+IE11 환경에서 display:flex 속성을 사용한 컨테이너의 가로 크기보다 컨텐츠의 크기가 작을 경우 justify-content:space-around; 속성 정렬이 반영되지 않았다.
+그래서 .graph .bar > li 요소에 width: 100%; 속성을 추가했다.  
 
-Ever since the introduction of Dark Mode, link styles have been a bit of an issue. Specifically, finding an accent color that worked on both light and dark backgrounds was the problem. With Hydejack 9, the [link style](#linking-in-style) has been revamped so that legibility is no longer tied to the choice of accent_color, giving you much more freedom in creating a unique design flavor for your site.
- 
-## Ready for the Big Screen
-
-The theme on which Hydejack is based was designed for a different era of the web. Hydejack has inherited many of its limitations, but over time I've made adjustments, such as centering the content column for better reading ergonomics. 
-
-With version 9, Hydejack takes full advantage of large displays. Whether it's design indulgences such as oversized headlines, or quality of life improvements such as a floating table of contents, Hydejack now finds use for all that extra screen real estate[^1]. 
- 
-## What's in the Cards?
-
-Hydejack 9 now lets you use content cards for both projects and posts. 
-The cards have been redesigned with a new hover style and drop shadows and they retain their unique transition-to-next-page animations, which now also work on the `blog` layout. The new `grid` layout lets you do that.
-
-Good images are key to making the most out of content cards. For that reason, a [chapter on images](../../docs/basics.md#adding-images) has been added to the documentation.
- 
-## Built-In Search
-
-Hydejack now has Built-In Search. It even works offline. I've been prototyping many approaches and eventually settled on a fully client-side, off-the-main thread solution that perfectly fits the use case of personal sites and shows surprisingly good results[^2]. 
-
-The new search UI is custom made for Hydejack and shows beautiful previews of your posts and pages, right on top of your regular content.
-
-Together with the Auto-Hiding Navbar, your entire content library is now only a couple of keystrokes away.
- 
-## Auto-Hiding Navbar
-
-A navbar that's there when you need it, and disappears when you don't. Simple as that.
- 
-## Sticky Table of Contents
-
-Already a staple on so many sites on the web, this pattern is now also available in Hydejack. 
-What's unique about it is that it simply picks up the table of contents already created by kramdown's `{:toc}` tag and transparently upgrades it to a fully dynamic version.
- 
-## …and much more
-
-Other noteworthy changes include:
-- Support for Jekyll 4
-- Choice between MathJax and KaTeX for math rendering
-- Use of `jekyll-include-cache` for drastically improved page building speeds
-- New variables configuration file — adjust content width, sidebar width, font size, etc...
-- ...and the option to disable grouping projects by year.
-
-Read the the [CHANGELOG](../../CHANGELOG.md){:.heading.flip-title} for the full scope of features and improvements made in Hydejack 9.
-Maybe just glance at it to confirm that it is indeed a pretty long list.
- 
-## Even More to Come
-
-New features for 9.1 are already lined up. Code block headers and code line highlights for even better technical blogging, as well as download buttons on the resume page for PDF, vCard, and Resume JSON are just around the corner.
- 
-## Get It Now
-The Free Version of Hydejack is now availabe on [RubyGems](https://rubygems.org/gems/jekyll-theme-hydejack)
-and for the first time also on [GitHub Packages](https://github.com/hydecorp/hydejack/packages). 
-The source code is available on [GitHub](https://github.com/hydecorp/hydejack) as always.
-
-The PRO Version is scheduled to release on July 7th on Gumroad. Pre-Orders are open now:
-
-<div class="gumroad-product-embed" data-gumroad-product-id="nuOluY"><a href="https://gumroad.com/l/nuOluY">Loading…</a></div>
-
-
-
-[^1]: If you are a fan of the old two-column layout, or don't like modern design tropes such as mega headlines, Hydejack lets you revert these changes on a case-by-case basis via configuration options.
-
-[^2]:
-      Search was mainly tested for English and German. Please let me know about issues in other languages. 
-      While I've tried to find a multi-language solution, most showed drastically worse  results for the English base case.
-      If you're technically inclined, you can adopt the code located in `_includes/js/search-worker.js` to your needs.
-
-
+[>> 예제 보기](https://ctrlcccv.github.io/vertical-graph/){:target="_blank"}
