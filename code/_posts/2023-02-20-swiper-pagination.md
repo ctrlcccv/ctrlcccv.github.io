@@ -7,7 +7,7 @@ description: >
   Swiper 슬라이드의 pagination 옵션을 활용한 게시판 스타일의 페이징 커스텀 코드 예제
 
 keywords: > 
-  
+  Swiper, pagination, 번호, 커스텀
 sitemap: true
 comments: false
 ---
