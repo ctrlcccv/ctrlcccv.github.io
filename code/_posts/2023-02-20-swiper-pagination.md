@@ -1,6 +1,6 @@
 ---
 layout: post
-title: jQuery -Swiper slider 페이징(pagination) 번호 커스텀
+title: jQuery - Swiper slider 페이징(pagination) 번호 커스텀
 image: 
   path: /assets/img/blog/swiper-pagination.webp
 description: > 
