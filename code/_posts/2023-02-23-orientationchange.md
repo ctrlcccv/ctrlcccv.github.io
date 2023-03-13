@@ -36,5 +36,5 @@ if (ios) {
 }
 ```
 
-<br><br>
+<br>
 [>> 예제 보기](https://ctrlcccv.github.io/orientationchange){:target="_blank"} &nbsp; &nbsp; [>> 카카오톡 문의](https://open.kakao.com/o/sCFQbbYe){:target="_blank"}

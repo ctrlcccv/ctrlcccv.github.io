@@ -112,5 +112,5 @@ function slider() {
 SliderAct 함수를 호출했을 때 슬라이드가 실행되고 있으면 destroy 메서드로 모든 이벤트와 슬라이드 인스턴스를 삭제하고, swiper 함수의 타입을 object에서 undefined로 변경하여 완전히 초기화했다.  
 초기화될 때 슬라이드 index가 0으로 돌아가서, 슬라이드가 동작할 때마다 realIndex 속성으로 현재 index를 구하고, swiper의 initialSlide 옵션을 사용하여 index를 다시 선언했다.
 
-<br><br>
+<br>
 [>> 예제 보기](https://ctrlcccv.github.io/swiper-loop){:target="_blank"} &nbsp; &nbsp; [>> 카카오톡 문의](https://open.kakao.com/o/sCFQbbYe){:target="_blank"}

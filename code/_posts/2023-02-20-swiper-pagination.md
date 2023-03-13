@@ -183,5 +183,5 @@ realIndex 매개변수를 사용하여 현재 활성화된 슬라이드의 index
 페이지 수가 4 이하면 CSS translate 값을 초기화하고 페이지 버튼을 가운데 정렬하고,  
 페이지 수가 5 이상이면 페이지 버튼 가로 크기와 현재 페이지 번호에 따라 translate 값을 조정했다.
 
-<br><br>
+<br>
 [>> 예제 보기](https://ctrlcccv.github.io/swiper-pagination){:target="_blank"} &nbsp; &nbsp; [>> 카카오톡 문의](https://open.kakao.com/o/sCFQbbYe){:target="_blank"}

@@ -135,5 +135,5 @@ function slider(){
 관련 게시글 : [jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)](/code/2023-01-31-swiper-loop/){:target="_blank"}  
 
 
-<br><br>
+<br>
 [>> 예제 보기](https://ctrlcccv.github.io/swiper-multiple){:target="_blank"} &nbsp; &nbsp; [>> 카카오톡 문의](https://open.kakao.com/o/sCFQbbYe){:target="_blank"}
