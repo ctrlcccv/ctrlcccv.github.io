@@ -32,7 +32,7 @@ tags:
 ul, li {list-style: none;}
 .flow_banner {overflow: hidden;display: flex;max-width: 1180px;margin: 30px auto;background: #000;}
 .flow_banner .list {display: flex;}
-.flow_banner .list > li {font-size: 18px;color: #fff;padding: 20px;}
+.flow_banner .list > li {white-space: nowrap;font-size: 18px;color: #fff;padding: 20px;}
 @keyframes flowRolling {
     0% {
         transform: translateX(0);
