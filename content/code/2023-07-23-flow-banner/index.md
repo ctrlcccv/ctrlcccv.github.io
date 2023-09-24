@@ -87,6 +87,16 @@ function setFlowBanner() {
             'animation': `${listWidth / speed}s linear infinite flowRolling`
         });
     }
+
+    // 마우스가 요소 위로 진입했을 때 일시정지
+    $wrap.on('mouseenter', function () {
+        $wrap.find('.list').css('animation-play-state', 'paused');
+    });
+
+    // 마우스가 요소에서 빠져나갈 때 재생
+    $wrap.on('mouseleave', function () {
+        $wrap.find('.list').css('animation-play-state', 'running');
+    });
 }
 ```
 레이아웃 변화가 없는 배너를 위한 스크립트다. 리사이즈 이벤트와 배너 초기화를 삭제했다.  
@@ -143,6 +153,16 @@ function setFlowBanner() {
             'animation': `${listWidth / speed}s linear infinite flowRolling`
         });
     }
+
+    // 마우스가 요소 위로 진입했을 때 일시정지
+    $wrap.on('mouseenter', function () {
+        $wrap.find('.list').css('animation-play-state', 'paused');
+    });
+
+    // 마우스가 요소에서 빠져나갈 때 재생
+    $wrap.on('mouseleave', function () {
+        $wrap.find('.list').css('animation-play-state', 'running');
+    });
 }
 ```
 반응형 레이아웃은 창 크기가 변경되면 배너의 크기도 변경되어, 복제된 list 클래스의 수가 맞지 않아 애니메이션 오류가 생길 수 있다. 이를 방지하기 위해 리사이즈 이벤트를 추가했다.  
