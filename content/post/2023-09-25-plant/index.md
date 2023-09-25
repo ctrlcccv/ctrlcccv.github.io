@@ -6,7 +6,7 @@ date: 2023-09-25 00:00:00+0000
 ## image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/vertical-graph.webp
 
 categories:
-    
+    - post
 tags:
    
 ---
