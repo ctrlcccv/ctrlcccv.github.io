@@ -21,3 +21,6 @@ menu:
             icon: link
 comments: false
 ---
+<style>
+.ads_top {margin:0 !important;display: none !important;}
+</style>
