@@ -10,6 +10,7 @@ categories:
     - Game
 tags:
     - 쿠키런 킹덤
+comments: false
 ---
 쿠키런 킹덤 오류탐사대 공략입니다.   
 
