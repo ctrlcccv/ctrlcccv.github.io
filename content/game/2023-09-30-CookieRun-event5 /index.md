@@ -4,7 +4,7 @@ description: >
     [쿠키런 킹덤] 오류탐사대 공략입니다.
 slug: 2023-09-30-CookieRun-event5
 date: 2023-09-30 01:00:00+0000
-## image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/CookieRun-event4.webp
+# image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/CookieRun-event4.webp
 
 categories:
     - Game
