@@ -38,6 +38,18 @@ orientationchange 이벤트가 실행될 때 화면 방향 전환이 이전의 �
 따라서 iOS 기기를 구별하여 해당 이슈를 해결하는 코드를 추가하였습니다.  
 <br>
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
 ## jQuery 코드
 아래는 위에서 설명한 내용을 바탕으로 jQuery를 사용하여 구현한 코드 예시입니다.
 

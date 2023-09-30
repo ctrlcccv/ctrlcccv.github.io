@@ -6,7 +6,7 @@ date: 2023-09-25 00:00:00+0000
 ## image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/vertical-graph.webp
 
 categories:
-    - post
+    - Post
 tags:
    
 ---
@@ -23,6 +23,17 @@ tags:
 
 ## 건강한 실내 환경과 습도 조절
 식물 기르기는 실내 환경을 개선하고 신체 건강에도 도움을 줍니다. 공기가 건조한 환경에서는 기관지의 점막이 자극받고 면역력이 약해져 감기와 같은 질환에 노출될 수 있습니다. 하지만, 식물들은 증산 작용을 통해 수분을 대기 중으로 방출시키기 때문에 실내 습도 조절에 매우 효과적입니다.
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 ## 초보자도 부담 없는 취미
 식물을 키우는 과정은 초보자에게도 부담스럽지 않은 취미입니다. 적절한 양의 햇빛과 물만 제공하면 식물은 잘 자라며, 인터넷을 통해 상세한 정보를 얻을 수 있어 초보자도 쉽게 시작할 수 있습니다. 반려동물과 달리 초기 비용 이외에 큰 비용이 들지 않으며, 바쁜 일상에서도 키우기 쉽습니다.

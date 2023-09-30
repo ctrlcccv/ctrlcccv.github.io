@@ -75,6 +75,18 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 .slider .btn.btn_next {right:0;transform: translate(0,-50%);}
 ```
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
 ## jQuery 코드
 각 슬라이드에 Swiper를 적용하고, 반응형을 처리하기 위해 윈도우의 리사이즈 이벤트를 감지합니다.   
 이를 위해 .each() 메서드를 사용합니다.  

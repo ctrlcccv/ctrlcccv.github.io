@@ -88,6 +88,17 @@ Swiper 슬라이드는 페이지를 넘길 때 부드럽게 전환되는 효과�
 .paging_list > li.swiper-pagination-bullet-active {border-color: #8ab4f8;color: #8ab4f8;}
 ```
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 ## jQuery 코드
 슬라이드 페이징 위치 조정 로직을 jQuery로 구현합니다.
 

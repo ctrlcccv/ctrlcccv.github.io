@@ -49,6 +49,17 @@ data-value 속성의 값은 실제 데이터값을 나타내며, jQuery를 사�
 .trigger를 클릭하면 옵션 목록이 펼쳐지고, .select_cus에 active 클래스가 추가된다.   
 그리고, 옵션을 선택하면 select 클래스가 추가된다. 이와 관련하여 CSS를 작성했다.   
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 ## jQuery 코드
 ```js
 $(window).on('load', function() {

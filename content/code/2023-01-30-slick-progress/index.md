@@ -73,6 +73,18 @@ Slick.js 플러그인을 활용하여 이미지 슬라이드와 함께 제목을
 ```
 .progress > li 선택자에 active 클래스를 추가하면, countingBar 애니메이션이 실행되어 진행 표시줄의 길이가 100%로 확장됩니다. 이렇게 하면 해당 슬라이드의 진행 상태를 시각적으로 표현할 수 있습니다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
 ## jQuery 코드
 
 Slick 슬라이드와 진행 표시줄을 조작하는 jQuery 스크립트를 추가합니다.  

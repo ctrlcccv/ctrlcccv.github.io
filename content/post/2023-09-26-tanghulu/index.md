@@ -6,7 +6,7 @@ date: 2023-09-26 00:00:00+0000
 ## image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/vertical-graph.webp
 
 categories:
-    - post
+    - Post
 tags:
    
 ---
@@ -29,6 +29,17 @@ tags:
 ## 탕후루의 종류
 탕후루는 다양한 과일을 사용하여 만들 수 있는 간식입니다. 산사탕후루는 가장 기본적이며 산사나무 열매를 사용합니다. 그 외에도 사과, 배, 귤, 딸기탕후루가 있습니다. 각각의 종류는 해당 과일의 맛과 특징을 즐길 수 있는 다양한 변화를 제공합니다.  
 <br>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 ## 탕후루의 영양
 탕후루에는 다양한 영양소가 함유되어 있습니다. 특히, 산사나무 열매에는 풍부한 비타민 C가 포함되어 있어 피로 해소와 면역력 강화에 도움이 됩니다. 그러나 탕후루를 과다하게 섭취하면 부정적인 영향도 있을 수 있으므로 적절한 섭취량을 유지하는 것이 중요합니다.  

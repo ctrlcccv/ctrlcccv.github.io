@@ -47,6 +47,17 @@ input[type="file"]:focus-visible ~ .file_btn, .file_cus:hover .file_btn {backgro
 이는 불필요하게 시각적인 변화를 유발하지 않으면서도 키보드 사용자들이 요소의 포커스 상태를 확인할 수 있도록 돕는 웹 접근성 기술이다.
 이로써 웹 페이지의 내비게이션 및 상호작용이 더욱 명확하고 편리하게 이뤄질 수 있다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 ## jQuery 코드
 ```js
 $(window).on('load', function() {

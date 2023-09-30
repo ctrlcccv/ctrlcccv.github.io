@@ -37,6 +37,18 @@ Swiper의 breakpoints 옵션을 사용하여 화면 크기에 따라 슬라이�
 Swiper 인스턴스의 activeIndexChange 이벤트를 활용하여 현재 슬라이드의 인덱스를 관리합니다. 이를 통해 슬라이드가 변경될 때 현재 인덱스를 갱신하여 올바른 슬라이드를 보여줍니다.
 <br><br>
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
 ### HTML 구조
 
 먼저, Swiper를 구현하기 위한 기본적인 HTML 구조입니다.

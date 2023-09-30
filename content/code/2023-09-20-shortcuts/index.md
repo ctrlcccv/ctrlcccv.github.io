@@ -52,6 +52,17 @@ on_press 함수는 사용자가 특정 키를 눌렀을 때 실행되며, on_rel
 * keyboard.KeyCode.from_char('a') : 'a' 키를 나타내는 상수입니다.  
 <br>
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 ## 키보드 리스너 생성
 ```python
 # 키보드 리스너 생성

@@ -61,6 +61,17 @@ difference 모드는 두 색상의 차이를 강조하여 픽셀 간의 차이�
 exclusion 모드는 두 색상을 혼합하여 중간 톤을 만듭니다. 배경과 요소의 색상을 조화롭게 블렌딩하여 이미지를 부드럽게 만들거나 화면을 완화할 때 사용됩니다.  
 <br>
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 ## mix-blend-mode 속성의 활용 예시
 1. 텍스트 위에 배경 이미지 블렌딩 :  
 텍스트 요소 위에 배경 이미지를 배치하고 mix-blend-mode 속성을 이용하여 텍스트와 이미지의 색상을 조합하여 독특한 효과를 만들 수 있습니다.

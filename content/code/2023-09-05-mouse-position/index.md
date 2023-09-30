@@ -53,6 +53,17 @@ position_label.pack()
 update_mouse_position_label()
 ```
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 ## Tkinter 이벤트 루프 실행하기
 마지막으로, Tkinter의 이벤트 루프를 실행하여 프로그램이 화면에 나타나게 합니다.   
 이 루프는 사용자의 동작을 감지하고 GUI를 업데이트합니다.

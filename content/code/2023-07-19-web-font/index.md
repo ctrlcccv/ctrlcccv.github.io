@@ -60,6 +60,18 @@ navigator.platform을 사용하여 사용자의 운영체제가 Windows인지 �
 windowOS 클래스를 가진 요소들을 선택하고, 각 요소의 폰트 굵기를 조정하는 부분입니다. 각 요소의 폰트 굵기가 700인 경우 500으로 변경하고, 폰트 굵기가 500인 경우 400으로 변경합니다. 동시에 transform 속성을 사용하여 텍스트를 약간 회전시켜서 폰트가 왜곡되는 문제를 완화합니다.  
 <br>
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
 ## 주의사항
 만약 transform 속성이 포함된 요소가 애니메이션 효과를 가진 레이아웃에 사용된다면, 스크립트로 일괄 적용한 transform 속성이 문제를 일으킬 수 있습니다. 이런 경우에는 windowOS 클래스를 활용하여 CSS 파일에 별도의 transform 속성을 추가하는 것이 좋습니다.  
 <br>

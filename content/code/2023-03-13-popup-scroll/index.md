@@ -32,6 +32,17 @@ touch-action 속성은 다음과 같은 값들을 가질 수 있습니다.
 * pinch-zoom : 페이지의 다중 손가락 스크롤 및 확대/축소 기능을 활성화합니다. "pan-" 값 중 하나와 함께 조합하여 사용할 수 있습니다.  
 <br>
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 ## 예시 코드
 
 ### HTML 구조

@@ -69,6 +69,17 @@ Swiper.js 플러그인을 활용하여 갤러리 형태의 슬라이드를 만�
 ```
 .swiper-slide-thumb-active를 활용하여 현재 활성화된 썸네일에 선을 추가하여 사용자가 메인 슬라이드 이미지와 연관된 썸네일을 쉽게 확인할 수 있도록 만들었다.
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 ## jQuery 코드
 ```js
 $(window).on('load', function() {
