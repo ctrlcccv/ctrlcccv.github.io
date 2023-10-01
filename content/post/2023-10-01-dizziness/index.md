@@ -41,8 +41,18 @@ comments : false
 * **회전성 어지럼증** : 세상이 빙빙 도는 것 같은 느낌을 받는 어지럼증입니다.
 * **비회전성 어지럼증** : 세상이 빙빙 도는 느낌은 없지만 불안하고 불쾌한 상태를 나타내는 증상입니다.
 * **어지럼증과 함께 나타나는 증상** : 구역감, 구토, 두통, 시력 장애, 청력 저하 등이 나타날 수 있습니다.  
-
 <br>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 ## 어지럼증의 치료
    
