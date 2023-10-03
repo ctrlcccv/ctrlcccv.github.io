@@ -3,7 +3,7 @@ title: 모델링팩, 효과와 사용법 총정리
 description: 피부를 더 건강하고 아름답게 가꾸는 방법의 하나인 "모델링팩"의 정의부터 사용 방법, 다양한 종류, 효과, 그리고 선택과 사용에 관한 권장 사항까지 자세히 알아보겠습니다.
 slug: 2023-10-02-mask
 date: 2023-10-02 00:00:00+0000
-## image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/vertical-graph.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-02-mask.webp
 
 categories:
     - Post
