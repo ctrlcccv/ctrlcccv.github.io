@@ -9,7 +9,7 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - jQuery
 tags:
-    
+    - 입력 태그 커스텀
 ---
 select 태그의 CSS 커스텀은 제한적이기 때문에, 원하는 디자인을 구현하기 위해서는 ul 태그를 사용하여 옵션 목록을 작성한 후, jQuery를 사용하여 select 동작을 추가해야 한다.  
 그리고 select 옵션 데이터값을 전달하기 위해 input hidden 태그를 활용했다.  

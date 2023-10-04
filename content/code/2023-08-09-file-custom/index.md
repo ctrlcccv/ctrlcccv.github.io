@@ -9,7 +9,7 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - jQuery
 tags:
-    
+    - 입력 태그 커스텀
 ---
 input[type='file'] 태그는 CSS 커스터마이징이 제한적이다. 원하는 디자인을 구현하려면, input[type='file'] 태그를 IR 기법을 활용하여 숨기고 별도의 요소를 추가해야 한다.  
 <br>
