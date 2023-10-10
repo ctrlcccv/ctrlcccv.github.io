@@ -85,6 +85,11 @@ header {position: fixed;top: 0;left: 0;width: 100%;background: #000;z-index: 1;}
 #sec3 {background: #FFF6D3;}
 #sec4 {background: #AEEEEE;}
 footer {height: 300px;background: #000;}
+
+@media (max-width: 600px) {
+    body { padding-top: 50px; }
+    .menu > li a {font-size: 14px;height: 50px;padding: 0 10px;}
+}
 ```
 
 ## jQuery 전체 코드
@@ -128,6 +133,7 @@ function fullPage() {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
         isWindowSizeValid = windowWidth > 767 && windowHeight > 700;
+        menuHeight = $('header').height();
     }
 
     // 초기 윈도우 크기 확인
@@ -286,10 +292,12 @@ function checkWindowSize() {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     isWindowSizeValid = windowWidth > 767 && windowHeight > 700;
+    menuHeight = $('header').height();
 }
 ```
 * 현재 윈도우의 너비와 높이를 확인하고, isWindowSizeValid 플래그를 업데이트합니다.
-* isWindowSizeValid 플래그가 true일때만 스크롤 이벤트가 활성화됩니다.  
+* isWindowSizeValid 플래그가 true일때만 스크롤 이벤트가 활성화됩니다.
+* 현재 메뉴의 높이를 확인하고 업데이트합니다.  
 <br>
 
 ### 스크롤 이벤트 핸들러
