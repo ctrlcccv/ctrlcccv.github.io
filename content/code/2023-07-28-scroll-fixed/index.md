@@ -9,7 +9,7 @@ date: 2023-07-28 00:00:00+0000
 categories:
     - jQuery
 tags:
-
+    - 스크롤 이벤트
 ---
 스크롤 시 header 와 footer 영역을 제외하고 특정 위치에서만 position: fixed 효과를 주는 스크립트를 만들었다.  
 비슷한 효과로는 position: sticky 속성이 있지만, 작업하다 보면 제약이 생겨 사용하지 못할 때가 있다.   
