@@ -4,7 +4,7 @@ description: >
     HTML, CSS, jQuery를 사용하여 풀페이지 스크롤을 구현하며, 메뉴 항목을 통한 섹션 이동, 반응형 웹 디자인, 고정 메뉴 바, 푸터 설정을 제공합니다.
 slug: 2023-10-10-fullpage
 date: 2023-10-10 00:00:00+0000
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-10-github.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-10-fullpage.webp
 
 categories:
     - jQuery
