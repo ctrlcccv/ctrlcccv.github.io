@@ -17,7 +17,7 @@ tags:
 <br>
 
 ## HTML 구조
-메뉴를 감싸는 클래스 menu_wrap 요소 안에 Swiper 컨테이너가 들어 있는 구조입니다.
+메뉴를 감싸는 클래스 menu_wrap 요소 안에 Swiper 컨테이너가 들어 있는 구조입니다. active 클래스를 추가하면 해당 항목이 가운데 정렬됩니다.
 ```html
 <div class="menu_wrap">
     <div class="in_Layer tab_swiper">
@@ -25,7 +25,7 @@ tags:
             <li class="swiper-slide"><a href="#self">첫번째 메뉴</a></li>
             <li class="swiper-slide"><a href="#self">두번째 메뉴</a></li>
             <li class="swiper-slide"><a href="#self">세번째 메뉴</a></li>
-            <li class="swiper-slide"><a href="#self">네번째 메뉴</a></li>
+            <li class="swiper-slide active"><a href="#self">네번째 메뉴</a></li>
             <li class="swiper-slide"><a href="#self">다섯번째 메뉴</a></li>
             <li class="swiper-slide"><a href="#self">여섯번째 메뉴</a></li>
             <li class="swiper-slide"><a href="#self">일곱번째 메뉴</a></li>
@@ -95,6 +95,12 @@ function initTabSwipers() {
             centerTabItem($item);
         });
 
+        // 페이지 로드 후에 active 클래스가 있는 항목을 가운데 정렬
+        const $activeItem = $container.find('.swiper-slide.active');
+        if ($activeItem.length > 0) {
+            centerTabItem($activeItem);
+        }
+
         function centerTabItem($target) {
             const $wrapper = $container.find('.swiper-wrapper');
             const targetPos = $target.position();
@@ -140,6 +146,10 @@ function initTabSwipers() {
   * 탭 항목이 클릭 되면 실행할 함수를 연결합니다.
   * 클릭 된 항목을 활성 상태로 표시하고 나머지 항목을 비활성화합니다.
   * 클릭한 항목을 가운데 정렬하기 위해 centerTabItem 함수를 호출합니다.  
+
+* **페이지 로드 후에 active 클래스가 있는 항목을 가운데 정렬**
+  * 페이지가 로드된 후 .swiper-slide.active 요소를 찾아냅니다.
+  * 만약 active 클래스가 있는 항목이 있다면, 해당 항목을 화면 중앙에 정렬합니다.  
 
 * **탭 항목 가운데 정렬 (centerTabItem 함수)**
   * 클릭한 탭 항목을 화면 가운데 정렬하는 함수입니다.
