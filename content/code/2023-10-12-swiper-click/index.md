@@ -37,7 +37,8 @@ active 클래스를 추가하면 해당 항목이 가운데 정렬됩니다.
 ```
 
 ## CSS 스타일
-메뉴와 스와이프 항목에 대한 CSS 스타일을 적용합니다. 메뉴는 가운데 정렬되며 활성 항목은 다른 항목과 구별하기 위해 강조 스타일을 적용합니다.
+메뉴와 스와이프 항목에 대한 CSS 스타일을 적용합니다.   
+메뉴는 가운데 정렬되며 활성 항목은 다른 항목과 구별하기 위해 강조 스타일을 적용합니다.
 ```css
 .menu_wrap {position: relative;max-width: 700px;margin: 30px auto 0;background: #c3e4fa;}
 .menu_wrap .in_Layer {overflow: hidden;}
