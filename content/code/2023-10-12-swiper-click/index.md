@@ -17,7 +17,8 @@ tags:
 <br>
 
 ## HTML 구조
-메뉴를 감싸는 클래스 menu_wrap 요소 안에 Swiper 컨테이너가 들어 있는 구조입니다. active 클래스를 추가하면 해당 항목이 가운데 정렬됩니다.
+메뉴를 감싸는 클래스 menu_wrap 요소 안에 Swiper 컨테이너가 들어 있는 구조입니다.   
+active 클래스를 추가하면 해당 항목이 가운데 정렬됩니다.
 ```html
 <div class="menu_wrap">
     <div class="in_Layer tab_swiper">
