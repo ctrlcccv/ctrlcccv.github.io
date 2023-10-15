@@ -1,5 +1,5 @@
 ---
-title: CSS - 네온 효과
+title: CSS - 네온 효과 예제
 description: >  
     HTML과 CSS를 사용하여 네온사인 효과를 만드는 방법입니다.
 slug: 2023-10-15-neon
