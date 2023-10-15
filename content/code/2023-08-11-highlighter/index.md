@@ -9,7 +9,7 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - CSS
 tags:
-
+    - 텍스트 스타일링
 ---
 텍스트 강조 기법 중에서 형광펜 효과는 텍스트를 화려하게 강조하고 시선을 끌어주는 효과적인 방법이다.  
 이 예제에서는 background 속성으로 밑줄 높이와 위치를 조정하여 간단하게 형광펜 효과를 구현할 수 있다.  
