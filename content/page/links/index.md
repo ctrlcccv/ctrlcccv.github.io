@@ -1,5 +1,5 @@
 ---
-title: Links
+title: Contact
 links:
   - title: GitHub
     description: GitHub 페이지 입니다. 컨트롤 + CCCV 블로그에 작성된 예제 파일이 있습니다.
