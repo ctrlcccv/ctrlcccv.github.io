@@ -128,12 +128,10 @@ function initTabSwipers() {
             }
 
             // 슬라이드를 새 위치로 이동시키는 애니메이션 설정
-            setTimeout(function () {
-                $wrapper.css({
-                    "transform": `translate3d(${-newPosition}px, 0, 0)`,
-                    "transition-duration": "500ms"
-                });
-            }, 200);
+            $wrapper.css({
+                "transform": `translate3d(${-newPosition}px, 0, 0)`,
+                "transition-duration": "500ms"
+            });
         }
     });
 }
