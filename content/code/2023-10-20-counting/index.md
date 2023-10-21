@@ -63,6 +63,7 @@ $(document).ready(function() {
             const current = Math.round(start + progress * (end - start));
             const formattedNumber = addCommas ? current.toLocaleString() : current;
             $el.text(formattedNumber);
+            
             if (progress < 1) {
                 requestAnimationFrame(animateCounter);
             } else {
