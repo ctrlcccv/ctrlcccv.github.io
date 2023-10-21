@@ -20,7 +20,7 @@ HTML 코드에는 카운트로 사용할 숫자를 표시할 요소가 필요합
 ```html
 <span class="counter" data-start="0" data-end="123">0</span>
 <span class="counter" data-start="0" data-end="456">0</span>
-<span class="counter" data-start="0" data-end="789">0</span>
+<span class="counter" data-start="0" data-end="7890">0</span>
 ```
 
 ## CSS 스타일
@@ -51,6 +51,9 @@ $(document).ready(function() {
     const exposurePercentage = 100; // ex) 스크롤 했을 때 $counters 컨텐츠가 화면에 100% 노출되면 숫자가 올라갑니다.
     const duration = 1000; //ex) 1000 = 1초
     
+    // 숫자에 쉼표를 추가할지 여부를 설정합니다.
+    const addCommas = true; //ex) true = 1,000 / false = 1000
+    
     // 숫자를 업데이트하고 애니메이션하는 함수 정의
     function updateCounter($el, start, end) {
         let startTime;
@@ -58,22 +61,24 @@ $(document).ready(function() {
             if (!startTime) startTime = timestamp;
             const progress = (timestamp - startTime) / duration;
             const current = Math.round(start + progress * (end - start));
-            $el.text(current);
+            const formattedNumber = addCommas ? current.toLocaleString() : current;
+            $el.text(formattedNumber);
             if (progress < 1) {
                 requestAnimationFrame(animateCounter);
             } else {
-                $el.text(end);
+                $el.text(addCommas ? end.toLocaleString() : end);
             }
         }
         requestAnimationFrame(animateCounter);
     }
+
     
     // 윈도우의 스크롤 이벤트를 모니터링합니다.
     $(window).on('scroll', function() {
         // 각 "counter" 요소에 대해 반복합니다.
         $counters.each(function() {
             const $el = $(this);
-            // 요소가 아직 스크롤 되지 않았다면 처리합니다.
+            // 요소가 아직 스크롤되지 않았다면 처리합니다.
             if (!$el.data('scrolled')) {
                 // 요소의 위치 정보를 가져옵니다.
                 const rect = $el[0].getBoundingClientRect();
@@ -102,10 +107,14 @@ const $counters = $(".counter") 를 사용하여 HTML에서 클래스가 "counte
 exposurePercentage 변수는 스크롤 될 때 요소가 화면에 노출되면 숫자가 증가하도록 설정된 비율(%)을 나타냅니다.   
 duration 변수는 숫자 카운트 애니메이션의 지속 시간을 밀리초(ms) 단위로 설정합니다.  
 
+* **숫자에 쉼표 추가 여부 설정**    
+addCommas 변수는 숫자에 쉼표(천 단위 구분 기호)를 추가할지 여부를 설정합니다. true로 설정되면 숫자가 1,000과 같이 표시됩니다.  
+
 * **숫자 업데이트 및 애니메이션 함수 정의**  
 updateCounter 함수는 각 숫자 카운트를 업데이트하고 애니메이션을 적용하는 역할을 합니다.   
 이 함수는 시작 값(start)과 끝 값(end)을 받아서 애니메이션을 처리합니다.   
 숫자가 부드럽게 증가하도록 [requestAnimationFrame](https://developer.mozilla.org/ko/docs/Web/API/window/requestAnimationFrame)을 사용하여 애니메이션을 제어합니다.  
+숫자에 쉼표가 필요한 경우 [toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString) 메서드를 사용하여 형식을 적용합니다.
 
 * **스크롤 이벤트 처리**    
 스크롤 이벤트가 발생할 때마다 각 "counter" 요소를 검사하여 요소가 화면에 나타났을 때 숫자 카운트 애니메이션을 시작합니다.  
