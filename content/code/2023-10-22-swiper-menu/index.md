@@ -9,6 +9,7 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - jQuery
 tags:
+    - Swiper.js
     - 스크롤 이벤트
 ---
 [jQuery - Swiper 스와이프메뉴 클릭하면 가운데오기](https://ctrlcccv.github.io/code/2023-10-12-swiper-click/) 작업 이후, Swiper로 제작한 메뉴에 대한 추가 기능을 개발하게 되었습니다. 이번 작업에서는 **스크롤 이동과 활성화된 메뉴에 효과를 적용하고, 스크롤 했을 때 활성화된 메뉴를 가운데 정렬하는 기능**을 구현하였습니다.  
