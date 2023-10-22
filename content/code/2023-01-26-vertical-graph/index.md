@@ -99,7 +99,7 @@ CSS를 활용하여 데이터에 따라 자동으로 정렬되는 세로형 막�
 
 이 코드는 그래프를 감싸는 컨테이너부터 그래프의 기준값을 나타내는 눈금, 목록 항목, 그리고 실제 막대그래프까지 각각의 요소를 세심하게 스타일링하여 구성합니다.   
 이렇게 유연하고 동적인 구조를 활용하면 데이터의 변화에 따라 그래프가 자동으로 조정되어 시각적으로 정보를 전달할 수 있습니다.  
-
+<br>
 
 > 예제 확인하기 
 > * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-26-vertical-graph](https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-26-vertical-graph)  
