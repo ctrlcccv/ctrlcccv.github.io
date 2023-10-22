@@ -161,3 +161,9 @@ function initTabSwipers() {
 
 ## 결론
 이러한 방법을 통해 jQuery와 Swiper를 활용하여 스와이프 메뉴를 만들고 클릭할 때 선택한 항목을 화면 중앙에 정렬하는 방법을 알아보았습니다. 웹 개발자들은 이러한 개발 패턴을 통해 사용자 경험을 향상시키고, 코드를 효율적으로 관리하여 웹 애플리케이션을 보다 현대적이고 사용자 친화적으로 만들 수 있을 것입니다. 이 예제를 활용하여 다양한 웹 페이지에서 탭 스와이프 메뉴를 구현하고, 사용자에게 더 나은 웹 경험을 제공할 수 있습니다.
+
+> 예제 확인하기 
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-12-swiper-click](https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-12-swiper-click/)  
+
+> 관련 글  
+> * [jQuery - Swiper 메뉴 클릭 시 스크롤 이동, 활성화 메뉴 표시하기](/code/2023-10-22-swiper-menu/)  
