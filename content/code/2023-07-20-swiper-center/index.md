@@ -258,4 +258,8 @@ function slider() {
 }
 ```
 디바이스 화면 리사이즈로 슬라이드를 초기화하고 다시 불러오는 과정에서 CSS transition 속성으로 인해 슬라이드의 크기가 0.3초 동안 변화한다. 그러나 변화하는 시간 동안 sliderAct() 함수가 실행되어 슬라이드의 크기를 정확하게 파악하지 못해 정렬 오류가 발생했다. 이 문제를 해결하기 위해 디바이스 변경 시, setTimeout() 함수를 사용하여 sliderAct() 함수의 호출을 0.3초 동안 지연시켰다.  
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/swiper-center2/) -->
+<br>
+
+> 예제 확인하기 
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center](https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/)  
+
