@@ -261,5 +261,6 @@ function slider() {
 <br>
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center](https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/type1/2023-07-20-swiper-center](https://ctrlcccv.github.io/ctrlcccv-demo/type1/2023-07-20-swiper-center/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/type2/2023-07-20-swiper-center](https://ctrlcccv.github.io/ctrlcccv-demo/type2/2023-07-20-swiper-center/)  
 
