@@ -47,7 +47,7 @@ HTML 구조를 살펴보겠습니다. 다음과 같이 메뉴와 컨텐츠 섹�
 메뉴와 컨텐츠에 대한 CSS 스타일링은 다음과 같습니다. 메뉴는 화면 상단에 고정되며, 활성화된 메뉴 항목은 색상이 변경됩니다.
 ```css
 .wrap {position: relative;max-width: 700px;margin: 0 auto;padding-top: 65px;}
-.menu_wrap {position: absolute;top: 0;left: 50%;width: 100%;max-width: 700px;background: #000;transform: translate(-50%,0);}
+.menu_wrap {position: absolute;top: 0;width: 100%;max-width: 700px;background: #000;}
 .menu_wrap .in_Layer {overflow: hidden;}
 .menu {display: flex;align-items: center;}
 .menu > li:last-child {padding-right: 0;}
