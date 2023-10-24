@@ -181,4 +181,6 @@ Swiper의 loop 옵션 복제 문제를 해결하고, 반응형 슬라이드를 �
 이 예제 코드를 활용하여 원하는 디자인에 맞는 Swiper 반응형 슬라이드를 만들어 보시기 바랍니다.  
 <br>
 
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/swiper-loop){:target="_blank"} -->
+> 예제 확인하기 
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-31-swiper-loop](https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-31-swiper-loop/)  
+
