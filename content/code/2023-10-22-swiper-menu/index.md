@@ -96,9 +96,9 @@ function menuScroll() {
     const offsetPC = 0; // 메뉴 상단 고정 위치 (PC)
     const topMo = 45; // 스크롤 했을 때 컨텐츠 시작 위치 (모바일)
     const topPc = 65; // 스크롤 했을 때 컨텐츠 시작 위치 (PC)
-    const responsive = 1180; // 모바일 사이즈 분기점
+    const breakpoints = 1181; // 모바일 사이즈 분기점
     let windowWidth = window.innerWidth;
-    let isMobile = window.innerWidth < responsive;
+    let isMobile = window.innerWidth < breakpoints;
     let position = $menuWrap.offset().top;
     let resizeTimer;
     let scrollTimer;
@@ -148,7 +148,7 @@ function menuScroll() {
         $(window).off('scroll', scrollAct);
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function () {
-            isMobile = window.innerWidth < responsive;
+            isMobile = window.innerWidth < breakpoints;
             $menuWrap.css({ 'position': 'absolute', 'top': '0' });
             position = $menuWrap.offset().top;
             $(window).on('scroll', scrollAct);
@@ -210,7 +210,7 @@ function menuScroll() {
   * $menuWrap, $menuBox, $menu, $menuList, $menuItems, $contents : 각각 메뉴와 컨텐츠 요소를 jQuery 객체로 저장합니다.
   * offsetMo, offsetPC : 모바일과 PC 모드에서 메뉴를 상단에 고정하기 위한 위치를 설정합니다.
   * topMo, topPc : 스크롤한 후 컨텐츠가 시작되는 위치를 설정합니다.
-  * responsive : 모바일과 PC 모드를 구분할 화면 크기 분기점을 설정합니다.
+  * breakpoints : 모바일과 PC 모드를 구분할 화면 크기 분기점을 설정합니다.
   * isMobile : 현재 화면 크기가 모바일인지 여부를 저장합니다.
   * position : 메뉴의 초기 위치를 저장합니다.
   * resizeTimer, scrollTimer : 타이머 변수로, 리사이즈 및 스크롤 이벤트에 딜레이를 주기 위해 사용됩니다.  
