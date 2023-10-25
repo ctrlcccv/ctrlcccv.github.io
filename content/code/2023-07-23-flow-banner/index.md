@@ -188,5 +188,4 @@ list 클래스의 가로 크기를 flow_banner 클래스의 가로 크기에 나
 
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-26-vertical-graph](https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-26-vertical-graph)  
-
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-flow-banner](https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-flow-banner/)  
