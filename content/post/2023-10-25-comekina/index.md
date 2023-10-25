@@ -2,7 +2,7 @@
 title: >
     코메키나 - 사용 방법, 효과 시간, 부작용, 주의사항 모두 정리
 description: > 
-    코메키나의 사용 방법, 효과 시간, 부작용, 주의사항입니다.
+    비염 증상을 완화하는 데 효과가 좋은 코메키나의 사용 방법, 효과 시간, 부작용, 주의사항입니다.
 slug: 2023-10-25-comekina
 date: 2023-10-25 01:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-25-comekina.webp
