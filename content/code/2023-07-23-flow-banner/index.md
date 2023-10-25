@@ -184,5 +184,9 @@ flowBannerAct 함수가 실행되면 기존 배너 가로 크기를 담은 wrapW
 list 클래스의 가로 크기를 flow_banner 클래스의 가로 크기에 나누어 필요한 요소의 수를 구한 후 반복문을 사용하였다.  
 <br>
 마지막으로 list 클래스의 가로 크기에 speed 변수값을 나누어, list 클래스의 li 개수가 몇 개가 되던 동일한 속도로 이동되도록 애니메이션 속성을 추가했다. 다만 speed 변수값을 픽셀 단위로 선언하여 상대적으로 크기가 작은 모바일에서는 PC화면보다 빠르게 이동되는 것처럼 보일 수 있는데, 이건 레이아웃마다 느낌이 다를 것 같아서 필요하면 따로 예외처리 해주면 될 것 같다.  
+<br>
 
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/flow-banner/){:target="_blank"}   -->
+
+> 예제 확인하기 
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-26-vertical-graph](https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-26-vertical-graph)  
+
