@@ -135,6 +135,7 @@ loop 변수의 값과 요소의 화면 위치를 확인하여 애니메이션을
 ## 결론
 jQuery를 통해 스크롤 기반의 애니메이션을 구현하는 것은 비교적 간단하며, 웹 페이지의 인터랙션을 향상시킬 수 있는 강력한 도구 중 하나입니다. 
 페이지 스크롤을 내리면 요소들이 부드럽게 나타나는 이러한 효과는 웹 페이지를 더 눈에 띄게 만들어 줄 것입니다.  
+<br>
 
 > 예제 확인하기 
 > * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-30-scroll-show](https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-30-scroll-show/)  
