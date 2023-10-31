@@ -4,7 +4,7 @@ description: >
     Swiper.js의 observer: true, observeParents: true 옵션을 활용하여 탭 메뉴와 함께 구현할 때 발생하는 오류를 해결하는 코드 예제입니다.
 slug: 2023-07-19-swiper-tab
 date: 2023-07-19 00:00:00+0000
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/swiper-tab.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-07-19-swiper-tab.webp
 
 categories:
     - jQuery
