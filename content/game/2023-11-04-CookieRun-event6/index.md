@@ -26,7 +26,17 @@ comments: false
 
 * **보물**
   * 무공비, 유리병, 시계   
-<br>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 ## 각성 위험한 거대 모래 꿈틀이
 * **쿠키 및 토핑** 
