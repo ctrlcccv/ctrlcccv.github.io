@@ -174,9 +174,7 @@ swiper 변수에 새로운 Swiper 인스턴스를 생성하며, 초기 옵션을
 .each() 메서드를 이용하여 각 슬라이드를 초기화하고 처리하며, 윈도우의 리사이즈 이벤트를 활용하여 반응형을 제공할 수 있습니다.  
 <br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-02-03-swiper-multiple](https://ctrlcccv.github.io/ctrlcccv-demo/2023-02-03-swiper-multiple/)  
-
-> 관련 글
-> * [jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)](/code/2023-01-31-swiper-loop/)
-
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-02-03-swiper-multiple/" target="_blank">예제결과 미리보기</a>
+    <a href="/code/2023-01-31-swiper-loop/">[관련글] jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)</a>
+</div>
