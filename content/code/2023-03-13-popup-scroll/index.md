@@ -140,5 +140,8 @@ function popup() {
 팝업을 닫을 때는 다시 배경 스크롤이 복원되어 사용자가 자연스럽게 이전 상태로 돌아갈 수 있도록 구현되었습니다.  
 iOS 환경에서는 touch-action 속성을 활용하여 스크롤 동작을 관리함으로써 모든 디바이스에서 일관된 사용자 경험을 제공할 수 있도록 주의를 기울였습니다.
 이러한 구현을 통해 웹사이트의 모바일 사용자들은 편리하고 원활한 경험을 누릴 수 있게 될 것입니다.   
+<br>
 
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/popup-scroll/){:target="_blank"} -->
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-03-13-popup-scroll/">예제결과 미리보기</a>
+</div>
