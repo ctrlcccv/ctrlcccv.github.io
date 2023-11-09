@@ -237,4 +237,6 @@ function slider() {
 이러한 페이징 방식을 적용함으로써, 사용자들의 경험을 개선하고 번호가 많은 경우에도 화면이 혼잡하지 않게끔 설계되었습니다. 따라서 Swiper 슬라이드의 게시판 스타일 페이징은 사용자들이 원활하게 컨텐츠를 탐색하며 좋은 사용자 경험을 누릴 수 있도록 도움을 줄 것입니다.  
 <br>
 
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/swiper-pagination){:target="_blank"} -->
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-02-20-swiper-pagination/" target="_blank">예제결과 미리보기</a>
+</div>
