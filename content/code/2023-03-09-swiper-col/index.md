@@ -267,3 +267,9 @@ function slideAct() {
 
 같은 페이지에 해당 슬라이드가 두 개 이상 들어갈 경우를 대비하여 each 문도 추가했다.   
 각각의 슬라이드에 필요한 변수는 배열로 선언하여 구현했다.  
+<br>
+
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-03-09-swiper-col/swiper-col/" target="_blank">예제결과 미리보기</a>
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-03-09-swiper-col/swiper-col-each/" target="_blank">예제결과 미리보기 (each문 추가)</a>
+</div>
