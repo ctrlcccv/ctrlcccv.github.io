@@ -156,7 +156,11 @@ URLSearchParams() 생성자 함수를 사용하여 URL의 문자열 객체를 �
 페이지 로드 시 getUrlParam() 함수를 호출하여 URL 파라미터 값을 가져오고, 해당 값이 있다면 activateTab() 함수를 실행하여 해당 탭 메뉴를 활성화시킨다.   
 마지막으로, [popstate](https://developer.mozilla.org/ko/docs/Web/API/Window/popstate_event) 이벤트가 발생하면 getUrlParam() 함수를 호출하여 변경된 URL 파라미터 값을 가져온 후, 변경된 값이 있다면 activateTab() 함수를 실행하여 해당 탭 메뉴를 활성화시킨다.  
 <br>
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/tab-refresh5)     -->
+
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-05-tab-refresh/tab-menu/" target="_blank">예제결과 미리보기</a>
+</div>
+<br>
 
 ## jQuery 코드 (일반 탭 메뉴)
 ```js
@@ -188,4 +192,9 @@ function tab() {
     activateTab(firstTabId);
 }
 ```
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/tab-refresh4)     -->
+<br> 
+
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-05-tab-refresh/tab-refresh/">예제결과 미리보기 (일반 탭메뉴)</a>
+</div>
+
