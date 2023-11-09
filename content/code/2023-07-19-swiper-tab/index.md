@@ -12,10 +12,10 @@ tags:
     - Swiper.js 
     - 탭 메뉴
 ---
-
-> 참고 코드  
-> * [jQuery - Swiper 같은 클래스로 여러 개 사용하기 (반응형)](https://ctrlcccv.github.io/code/2023-02-03-swiper-multiple/)  
-> * [jQuery - 탭메뉴 새로고침 후 현재 탭 유지](https://ctrlcccv.github.io/code/2023-07-05-tab-refresh/#jquery-코드-일반-탭-메뉴)  
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/code/2023-02-03-swiper-multiple/">[참고코드] jQuery - Swiper 같은 클래스로 여러 개 사용하기 (반응형)</a>
+    <a href="https://ctrlcccv.github.io/code/2023-07-05-tab-refresh/#jquery-코드-일반-탭-메뉴">[참고코드] jQuery - 탭메뉴 새로고침 후 현재 탭 유지</a>
+</div>
 
 참고 코드를 사용하여 탭메뉴 안에 Swiper 슬라이드가 있는 레이아웃을 만들었다.  
 탭메뉴를 실행할 때 이전에 노출되지 않았던 슬라이드가 제대로 작동하지 않는 문제가 발생하는데, [observer](https://swiperjs.com/swiper-api#param-observer)와 [observeParents](https://swiperjs.com/swiper-api#param-observeParents) 옵션을 사용하여 해결할 수 있다.
@@ -212,6 +212,8 @@ function slider() {
     });
 }
 ```
+<br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-19-swiper-tab](/ctrlcccv-demo/2023-07-19-swiper-tab/)  
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-19-swiper-tab/">예제결과 미리보기</a>
+</div>
