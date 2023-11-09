@@ -178,7 +178,7 @@ Swiper 객체를 저장한다.
 <br>
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-04-swiper-gallery](https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-04-swiper-gallery/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-04-swiper-gallery](/ctrlcccv-demo/2023-08-04-swiper-gallery/)  
 
 > 관련 글 
 > * [jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)](/code/2023-01-31-swiper-loop/)

@@ -214,4 +214,4 @@ function slider() {
 ```
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-19-swiper-tab](https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-19-swiper-tab/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-19-swiper-tab](/ctrlcccv-demo/2023-07-19-swiper-tab/)  

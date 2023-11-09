@@ -127,4 +127,4 @@ jQuery를 사용하여 "인증번호 타이머"를 구현하는 방법을 살펴
 <br>
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-08-authentication](https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-08-authentication/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-08-authentication](/ctrlcccv-demo/2023-11-08-authentication/)  

@@ -88,6 +88,6 @@ jQuery를 사용하여 입력 비밀번호 필드를 보이기/숨기기 기능�
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-09-password/" target="_blank">예제결과 미리보기</a>
+    <a href="/ctrlcccv-demo/2023-11-09-password/">예제결과 미리보기</a>
     <a href="/code/2023-11-08-password-eye/">[관련글] CSS - input password 눈모양 숨기기 (IE, Edge)</a>
 </div>

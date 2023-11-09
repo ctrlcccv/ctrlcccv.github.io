@@ -138,4 +138,4 @@ jQuery를 통해 스크롤 기반의 애니메이션을 구현하는 것은 비�
 <br>
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-30-scroll-show](https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-30-scroll-show/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-30-scroll-show](/ctrlcccv-demo/2023-10-30-scroll-show/)  

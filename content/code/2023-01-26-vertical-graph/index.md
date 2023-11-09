@@ -102,5 +102,5 @@ CSS를 활용하여 데이터에 따라 자동으로 정렬되는 세로형 막�
 <br>
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-26-vertical-graph](https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-26-vertical-graph)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-26-vertical-graph](/ctrlcccv-demo/2023-01-26-vertical-graph)  
 

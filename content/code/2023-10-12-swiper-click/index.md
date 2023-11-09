@@ -165,7 +165,7 @@ function initTabSwipers() {
 
 
 > 예제 확인하기   
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-12-swiper-click](https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-12-swiper-click/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-12-swiper-click](/ctrlcccv-demo/2023-10-12-swiper-click/)  
 
 > 관련 글  
 > * [jQuery - Swiper 메뉴 클릭 시 스크롤 이동, 활성화 메뉴 표시하기](/code/2023-10-22-swiper-menu/)  

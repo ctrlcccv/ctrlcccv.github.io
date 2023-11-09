@@ -114,4 +114,4 @@ menuIcon 변수에 할당된 요소에 active 클래스를 토글링(추가 또�
 <br>
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-03-hamburger-menu](https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-03-hamburger-menu/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-03-hamburger-menu](/ctrlcccv-demo/2023-11-03-hamburger-menu/)  

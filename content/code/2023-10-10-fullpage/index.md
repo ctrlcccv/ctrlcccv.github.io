@@ -251,5 +251,5 @@ jQuery를 사용하여 간단한 풀페이지 스크롤 예제를 소개했습�
 <br>
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-10-fullpage](https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-10-fullpage/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-10-fullpage](/ctrlcccv-demo/2023-10-10-fullpage/)  
 

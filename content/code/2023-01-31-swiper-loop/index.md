@@ -182,5 +182,5 @@ Swiper의 loop 옵션 복제 문제를 해결하고, 반응형 슬라이드를 �
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-31-swiper-loop/" target="_blank">예제결과 미리보기</a>
+    <a href="/ctrlcccv-demo/2023-01-31-swiper-loop/">예제결과 미리보기</a>
 </div>

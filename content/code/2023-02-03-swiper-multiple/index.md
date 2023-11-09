@@ -175,6 +175,6 @@ swiper 변수에 새로운 Swiper 인스턴스를 생성하며, 초기 옵션을
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-02-03-swiper-multiple/" target="_blank">예제결과 미리보기</a>
+    <a href="/ctrlcccv-demo/2023-02-03-swiper-multiple/">예제결과 미리보기</a>
     <a href="/code/2023-01-31-swiper-loop/">[관련글] jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)</a>
 </div>

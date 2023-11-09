@@ -134,4 +134,4 @@ updateCounter 함수는 각 숫자 카운트를 업데이트하고 애니메이�
 <br>
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-20-counting](https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-20-counting/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-20-counting](/ctrlcccv-demo/2023-10-20-counting/)  

@@ -130,4 +130,4 @@ $(document).ready(function() {
 <br>
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-06-countdown](https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-06-countdown/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-06-countdown](/ctrlcccv-demo/2023-11-06-countdown/)  

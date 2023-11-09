@@ -241,7 +241,7 @@ function menuScroll() {
 
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-22-swiper-menu](https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-22-swiper-menu/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-22-swiper-menu](/ctrlcccv-demo/2023-10-22-swiper-menu/)  
 
 > 관련 글  
 > * [jQuery - Swiper 스와이프메뉴 클릭하면 가운데오기](/code/2023-10-12-swiper-click/)  

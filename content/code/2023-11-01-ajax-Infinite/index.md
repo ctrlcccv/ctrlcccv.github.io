@@ -143,4 +143,4 @@ $(document).ready(function() {
 <br>
 
 > 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-01-ajax-Infinite](https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-01-ajax-Infinite/)  
+> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-01-ajax-Infinite](/ctrlcccv-demo/2023-11-01-ajax-Infinite/)  
