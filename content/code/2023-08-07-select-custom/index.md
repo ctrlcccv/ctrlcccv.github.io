@@ -13,6 +13,7 @@ tags:
 ---
 select 태그의 CSS 커스텀은 제한적이기 때문에, 원하는 디자인을 구현하기 위해서는 ul 태그를 사용하여 옵션 목록을 작성한 후, jQuery를 사용하여 select 동작을 추가해야 한다.  
 그리고 select 옵션 데이터값을 전달하기 위해 input hidden 태그를 활용했다.  
+<br>
 
 ## HTML 코드
 ```html
@@ -33,6 +34,7 @@ select 태그의 CSS 커스텀은 제한적이기 때문에, 원하는 디자인
 ```
 .select_cus는 select 태그, .trigger는 선택된 option 태그, .option의 li는 옵션 목록을 의미한다.  
 data-value 속성의 값은 실제 데이터값을 나타내며, jQuery를 사용하여 선택된 data-value 값을 input hidden 태그에 할당할 예정이다.  
+<br>
 
 ## CSS 스타일
 ```css
@@ -167,5 +169,8 @@ function selectCus() {
 * $(document).click(function(e) { ... }) :  
 클릭 된 요소가 .select_cus 내에 없다면, .select_cus 내의 옵션 목록을 숨기고 active 클래스를 제거한다. 셀렉트 박스 영역의 외부를 클릭하면 셀렉트 박스가 닫히는 기능을 구현했다.  
 
+<br>
 
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/select-custom/){:target="_blank"}   -->
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-07-select-custom/">예제결과 미리보기</a>
+</div>
