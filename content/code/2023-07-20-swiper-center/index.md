@@ -11,8 +11,10 @@ categories:
 tags:
     - Swiper.js
 ---
-> 참고 코드  
-> * [jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)](https://ctrlcccv.github.io/code/2023-01-31-swiper-loop/)
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/code/2023-01-31-swiper-loop/">[참고코드] jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)</a>
+</div>
+
 
 Swiper 슬라이드의 centeredSlides 옵션을 사용하여 두 가지 유형의 슬라이드를 만들었다.  
 [첫 번째 유형](#첫번째-유형)은 centeredSlides 옵션을 사용하여 슬라이드를 가운데로 정렬시켜 사용자에게 집중되는 효과를 가진 슬라이드를 만들었다.  
@@ -70,6 +72,17 @@ Swiper 슬라이드의 centeredSlides 옵션을 사용하여 두 가지 유형�
 그리고 가장자리에 있는 슬라이드는 가운데 슬라이드에 집중되도록 배경을 어둡게 처리했다.
 swiper-slide-duplicate 클래스까지 스타일을 적용한 이유는 마지막 슬라이드에서 첫 번째 슬라이드로 무한 반복되는 과정에서 스타일을 유지하지 못하는 문제가 있었다. 따라서 복제된 슬라이드에도 같은 스타일을 적용했다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 ### jQuery 코드
 
 ```js
@@ -124,20 +137,11 @@ function slider() {
     }
 }
 ```
-
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/swiper-center1/)-->
 <br>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type1/">예제결과 미리보기 (첫번째 유형)</a>
+</div>
+<br>
 
 ## 두번째 유형
 
@@ -260,7 +264,6 @@ function slider() {
 디바이스 화면 리사이즈로 슬라이드를 초기화하고 다시 불러오는 과정에서 CSS transition 속성으로 인해 슬라이드의 크기가 0.3초 동안 변화한다. 그러나 변화하는 시간 동안 sliderAct() 함수가 실행되어 슬라이드의 크기를 정확하게 파악하지 못해 정렬 오류가 발생했다. 이 문제를 해결하기 위해 디바이스 변경 시, setTimeout() 함수를 사용하여 sliderAct() 함수의 호출을 0.3초 동안 지연시켰다.  
 <br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type1](/ctrlcccv-demo/2023-07-20-swiper-center/type1/)  
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type2](/ctrlcccv-demo/2023-07-20-swiper-center/type2/)  
-
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type2/">예제결과 미리보기 (두번째 유형)</a>
+</div>
