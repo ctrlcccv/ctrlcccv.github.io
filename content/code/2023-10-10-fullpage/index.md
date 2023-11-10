@@ -250,6 +250,6 @@ function fullPage() {
 jQuery를 사용하여 간단한 풀페이지 스크롤 예제를 소개했습니다. 이 예제를 통해 fullPage.js와 같은 라이브러리를 사용하지 않고도 풀페이지 스크롤을 구현하는 방법을 이해할 수 있습니다. 이를 통해 웹 페이지의 사용자 경험을 향상시킬 수 있으며, 반응형 디자인을 통해 모바일 및 데스크톱 환경에서 모두 잘 작동합니다. 이러한 풀페이지 스크롤 패턴은 웹 디자인 프로젝트에 활용할 수 있는 유용한 기술 중 하나입니다.  
 <br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-10-fullpage](/ctrlcccv-demo/2023-10-10-fullpage/)  
-
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-10-fullpage/">예제결과 미리보기</a>
+</div>
