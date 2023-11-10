@@ -13,6 +13,7 @@ tags:
     - 진행 표시줄
 ---
 Swiper.js 플러그인의 pagination 옵션을 텍스트로 변경하고, 각 페이지의 progress bar 형태를 추가했다.  
+<br>
 
 ## HTML 구조
 ```html
@@ -44,6 +45,7 @@ Swiper.js 플러그인의 pagination 옵션을 텍스트로 변경하고, 각 �
 </div>
 ```
 pagination 부분에 들어갈 텍스트는 slide_tit 클래스에 별도로 작성했다.  
+<br>
 
 ## CSS 스타일
 ```css
@@ -145,4 +147,6 @@ function slider() {
 * on: {slideChange: () => { ... }} : 슬라이드 변경 시 페이지 번호를 갱신하는 이벤트 핸들러를 등록한다.  
 <br>
 
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/swiper-progress/){:target="_blank"}   -->
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-24-swiper-progress/">예제결과 미리보기</a>
+</div>
