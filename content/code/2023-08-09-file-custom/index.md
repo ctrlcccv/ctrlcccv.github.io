@@ -16,6 +16,7 @@ input[type='file'] 태그는 CSS 커스터마이징이 제한적이다. 원하�
 IR 기법(Image Replacement Technique)은 웹 접근성을 개선하기 위해 사용되는 방법으로, 텍스트 화면 리더(스크린 리더)나 다른 보조 기술을 사용하는 사용자가 이미지의 내용을 이해할 수 있도록 도와주는 기법이다.  
 <br>
 그리고 제이쿼리를 활용하여 파일을 선택하면 선택한 파일의 이름을 표시할 수 있도록 구현했다.  
+<br>
 
 ## HTML 구조
 ```html
@@ -29,6 +30,7 @@ IR 기법(Image Replacement Technique)은 웹 접근성을 개선하기 위해 �
 ```
 input[type='file'] 태그 대신 추가한 요소는 사용자가 파일을 선택하고 파일 이름을 확인할 수 있는 방식으로 구성했다.  
 이 영역을 클릭하면 파일 선택이 가능하도록 label 태그를 활용했다.  
+<br>
 
 ## CSS 스타일
 ```css
@@ -82,4 +84,8 @@ function fileCus() {
 * $(this).siblings(".file_name").text(fileName || "파일을 선택해주세요.") :   
 파일 이름을 추출한 후, 해당 파일 업로드 요소의 형제 요소 중 .file_name의 내용을 업데이트한다. 만약 파일이 선택되지 않았다면 "파일을 선택해주세요."라는 내용을 보여준다.  
 
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/file-custom/)   -->
+<br>
+
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-09-file-custom/">예제결과 미리보기</a>
+</div>
