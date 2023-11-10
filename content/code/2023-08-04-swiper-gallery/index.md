@@ -15,6 +15,7 @@ tags:
 Swiper.js 플러그인을 활용하여 갤러리 형태의 슬라이드를 만들었다.  
 공식 사이트에도 갤러리 형태의 예제가 있지만, 무한 반복과 반응형을 추가하기 위해 코드를 수정했다.  
 이 예제는 PC에서는 작은 이미지의 썸네일이 5개, 모바일에서는 3개가 보이는 형태로 구현되어 있다.  
+<br>
 
 ## HTML 구조
 ```html
@@ -52,6 +53,7 @@ Swiper.js 플러그인을 활용하여 갤러리 형태의 슬라이드를 만�
 ```
 .gallery 안에는 .list 슬라이드와 .thumbs 슬라이드가 각각 구현되어 있다.  
 .list 슬라이드(메인 슬라이드)는 큰 이미지를 보여주며, .thumbs 슬라이드는 작은 썸네일을 보여준다.  
+<br>
 
 ## CSS 스타일
 ```css
@@ -177,11 +179,8 @@ Swiper 객체를 저장한다.
 
 <br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-04-swiper-gallery](/ctrlcccv-demo/2023-08-04-swiper-gallery/)  
-
-> 관련 글 
-> * [jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)](/code/2023-01-31-swiper-loop/)
-
-
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-04-swiper-gallery/">예제결과 미리보기</a>
+    <a href="https://ctrlcccv.github.io/code/2023-01-31-swiper-loop/">[관련글] jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)</a>
+</div>
 
