@@ -137,5 +137,6 @@ jQuery를 통해 스크롤 기반의 애니메이션을 구현하는 것은 비�
 페이지 스크롤을 내리면 요소들이 부드럽게 나타나는 이러한 효과는 웹 페이지를 더 눈에 띄게 만들어 줄 것입니다.  
 <br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-30-scroll-show](/ctrlcccv-demo/2023-10-30-scroll-show/)  
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-30-scroll-show/">예제결과 미리보기</a>
+</div>
