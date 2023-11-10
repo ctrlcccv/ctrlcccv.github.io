@@ -73,6 +73,17 @@ stroke-width 속성의 크기는 영역의 가장자리 중심으로 늘어나�
 퍼센트로 작성해서 그래프의 크기에 따라 자동으로 맞춰진다.  
 r 속성은 반지름의 크기를, cx, cy 속성은 &lt;circle&gt; 태그의 좌표 위치를 뜻한다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 ## jQuery 코드
 ```js
 $(document).ready(function() {
@@ -110,19 +121,10 @@ function pieAct() {
 stroke-dasharray 속성의 시작 지점이 90° 이여서, 0°에서 시작하기 위해 angel 변수의 초기값은 -90이다.  
 그 후 그래프의 비율만큼 각도를 계산하여 angel 변수의 값을 갱신했다.  
 <br>
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/pie-chart1/){:target="_blank"}   -->
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-pie-chart/type-pc/">예제결과 미리보기</a>
+</div>
+<br>
 
 ## 반응형 작업
 
@@ -224,5 +226,7 @@ function pieAct() {
 }
 ```
 그래프의 크기에 따라 viewBox 속성 값을 지정하는 코드를 추가했다.  
-
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/pie-chart2/){:target="_blank"}   -->
+<br>
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-pie-chart/type-responsive/">예제결과 미리보기 (반응형)</a>
+</div>
