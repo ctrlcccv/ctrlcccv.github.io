@@ -148,5 +148,8 @@ footer 요소의 위치를 저장한다. 이 변수를 이용하여 스크롤이
 
 * footerTop = $('footer').offset().top :  
 footer 요소의 위치를 초기화한다.   
+<br>
 
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/scroll-fixed/){:target="_blank"}   -->
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-28-scroll-fixed/">예제결과 미리보기</a>
+</div>
