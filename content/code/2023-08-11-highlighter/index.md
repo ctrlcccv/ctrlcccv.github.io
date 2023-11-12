@@ -53,4 +53,6 @@ background의 가로 크기를 먼저 0으로 설정하고, 마우스를 올렸�
 그리고 background-position의 가로 위치를 조정하면 이동 시작점이 변경되어, 각각 다른 방향으로 이동하는 효과를 만들 수 있다.  
 <br>
 
-<!-- [>> 예제 다운로드](https://github.com/ctrlcccv/highlighter/){:target="_blank"}   -->
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-11-highlighter/">예제결과 미리보기</a>
+</div>

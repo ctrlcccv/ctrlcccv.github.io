@@ -113,5 +113,6 @@ menuIcon 변수에 할당된 요소에 active 클래스를 토글링(추가 또�
 이렇게 햄버거 메뉴 아이콘에 멋진 애니메이션 효과를 추가할 수 있습니다. 사용자가 작은 화면에서 메뉴를 열거나 닫을 때 시각적으로 더 흥미롭게 표현할 수 있습니다. CSS와 JavaScript를 적절하게 조합하여 원하는 효과를 만들어 보세요!  
 <br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-03-hamburger-menu](/ctrlcccv-demo/2023-11-03-hamburger-menu/)  
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-03-hamburger-menu/">예제결과 미리보기</a>
+</div>
