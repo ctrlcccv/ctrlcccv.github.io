@@ -239,9 +239,7 @@ function menuScroll() {
   * 클릭한 메뉴 항목을 활성화하고, 다른 메뉴 항목의 활성화 상태를 제거합니다.  
 <br>
 
-
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-22-swiper-menu](/ctrlcccv-demo/2023-10-22-swiper-menu/)  
-
-> 관련 글  
-> * [jQuery - Swiper 스와이프메뉴 클릭하면 가운데오기](/code/2023-10-12-swiper-click/)  
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-22-swiper-menu/">예제결과 미리보기</a>
+    <a href="https://ctrlcccv.github.io/code/2023-10-12-swiper-click/">[관련글] jQuery - Swiper 스와이프메뉴 클릭하면 가운데오기</a>
+</div>
