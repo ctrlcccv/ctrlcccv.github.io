@@ -142,5 +142,6 @@ $(document).ready(function() {
 이 글에서는 jQuery와 Ajax를 사용하여 무한 스크롤을 구현하는 예제를 살펴보았습니다. 더불어 Intersection Observer API를 활용하여 스크롤 이벤트를 효율적으로 처리하는 방법도 소개했습니다. 이러한 기술을 사용하면 웹 애플리케이션의 성능을 향상시키고 사용자 경험을 개선할 수 있습니다. 무한 스크롤은 많은 웹 사이트에서 활용되며, 이를 통해 사용자는 원활하게 콘텐츠를 스크롤하고 탐색할 수 있습니다.  
 <br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-01-ajax-Infinite](/ctrlcccv-demo/2023-11-01-ajax-Infinite/)  
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-01-ajax-Infinite/">예제결과 미리보기</a>
+</div>
