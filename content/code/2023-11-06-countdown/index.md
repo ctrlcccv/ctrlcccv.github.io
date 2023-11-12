@@ -129,5 +129,6 @@ $(document).ready(function() {
 이 기능을 활용하면 이벤트 시작 시간, 할인 기간, 이벤트 종료 시간 등 다양한 상황에서 유용하게 활용할 수 있습니다.  
 <br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-06-countdown](/ctrlcccv-demo/2023-11-06-countdown/)  
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-06-countdown/">예제결과 미리보기</a>
+</div>
