@@ -101,6 +101,7 @@ CSS를 활용하여 데이터에 따라 자동으로 정렬되는 세로형 막�
 이렇게 유연하고 동적인 구조를 활용하면 데이터의 변화에 따라 그래프가 자동으로 조정되어 시각적으로 정보를 전달할 수 있습니다.  
 <br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-26-vertical-graph](/ctrlcccv-demo/2023-01-26-vertical-graph)  
 
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-01-26-vertical-graph/">예제결과 미리보기</a>
+</div>
