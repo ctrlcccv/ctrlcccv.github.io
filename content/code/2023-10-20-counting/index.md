@@ -133,5 +133,6 @@ updateCounter 함수는 각 숫자 카운트를 업데이트하고 애니메이�
 이렇게 jQuery를 사용하여 스크롤 내렸을 때 숫자 카운트 애니메이션을 구현할 수 있습니다. 이 기능을 활용하면 웹 페이지에 더 많은 상호작용성과 시각적 흥미를 추가할 수 있습니다. 코드를 사용해 보고 웹 프로젝트에 적용하여 사용자에게 더 독특하고 매력적인 경험을 제공해 보세요.  
 <br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-20-counting](/ctrlcccv-demo/2023-10-20-counting/)  
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-20-counting/">예제결과 미리보기</a>
+</div>
