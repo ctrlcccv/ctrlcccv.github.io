@@ -126,5 +126,6 @@ $(document).ready(function() {
 jQuery를 사용하여 "인증번호 타이머"를 구현하는 방법을 살펴보았습니다. 이 예제를 통해 사용자가 전화번호를 입력하고 인증번호를 받을 때 시간제한을 설정하고 관리하는 방법을 배웠습니다. jQuery를 활용하여 웹 애플리케이션에서 시간 관리와 이벤트 핸들링을 손쉽게 구현할 수 있습니다.  
 <br>
 
-> 예제 확인하기 
-> * [https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-08-authentication](/ctrlcccv-demo/2023-11-08-authentication/)  
+<div class="btn_wrap">
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-08-authentication/">예제결과 미리보기</a>
+</div>
