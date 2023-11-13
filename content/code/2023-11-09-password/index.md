@@ -90,4 +90,5 @@ jQuery를 사용하여 입력 비밀번호 필드를 보이기/숨기기 기능�
 <div class="btn_wrap">
     <a href="/ctrlcccv-demo/2023-11-09-password/">예제결과 미리보기</a>
     <a href="/code/2023-11-08-password-eye/">[관련글] CSS - input password 눈모양 숨기기 (IE, Edge)</a>
+    <a href="https://ctrlcccv.github.io/code/2023-11-13-checkbox-custom/">[관련글] CSS - 체크박스, 라디오버튼 커스텀</a>
 </div>
