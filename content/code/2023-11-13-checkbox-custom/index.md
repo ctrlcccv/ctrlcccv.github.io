@@ -3,15 +3,15 @@ title: CSS - 체크박스, 라디오버튼 커스텀
 description: >  
     CSS를 사용하여 체크박스와 라디오버튼을 커스텀하는 방법입니다.
 slug: 2023-11-13-checkbox-custom
-date: 2023-11-16 00:00:00+0000
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-13-password.webp
+date: 2023-11-13 00:00:00+0000
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-13-checkbox-custom.webp
 
 categories:
     - CSS
 tags:
     - 입력 태그 커스텀
 ---
-웹 디자인과 개발에서 사용자 인터페이스(UI) 요소 중 체크박스와 라디오버튼은 매우 흔하게 사용됩니다. 그러나 기본적인 스타일링만으로는 디자인적으로 제한이 있을 수 있습니다. 이 글에서는 CSS를 사용하여 체크박스와 라디오버튼을 커스텀하는 방법을 자세히 살펴보겠습니다. 
+웹 디자인 및 개발 프로젝트에서, 체크박스와 라디오버튼은 사용자 인터페이스(UI) 요소 중 자주 활용되는 요소입니다. 그러나 기본적인 스타일링만으로는 디자인적으로 제한이 있을 수 있습니다. 이 글에서는 CSS를 사용하여 체크박스와 라디오버튼을 커스텀하는 방법을 자세히 살펴보겠습니다. 
 <br>
 
 ## HTML 구조
@@ -45,7 +45,7 @@ tags:
   라벨에 적용된 CSS 클래스로, 이 클래스는 체크박스를 커스텀하는데 사용됩니다.
 
   * &lt;input type="checkbox"&gt;   
-  실제 체크박스 입력 요소입니다. 사용자가 체크박스를 선택하거나 해제할 수 있는 부분입니다.
+  실제 체크박스 입력 요소입니다. 사용자가 체크박스를 선택 또는 선택 해제할 수 있는 영역입니다.  
 
   * mark 클래스     
   체크박스의 커스텀 스타일을 나타내는 요소입니다. 이 요소는 CSS를 사용하여 디자인된 배경 이미지와 스타일을 가지고 있습니다.
@@ -77,7 +77,7 @@ tags:
 .checkbox_cus input[type="checkbox"]:checked ~ .mark {background-image: url('check_on.png');}
 ```
 * **.checkbox_cus (체크박스 커스텀 클래스)**  
-  * 체크박스와 라벨(Label) 요소를 커스텀 디자인으로 연결하는 역할을 합니다.
+  * 체크박스와 라벨(Label) 요소를 커스텀 디자인으로 연동하는 역할을 합니다.  
   * 사용자가 체크박스를 클릭하면 실제 체크박스의 상태를 변경합니다.
 
 * **.checkbox_cus input[type="checkbox"] (체크박스 숨김 클래스)**
@@ -91,8 +91,8 @@ tags:
 
 * **.checkbox_cus input[type="checkbox"]:checked ~ .mark (체크박스 커스텀 선택 스타일 클래스)**
   * 체크박스가 선택된 경우에 대한 스타일을 정의합니다.
-  * 체크박스가 선택되면 커스텀 디자인의 배경 이미지를 변경하여 선택된 상태를 나타냅니다.
-
+  * 체크박스가 선택되면 커스텀 디자인의 배경 이미지를 변경하여 선택된 상태를 나타냅니다.  
+<br>
 
 ## 라디오버튼 커스텀 CSS 스타일
 ```css
@@ -104,7 +104,7 @@ tags:
 .radio_cus input[type="radio"]:checked ~ .mark:after {content:'';position: absolute;top: 50%;left: 50%;width: 10px;height: 10px;background: #000;border-radius:50%;transform: translate(-50%,-50%);}
 ```
 * **.radio_cus (라디오버튼 커스텀 클래스)**
-  * 라디오버튼과 라벨(Label) 요소를 커스텀 디자인으로 연결하는 역할을 합니다.
+  * 라디오버튼과 라벨(Label) 요소를 커스텀 디자인으로 연동하는 역할을 합니다.
   * 사용자가 라디오버튼을 클릭하면 실제 라디오버튼의 상태를 변경합니다.
 
 * **.radio_cus input[type="radio"] (라디오버튼 숨김 클래스)**
