@@ -47,8 +47,8 @@ tags:
 .toggle_switch input[type="checkbox"] { overflow: hidden; position: absolute; width: 1px; height: 1px; margin: -1px; font-size: initial; clip: rect(0 0 0 0); } 
 .toggle_switch .slider { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-color: #ccc; border-radius: 34px; cursor: pointer; transition: 0.4s; } 
 .toggle_switch input[type="checkbox"]:checked + .slider { background-color: #007bff; } 
-.toggle_switch .slider:before { content: ""; position: absolute; top: 4px; left: 4px; width: 26px; height: 26px; background-color: #fff; border-radius: 50%; transition: 0.4s; } 
-.toggle_switch input[type="checkbox"]:checked + .slider:before { transform:translateX(36px); } 
+.toggle_switch .slider::before { content: ""; position: absolute; top: 4px; left: 4px; width: 26px; height: 26px; background-color: #fff; border-radius: 50%; transition: 0.4s; } 
+.toggle_switch input[type="checkbox"]:checked + .slider::before { transform:translateX(36px); } 
 ```
 
 
@@ -75,14 +75,14 @@ tags:
 **(체크박스 선택 시 토글 스위치 색상 변경)**  
   * 체크박스가 선택된 상태일 때, 스위치의 배경색을 다른 색상으로 변경하여 "활성화" 상태를 나타냅니다.
 
-* **.toggle_switch .slider:before**  
+* **.toggle_switch .slider::before**  
 **(스위치 제어 버튼 스타일링)**  
   * 가상 요소를 활용하여 스위치 위에 둥근 형태의 제어 버튼을 생성합니다.
   * 버튼의 위치와 크기, 배경색을 설정합니다.
   * 버튼의 모서리를 둥글게 만듭니다.
   * 부드러운 전환 효과를 추가합니다.
 
-* **.toggle_switch input[type="checkbox"]:checked + .slider:before**  
+* **.toggle_switch input[type="checkbox"]:checked + .slider::before**  
 **(체크박스 선택 시 제어 버튼 이동)**  
   * 체크박스가 선택된 상태일 때, 스위치 버튼의 위치를 변경하여 "활성화" 상태를 나타냅니다.  
 <br>
