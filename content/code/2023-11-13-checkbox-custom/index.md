@@ -71,10 +71,10 @@ tags:
 ## 체크박스 커스텀 CSS 스타일
 ```css
 /* 체크박스 커스텀 */
-.checkbox_cus {display: inline-flex;align-items:flex-start;position: relative;font-size: 16px;cursor: pointer;}
-.checkbox_cus input[type="checkbox"] {overflow: hidden;position: absolute;width: 1px;height: 1px;margin: -1px;font-size: initial;clip: rect(0 0 0 0);}
-.checkbox_cus .mark {width: 16px;height: 16px;margin-top: 5px;margin-right: 8px;background:url('check.png') center center no-repeat;background-size: contain;}
-.checkbox_cus input[type="checkbox"]:checked ~ .mark {background-image: url('check_on.png');}
+.checkbox_cus { display: inline-flex; align-items:flex-start; position: relative; font-size: 16px; cursor: pointer; } 
+.checkbox_cus input[type="checkbox"] { overflow: hidden; position: absolute; width: 1px; height: 1px; margin: -1px; font-size: initial; clip: rect(0 0 0 0); } 
+.checkbox_cus .mark { width: 16px; height: 16px; margin-top: 5px; margin-right: 8px; background:url('check.png') center center no-repeat; background-size: contain; } 
+.checkbox_cus input[type="checkbox"]:checked ~ .mark { background-image: url('check_on.png'); } 
 ```
 * **.checkbox_cus (체크박스 커스텀 클래스)**  
   * 체크박스와 라벨(Label) 요소를 커스텀 디자인으로 연동하는 역할을 합니다.  
@@ -97,11 +97,11 @@ tags:
 ## 라디오버튼 커스텀 CSS 스타일
 ```css
 /* 라디오버튼 커스텀 */
-.radio_cus {display: inline-flex;align-items:flex-start;position: relative;font-size: 16px;cursor: pointer;}
-.radio_cus input[type="radio"] {overflow: hidden;position: absolute;width: 1px;height: 1px;margin: -1px;font-size: initial;clip: rect(0 0 0 0);}
-.radio_cus .mark {width: 16px;height: 16px; margin-top: 5px; margin-right: 8px;background: #fff; border: 1px solid #ddd;border-radius:50%;}
-.radio_cus input[type="radio"]:checked ~ .mark {position: relative;border-color: #000;}
-.radio_cus input[type="radio"]:checked ~ .mark:after {content:'';position: absolute;top: 50%;left: 50%;width: 10px;height: 10px;background: #000;border-radius:50%;transform: translate(-50%,-50%);}
+.radio_cus { display: inline-flex; align-items:flex-start; position: relative; font-size: 16px; cursor: pointer; } 
+.radio_cus input[type="radio"] { overflow: hidden; position: absolute; width: 1px; height: 1px; margin: -1px; font-size: initial; clip: rect(0 0 0 0); } 
+.radio_cus .mark { width: 16px; height: 16px; margin-top: 5px; margin-right: 8px; background: #fff; border: 1px solid #ddd; border-radius:50%; } 
+.radio_cus input[type="radio"]:checked ~ .mark { position: relative; border-color: #000; } 
+.radio_cus input[type="radio"]:checked ~ .mark:after { content:''; position: absolute; top: 50%; left: 50%; width: 10px; height: 10px; background: #000; border-radius:50%; transform: translate(-50%,-50%); } 
 ```
 * **.radio_cus (라디오버튼 커스텀 클래스)**
   * 라디오버튼과 라벨(Label) 요소를 커스텀 디자인으로 연동하는 역할을 합니다.
