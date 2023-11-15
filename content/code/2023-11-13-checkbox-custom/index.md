@@ -128,5 +128,5 @@ tags:
 
 <div class="btn_wrap">
     <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-13-checkbox-custom/">예제결과 미리보기</a>
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-14-checkbox-toggle/">[관련글] CSS - 토글 스위치 만들기</a>
+    <a href="https://ctrlcccv.github.io/code/2023-11-14-checkbox-toggle/">[관련글] CSS - 토글 스위치 만들기</a>
 </div>
