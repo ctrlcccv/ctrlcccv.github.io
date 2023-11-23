@@ -2,9 +2,9 @@
 title: 쿠키런 킹덤 - 개편된 수호의 성전 2-1 시즌 공략 (클리어 목적)
 description: >  
     쿠키런 킹덤 '수호의 성전' 업데이트의 신규 공략법! 난이도별 쿠키 조합, 토핑 선택 가이드와 함께 보물 조합까지, 전략적인 게임 플레이를 위한 필수 공략을 소개합니다. 새로운 도전을 즐기며 게임의 재미를 극대화하세요!
-slug: 2023-11-23-CookieRun8
+slug: 2023-11-23-cookierun8
 date: 2023-11-23 00:00:00+0000
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-23-CookieRun8.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-23-cookierun8.webp
 
 categories:
     - Game
