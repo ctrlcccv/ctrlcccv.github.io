@@ -165,6 +165,6 @@ function initTabSwipers() {
 
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-12-swiper-click/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-12-swiper-click/">예제결과 미리보기</a>
     <a href="https://ctrlcccv.github.io/code/2023-10-22-swiper-menu/">[관련글] jQuery - Swiper 메뉴 클릭 시 스크롤 이동, 활성화 메뉴 표시하기</a>
 </div>

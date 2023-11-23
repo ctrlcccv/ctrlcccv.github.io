@@ -158,7 +158,7 @@ URLSearchParams() 생성자 함수를 사용하여 URL의 문자열 객체를 �
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-05-tab-refresh/tab-menu/" target="_blank">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-05-tab-refresh/tab-menu/" target="_blank">예제결과 미리보기</a>
 </div>
 <br>
 
@@ -195,6 +195,6 @@ function tab() {
 <br> 
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-05-tab-refresh/tab-refresh/">예제결과 미리보기 (일반 탭메뉴)</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-05-tab-refresh/tab-refresh/">예제결과 미리보기 (일반 탭메뉴)</a>
 </div>
 

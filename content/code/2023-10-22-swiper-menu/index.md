@@ -240,6 +240,6 @@ function menuScroll() {
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-22-swiper-menu/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-22-swiper-menu/">예제결과 미리보기</a>
     <a href="https://ctrlcccv.github.io/code/2023-10-12-swiper-click/">[관련글] jQuery - Swiper 스와이프메뉴 클릭하면 가운데오기</a>
 </div>

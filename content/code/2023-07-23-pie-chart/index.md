@@ -122,7 +122,7 @@ stroke-dasharray 속성의 시작 지점이 90° 이여서, 0°에서 시작하�
 그 후 그래프의 비율만큼 각도를 계산하여 angel 변수의 값을 갱신했다.  
 <br>
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-pie-chart/type-pc/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-pie-chart/type-pc/">예제결과 미리보기</a>
 </div>
 <br>
 
@@ -228,5 +228,5 @@ function pieAct() {
 그래프의 크기에 따라 viewBox 속성 값을 지정하는 코드를 추가했다.  
 <br>
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-pie-chart/type-responsive/">예제결과 미리보기 (반응형)</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-pie-chart/type-responsive/">예제결과 미리보기 (반응형)</a>
 </div>

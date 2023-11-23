@@ -114,5 +114,5 @@ menuIcon 변수에 할당된 요소에 active 클래스를 토글링(추가 또�
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-03-hamburger-menu/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-03-hamburger-menu/">예제결과 미리보기</a>
 </div>

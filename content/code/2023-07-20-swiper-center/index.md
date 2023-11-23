@@ -12,7 +12,7 @@ tags:
     - Swiper.js
 ---
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/code/2023-01-31-swiper-loop/">[참고코드] jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/code/2023-01-31-swiper-loop/">[참고코드] jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)</a>
 </div>
 
 
@@ -139,7 +139,7 @@ function slider() {
 ```
 <br>
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type1/">예제결과 미리보기 (첫번째 유형)</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type1/">예제결과 미리보기 (첫번째 유형)</a>
 </div>
 <br>
 
@@ -265,5 +265,5 @@ function slider() {
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type2/">예제결과 미리보기 (두번째 유형)</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type2/">예제결과 미리보기 (두번째 유형)</a>
 </div>

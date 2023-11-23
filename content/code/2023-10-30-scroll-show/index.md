@@ -138,6 +138,6 @@ jQuery를 통해 스크롤 기반의 애니메이션을 구현하는 것은 비�
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-30-scroll-show/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-30-scroll-show/">예제결과 미리보기</a>
     <a href="https://ctrlcccv.github.io/code/2023-11-22-scroll-text/">[관련글] jQuery - 스크롤 내리면 나타나는 텍스트</a>
 </div>

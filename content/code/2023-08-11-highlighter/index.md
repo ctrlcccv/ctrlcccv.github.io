@@ -54,5 +54,5 @@ background의 가로 크기를 먼저 0으로 설정하고, 마우스를 올렸�
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-11-highlighter/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-11-highlighter/">예제결과 미리보기</a>
 </div>

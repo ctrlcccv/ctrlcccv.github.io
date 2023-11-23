@@ -238,5 +238,5 @@ function slider() {
 <br>
 
 <div class="btn_wrap">
-    <a href="/ctrlcccv-demo/2023-02-20-swiper-pagination/">예제결과 미리보기</a>
+    <a target="_blank" href="/ctrlcccv-demo/2023-02-20-swiper-pagination/">예제결과 미리보기</a>
 </div>

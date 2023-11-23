@@ -180,7 +180,7 @@ Swiper 객체를 저장한다.
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-04-swiper-gallery/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-04-swiper-gallery/">예제결과 미리보기</a>
     <a href="https://ctrlcccv.github.io/code/2023-01-31-swiper-loop/">[관련글] jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)</a>
 </div>
 

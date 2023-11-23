@@ -151,5 +151,5 @@ footer 요소의 위치를 초기화한다.
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-28-scroll-fixed/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-28-scroll-fixed/">예제결과 미리보기</a>
 </div>

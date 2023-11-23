@@ -172,6 +172,6 @@ const elements = [
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io//ctrlcccv-demo/2023-11-22-scroll-text/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io//ctrlcccv-demo/2023-11-22-scroll-text/">예제결과 미리보기</a>
     <a href="https://ctrlcccv.github.io/code/2023-10-30-scroll-show/">[관련글] jQuery - 스크롤 내리면 나타나는 애니메이션</a>
 </div>

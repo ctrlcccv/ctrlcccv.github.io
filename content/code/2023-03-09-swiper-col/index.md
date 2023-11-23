@@ -270,6 +270,6 @@ function slideAct() {
 <br>
 
 <div class="btn_wrap">
-    <a href="/ctrlcccv-demo/2023-03-09-swiper-col/swiper-col/">예제결과 미리보기</a>
-    <a href="/ctrlcccv-demo/2023-03-09-swiper-col/swiper-col-each/">예제결과 미리보기 (each문 추가)</a>
+    <a target="_blank" href="/ctrlcccv-demo/2023-03-09-swiper-col/swiper-col/">예제결과 미리보기</a>
+    <a target="_blank" href="/ctrlcccv-demo/2023-03-09-swiper-col/swiper-col-each/">예제결과 미리보기 (each문 추가)</a>
 </div>

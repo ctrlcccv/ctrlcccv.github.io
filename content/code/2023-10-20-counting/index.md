@@ -134,5 +134,5 @@ updateCounter 함수는 각 숫자 카운트를 업데이트하고 애니메이�
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-20-counting/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-20-counting/">예제결과 미리보기</a>
 </div>

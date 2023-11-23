@@ -143,5 +143,5 @@ iOS 환경에서는 touch-action 속성을 활용하여 스크롤 동작을 관�
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-03-13-popup-scroll/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-03-13-popup-scroll/">예제결과 미리보기</a>
 </div>

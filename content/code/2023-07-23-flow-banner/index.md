@@ -187,5 +187,5 @@ list 클래스의 가로 크기를 flow_banner 클래스의 가로 크기에 나
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-flow-banner/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-flow-banner/">예제결과 미리보기</a>
 </div>

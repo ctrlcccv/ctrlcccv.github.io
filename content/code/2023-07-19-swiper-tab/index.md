@@ -13,8 +13,8 @@ tags:
     - 탭 메뉴
 ---
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/code/2023-02-03-swiper-multiple/">[참고코드] jQuery - Swiper 같은 클래스로 여러 개 사용하기 (반응형)</a>
-    <a href="https://ctrlcccv.github.io/code/2023-07-05-tab-refresh/#jquery-코드-일반-탭-메뉴">[참고코드] jQuery - 탭메뉴 새로고침 후 현재 탭 유지</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/code/2023-02-03-swiper-multiple/">[참고코드] jQuery - Swiper 같은 클래스로 여러 개 사용하기 (반응형)</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/code/2023-07-05-tab-refresh/#jquery-코드-일반-탭-메뉴">[참고코드] jQuery - 탭메뉴 새로고침 후 현재 탭 유지</a>
 </div>
 
 참고 코드를 사용하여 탭메뉴 안에 Swiper 슬라이드가 있는 레이아웃을 만들었다.  

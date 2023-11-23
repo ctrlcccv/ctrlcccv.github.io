@@ -105,5 +105,5 @@ neon 클래스를 정의하고 해당 클래스에 원하는 스타일을 적용
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-15-neon/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-15-neon/">예제결과 미리보기</a>
 </div>

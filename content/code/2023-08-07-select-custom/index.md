@@ -172,5 +172,5 @@ function selectCus() {
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-07-select-custom/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-07-select-custom/">예제결과 미리보기</a>
 </div>

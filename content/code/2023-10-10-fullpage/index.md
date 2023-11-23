@@ -251,5 +251,5 @@ jQuery를 사용하여 간단한 풀페이지 스크롤 예제를 소개했습�
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-10-fullpage/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-10-10-fullpage/">예제결과 미리보기</a>
 </div>
