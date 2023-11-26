@@ -38,6 +38,7 @@ cursor 클래스를 가진 div 요소를 생성합니다. 이 요소가 마우�
     background-color: #000; 
     border-radius: 50%; 
     transition: transform 200ms ease-out;
+    pointer-events: none;
     z-index: 9999;
 } 
 ```
