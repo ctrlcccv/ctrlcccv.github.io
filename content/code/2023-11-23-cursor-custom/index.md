@@ -31,11 +31,14 @@ cursor 클래스를 가진 div 요소를 생성합니다. 이 요소가 마우�
 ```css
 .cursor { 
     position: absolute; 
+    top: 0; 
+    left: 0; 
     width: 40px; 
     height: 40px;
     background-color: #000; 
     border-radius: 50%; 
     transition: transform 200ms ease-out;
+    z-index: 9999;
 } 
 ```
 * **position**  
