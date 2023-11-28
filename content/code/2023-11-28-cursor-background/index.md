@@ -4,7 +4,7 @@ description: >
     jQuery를 사용하여 마우스 움직임에 따라 배경 이미지와 텍스트가 움직이는 패럴랙스 효과를 구현하는 방법을 설명합니다. 이러한 인터랙티브 요소는 사용자 참여를 유도하고 웹사이트를 보다 몰입감 있는 공간으로 만듭니다.  
 slug: 2023-11-28-cursor-background
 date: 2023-11-28 00:00:00+0000
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-28-cursor-background.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-28-cursor-background2.webp
 
 categories:
     - jQuery
