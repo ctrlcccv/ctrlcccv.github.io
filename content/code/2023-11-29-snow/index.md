@@ -4,7 +4,7 @@ description: >
     CSS와 jQuery를 사용하여 웹 페이지에 반응형 눈 내리는 효과를 만드는 방법을 단계별로 안내합니다. 눈송이의 크기, 속도, 개수를 조절하는 방법을 포함하여 모든 디바이스에서 일관된 사용자 경험을 제공합니다.
 slug: 2023-11-29-snow
 date: 2023-11-29 01:00:00+0000
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-29-snow.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-29-snow2.webp
 
 categories:
     - jQuery
