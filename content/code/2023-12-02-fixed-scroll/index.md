@@ -1,7 +1,7 @@
 ---
 title: jQuery - 가로 스크롤에 따라 fixed 요소 위치 조정
 description: >  
-    
+    jQuery를 활용하여 가로 스크롤에 따라 고정 요소의 위치 조정 방법을 소개하는 글입니다. 이 기법은 넓은 화면 레이아웃과 데이터가 많은 페이지에 유용합니다.
 slug: 2023-12-02-fixed-scroll
 date: 2023-12-02 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-02-fixed-scroll.webp
