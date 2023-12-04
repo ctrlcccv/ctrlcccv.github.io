@@ -89,17 +89,28 @@ $(window).on('scroll', function() {
 });
 ```
 * **변수 선언**  
-  * fixedBox : 고정될 요소를 선택하는 jQuery 객체입니다.
-  * lastScroll : 마지막 스크롤 위치를 저장하는 변수입니다.
+  * fixedBox  
+  고정될 요소를 선택하는 jQuery 객체입니다.
+
+  * lastScroll  
+  마지막 스크롤 위치를 저장하는 변수입니다.
 
 * **스크롤 이벤트 핸들링**  
-  * $(window).on('scroll', function() {...}) : 윈도우의 스크롤 이벤트를 감지합니다. 사용자가 스크롤 할 때마다 이 함수가 실행됩니다.
-  * currentScroll 계산 : $(this).scrollLeft()를 사용하여 현재 수평 스크롤 위치를 측정합니다.
+  * $(window).on('scroll', function() {...})  
+  윈도우의 스크롤 이벤트를 감지합니다. 사용자가 스크롤 할 때마다 이 함수가 실행됩니다.
+
+  * currentScroll 계산  
+  $(this).scrollLeft()를 사용하여 현재 수평 스크롤 위치를 측정합니다.
 
 * **요소 위치 조정**  
-  * 조건 확인 : if (currentScroll !== lastScroll) {...}을 통해 현재 스크롤 위치가 마지막으로 기록된 위치와 다른지 확인합니다.
-  * 요소 이동 : fixedBox.css("margin-left", -currentScroll)로 .fixed_box의 왼쪽 마진을 현재 스크롤 위치의 음수 값으로 설정합니다. 이로써 스크롤에 따라 요소가 움직이게 됩니다.
-  * 위치 업데이트 : lastScroll = currentScroll로 현재 스크롤 위치를 저장하여, 다음 이벤트에 사용합니다.  
+  * 조건 확인  
+  if (currentScroll !== lastScroll) {...}을 통해 현재 스크롤 위치가 마지막으로 기록된 위치와 다른지 확인합니다.
+
+  * 요소 이동  
+  fixedBox.css("margin-left", -currentScroll)로 .fixed_box의 왼쪽 마진을 현재 스크롤 위치의 음수 값으로 설정합니다. 이로써 스크롤에 따라 요소가 움직이게 됩니다.
+  
+  * 위치 업데이트  
+  lastScroll = currentScroll로 현재 스크롤 위치를 저장하여, 다음 이벤트에 사용합니다.  
 <br>
 
 ## 결론
