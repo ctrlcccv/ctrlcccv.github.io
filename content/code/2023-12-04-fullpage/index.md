@@ -1,7 +1,7 @@
 ---
 title: jQuery - 풀페이지 스크롤 반응형 예제 (fullpage.js 대체)
 description: >  
-    이 글은 jQuery를 사용하여 풀페이지 스크롤 기능을 구현하는 방법을 자세히 설명하며, fullpage.js에 의존하지 않는 독립적인 접근 방식을 제시합니다. 페이지 내비게이션과 반응형 디자인을 개선하는 실용적인 예시를 제공합니다.  
+    jQuery를 사용하여 풀페이지 스크롤 기능을 구현하는 방법을 자세히 설명하며, fullpage.js에 의존하지 않는 독립적인 접근 방식을 제시합니다. 페이지 내비게이션과 반응형 디자인을 개선하는 실용적인 예시를 제공합니다.  
 slug: 2023-12-04-fullpage
 date: 2023-12-04 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-04-fullpage.webp
