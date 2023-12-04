@@ -1,7 +1,7 @@
 ---
 title: jQuery - 스크롤 시 특정 위치에서 Fixed (반응형)
 description: >  
-    
+    jQuery를 사용하여 웹 페이지에서 사용자가 스크롤할 때 특정 요소가 화면의 특정 위치에 고정되는 방법을 설명합니다. 반응형 디자인을 고려한 이 예제는 HTML 구조, CSS 스타일, jQuery 코드를 자세히 다루며, 스크롤 및 창 크기 변경에 반응하는 동적인 웹 페이지 기능 구현을 보여줍니다.
 slug: 2023-07-28-scroll-fixed
 date: 2023-07-28 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-07-28-scroll-fixed.webp
