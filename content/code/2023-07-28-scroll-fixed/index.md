@@ -162,7 +162,7 @@ $(window).on('load', function() {
   창 크기가 변경될 때마다 이벤트 핸들러를 호출하여 고정 박스의 위치를 재조정합니다.
 
 * **이벤트 핸들링**  
-  $(window).on('resize scroll', updatePosition)  
+  * $(window).on('resize scroll', updatePosition)  
   윈도우 객체에 'resize' 및 'scroll' 이벤트를 바인딩하여 창 크기가 변경되거나 사용자가 스크롤 할 때마다 위치 업데이트 함수를 호출합니다.
 
 <br>
