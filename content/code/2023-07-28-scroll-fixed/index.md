@@ -4,7 +4,7 @@ description: >
     
 slug: 2023-07-28-scroll-fixed
 date: 2023-07-28 00:00:00+0000
-# image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/swiper-progress.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-07-28-scroll-fixed.webp
 
 categories:
     - jQuery
