@@ -4,7 +4,7 @@ description: >
     사용자 입력에 기반을 둔 CSS 삼각형 코드 자동 생성 웹 애플리케이션을 다룹니다. 사용자는 직관적인 인터페이스를 통해 삼각형의 모양을 디자인하고, 즉시 생성되는 CSS 코드를 확인할 수 있습니다.
 slug: 2023-12-05-triangle
 date: 2023-12-05 00:00:00+0000
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-05-triangle.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-05-triangle2.webp
 
 categories:
     - CSS
