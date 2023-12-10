@@ -112,5 +112,5 @@ jQuery와 CSS를 사용하여 마우스 커서 효과를 구현하는 방법을 
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io//ctrlcccv-demo/2023-11-23-cursor-custom/">예제결과 미리보기</a>
-    <a href="https://ctrlcccv.github.io/code/2023-11-27-cursor-reverse/">[연관글] jQuery - 마우스 커서 애니메이션 (반전, 확대)</a>
+    <a href="https://ctrlcccv.github.io/code/2023-11-27-cursor-reverse/">[관련글] jQuery - 마우스 커서 애니메이션 (반전, 확대)</a>
 </div>

@@ -13,6 +13,7 @@ tags:
 ---
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/code/2023-01-31-swiper-loop/">[참고코드] jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)</a>
+    <a href="/code/2023-12-10-swiper-center2/">[관련글] jQuery - Swiper 가운데 크게 정렬하기 (반응형)</a>
 </div>
 
 
@@ -266,4 +267,5 @@ function slider() {
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type2/">예제결과 미리보기 (두번째 유형)</a>
+    <a href="/code/2023-12-10-swiper-center2/">[관련글] jQuery - Swiper 가운데 크게 정렬하기 (반응형)</a>
 </div>

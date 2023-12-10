@@ -173,5 +173,5 @@ jQuery를 활용하여 스크롤에 반응하는 요소를 웹 페이지에서 �
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-28-scroll-fixed/">예제결과 미리보기</a>
-    <a href="https://ctrlcccv.github.io/code/2023-12-02-fixed-scroll/">[연관글] jQuery - 가로 스크롤에 따라 fixed 요소 위치 조정</a>
+    <a href="https://ctrlcccv.github.io/code/2023-12-02-fixed-scroll/">[관련글] jQuery - 가로 스크롤에 따라 fixed 요소 위치 조정</a>
 </div>

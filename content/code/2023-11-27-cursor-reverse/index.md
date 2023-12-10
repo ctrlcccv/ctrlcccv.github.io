@@ -23,7 +23,7 @@ tags:
 * **맞춤형 상호작용** : 웹사이트의 특정 부분에 대한 사용자의 관심을 집중시킬 방법을 제공합니다. 
 
 <div class="btn_wrap">
-    <a target="_blank" href="https://ctrlcccv.github.io/code/2023-11-23-cursor-custom/">[연관글] jQuery - 마우스 커서 따라다니는 효과</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/code/2023-11-23-cursor-custom/">[관련글] jQuery - 마우스 커서 따라다니는 효과</a>
     <a target="_blank" href="https://www.thinkthingthank.com/">예제 디자인 참고 사이트</a>
 </div>
 
