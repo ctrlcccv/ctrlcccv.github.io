@@ -10,7 +10,7 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - jQuery
 tags:
-    - 배경 효과
+    - 마우스 이벤트
 ---
 온라인 쇼핑몰에서 제품 이미지를 크게 보고 싶은 사용자의 요구는 매우 흔합니다. 따라서 사용자가 상품 이미지에 좀 더 가까이 다가갈 수 있도록 '이미지 확대 기능'을 제공하는 것은 중요한 사용자 경험(UX) 요소 중 하나입니다. 이 글에서는 jQuery를 사용하여 이미지 위에 마우스를 올리면 해당 부분을 확대해주는 기능을 살펴보겠습니다.  
 <br>
