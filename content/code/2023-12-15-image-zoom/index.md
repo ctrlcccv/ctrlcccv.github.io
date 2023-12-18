@@ -67,7 +67,8 @@ zoom_result 클래스는 확대 결과를 보여주기 위한 부분이며, 처�
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-### jQuery 코드
+
+## jQuery 코드
 ```js
 $(function(){
     function imageZoom(imgSelector, resultSelector) {
@@ -170,4 +171,5 @@ jQuery를 활용하여 구현한 이 이미지 확대 기능은 쇼핑몰 상세
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-15-image-zoom/">예제결과 미리보기</a>
+    <a href="https://ctrlcccv.github.io/code/2023-12-18-image-zoom2/">[관련글] jQuery - 마우스 움직임에 따라 이미지가 확대되는 코드 구현</a>
 </div>
