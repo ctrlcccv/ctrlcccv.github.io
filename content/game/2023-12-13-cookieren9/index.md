@@ -72,17 +72,7 @@ comments: false
 * **2-6 크렘브륄레맛 쿠키 의심**    
   * 22:00 ~ 24:00 크렘브륄레맛 쿠키와 산타노움이 말다툼하는 것을 보고 살짝 마음이 쓰였다. (음유시인)
   * 22:00 ~ 24:00 트리 점등식을 기다리던 중, 크렘브륄레맛 쿠키와 산타노움이 복도에서 악보 때문에 다투는 것을 발견했다. (천사)  
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<br>
 
 ## 챕터 3 공략
 
@@ -115,8 +105,19 @@ comments: false
   * 모두가 빈틈없이 순서대로 잘 정리되어 있어, 깔끔한 크렘브륄레맛 쿠키의 성격을 보여주는 것 같다.
   * 이번 크리스마스 연주회에 연주할 악보, 그런데 페이지 순서가 엉망진창으로 되어있다...?
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 * **4-5 로얄곰젤리 차장 방 조사**
-  * 곰젤리 방의 바닥 악보, 테이블 위의 여러 물품들과 서랍 비밀번호 **0246**을 주의깊게 조사합니다.
+  * 곰젤리 방의 바닥 악보, 테이블 위의 여러 물품들과 서랍 비밀번호 **0246**을 주의깊게 조사합니다.  
 
 * **4-6 녹일 수 있는 물건**
   * 아이스크림으로 만들어져 있어, 녹기 전에 서둘러 먹는 것이 좋을 것 같다.
