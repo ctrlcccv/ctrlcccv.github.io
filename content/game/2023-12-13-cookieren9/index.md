@@ -28,6 +28,7 @@ comments: false
   * 조사 포인트는 책상 위의 렌턴, 쇼파의 책과 봉투, 렌턴 옆의 케이크, 그리고 쇼파 밑의 가방이며, 이곳에서 만년필과 맨 왼쪽 책을 주목하세요.
   * 현재 위치 : 열차 안내 책자의 9호실 (크렘브륄레)
   * 특별한 일정 : 안내 책자의 24:00 ~ 25:00 크리스마스 트리 점등식   
+<br>
 
 ## 챕터 2 공략
 
@@ -41,17 +42,6 @@ comments: false
 * **2-2 알 수 있는 이유**   
   * 책 내용에 의하면, 설탕은 시간이 지날수록 딱딱하게 뭉치고 색이 바래는 성질이 있다고 한다.
   * 산타노움의 옆에 놓여있던 탁상시계. 바닥으로 떨어진 것 같은데, 그 충격으로 고장난 걸까?    
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
 * **2-2 증거물**   
   * 딸기잼이 잔뜩 묻은 캔디스틱.
@@ -82,7 +72,17 @@ comments: false
 * **2-6 크렘브륄레맛 쿠키 의심**    
   * 22:00 ~ 24:00 크렘브륄레맛 쿠키와 산타노움이 말다툼하는 것을 보고 살짝 마음이 쓰였다. (음유시인)
   * 22:00 ~ 24:00 트리 점등식을 기다리던 중, 크렘브륄레맛 쿠키와 산타노움이 복도에서 악보 때문에 다투는 것을 발견했다. (천사)  
-<br>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 ## 챕터 3 공략
 
