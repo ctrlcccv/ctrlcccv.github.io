@@ -106,7 +106,7 @@ $(window).on('load', function() {
             }
         } else {
             if (window.innerWidth > breakpoint){
-                $fixedBox.css({ 'position': 'absolute', 'top': `0` }); //고정 박스 위치가 최상단일 때
+                $fixedBox.css({ 'position': 'absolute', 'top': `0` }); // 고정 박스 위치가 최상단일 때
             }else{
                 $fixedBox.css({ 'position': 'static' }); // 화면이 좁을 때는 기본 위치로 설정
             }
