@@ -114,13 +114,27 @@ $(window).on('load', function() {
     };
     
     // 창 크기가 변경될 때 고정 박스의 위치를 초기화하고 초기 상단 위치를 다시 계산합니다.
+    let resizeTimer;
+    let isResize = false;
     $(window).on('resize', () => {
-        $fixedBox.css({ 'position': 'absolute', 'top': '0' });
-        initialTop = $fixedBox.offset().top;
+        clearTimeout(resizeTimer);
+        isResize = true;
+        resizeTimer = setTimeout(function() {
+            $fixedBox.css({ 'position': 'absolute', 'top': '0' });
+            initialTop = $fixedBox.offset().top;
+            isResize = false;
+            updatePosition();
+        }, 100);
     });
 
-    // 창 크기 변경과 스크롤 이벤트 모두에서 위치 업데이트 함수를 호출합니다.
-    $(window).on('resize scroll', updatePosition);
+    // 스크롤 할 때 위치 업데이트 함수를 호출합니다. (창 크기가 변경되지 않을 때)
+    $(window).on('scroll', function() {
+        if(isResize == false){
+            updatePosition();
+        }
+    });
+
+    updatePosition();
 });
 ```
 * **변수 초기화 및 설정**  
@@ -167,7 +181,7 @@ $(window).on('load', function() {
 
 * **이벤트 핸들링**  
   * $(window).on('resize scroll', updatePosition)  
-  윈도우 객체에 'resize' 및 'scroll' 이벤트를 바인딩하여 창 크기가 변경되거나 사용자가 스크롤 할 때마다 위치 업데이트 함수를 호출합니다.
+  윈도우 객체에 'scroll' 이벤트를 바인딩하여 사용자가 스크롤 할 때마다 위치 업데이트 함수를 호출합니다.
 
 <br>
 
