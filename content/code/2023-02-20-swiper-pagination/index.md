@@ -145,7 +145,7 @@ function slider() {
                 nextEl: '.slider .paging_next',
             },
             pagination: {
-                el: $('.slider .paging_list')[0],
+                el: '.slider .paging_list',
                 clickable: true,
                 renderBullet: function(index, className) {
                     return `<li class="${className}"><span>${index+1}</span></li>`;
