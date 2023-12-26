@@ -250,8 +250,8 @@ function slider() {
             loop: loopChk,
             centeredSlides: true,
             navigation: {
-                nextEl: $('.slider .btn_next')[0],
-                prevEl: $('.slider .btn_prev')[0],
+                nextEl: '.slider .btn_next',
+                prevEl: '.slider .btn_prev',
             },
             on: {
                 activeIndexChange: function() {

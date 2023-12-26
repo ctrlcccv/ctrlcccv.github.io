@@ -141,8 +141,8 @@ function slider() {
             observer: true,
             observeParents: true,
             navigation: {
-                prevEl: $('.slider .paging_prev')[0],
-                nextEl: $('.slider .paging_next')[0],
+                prevEl: '.slider .paging_prev',
+                nextEl: '.slider .paging_next',
             },
             pagination: {
                 el: $('.slider .paging_list')[0],
