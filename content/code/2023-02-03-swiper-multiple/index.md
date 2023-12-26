@@ -136,8 +136,8 @@ function slider(){
                 slidesPerGroup: 1,
                 loop: loopChk,
                 navigation: {
-                    prevEl: $(`.slider${index} .btn_prev`),
-                    nextEl: $(`.slider${index} .btn_next`),
+                    prevEl: $(`.slider${index} .btn_prev`)[0],
+                    nextEl: $(`.slider${index} .btn_next`)[0],
                 },
                 on: {
                     activeIndexChange: function () {

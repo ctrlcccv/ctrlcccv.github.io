@@ -144,8 +144,8 @@ function slideAct() {
             resistanceRatio: 0,
             loop: true,
             navigation: {
-                nextEl: $('.slider').find('.swiper-next'),
-                prevEl: $('.slider').find('.swiper-prev'),
+                nextEl: $('.slider').find('.swiper-next')[0],
+                prevEl: $('.slider').find('.swiper-prev')[0],
             },
             on: {
                 slideChange: function() {
@@ -246,8 +246,8 @@ function slideAct() {
                 resistanceRatio: 0,
                 loop: true,
                 navigation: {
-                    nextEl: $('.slider-' + index).find('.swiper-next'),
-                    prevEl: $('.slider-' + index).find('.swiper-prev'),
+                    nextEl: $('.slider-' + index).find('.swiper-next')[0],
+                    prevEl: $('.slider-' + index).find('.swiper-prev')[0],
                 },
                 on: {
                     slideChange: function() {
