@@ -39,6 +39,17 @@ comments: false
   * 산타모자 옆에 떨어져 있는 설탕 알갱이. 조금 딱딱하게 굳었고, 색도 바랬다.
   * 산타노움의 옆에 놓여있던 탁상시계. 바닥으로 떨어진 것 같은데, 그 충격으로 고장난 걸까?
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 * **2-2 알 수 있는 이유**   
   * 책 내용에 의하면, 설탕은 시간이 지날수록 딱딱하게 뭉치고 색이 바래는 성질이 있다고 한다.
   * 산타노움의 옆에 놓여있던 탁상시계. 바닥으로 떨어진 것 같은데, 그 충격으로 고장난 걸까?    
@@ -103,18 +114,7 @@ comments: false
 
 * **4-2 크렘브륄레맛 쿠키 상반된 행동**
   * 모두가 빈틈없이 순서대로 잘 정리되어 있어, 깔끔한 크렘브륄레맛 쿠키의 성격을 보여주는 것 같다.
-  * 이번 크리스마스 연주회에 연주할 악보, 그런데 페이지 순서가 엉망진창으로 되어있다...?
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+  * 이번 크리스마스 연주회에 연주할 악보, 그런데 페이지 순서가 엉망진창으로 되어있다...?  
 
 * **4-5 로얄곰젤리 차장 방 조사**
   * 곰젤리 방의 바닥 악보, 테이블 위의 여러 물품들과 서랍 비밀번호 **0246**을 주의깊게 조사합니다.  
