@@ -10,7 +10,7 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - jQuery
 tags:
-    - 흐르는 배너
+    - 흐르는 롤링 배너
 ---
 jQuery와 CSS 애니메이션을 사용하여 아래에서 위로 흐르는 롤링 배너를 구현하는 코드를 설명합니다. 반응형으로 디자인되어 있어, 다양한 디스플레이에서 일관된 사용자 경험을 제공합니다.  
 <br>
@@ -197,4 +197,5 @@ jQuery를 활용하여 아래에서 위로 흐르는 롤링 배너를 구현하�
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-05-vertical-banner/">예제결과 미리보기</a>
+    <a href="https://ctrlcccv.github.io/code/2023-07-23-flow-banner/">[관련글] jQuery - 흐르는 롤링 배너 (+ 반응형 타입 추가)</a>
 </div>

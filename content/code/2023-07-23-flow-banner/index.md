@@ -9,7 +9,7 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - jQuery
 tags:
-    
+    - 흐르는 롤링 배너
 ---
 흐르는 형태로 무한 롤링되는 배너를 만들었다.  
 
@@ -188,4 +188,5 @@ list 클래스의 가로 크기를 flow_banner 클래스의 가로 크기에 나
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-flow-banner/">예제결과 미리보기</a>
+    <a href="https://ctrlcccv.github.io/code/2024-01-05-vertical-banner/">[관련글] jQuery - 아래에서 위로 흐르는 롤링 배너 (반응형)</a>
 </div>
