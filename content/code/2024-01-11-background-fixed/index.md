@@ -96,4 +96,5 @@ CSS를 활용하여 스크롤 시에도 고정된 배경 이미지를 만드는 
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-11-background-fixed/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/code/2024-01-12-background-fixed2/">[관련글] background-attachment:fixed 모바일에서 안되는 문제 해결 방법</a>
 </div>
