@@ -50,7 +50,7 @@ HTML 구조는 `bg_fixed` 클래스를 가진 div 요소들과 배경 이미지,
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
 }
 .contents {
