@@ -43,6 +43,7 @@ HTML 구조는 `bg_fixed` 클래스를 가진 div 요소들과 배경 이미지,
 ```css
 .bg_fixed {
     height:100vh;
+    height:100lvh;
     clip-path: inset(0 0 0 0);
 }
 .bg_fixed img {
@@ -51,6 +52,7 @@ HTML 구조는 `bg_fixed` 클래스를 가진 div 요소들과 배경 이미지,
     left: 0;
     width: 100%;
     height: 100vh;
+    height:100lvh;
     object-fit: cover;
 }
 .contents {
