@@ -8,9 +8,9 @@ date: 2024-01-15 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-15-parallax-scroll.webp
 
 categories:
-    - CSS
+    - jQuery
 tags:
-    - 웹폰트
+    - 배경 효과
 ---
 패럴렉스 스크롤은 사용자의 스크롤 동작에 따라 배경과 전경의 요소들이 서로 다른 속도로 움직이면서 3D 같은 가시적 깊이감을 주는 기술입니다. 웹 디자인에서 이를 활용하면 더욱 몰입감 있고, 생동감 있는 사용자 경험을 제공할 수 있습니다. 이번 글에서는 jQuery를 이용해 간단한 패럴렉스 스크롤 효과를 구현하는 예제를 알아보겠습니다.  
 <br>
