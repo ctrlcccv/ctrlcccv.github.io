@@ -102,5 +102,5 @@ HTML 구조는 `bg_fixed` 클래스를 가진 div 요소들과 배경 이미지,
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-12-background-fixed2/">예제결과 미리보기</a>
-    <a target="_blank" href="https://ctrlcccv.github.io/code/2024-01-11-background-fixed/">[관련글] CSS - 스크롤 해도 고정되는 배경 이미지 만들기</a>
+    <a href="https://ctrlcccv.github.io/code/2024-01-11-background-fixed/">[관련글] CSS - 스크롤 해도 고정되는 배경 이미지 만들기</a>
 </div>
