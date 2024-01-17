@@ -92,5 +92,5 @@ body {
 <br>
 
 <div class="btn_wrap">
-    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings/">[참고글] font-variation-settings</a>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings/">[참고문서] font-variation-settings</a>
 </div>
