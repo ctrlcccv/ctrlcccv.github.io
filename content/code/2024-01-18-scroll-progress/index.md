@@ -2,7 +2,7 @@
 title: >  
     jQuery - 페이지 스크롤에 따라 진행 표시줄 표시하기
 description: >  
-
+    jQuery를 이용해서 페이지 상단에 고정된 위치에 스크롤에 따라 너비가 변하는 프로그레스 바를 구현하는 방법에 대해 상세하게 알아보겠습니다.
 slug: 2024-01-18-scroll-progress
 date: 2024-01-18 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-18-scroll-progress.webp
