@@ -63,11 +63,11 @@ jQuery와 HTML5의 캔버스 태그를 이용해 그려지는 이 프로그레�
 
 * **퍼센트 스타일링**
   * `percent` 클래스에는 `position: absolute`를 적용하여 컨테이너 중앙에 배치합니다.
-  * `transform` 속성을 사용하여 가로와 세로 중심에서 정확히 50%씩 이동시켜 실제 중앙에 있도록 합니다.
+  * `transform` 속성을 사용하여 가로와 세로 중심에서 정확히 50%씩 이동시켜 실제 중앙에 배치합니다.
   * `::after` 가상 요소를 사용하여 퍼센트 기호(%)를 추가합니다.
 
 * **캔버스 스타일링**
-  * 캔버스 크기를 부모 요소에 맞추어 100%로 설정하여 반응형 디자인이 가능하도록 합니다.   
+  * 캔버스 크기를 부모 요소에 맞추어 100%로 설정하여 반응형 디자인이 가능하도록 만듭니다.   
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
