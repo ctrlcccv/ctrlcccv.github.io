@@ -11,7 +11,7 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - CSS
 tags:
-    - 가상 클래스
+    - CSS 애니메이션
 ---
 웹사이트의 시각적인 매력을 높이는 데 중요한 요소 중 하나는 이미지 갤러리입니다. 이미지 갤러리는 사용자의 관심을 끌고, 웹사이트의 콘텐츠를 효과적으로 전시하는 방법으로 활용됩니다. 특히, 사용자의 마우스 호버(hover)를 감지하여 이미지가 확대되는 효과는 사용자 경험을 풍부하게 만들어 주는 요소입니다.  
 
