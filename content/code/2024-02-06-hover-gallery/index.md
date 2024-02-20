@@ -76,6 +76,17 @@ tags:
 }
 ```
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 * **.gallery 클래스**
   * 이 클래스는 &lt;ul&gt; 요소에 적용되어 전체 갤러리의 레이아웃을 결정합니다.
   * 'display: flex' 속성을 통해 자식 요소들(&lt;li&gt;들)이 유연한 박스 모델(flexbox) 안에서 배치되도록 합니다.
