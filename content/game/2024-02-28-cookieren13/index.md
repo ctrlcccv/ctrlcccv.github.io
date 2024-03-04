@@ -22,7 +22,7 @@ comments: false
 <br>
 
 ## 반죽괴물 보스 조합
-전체적으로 공격속도 부옵션 많이 넣어주세요.
+전체적으로 공격속도 부옵션 많이 넣어주세요.  
 
 * **쿠키 및 토핑**  
   * 의적 : 초코칩 X 5   
@@ -33,6 +33,25 @@ comments: false
 
 * **보물**  
   * 무공비, 호루라기, 망토  
+
+## 요정왕국 방어선 저지 조합
+요정왕국 방어선 (요정왕) 조합입니다.  
+쿨타임 부옵션 많이 넣어주세요.  
+
+* **쿠키 및 토핑**  
+  * 의적 : 초코칩 X 5   
+  * 망고 : 초코칩 X 5  
+  * 세인트릴리 : 초코칩 X 5  
+  * 크렘브륄레 : 라즈베리 X 5 (망토) 
+  * 은방울 : 초코칩 X 5 (망토)
+
+* **보물**  
+  * 무공비, 시계, 망토  
+<br>
+
+## 오염된 몬스터 무리 처치
+오염된 몬스터 무리 처치 (수은기사) 조합입니다.  
+쿨타임 부옵션 많이 넣어주세요.  
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -45,18 +64,20 @@ comments: false
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-## 요정왕국 방어선 저지 조합
-쿨타임 부옵션 많이 넣어주세요.
-
 * **쿠키 및 토핑**  
-  * 의적 : 초코칩 X 5   
-  * 망고 : 초코칩 X 5  
-  * 세인트릴리 : 초코칩 X 5  
-  * 크렘브륄레 : 라즈베리 X 5 (망토) 
-  * 은방울 : 초코칩 X 5 (망토)
+  * 수은기사 : 라즈베리 X 5   
+  * 의적 : 초코칩 X 5    
+  * 캡틴캐비어 : 라즈베리 X 5  
+  * 서리여왕 : 초코칩 X 5
+  * 크렘브륄레 : 라즈베리 X 5 (망토)
 
 * **보물**  
   * 무공비, 시계, 망토  
+<br>
+
+<div class="btn_wrap">
+    <a href="https://www.sk2gacha.com/ckk/coupon/">쿠키런 킹덤 쿠폰 등록하기</a>
+</div>
 
 <br>
 
