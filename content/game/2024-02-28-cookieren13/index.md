@@ -76,8 +76,6 @@ comments: false
 
 * **보물**  
   * 무공비, 시계, 망토  
-  
-<br>
 
 <div class="btn_wrap">
     <a href="https://www.sk2gacha.com/ckk/coupon/">쿠키런 킹덤 쿠폰 등록하기</a>
