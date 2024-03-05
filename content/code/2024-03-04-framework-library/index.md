@@ -10,7 +10,7 @@ date: 2024-03-04 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-04-framework-library.webp
 
 categories:
-    - React
+    - JavaScript
 tags:
 
 ---
