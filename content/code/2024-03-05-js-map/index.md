@@ -99,7 +99,7 @@ console.log(namesAndEmails);
 
 ## 활용 팁
 
-**화살표 함수 활용**
+**<a href="/code/2024-03-06-arrow-function/" target="_blank" class="link">화살표 함수</a> 활용**  
 
 기존 예시를 화살표 함수를 사용하여 더욱 간결하게 표현할 수 있습니다.
 
