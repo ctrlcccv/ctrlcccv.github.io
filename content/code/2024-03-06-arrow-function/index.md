@@ -92,7 +92,7 @@ const evenNumbers = numbers.filter(number => number % 2 === 0);
 
 **템플릿 리터럴**  
 
-템플릿 리터럴 내에서 화살표 함수를 사용하여 동적인 문자열을 생성하는 예시입니다. `map` 함수를 이용해 배열의 각 요소를 `<li>` 태그로 감싸고, `join` 함수로 문자열로 변환합니다.  
+템플릿 리터럴 내에서 화살표 함수를 사용하여 동적인 문자열을 생성하는 예시입니다. <a href="/code/2024-03-05-js-map/" target="_blank" class="link">map 함수</a>를 이용해 배열의 각 요소를 `<li>` 태그로 감싸고, `join` 함수로 문자열로 변환합니다.  
 
 ```javascript
 const numbers = [1, 2, 3, 4, 5];
