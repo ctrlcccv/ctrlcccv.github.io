@@ -3,7 +3,7 @@ title: >
     JavaScript 객체 생성의 핵심: new 키워드와 생성자 함수
 
 description: >  
-    
+    자바스크립트에서 생성자 함수와 new 키워드를 활용하여 객체를 생성하고 초기화하는 기본 개념과 활용 방법에 대한 설명을 다룹니다.
 
 slug: 2024-03-07-constructor-function
 date: 2024-03-07 00:00:00+0000

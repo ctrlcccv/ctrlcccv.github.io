@@ -3,7 +3,7 @@ title: >
     JavaScript this 예제: 암시적, 명시적, new 바인딩 비교
 
 description: >  
-    
+    JavaScript에서 this 키워드의 암시적, 명시적, new 바인딩 등 관련된 예제를 통해 이해를 돕는 내용으로, 함수의 실행 컨텍스트에 따라 다양한 객체에 this가 바인딩되는 규칙을 설명합니다.   
 
 slug: 2024-03-06-js-this
 date: 2024-03-06 01:00:00+0000
