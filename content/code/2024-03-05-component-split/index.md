@@ -61,7 +61,7 @@ tags:
   - 컨테이너 컴포넌트의 역할을 줄여 프레젠테이셔널 컴포넌트의 재사용성을 높이고 코드 관리를 간소화합니다.
 
 * **Hooks 활용**   
-  - `useState`, `useEffect`와 같은 Hooks를 사용하여 컴포넌트 상태 관리 및 로직 처리를 분리합니다.
+  - `useState`, <a href="/code/2024-03-25-useeffect/" target="_blank" class="link">useEffect</a>와 같은 Hooks를 사용하여 컴포넌트 상태 관리 및 로직 처리를 분리합니다.
   - 코드를 더 작고 재사용 가능한 단위로 나누고, 컴포넌트 간의 의존성을 줄입니다.
 
 * **GraphQL 활용**  
