@@ -145,7 +145,7 @@ console.log(evenNumbers); // [2, 4, 6, 8, 10]
 
 **다른 메서드와 함께 활용**
 
-`map()` 메서드를 `filter()` 메서드나 `reduce()` 메서드와 함께 사용하여 더욱 복잡한 작업을 수행할 수 있습니다.
+`map()` 메서드를 <a href="/code/2024-03-26-filter/" target="_blank" class="link">filter()</a> 메서드나 `reduce()` 메서드와 함께 사용하여 더욱 복잡한 작업을 수행할 수 있습니다.
 
 ```javascript
 const products = [
