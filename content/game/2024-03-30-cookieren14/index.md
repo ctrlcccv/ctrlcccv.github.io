@@ -40,6 +40,7 @@ comments: false
   * 22시 ~ 24시
 
 ![광장 이벤트 시간 버튼 위치](https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-30-cookieren14-1.webp)
+
 빨간색 원으로 표시한 메뉴를 클릭하여 광장 이벤트 시간을 확인할 수 있습니다.  
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
