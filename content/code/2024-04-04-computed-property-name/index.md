@@ -103,7 +103,7 @@ console.log(obj[prefix + "name"]); // "value"
 
 <br>
 
-## 실제 개발에서의 활용 예시
+## 활용 예시
 
 
 **1. 동적인 데이터 처리**  
