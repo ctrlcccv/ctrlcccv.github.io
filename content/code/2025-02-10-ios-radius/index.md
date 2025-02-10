@@ -5,9 +5,9 @@ title: >
 description: >  
     iOS 환경에서 border-radius와 overflow: hidden으로 발생하는 렌더링 문제를 isolation: isolate와 -webkit-mask-image를 사용하여 효과적으로 해결하는 방법을 소개합니다.
 
-slug: 2025-01-23-ios-radius
-date: 2025-01-23 00:00:00+0000
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-01-23-ios-radius.webp
+slug: 2025-02-10-ios-radius
+date: 2025-02-10 00:00:00+0000
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-02-10-ios-radius.webp
 
 categories:
     - CSS
