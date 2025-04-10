@@ -131,4 +131,5 @@ $(document).ready(function() {
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-06-countdown/">예제결과 미리보기</a>
+    <a href="/code/2025-04-10-countdown2/">[관련글] jQuery - 숫자가 내려오는 카운트다운 애니메이션</a>
 </div>
