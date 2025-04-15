@@ -11,6 +11,14 @@ categories:
 tags:
     - Swiper.js
 ---
+⚠️ 이 코드는 Swiper.js 5.2.0 버전을 기준으로 작성되었습니다. 최신 버전에서는 호환성 문제가 발생할 수 있습니다.  
+
+<div class="btn_wrap">
+    <a href="/code/2025-04-15-swiper-center3/">[관련글] Swiper.js 11+ centeredSlides 슬라이드 전환 오류 해결</a>
+</div>
+
+<br>
+
 웹 사이트에서 슬라이더는 사용자 인터페이스의 핵심 요소로서, 이미지나 콘텐츠를 돋보이게 하는 역할을 합니다. 본 글에서 다루는 코드는 jQuery와 Swiper 라이브러리를 사용하여 구현된 반응형 슬라이더입니다. 이 슬라이더는 사용자의 화면 크기에 따라 동적으로 조정되며, 항상 활성화된 슬라이드를 중앙에 크게 표시하여 사용자의 시선을 끕니다.  
 <br>
 
@@ -231,5 +239,5 @@ function sliderAct() {
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-10-swiper-center2/">예제결과 미리보기</a>
-    <a href="https://ctrlcccv.github.io/code/2023-07-20-swiper-center/">[관련글] jQuery - Swiper Center 옵션 커스텀</a>
+    <a href="/code/2025-04-15-swiper-center3/">[관련글] Swiper.js 11+ centeredSlides 슬라이드 전환 오류 해결</a>
 </div>

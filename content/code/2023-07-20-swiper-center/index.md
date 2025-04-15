@@ -11,11 +11,14 @@ categories:
 tags:
     - Swiper.js
 ---
+⚠️ 이 코드는 Swiper.js 3.3.1 버전을 기준으로 작성되었습니다. 최신 버전에서는 호환성 문제가 발생할 수 있습니다.
+
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/code/2023-01-31-swiper-loop/">[참고코드] jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)</a>
-    <a href="/code/2023-12-10-swiper-center2/">[관련글] jQuery - Swiper 가운데 크게 정렬하기 (반응형)</a>
+    <a href="/code/2025-04-15-swiper-center3/">[관련글] Swiper.js 11+ centeredSlides 슬라이드 전환 오류 해결</a>
 </div>
 
+<br>
 
 Swiper 슬라이드의 centeredSlides 옵션을 사용하여 두 가지 유형의 슬라이드를 만들었다.  
 [첫 번째 유형](#첫번째-유형)은 centeredSlides 옵션을 사용하여 슬라이드를 가운데로 정렬시켜 사용자에게 집중되는 효과를 가진 슬라이드를 만들었다.  
@@ -267,5 +270,5 @@ function slider() {
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type2/">예제결과 미리보기 (두번째 유형)</a>
-    <a href="/code/2023-12-10-swiper-center2/">[관련글] jQuery - Swiper 가운데 크게 정렬하기 (반응형)</a>
+    <a href="/code/2025-04-15-swiper-center3/">[관련글] Swiper.js 11+ centeredSlides 슬라이드 전환 오류 해결</a>
 </div>
