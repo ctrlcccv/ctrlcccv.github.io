@@ -162,7 +162,7 @@ function centerSlider() {
     swiper.on('transitionEnd', () => {
         const currentIndex = swiper.realIndex;
         if (currentIndex >= originalSlideCount) {
-            const originalIndex = currentIndex - originalSlideCount;
+            const originalIndex = currentIndex % originalSlideCount;
             swiper.slideToLoop(originalIndex, 0); // Instantly jump to the original slide
             autoplayActive = true;
         }
