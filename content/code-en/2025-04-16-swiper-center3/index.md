@@ -95,13 +95,13 @@ Now that the layout is ready, let’s add the JavaScript logic to duplicate slid
 ```js
 function centerSlider() {
     // Select the original slide items and the list to append cloned slides
+    const $sliderList = $('.slider_list');
     const $originalList = $('.slider_list > li');
     const originalSlideCount = $originalList.length;
-    const $consultingList = $('.slider_list');
     const targetCount = 20; // Desired total number of slides
 
     // Count current (non-cloned) slides
-    const currentSlideCount = $consultingList.find('> li[data-cloned!=true]').length;
+    const currentSlideCount = $sliderList.find('> li[data-cloned!=true]').length;
     // Calculate how many clones are needed to meet the target
     const neededClones = Math.max(0, Math.ceil((targetCount - currentSlideCount) / originalSlideCount));
 
@@ -109,7 +109,7 @@ function centerSlider() {
     for (let i = 0; i < neededClones; i++) {
         $originalList.each(function () {
             const $clone = $(this).clone();
-            $consultingList.append($clone);
+            $sliderList.append($clone);
         });
     }
 

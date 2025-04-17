@@ -99,13 +99,13 @@ left: 50%와 transform: translate(-50%)를 함께 사용하여 갤러리 콘텐�
 ```js
 function centerSlider() {
     // 원본 슬라이드 리스트와 복제 슬라이드 추가할 리스트 선택
+    const $sliderList = $('.slider_list');
     const $originalList = $('.slider_list > li');
     const originalSlideCount = $originalList.length;
-    const $consultingList = $('.slider_list');
     const targetCount = 20; // 목표 슬라이드 수
 
     // 현재 슬라이드 수
-    const currentSlideCount = $consultingList.find('> li[data-cloned!=true]').length;
+    const currentSlideCount = $sliderList.find('> li[data-cloned!=true]').length;
     // 필요한 복제 슬라이드 수
     const neededClones = Math.max(0, Math.ceil((targetCount - currentSlideCount) / originalSlideCount));
 
@@ -113,7 +113,7 @@ function centerSlider() {
     for (let i = 0; i < neededClones; i++) {
         $originalList.each(function () {
             const $clone = $(this).clone();
-            $consultingList.append($clone);
+            $sliderList.append($clone);
         });
     }
 
