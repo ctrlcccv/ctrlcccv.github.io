@@ -71,7 +71,6 @@ tags:
 .slider_list > li { display: flex; justify-content: center; align-items: center; width: 300px; height: 400px; background: #8ab4f8; font-size: 36px; font-weight: 500; } 
 .pagination { display: flex; justify-content: center; margin-top: 20px; } 
 .swiper-button-next, .swiper-button-prev { color: #000; }
-/* 슬라이드 수가 충분함에도 불구하고 coverflow와 slidesPerView: 'auto' 기능을 사용할 때, 양쪽 슬라이드 수가 부족한 경우 아래 코드를 적용해주세요. (width: 200vw 수치 조절) */
 .slider_center .inner { position: relative; left: 50%; width: 200vw; transform: translate(-50%); } 
 ```
 * **슬라이드 컨테이너 스타일**  
