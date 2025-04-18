@@ -6,13 +6,14 @@ description: >
     jQuery와 Swiper.js를 활용하여 단계별 프로그레스바 페이지네이션을 연동하는 방법을 소개합니다.
 
 slug: 2025-04-18-swiper-progress2
-date: 2025-04-18 01:00:00+0000
+date: 2025-04-18 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-18-swiper-progress2.webp
 
 categories:
     - jQuery
 tags:
     - Swiper.js
+    - 진행 표시줄
 ---
 이번 글에서는 jQuery를 활용하여 Swiper.js 슬라이드와 단계별 프로그레스바 페이지네이션을 연동하는 방법을 소개합니다. 프로그레스바는 사용자가 콘텐츠를 소화하는 데 소요되는 시간이나 단계를 직관적으로 알 수 있게 해주며, 각 단계를 명확히 구분함으로써 사용자가 자신의 진행 상태를 더 쉽게 이해할 수 있도록 돕습니다.  
 
