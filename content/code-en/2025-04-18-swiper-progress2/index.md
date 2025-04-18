@@ -52,7 +52,7 @@ Let’s start with the basic structure:
 * **.slider** wraps everything.
 * **.slide_list** contains the slides that Swiper cycles through.
 * **.progress** is your custom pagination bar, synced with the steps.
-* Navigation buttons let users manually move forward or back
+* Navigation buttons let users manually move forward or back.
 
 <br>
 
