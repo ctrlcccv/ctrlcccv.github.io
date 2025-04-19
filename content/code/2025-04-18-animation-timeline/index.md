@@ -7,6 +7,7 @@ description: >
 
 slug: 2025-04-18-animation-timeline
 date: 2025-04-18 02:00:00+0000
+lastmod: 2025-04-18 02:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-18-animation-timeline.webp
 
 categories:
