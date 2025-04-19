@@ -4,6 +4,7 @@ description: >
     Swiper.js의 centeredSlides 옵션을 활용한 슬라이드 두가지 코드 예제입니다.
 slug: 2023-07-20-swiper-center
 date: 2023-07-20 00:00:00+0000
+lastmod: 2025-04-19 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/swiper-center.webp
 
 categories:

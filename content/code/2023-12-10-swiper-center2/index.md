@@ -4,6 +4,7 @@ description: >
     반응형 웹사이트를 위한 jQuery와 Swiper 기반의 슬라이더 구현 방법을 탐구합니다. 사용자 화면 크기에 따라 조정되며, 중앙에 활성화된 슬라이드를 강조하는 슬라이더의 HTML, CSS, jQuery 코드 및 기능을 상세히 설명합니다.  
 slug: 2023-12-10-swiper-center2
 date: 2023-12-10 00:00:00+0000
+lastmod: 2025-04-19 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-10-swiper-center2.webp
 
 categories:
