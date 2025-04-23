@@ -4,6 +4,15 @@ title: >
 
 description: >  
     Create an interactive Swiper.js slider with a custom step-based progress bar using jQuery—perfect for onboarding, quizzes, and tutorials.
+
+alternates:
+  - title: "jQuery - Swiper 단계별 프로그레스바 페이지네이션 연동"
+    href: "https://ctrlcccv.github.io/code/2025-04-18-swiper-progress2/"
+    hreflang: "ko"
+  - title: "Swiper.js Slider: Custom Step Progress Bar Tutorial"
+    href: "https://ctrlcccv.github.io/code-en/2025-04-18-swiper-progress2/"
+    hreflang: "en"
+
 slug: 2025-04-18-swiper-progress2
 date: 2025-04-18 01:00:00+0000
 lastmod: 2025-04-18 02:00:00+0000
