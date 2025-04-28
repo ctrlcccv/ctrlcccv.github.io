@@ -5,10 +5,10 @@ title: >
 description: >  
     jQuery를 활용한 이미지 파일 업로드 및 미리보기 기능 구현 방법을 자세히 소개합니다. 업로드된 이미지를 즉시 확인할 수 있는 UI를 직접 만들어보세요.  
 
-slug: 2025-04-25-image-preview
-date: 2025-04-25 00:00:00+0000
-lastmod: 2025-04-25 00:00:00+0000
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-25-image-preview.webp
+slug: 2025-04-28-image-preview
+date: 2025-04-28 00:00:00+0000
+lastmod: 2025-04-28 00:00:00+0000
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-28-image-preview.webp
 
 categories:
     - jQuery
