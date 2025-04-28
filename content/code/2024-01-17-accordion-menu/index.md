@@ -1,11 +1,12 @@
 ---
 title: >  
-    jQuery - <details> 태그를 활용하여 아코디언 메뉴 만들기
+    <details> 태그로 쉽게 구현하는 아코디언 메뉴 (CSS/jQuery)
 description: >  
-    <details> 태그를 활용하여 아코디언 메뉴를 만드는 방법과, jQuery를 사용하여 동적인 기능 및 슬라이드 효과를 추가하는 코드를 설명합니다. CSS를 통한 스타일링도 포함되어 있습니다.
+    HTML5 <details> 태그로 아코디언 메뉴를 쉽게 만들고, jQuery와 CSS로 부드러운 애니메이션과 스타일을 적용하는 방법을 소개합니다.
 
 slug: 2024-01-17-accordion-menu
 date: 2024-01-17 00:00:00+0000
+lastmod: 2025-04-28 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-17-accordion-menu.webp
 
 categories:
@@ -13,10 +14,22 @@ categories:
 tags:
     - 아코디언 메뉴
 ---
-아코디언 메뉴는 웹사이트에서 내용을 숨겼다가, 사용자의 명령에 따라 펼치거나 닫을 수 있는 컴포넌트입니다. 이러한 메뉴는 `<details>`와 `<summary>` HTML 태그를 활용하여 쉽게 구현할 수 있으며, jQuery와 CSS를 추가하여 스타일링을 적용할 수 있습니다. 이 글에서는 `<details>` 태그를 기반으로 한 아코디언 메뉴를 만드는 방법을 소개하고, jQuery를 사용하여 동적인 기능을 추가하는 코드를 설명합니다.  
+
+아코디언 메뉴, 쉽게 만들고 싶지 않으신가요?
+
+웹사이트를 만들다 보면 자주 필요한 아코디언 메뉴! 사실 복잡한 스크립트 없이도 충분히 구현할 수 있습니다.  
+HTML5의 `<details>` 태그를 이용하면 기본적인 열기/닫기 기능은 아주 쉽게 만들 수 있고, 필요하다면 jQuery를 활용하여 부드러운 애니메이션이나 디테일한 제어도 추가할 수 있습니다.
+
+이 글에서는  
+**기본 아코디언 → 문제점 살펴보기 → jQuery로 개선 → CSS로 스타일링 → jQuery 없이 CSS만으로 개선**  
+이런 흐름으로 하나하나 차근차근 설명해 드리겠습니다.  
+
 <br>
 
-## HTML 구조
+## 빠르게 만드는 기본형
+
+먼저 HTML만으로 아주 간단한 아코디언 메뉴를 만들어봅시다.
+
 ```html
 <div class="accordion_menu">
     <details>
@@ -33,132 +46,185 @@ tags:
     </details>
 </div>
 ```
-* **아코디언 메뉴 컨테이너**
-  - `accordion_menu` 클래스를 가진 `<div>` 태그는 아코디언 메뉴의 전체적인 컨테이너로서, 모든 메뉴 항목들을 감싸줍니다. 
-  - CSS를 통해 스타일링이 적용되므로, 메뉴의 외형적 관리가 쉽습니다.
+이렇게만 작성해도 클릭 시 메뉴가 열리고 닫히는 기본적인 아코디언 기능을 사용할 수 있습니다.  
 
-* **`<details>` 태그**
-  - `<details>` 태그는 사용자가 클릭할 수 있는 메뉴 항목을 정의합니다. 
-  - 이 태그는 기본적으로 접히고 펼쳐질 수 있는 기능이 있어, 아코디언 메뉴의 핵심 역할을 담당합니다.
-
-* **`<summary>` 태그**
-  - `<summary>` 태그는 `<details>` 안에 있으며, 메뉴 항목의 제목으로 사용됩니다.
-  - 사용자가 클릭할 수 있는 부분으로, 이를 통해 해당 `<details>`의 내용을 펼치거나 접을 수 있습니다.
-
-* **콘텐츠 구역**
-  - 각 `<details>` 태그 내부에는 `<p>` 태그를 이용하여 실제로 펼쳐질 내용을 배치합니다.
-  - `<p>` 태그는 `<summary>` 뒤에 있으며, 메뉴가 펼쳐졌을 때 보이는 세부 내용을 담고 있습니다.  
 <br>
 
-## CSS 스타일
-```css
-.accordion_menu { width: 500px; margin:0 auto; padding-bottom: 10px; background-color: #fff; border: 1px solid #f8f8f8; border-radius:6px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); } 
-.accordion_menu details { display: block; padding: 10px;} 
-.accordion_menu details summary { position: relative; padding: 10px 50px 10px 20px; background-color: #f5f5f5; border-radius: 6px; font-size: 16px; font-weight: 500; color: #333; cursor: pointer; list-style-type: none; } 
-.accordion_menu details > summary::-webkit-details-marker {display: none;}
-.accordion_menu details summary::before,
-.accordion_menu details summary::after { content:''; position: absolute; top: 50%; right: 20px; width: 10px; height: 2px; background: #333; transform: translate(0,-50%); transition: all 0.3s; } 
-.accordion_menu details summary::after {transform:translate(0,-50%) rotate(90deg);}
-.accordion_menu details[open] summary::after { transform:translate(0,-50%) rotate(0); }
-.accordion_menu details p { margin-top: 10px; font-size: 14px; color: #333; } 
-```
-* **아코디언 메뉴의 기본 스타일**
-  - `accordion_menu` 클래스는 아코디언 메뉴 전체를 포함하는 컨테이너입니다.
-  - 배경색, 테두리, 그림자를 적용하여 시각적인 강조를 표현합니다.
-  - `<details>` 태그는 아코디언 메뉴의 각 항목을 담당합니다. 여기에 padding을 적용하여 콘텐츠 사이의 여백을 설정합니다.
-  
-* **`<summary>` 태그의 스타일**
-  - 메뉴의 제목 역할을 하는 `<summary>` 태그에는 배경색, 크기, 글꼴 스타일을 적용합니다.
-  - `<summary>`에 있는 기본 마커(화살표)를 숨기고, 가상 요소(`::before`, `::after`)를 사용하여 커스텀 화살표를 만듭니다.
-  - 화살표는 `<details>` 태그가 열려 있을 때와 닫혀 있을 때의 상태 변화를 나타내도록 회전 효과를 부여합니다.
+## `<details>` 태그의 한계점
 
-* **`<p>` 태그의 스타일**
-  - `<details>` 내부의 내용을 담고 있는 `<p>` 태그에는 크기와 색상을 적용합니다.  
+하지만 기본 `<details>` 태그에는 이런 한계가 있습니다.
 
-HTML과 CSS만으로도 열고 닫히는 기본적인 메뉴를 구현할 수 있습니다. 더 다양한 기능을 원한다면 아래의 jQuery 코드를 추가할 수 있습니다.  
+- 여러 메뉴가 동시에 열립니다.
+- 슬라이드처럼 부드럽게 열리거나 닫히지 않습니다.
+- 브라우저마다 기본 아이콘이 다르고, 커스터마이징이 어렵습니다.  
+
+사용자가 더 편리하고 쾌적하게 메뉴를 이용할 수 있도록 개선이 필요합니다.
+
 <br>
 
-## jQuery 코드
-### 하나의 아코디언 메뉴만 펼치기
-```js
-// 하나만 펼쳐지는 아코디언 메뉴
+## 업그레이드 1 : jQuery로 하나만 열리게 만들기
+
+클릭한 메뉴 하나만 열리고, 나머지는 자동으로 닫히게 만들어볼까요?
+
+```javascript
+// 하나만 열리도록 제어
 $('.accordion_menu summary').on('click', function() {
-    const $details = $(this).parent();
-    $details.siblings('details').removeAttr('open');
+    const $details = $(this).parent(); // 현재 클릭한 summary의 부모 details 찾기
+    $details.siblings('details').removeAttr('open'); // 다른 열린 메뉴 닫기
 });
 ```
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+사용자가 새로운 메뉴를 클릭하면, 이전에 열려 있던 메뉴는 자동으로 닫히게 됩니다.  
+이 스크립트를 사용할 경우, [[open] 속성을 활용한 스타일 적용 방법](/code/2024-01-17-accordion-menu/#jquery-없이-css만으로-열림닫힘-상태-표현하기)을 참고해주세요.
 
-- jQuery의 `.on('click', ...)` 이벤트를 사용해 `<summary>` 태그를 클릭했을 때의 동작을 정의합니다.
-- 현재 클릭된 `.accordion_menu details` 외의 모든 `<details>` 태그는 'open' 속성을 제거하여 자동으로 닫히도록 합니다.  
 <br>
 
-### 슬라이드 효과 추가하기
-```css
-/* 
-.accordion_menu details[open] summary::after { transform:translate(0,-50%) rotate(0); } 
-*/
-.accordion_menu details.open summary::after { transform:translate(0,-50%) rotate(0); } 
-```
-CSS를 수정해야 합니다. 주석 처리된 CSS를 삭제하고 아래에 제공된 CSS 코드를 추가해주세요.
+## 업그레이드 2 : 슬라이드 애니메이션 추가하기
 
-```js
-//슬라이드 효과 추가
+이번에는 메뉴가 부드럽게 열리고 닫히는 슬라이드 애니메이션을 추가해봅시다.
+
+```javascript
+// 슬라이드 애니메이션 추가
 $('.accordion_menu details').attr('open', true).each(function() {
     const $summary = $(this).find('summary');
-    $summary.nextAll().wrapAll('<div class="con"></div>').parent().hide();
+    $summary.nextAll().wrapAll('<div class="con"></div>').parent().hide(); // 내용을 감싸고 숨김
+    // summary 클릭 시 슬라이드 효과 적용
     $summary.on('click', function(e) {
-        e.preventDefault();
-        $(this).next('.con').slideToggle();
-        $(this).parent().toggleClass('open');
+        e.preventDefault(); // 기본 이벤트 막기
+        $(this).next('.con').slideToggle(); // 슬라이드 전환
+        $(this).parent().toggleClass('open'); // open 클래스 토글
     });
 });
 ```
-- 각 `<details>` 태그 내부의 내용을 `<div class="con"></div>`으로 감싸고, 처음에는 숨겨둡니다(`.hide()`).
-- `<summary>`를 클릭하면 해당 `.con` 요소 내용이 슬라이드 다운(`.slideToggle()`)되며 보입니다.
-- `.toggleClass('open')` 메소드를 이용하여 열렸는지의 상태를 클래스로 토글합니다.  
+클릭하면 `slideToggle()` 기능으로 자연스럽게 메뉴가 펼쳐지고 접히는 효과를 볼 수 있습니다.
+
 <br>
 
-### 아코디언 메뉴와 슬라이드 효과 결합하기
-```css
-/* 
-.accordion_menu details[open] summary::after { transform:translate(0,-50%) rotate(0); } 
-*/
-.accordion_menu details.open summary::after { transform:translate(0,-50%) rotate(0); } 
-```
-CSS를 수정해야 합니다. 주석 처리된 CSS를 삭제하고 아래에 제공된 CSS 코드를 추가해주세요.
+## 업그레이드 3 : 슬라이드 애니메이션과 하나만 열리는 아코디언 메뉴
 
-```js
-// 아코디언 메뉴 + 슬라이드 효과 추가
+이번에는 메뉴가 부드럽게 열리고 닫히면서, 한 번에 하나의 메뉴만 열리도록 기능을 개선해봅시다.
+
+```javascript
+// 아코디언 메뉴 + 슬라이드 효과
 $('.accordion_menu details').attr('open', true).each(function() {
     const $summary = $(this).find('summary');
-    $summary.nextAll().wrapAll('<div class="con"></div>').parent().hide();
-    $summary.on('click', function(e) {
-        e.preventDefault();
-        $(this).next('.con').slideToggle().parent().siblings().find('.con').slideUp();
-        $(this).parent().toggleClass('open').siblings().removeClass('open');
+    $summary.nextAll().wrapAll('<div class="con"></div>').parent().hide(); // 내용을 감싸고 숨김
+    $summary.on('click', function(e) { 
+        e.preventDefault(); // 기본 동작 방지
+        $(this).next('.con').slideToggle() // 내용 슬라이드 토글
+            .parent().siblings().find('.con').slideUp(); // 다른 내용은 슬라이드 업
+        $(this).parent().toggleClass('open') // 'open' 클래스 토글
+            .siblings().removeClass('open'); // 다른 항목의 'open' 클래스 제거
     });
 });
 ```
-- `<summary>`가 클릭 되면, 해당 메뉴 내용은 슬라이드 다운되고, 다른 모든 메뉴의 내용은 슬라이드 업(`.slideUp()`)되어 닫힙니다.
-- 이를 위해 `.next('.con').slideToggle()`을 호출한 후 `.parent()` 메소드로 상위 태그를 선택하고 `.siblings()` 메소드로 형제 요소들을 찾아 `.slideUp()`을 적용합니다.
-- 클래스 'open'을 토글링 함으로써 어떤 메뉴가 현재 열려 있는지 사용자에게 명확하게 표시할 수 있습니다.  
+
+이 코드로 구현하면, 사용자가 하나의 메뉴를 클릭할 때마다 그 메뉴만 부드럽게 열리고, 이미 열린 다른 메뉴는 자동으로 닫히게 됩니다.  
+
+<br>
+
+## 아코디언 메뉴 스타일링 다듬기
+
+이제 스타일을 다듬어 더 깔끔한 UI로 만들어봅시다.
+
+```css
+.accordion_menu { 
+    width: 500px; 
+    margin: 0 auto; 
+    padding-bottom: 10px; 
+    background-color: #fff; 
+    border: 1px solid #f8f8f8; 
+    border-radius: 6px; 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+}
+
+.accordion_menu details { 
+    display: block; 
+    padding: 10px;
+} 
+
+.accordion_menu details summary { 
+    position: relative; 
+    padding: 10px 50px 10px 20px; 
+    background-color: #f5f5f5; 
+    border-radius: 6px; 
+    font-size: 16px; 
+    font-weight: 500; 
+    color: #333; 
+    cursor: pointer; 
+    list-style-type: none; 
+} 
+
+/* 기본 화살표 아이콘 숨김 */
+.accordion_menu details > summary::-webkit-details-marker {
+    display: none; 
+}
+
+.accordion_menu details summary::before,
+.accordion_menu details summary::after { 
+    content: ''; 
+    position: absolute; 
+    top: 50%; 
+    right: 20px; 
+    width: 10px; 
+    height: 2px; 
+    background: #333; 
+    transform: translate(0, -50%); 
+    transition: all 0.3s;
+} 
+
+/* 닫힌 상태 화살표 */
+.accordion_menu details summary::after {
+    transform: translate(0, -50%) rotate(90deg); 
+}
+
+/* 열린 상태 화살표 */
+.accordion_menu details.open summary::after {
+    transform: translate(0, -50%) rotate(0);
+}
+
+.accordion_menu details p { 
+    margin-top: 10px; 
+    font-size: 14px; 
+    color: #333; 
+} 
+```
+
+메뉴가 열릴 때 화살표가 자연스럽게 회전하는 모습을 볼 수 있습니다.
+
+<br>
+
+## jQuery 없이 CSS만으로 열림/닫힘 상태 표현하기
+
+jQuery 없이, 오직 HTML과 CSS만으로 열림/닫힘 상태를 제어하는 방법도 가능합니다.
+
+### `[open]` 속성 활용하기
+
+`details` 요소는 열려 있을 때 자동으로 `open` 속성이 붙습니다.  
+이걸 CSS에서 활용하면 상태에 따라 다른 스타일을 줄 수 있습니다.
+
+```css
+.accordion_menu details[open] summary::after {
+    transform: translateY(-50%) rotate(0deg);
+}
+```
+- 기본 상태에서는 after 가상 요소를 90도 회전시켜 플러스(+) 모양을 표시합니다.
+- 메뉴가 열리면 ([open] 속성 추가) after 요소가 0도로 회전하며 마이너스(-) 모양으로 바뀝니다.
+
+**추가로 알아두면 좋은 점**  
+- `[open]` 속성은 사용자가 메뉴를 열거나 닫을 때 브라우저가 자동으로 추가하거나 제거합니다.
+- 별도 스크립트 없이도 열린 상태를 감지할 수 있어 매우 편리합니다.
+
 <br>
 
 ## 결론
-`<details>` 태그와 jQuery를 활용하면, 아코디언 메뉴를 간단하게 구현할 수 있습니다. jQuery를 사용하면 각 메뉴가 열리거나 닫히는 상태를 세밀하게 제어할 수 있고, 애니메이션과 같은 시각적인 효과를 추가할 수 있습니다.  
+
+HTML과 CSS, jQuery를 적절히 조합하면 누구나 쉽게, 그리고 멋지게 아코디언 메뉴를 완성할 수 있습니다.  
+궁금한 점이나 추가하고 싶은 기능이 있다면 언제든 댓글로 편하게 남겨주세요! 🙌  
+최대한 빠르게 답변드리겠습니다.  
+
 <br>
 
 <div class="btn_wrap">
     <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-17-accordion-menu/" target="_blank">예제결과 미리보기</a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details/" target="_blank">[참고문서] &lt;details&gt;: The Details disclosure element</a>
+    <a href="https://developer.mozilla.org/ko/docs/Web/HTML/Reference/Elements/details" target="_blank">[참고문서] &lt;details&gt;: The Details disclosure element</a>
 </div>
