@@ -8,6 +8,15 @@ description: >
 slug: 2025-04-28-image-preview
 date: 2025-04-28 00:00:00+0000
 lastmod: 2025-04-28 00:00:00+0000
+
+alternates:
+  - title: "jQuery - 이미지 파일 업로드 및 미리보기 기능 구현하기"
+    href: "https://ctrlcccv.github.io/code/2025-04-28-image-preview/"
+    hreflang: "ko"
+  - title: "Implement Image File Upload and Preview using jQuery"
+    href: "https://ctrlcccv.github.io/code-en/2025-04-29-image-preview/"
+    hreflang: "en"
+    
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-28-image-preview.webp
 
 categories:

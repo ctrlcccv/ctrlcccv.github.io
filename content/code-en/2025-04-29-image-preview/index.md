@@ -5,11 +5,19 @@ title: >
 description: >  
     Learn how to create a clean image upload feature with live preview using jQuery. Improve UX with step-by-step code, tips, and real-time feedback for users.
 
-slug: 2025-05-01-image-preview
-date: 2025-05-01 00:00:00+0000
-lastmod: 2025-05-01 00:00:00+0000
+slug: 2025-04-29-image-preview
+date: 2025-04-29 00:00:00+0000
+lastmod: 2025-04-29 00:00:00+0000
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-01-image-preview-en.webp
+alternates:
+  - title: "jQuery - 이미지 파일 업로드 및 미리보기 기능 구현하기"
+    href: "https://ctrlcccv.github.io/code/2025-04-28-image-preview/"
+    hreflang: "ko"
+  - title: "Implement Image File Upload and Preview using jQuery"
+    href: "https://ctrlcccv.github.io/code-en/2025-04-29-image-preview/"
+    hreflang: "en"
+
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-29-image-preview-en.webp
 
 categories:
     - jQuery
@@ -177,7 +185,7 @@ Every small upgrade to your user interface builds trust and delight. Try this fe
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-01-image-preview/">Live Example Preview</a>
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-28-image-preview/">Live Example Preview</a>
 </div>
 
 
