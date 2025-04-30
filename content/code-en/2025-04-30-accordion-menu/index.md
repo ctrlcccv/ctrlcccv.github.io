@@ -5,19 +5,19 @@ title: >
 description: >  
     Learn how to create a lightweight, accessible accordion menu using HTML <details>, CSS, and optional jQuery. A perfect guide for building fast, SEO-friendly web menus.
 
-slug: 2025-05-02-accordion-menu
-date: 2025-05-02 00:00:00+0000
-lastmod: 2025-05-02 00:00:00+0000
+slug: 2025-04-30-accordion-menu
+date: 2025-04-30 00:00:00+0000
+lastmod: 2025-04-30 00:00:00+0000
 
 alternates:
   - title: "<details> 태그로 쉽게 구현하는 아코디언 메뉴 (CSS/jQuery)"
     href: "https://ctrlcccv.github.io/code/2024-01-17-accordion-menu/"
     hreflang: "ko"
   - title: "Simple <details> Accordion: CSS (Optional jQuery)"
-    href: "https://ctrlcccv.github.io/code-en/2025-05-02-accordion-menu/"
+    href: "https://ctrlcccv.github.io/code-en/2025-04-30-accordion-menu/"
     hreflang: "en"
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-02-accordion-menu-en.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-30-accordion-menu-en.webp
 
 categories:
     - jQuery

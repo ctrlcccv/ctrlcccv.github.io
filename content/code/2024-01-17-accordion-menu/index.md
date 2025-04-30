@@ -7,6 +7,15 @@ description: >
 slug: 2024-01-17-accordion-menu
 date: 2024-01-17 00:00:00+0000
 lastmod: 2025-04-28 00:00:00+0000
+
+alternates:
+  - title: "<details> 태그로 쉽게 구현하는 아코디언 메뉴 (CSS/jQuery)"
+    href: "https://ctrlcccv.github.io/code/2024-01-17-accordion-menu/"
+    hreflang: "ko"
+  - title: "Simple <details> Accordion: CSS (Optional jQuery)"
+    href: "https://ctrlcccv.github.io/code-en/2025-04-30-accordion-menu/"
+    hreflang: "en"
+
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-17-accordion-menu.webp
 
 categories:
