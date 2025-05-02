@@ -4,6 +4,7 @@ description: >
     SVG를 활용한 원형 그래프 코드입니다.
 slug: 2023-07-23-pie-chart
 date: 2023-07-23 01:00:00+0000
+lastmod: 2023-07-23 01:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/pie-chart.webp
 
 categories:
@@ -18,6 +19,19 @@ SVG &lt;circle&gt; 태그에 원의 반지름 크기의 선을 추가하면 선�
 그래프의 부채꼴 모양은 점선을 만드는 속성인 stroke-dasharray를 사용했다.  
 stroke-dasharray:100 40; 이라면 점선의 길이는 100, 간격은 40이다.  
 점선의 간격에 원의 전체 둘레 값을 넣어 투명색 영역을 만든 뒤, 그래프 비율만큼 둘레 값을 계산하여 길이를 지정했다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
 
 ## HTML 구조
 ```html
@@ -52,6 +66,8 @@ stroke-dasharray:100 40; 이라면 점선의 길이는 100, 간격은 40이다.
 ```
 SVG <circle> 태그를 사용했고, data-* 속성에 각각 몇 퍼센트인지 작성했다.  
 
+<br>
+
 ## CSS 스타일
 ```css
 /* 원형 그래프 */
@@ -84,6 +100,8 @@ r 속성은 반지름의 크기를, cx, cy 속성은 &lt;circle&gt; 태그의 �
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+<br>
+  
 ## jQuery 코드
 ```js
 $(document).ready(function() {
@@ -115,6 +133,7 @@ function pieAct() {
     })
 }
 ```
+
 그래프의 영역별 색상은 랜덤 색상을 넣을까 생각했지만, 실제 작업할 때에는 색상이 정해져 있는 경우가 더 많을 것 같아 배열로 직접 넣는 방법을 선택했다.  
 원의 둘레 값을 계산하여 perimeter 변수에 넣고, data-percent 속성 값에 따라 각 부채꼴 영역의 둘레 값을 계산하여 percent 변수에 넣은 뒤 stroke-dasharray 속성에 값을 지정했다.  
 부채꼴 영역의 시작 지점은 transform:rotate() 속성으로 각도를 맞췄다.  

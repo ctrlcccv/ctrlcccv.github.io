@@ -25,6 +25,19 @@ Swiper 슬라이드의 centeredSlides 옵션을 사용하여 두 가지 유형�
 [첫 번째 유형](#첫번째-유형)은 centeredSlides 옵션을 사용하여 슬라이드를 가운데로 정렬시켜 사용자에게 집중되는 효과를 가진 슬라이드를 만들었다.  
 [두 번째 유형](#두번째-유형)은 CSS의 transform: scale() 속성을 활용하여 슬라이드 요소의 크기에 변화를 주어 3D carousel 형태의 슬라이드를 만들었다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 첫번째 유형
 
 ### HTML 구조
@@ -76,17 +89,6 @@ Swiper 슬라이드의 centeredSlides 옵션을 사용하여 두 가지 유형�
 <br>
 그리고 가장자리에 있는 슬라이드는 가운데 슬라이드에 집중되도록 배경을 어둡게 처리했다.
 swiper-slide-duplicate 클래스까지 스타일을 적용한 이유는 마지막 슬라이드에서 첫 번째 슬라이드로 무한 반복되는 과정에서 스타일을 유지하지 못하는 문제가 있었다. 따라서 복제된 슬라이드에도 같은 스타일을 적용했다.  
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
 ### jQuery 코드
 
@@ -146,6 +148,7 @@ function slider() {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type1/">예제결과 미리보기 (첫번째 유형)</a>
 </div>
+
 <br>
 
 ## 두번째 유형
@@ -207,6 +210,17 @@ function slider() {
 }
 ```
 영역별로 크기를 지정하기 위해 transform: scale() 속성을 사용했다. 그리고 슬라이드가 넘어갈 때 크기가 부드럽게 변화하도록 transition 속성을 선언했다.
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 ### jQuery 코드
 ```js

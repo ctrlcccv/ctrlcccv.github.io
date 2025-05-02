@@ -15,6 +15,18 @@ tags:
 Swiper.js 플러그인을 활용하여 갤러리 형태의 슬라이드를 만들었다.  
 공식 사이트에도 갤러리 형태의 예제가 있지만, 무한 반복과 반응형을 추가하기 위해 코드를 수정했다.  
 이 예제는 PC에서는 작은 이미지의 썸네일이 5개, 모바일에서는 3개가 보이는 형태로 구현되어 있다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -81,6 +93,8 @@ Swiper.js 플러그인을 활용하여 갤러리 형태의 슬라이드를 만�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js

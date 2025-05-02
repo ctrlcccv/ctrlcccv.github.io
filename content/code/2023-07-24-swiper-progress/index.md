@@ -4,6 +4,7 @@ description: >
     Swiper.js를 활용하여 페이지 제목과 progress bar를 추가한 슬라이드 코드 예제입니다.
 slug: 2023-07-24-swiper-progress
 date: 2023-07-24 01:00:00+0000
+lastmod: 2023-07-24 01:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/swiper-progress.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
     - 진행 표시줄
 ---
 Swiper.js 플러그인의 pagination 옵션을 텍스트로 변경하고, 각 페이지의 progress bar 형태를 추가했다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -83,6 +96,8 @@ pagination 버튼이 active 되었을 때 progress bar 의 width값이 100%로 �
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+<br>
+
 ## jQuery 코드
 ```js
 $(document).ready(function() {
@@ -136,6 +151,7 @@ function slider() {
     });
 }
 ```
+
 슬라이드의 제목을 배열에 저장하고, 전체 슬라이드 수를 페이지 번호로 표시하는 기능이다.  
 코드는 다음과 같은 구성 요소로 이루어져 있다.  
 

@@ -25,6 +25,17 @@ tags:
 
 이번 글에서는 jQuery를 활용해 간단하면서도 부드럽게 흐르는 롤링 배너를 만드는 방법과, 다양한 화면 크기에 잘 대응할 수 있는 **반응형 버전**까지 함께 구현하는 과정을 소개합니다. 이 글을 통해 웹 프로젝트에 쉽게 적용할 수 있는 실전 예제를 익혀보시기 바랍니다.
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조

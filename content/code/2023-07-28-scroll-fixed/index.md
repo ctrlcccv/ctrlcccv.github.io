@@ -4,6 +4,7 @@ description: >
     jQuery를 사용하여 웹 페이지에서 사용자가 스크롤할 때 특정 요소가 화면의 특정 위치에 고정되는 방법을 설명합니다. 반응형 디자인을 고려한 이 예제는 HTML 구조, CSS 스타일, jQuery 코드를 자세히 다루며, 스크롤 및 창 크기 변경에 반응하는 동적인 웹 페이지 기능 구현을 보여줍니다.
 slug: 2023-07-28-scroll-fixed
 date: 2023-07-28 00:00:00+0000
+lastmod: 2023-07-28 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-07-28-scroll-fixed.webp
 
 categories:
@@ -14,6 +15,18 @@ tags:
 jQuery를 활용하여 웹 페이지 스크롤 시 특정 요소가 화면의 특정 위치에 고정되는 코드 예제를 소개합니다. 이 예제의 핵심은 사용자가 페이지를 스크롤 할 때 특정 요소가 미리 정해진 위치에 도달하면 화면에 고정되어 계속 보이도록 하는 것입니다.   
 
 예를 들어, 사용자가 페이지를 아래로 스크롤 하는 동안 사이드바의 광고나 메뉴가 특정 지점에 도달하면 그 위치에서 고정되어 나머지 페이지와 독립적으로 스크롤 되지 않습니다. 이러한 기능은 중요한 정보나 기능을 사용자의 시선에 지속적으로 노출시키는 데 매우 유용합니다. 또한, 반응형 디자인을 고려하여 화면 크기에 따라 고정 요소의 동작이 달라지도록 설정되어 있어, 다양한 디바이스와 화면 크기에서도 사용자 경험을 일관되게 유지할 수 있습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -73,6 +86,8 @@ fixed_box는 절대 위치를 사용하여 필요에 따라 화면에 고정됩�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js
