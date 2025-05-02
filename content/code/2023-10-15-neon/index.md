@@ -4,6 +4,7 @@ description: >
     HTML과 CSS를 사용하여 네온사인 효과를 만드는 방법입니다.
 slug: 2023-10-15-neon
 date: 2023-10-15 00:00:00+0000
+lastmod: 2023-10-15 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-15-neon.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
 ---
 네온사인 효과는 웹 사이트에 화려함을 더해주어 사용자들에게 인상적인 경험을 제공하는 데 도움이 됩니다.   
 HTML과 CSS를 사용하여 네온사인 효과를 만드는 방법입니다.
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -55,6 +68,8 @@ neon 클래스를 정의하고 해당 클래스에 원하는 스타일을 적용
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## 애니메이션 키프레임 정의
 텍스트에 반짝이는 효과를 주기 위해 키프레임을 정의합니다. 이 예제에서는 neon-flicker라는 애니메이션을 사용합니다. 이 애니메이션은 @keyframes를 사용하여 텍스트의 text-shadow 속성을 변화시켜 번갈아 가며 반짝이는 효과를 만듭니다.

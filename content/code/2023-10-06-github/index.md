@@ -4,6 +4,7 @@ description: >
     애드센스 승인을 위해 블로그를 개선했던 경험을 공유하는 후기입니다.
 slug: 2023-10-06-github
 date: 2023-10-06 00:00:00+0000
+lastmod: 2023-10-06 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-06-github.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - GitHub 블로그
 ---
 애드센스 승인은 많은 블로거들에게 꿈 같은 성취입니다. 하지만 그 성취를 얻기까지 거절과 노력의 순환에서 벗어나기는 쉽지 않습니다. 저 또한 GitHub Pages를 이용한 블로그를 운영하며 애드센스 승인을 얻기 위해 6번의 거절을 겪은 뒤, 7번째 시도에서 성공했습니다. 이 과정에서 어떤 변화가 있었는지, 그 변화가 승인에 어떤 영향을 미쳤는지 공유하고자 합니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## 블로그 글 개수와 품질
@@ -27,6 +40,17 @@ tags:
 
 이러한 노력으로 글의 품질을 향상시킴으로써 블로그의 노출 순위가 상승하고, 검색 엔진에서 더 빠르게 인식되었습니다.  
 
+<br>
+
+## SEO 전략 활용
+또한 SEO(검색 엔진 최적화)도 중요한 역할을 했습니다. 글을 작성할 때 SEO를 고려하는 것은 블로그 트래픽을 증가시키는 데 도움이 됩니다. 몇 가지 SEO 전략을 사용하여 블로그 글을 작성했습니다.  
+
+* **키워드 연구** : 글을 작성하기 전에 관련된 키워드를 연구하고 선택했습니다. 이 키워드를 글의 제목, 본문, 메타 태그 등에 자연스럽게 포함시켰습니다.
+* **내부 링크 구성** : 관련된 글 간에 내부 링크를 추가하여 사용자 경험을 개선했습니다.
+* **메타 태그 최적화** : 메타 타이틀과 메타 설명을 최적화하여 검색 결과에서 눈에 띄도록 만들었습니다.           
+
+SEO에 맞춘 글 작성은 블로그의 검색 엔진 랭킹을 향상시키는 데 도움이 되었으며, 블로그 트래픽을 늘리는 데 기여했습니다.  
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -38,14 +62,6 @@ tags:
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-## SEO 전략 활용
-또한 SEO(검색 엔진 최적화)도 중요한 역할을 했습니다. 글을 작성할 때 SEO를 고려하는 것은 블로그 트래픽을 증가시키는 데 도움이 됩니다. 몇 가지 SEO 전략을 사용하여 블로그 글을 작성했습니다.  
-
-* **키워드 연구** : 글을 작성하기 전에 관련된 키워드를 연구하고 선택했습니다. 이 키워드를 글의 제목, 본문, 메타 태그 등에 자연스럽게 포함시켰습니다.
-* **내부 링크 구성** : 관련된 글 간에 내부 링크를 추가하여 사용자 경험을 개선했습니다.
-* **메타 태그 최적화** : 메타 타이틀과 메타 설명을 최적화하여 검색 결과에서 눈에 띄도록 만들었습니다.           
-
-SEO에 맞춘 글 작성은 블로그의 검색 엔진 랭킹을 향상시키는 데 도움이 되었으며, 블로그 트래픽을 늘리는 데 기여했습니다.  
 <br>
 
 ## 블로그 스킨 변경

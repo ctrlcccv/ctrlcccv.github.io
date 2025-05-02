@@ -4,6 +4,7 @@ description: >
     jQuery와 Swiper 라이브러리를 활용하여 탭 스와이프 메뉴를 구현하는 방법을 소개합니다. 메뉴 항목을 클릭하면 선택한 항목이 화면 중앙에 오도록 하며, 코드의 재사용성을 높이는 장점을 얻을 수 있습니다.
 slug: 2023-10-12-swiper-click
 date: 2023-10-12 00:00:00+0000
+lastmod: 2023-10-12 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-12-swiper-click.webp
 
 categories:
@@ -14,6 +15,18 @@ tags:
 
 탭 스와이프 메뉴는 사용자에게 콘텐츠를 쉽게 탐색할 수 있는 기능 중 하나입니다.   
 이 글에서는 jQuery와 Swiper 라이브러리를 활용하여, 탭 스와이프 메뉴를 클릭하면 선택한 메뉴 항목이 화면 가운데로 오도록 하는 방법을 소개하겠습니다. 더불어, 이 예제는 "tab_swiper" 클래스를 추가하면 이 기능을 다른 swiper 슬라이드에도 쉽게 적용할 수 있어, 재사용이 가능하다는 장점이 있습니다. 이러한 개발 패턴은 웹 개발자들에게 사용자 경험을 개선하고 코드를 효율적으로 관리할 수 있는 강력한 도구를 제공합니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -49,6 +62,9 @@ active 클래스를 추가하면 해당 항목이 가운데 정렬됩니다.
 .menu > li.active a:after {content:'';position: absolute;bottom: 0;left: 0;width: 100%;height: 2px;background: #2762bb;}
 ```
 
+## jQuery 코드
+jQuery와 Swiper 라이브러리를 활용하여 탭 스와이프 메뉴를 구현합니다.
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -60,8 +76,6 @@ active 클래스를 추가하면 해당 항목이 가운데 정렬됩니다.
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-## jQuery 코드
-jQuery와 Swiper 라이브러리를 활용하여 탭 스와이프 메뉴를 구현합니다.
 ```js
 $(window).on('load', function () {
     // 페이지가 로드되면 탭 스와이프 초기화 함수를 호출합니다.

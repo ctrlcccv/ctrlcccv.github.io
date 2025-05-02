@@ -4,6 +4,7 @@ description: >
     화면에 노출됐을 때 숫자가 부드럽게 증가하는 효과를 구현하는 방법입니다.
 slug: 2023-10-20-counting
 date: 2023-10-20 00:00:00+0000
+lastmod: 2023-10-20 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-20-counting.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - 스크롤 이벤트
 ---
 사용자가 웹 페이지를 스크롤 할 때, 화면에 특정 요소가 나타나면서 숫자가 부드럽게 증가하는 이 효과는 사용자 경험을 향상시키고 페이지의 시각적 매력을 높여줍니다. 이 글에서는 jQuery를 사용하여 **스크롤 내렸을 때 숫자 카운트 애니메이션을 만드는 방법**을 알아보겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -29,6 +42,9 @@ HTML 코드에는 카운트로 사용할 숫자를 표시할 요소가 필요합
 .counter {padding:0 30px;font-size: 60px;font-weight: 500;color: #000;text-align: center;}
 ```
 
+## jQuery 코드
+jQuery를 사용하여 스크롤 이벤트에 반응하고 숫자를 업데이트하며 애니메이션을 구현합니다.
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -40,8 +56,6 @@ HTML 코드에는 카운트로 사용할 숫자를 표시할 요소가 필요합
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-## jQuery 코드
-jQuery를 사용하여 스크롤 이벤트에 반응하고 숫자를 업데이트하며 애니메이션을 구현합니다.
 ```js
 $(document).ready(function() {
     // 클래스가 "counter"인 모든 요소를 선택합니다.

@@ -4,6 +4,7 @@ description: >
     파이썬으로 pynput 라이브러리를 활용하여 단축키 리스너를 만드는 방법입니다. 다양한 키보드 이벤트 리스너의 설명과 예제입니다.
 slug: 2023-09-20-shortcuts
 date: 2023-09-20 00:00:00+0000
+lastmod: 2023-09-20 00:00:00+0000
 # image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/mouse-position.webp
 
 categories:
@@ -12,6 +13,19 @@ tags:
     - pynput
 ---
 파이썬 라이브러리인 pynput을 활용하여 키보드 이벤트를 감지하고, 특정 단축키를 눌렀을 때와 놓았을 때 실행되는 함수를 만드는 방법입니다.
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
 
 ## pynput 라이브러리 소개
 pynput은 파이썬으로 키보드와 마우스 이벤트를 감지하고 제어할 수 있는 라이브러리입니다.   
@@ -52,6 +66,14 @@ on_press 함수는 사용자가 특정 키를 눌렀을 때 실행되며, on_rel
 * keyboard.KeyCode.from_char('a') : 'a' 키를 나타내는 상수입니다.  
 <br>
 
+## 키보드 리스너 생성
+```python
+# 키보드 리스너 생성
+with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
+    listener.join()
+```
+Listener 클래스는 on_press와 on_release 함수를 사용하여 키보드 이벤트를 감지하고, 사용자가 정의한 동작을 실행합니다. listener.join()은 리스너를 시작하고 계속해서 키보드 입력을 감지하는 역할을 합니다.  
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -63,13 +85,6 @@ on_press 함수는 사용자가 특정 키를 눌렀을 때 실행되며, on_rel
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-## 키보드 리스너 생성
-```python
-# 키보드 리스너 생성
-with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
-    listener.join()
-```
-Listener 클래스는 on_press와 on_release 함수를 사용하여 키보드 이벤트를 감지하고, 사용자가 정의한 동작을 실행합니다. listener.join()은 리스너를 시작하고 계속해서 키보드 입력을 감지하는 역할을 합니다.  
 <br>
 
 ## 전체 코드

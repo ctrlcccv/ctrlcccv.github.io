@@ -16,6 +16,19 @@ Selenium은 웹 애플리케이션 테스트를 자동화하고 웹 스크래핑
 Python과 Selenium을 사용하여 Google에서 검색 결과를 가져오는 방법을 예제와 함께 설명하겠습니다.  
 웹 스크래핑은 웹 사이트에서 정보를 추출하고 분석하는 데 매우 유용하며, Python과 Selenium을 통해 자동화할 수 있습니다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## Selenium 라이브러리 설치
 Selenium 라이브러리를 설치해야 합니다.   
 터미널 또는 명령 프롬프트에서 다음 명령을 실행하여 Selenium을 설치하세요.  

@@ -4,6 +4,7 @@ description: >
     Swiper 메뉴에 스크롤 이동과 활성화된 효과를 적용하고, 스크롤 했을 때 활성화된 메뉴를 가운데 정렬하는 기능을 구현하였습니다.  
 slug: 2023-10-22-swiper-menu
 date: 2023-10-22 00:00:00+0000
+lastmod: 2023-10-22 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-22-swiper-menu.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
     - 스크롤 이벤트
 ---
 [jQuery - Swiper 스와이프메뉴 클릭하면 가운데오기](https://ctrlcccv.github.io/code/2023-10-12-swiper-click/) 작업 이후, Swiper로 제작한 메뉴에 대한 추가 기능을 개발하게 되었습니다. 이번 작업에서는 **스크롤 이동과 활성화된 메뉴에 효과를 적용하고, 스크롤 했을 때 활성화된 메뉴를 가운데 정렬하는 기능**을 구현하였습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -64,6 +77,10 @@ HTML 구조를 살펴보겠습니다. 다음과 같이 메뉴와 컨텐츠 섹�
 }
 ```
 
+## jQuery 코드
+menuScroll 함수는 메뉴를 고정하고 활성화된 메뉴 항목을 중앙으로 이동시키는 데 사용됩니다.    
+클릭했을 때 가운데 정렬하는 initTabSwipers 함수는 [jQuery - Swiper 스와이프메뉴 클릭하면 가운데오기](https://ctrlcccv.github.io/code/2023-10-12-swiper-click/)를 참고해 주세요.
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -74,10 +91,6 @@ HTML 구조를 살펴보겠습니다. 다음과 같이 메뉴와 컨텐츠 섹�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
-## jQuery 코드
-menuScroll 함수는 메뉴를 고정하고 활성화된 메뉴 항목을 중앙으로 이동시키는 데 사용됩니다.    
-클릭했을 때 가운데 정렬하는 initTabSwipers 함수는 [jQuery - Swiper 스와이프메뉴 클릭하면 가운데오기](https://ctrlcccv.github.io/code/2023-10-12-swiper-click/)를 참고해 주세요.
 
 ```js
 $(document).ready(function () {
