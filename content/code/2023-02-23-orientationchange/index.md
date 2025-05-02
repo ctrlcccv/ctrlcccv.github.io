@@ -3,6 +3,7 @@ title: jQuery - iOS 모바일 가로 세로 모드 전환 구분하는 방법
 description: jQuery를 사용하여 iOS 모바일 가로 세로 모드 전환을 구분하는 코드 예제입니다.
 slug: 2023-02-23-orientationchange
 date: 2023-02-23 00:00:00+0000
+lastmod: 2023-02-23 00:00:00+0000
 # image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/swiper-pagination.webp
 
 categories:

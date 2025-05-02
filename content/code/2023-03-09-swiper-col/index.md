@@ -3,6 +3,7 @@ title: jQuery - Swiper multi row (다중 행) 정렬 문제 해결
 description: Swiper 슬라이드의 다중 행 정렬 수정과 loop 옵션 추가를 위한 코드 예제입니다.
 slug: 2023-03-09-swiper-col
 date: 2023-03-09 00:00:00+0000
+lastmod: 2023-03-09 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/swiper-col.webp
 
 categories:
