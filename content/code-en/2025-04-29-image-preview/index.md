@@ -30,6 +30,17 @@ Imagine running an online shop or setting up a profile page. Wouldn't it be help
 
 In this tutorial, we’ll walk through how to implement a clean, interactive image upload feature with live preview using jQuery. It’s beginner-friendly, reusable, and adds a polished touch to any website.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML: Building the Upload Interface

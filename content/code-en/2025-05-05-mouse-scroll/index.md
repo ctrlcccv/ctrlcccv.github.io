@@ -31,6 +31,17 @@ First impressions are crucial in web design, and the top section of your page—
 
 Using a scroll indicator designed with HTML and CSS helps guide users without relying on text instructions or JavaScript. It's lightweight, visually appealing, and enhances user engagement.
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML Structure for the Scroll Mouse Animation
