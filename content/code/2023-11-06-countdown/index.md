@@ -4,6 +4,7 @@ description: >
     jQuery를 사용하여 카운트다운 타이머를 만드는 방법입니다.
 slug: 2023-11-06-countdown
 date: 2023-11-06 00:00:00+0000
+lastmod: 2023-11-06 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-06-countdown.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
 ---
 웹 페이지에서 남은 시간을 표시하는 카운트다운 타이머는 사용자에게 시간 경과를 시각적으로 보여주는 데 유용한 기능입니다. 이 글에서는 jQuery를 사용하여 웹 페이지에 간단한 남은 시간 타이머를 만드는 방법을 소개하겠습니다.   
 이 타이머는 목표 날짜와 시간까지의 시간 차이를 계산하고 초, 분, 시간, 일 단위로 표시합니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -26,19 +39,9 @@ tags:
 </div>
 ```
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 ## jQuery 코드
 jQuery를 사용하여 카운트다운을 계산하고 화면에 표시합니다.
+
 ```js
 $(document).ready(function() {
     const $countdown = $('.countdown'); // 카운트다운을 표시할 요소
@@ -96,6 +99,18 @@ $(document).ready(function() {
     countdownInterval = setInterval(calculateCountdown, 1000);
 });
 ```
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 * **요소 선택 및 변수 선언**
   * $countdown : 카운트다운을 표시할 요소입니다.
   * $days : 남은 날짜를 표시할 요소입니다.

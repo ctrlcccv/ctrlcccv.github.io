@@ -4,6 +4,7 @@ description: >
     Intersection Observer API를 활용하여 무한 스크롤을 구현하는 방법입니다.
 slug: 2023-11-01-ajax-Infinite
 date: 2023-11-01 00:00:00+0000
+lastmod: 2023-11-01 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-01-ajax-Infinite.webp
 
 categories:
@@ -15,9 +16,21 @@ tags:
 ---
 무한 스크롤(infinite scroll)은 웹 애플리케이션에서 콘텐츠를 끊임없이 로드하여 사용자가 스크롤할 때마다 새로운 데이터를 자연스럽게 표시하는 기술입니다. 이 기술은 사용자 경험을 향상시키고 페이지 네비게이션을 개선하는 데 도움이 됩니다. 무한 스크롤을 구현하는 방법 중 하나는 jQuery와 Ajax를 사용하여 데이터를 동적으로 로드하는 것입니다.
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 그러나 스크롤 이벤트를 사용하여 데이터를 로드하는 경우, 불필요한 이벤트 핸들링과 데이터 요청이 발생할 수 있습니다. 이에 따라 성능 문제가 발생할 수 있으며, 사용자 경험에 악영향을 미칠 수 있습니다.
 
 이 문제를 해결하기 위해 [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)를 사용하는 것이 좋습니다. Intersection Observer API는 요소가 화면에 나타났을 때 콜백 함수를 실행하는 기능을 제공하며, 스크롤 이벤트를 사용하지 않고도 무한 스크롤을 구현할 수 있습니다.  
+
 <br>
 
 ## HTML 구조
@@ -34,16 +47,6 @@ tags:
 .item {padding: 10px 15px;font-size: 16px;}
 .item + .item {border-top: 1px solid #ededed;}
 ```
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
 ## jQuery 코드
 ```js
@@ -110,6 +113,17 @@ $(document).ready(function() {
     }, observerOptions);
 });
 ```
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 * **페이지 및 아이템 관련 변수 설정**  
   * page 변수는 현재 페이지 번호를 저장합니다. 초깃값은 1입니다.
   * itemsPerPage 변수는 한 페이지당 표시되는 아이템 수를 설정합니다. 초깃값은 10입니다.

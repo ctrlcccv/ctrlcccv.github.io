@@ -4,6 +4,7 @@ description: >
     CSS를 활용하여 간단하고 쉽게 적용할 수 있는 햄버거 메뉴 애니메이션을 만드는 방법입니다.
 slug: 2023-11-03-hamburger-menu
 date: 2023-11-03 00:00:00+0000
+lastmod: 2023-11-03 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-03-hamburger-menu.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - CSS 애니메이션
 ---
 햄버거 메뉴 아이콘은 모바일 및 데스크톱 웹 애플리케이션에서 메뉴를 손쉽게 열고 닫을 수 있는 중요한 UI 요소 중 하나입니다. 이 글에서는 CSS를 활용하여 간단하고 쉽게 적용할 수 있는 햄버거 메뉴 애니메이션을 만드는 방법을 살펴보겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -80,6 +93,8 @@ CSS를 사용하여 햄버거 메뉴 아이콘을 스타일링하고 애니메�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 jQuery를 사용하여 메뉴 아이콘을 클릭할 때 active 클래스를 토글링 하는 이벤트를 처리합니다.

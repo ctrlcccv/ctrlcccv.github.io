@@ -4,6 +4,7 @@ description: >
     jQuery의 스크롤 이벤트와 CSS의 transform 속성을 결합하여, 웹 페이지의 요소가 스크롤을 내릴 때 나타나는 효과를 구현하는 방법입니다.
 slug: 2023-10-30-scroll-show
 date: 2023-10-30 00:00:00+0000
+lastmod: 2023-10-30 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-30-scroll-show.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
 ---
 jQuery의 스크롤 이벤트와 CSS의 transform 속성을 결합하여, **웹 페이지의 요소가 스크롤을 내릴 때 나타나는 효과**를 구현하는 방법입니다.
 아래에서 실제 예제 코드와 함께 이 기술을 구현하는 방법을 자세히 설명하겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -61,6 +74,11 @@ type_left 클래스가 추가되면 요소가 왼쪽에서 오른쪽으로 나�
 * **.scroll_on.type_right**  
 type_right 클래스가 추가되면 요소가 오른쪽에서 왼쪽으로 나타납니다.  
 
+<br>
+
+## jQuery 코드
+jQuery를 사용하여 스크롤 이벤트를 모니터링하고, 요소들을 화면에 나타나게 하는 코드가 구현되어 있습니다. 
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -72,8 +90,6 @@ type_right 클래스가 추가되면 요소가 오른쪽에서 왼쪽으로 나�
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-## jQuery 코드
-jQuery를 사용하여 스크롤 이벤트를 모니터링하고, 요소들을 화면에 나타나게 하는 코드가 구현되어 있습니다. 
 ```js
 $(document).ready(function() {
     // 클래스가 "scroll_on"인 모든 요소를 선택합니다.
