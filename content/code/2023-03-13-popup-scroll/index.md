@@ -180,6 +180,16 @@ function popup() {
     });
 }
 ```
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 * **팝업 열기**  
   버튼 클릭 시 `.pop_wrap`을 보여주며, `.type_disable` 클래스가 있을 경우 `body`에 `.disable_scroll`을 추가해 스크롤을 막습니다.
