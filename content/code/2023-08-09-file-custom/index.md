@@ -4,6 +4,7 @@ description: >
     HHTML, CSS, jQuery를 사용하여 input[type="file"] 태그를 스타일 커스텀하는 코드 예제입니다.
 slug: 2023-08-09-file-custom
 date: 2023-08-09 00:00:00+0000
+lastmod: 2023-08-09 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/file-custom.webp
 
 categories:
@@ -16,6 +17,18 @@ input[type='file'] 태그는 CSS 커스터마이징이 제한적이다. 원하�
 IR 기법(Image Replacement Technique)은 웹 접근성을 개선하기 위해 사용되는 방법으로, 텍스트 화면 리더(스크린 리더)나 다른 보조 기술을 사용하는 사용자가 이미지의 내용을 이해할 수 있도록 도와주는 기법이다.  
 <br>
 그리고 제이쿼리를 활용하여 파일을 선택하면 선택한 파일의 이름을 표시할 수 있도록 구현했다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -59,6 +72,8 @@ input[type="file"]:focus-visible ~ .file_btn, .file_cus:hover .file_btn {backgro
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js

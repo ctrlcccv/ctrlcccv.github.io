@@ -4,6 +4,7 @@ description: >
     CSS를 활용하여 형광펜 밑줄 효과를 간단하게 구현하는 방법입니다.
 slug: 2023-08-11-highlighter
 date: 2023-08-11 00:00:00+0000
+lastmod: 2023-08-11 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/highlighter.webp
 
 categories:
@@ -15,11 +16,26 @@ tags:
 이 예제에서는 background 속성으로 밑줄 높이와 위치를 조정하여 간단하게 형광펜 효과를 구현할 수 있다.  
 그리고 transition 속성을 활용하여 마우스를 올렸을 때 밑줄이 부드럽게 이동하도록 애니메이션 효과를 추가해보았다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## HTML 구조
 ```html
 <p><span class="highlighter">형광펜 효과 CSS 코드 예제</span>입니다.</p>
 ```
 HTML 요소에 highlighter 클래스를 추가하여 형광펜 밑줄 효과를 적용했다.  
+
+<br>
 
 ## CSS 스타일
 ```css
@@ -31,6 +47,8 @@ linear-gradient를 사용하여 밑줄 색상을 입히고, background-position�
 * 밑줄 위치 : background-position: 0 밑줄 위치;
 * 밑줄 높이 : background-size: 100% 밑줄 높이;
 
+<br>
+
 ## HTML 구조 (+ 애니메이션 추가)
 ```html
 <p><span class="highlighter">왼쪽에서 오른쪽으로 이동합니다.</span></p>
@@ -39,6 +57,19 @@ linear-gradient를 사용하여 밑줄 색상을 입히고, background-position�
 ```
 background-position 속성으로 이동하는 방향을 변경할 수 있다.  
 이를 위해 center와 right 클래스를 추가하여 각각 다른 속성을 지정했다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
 
 ## CSS 스타일 (+ 애니메이션 추가)
 ```css

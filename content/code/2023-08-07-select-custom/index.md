@@ -4,6 +4,7 @@ description: >
     HTML, CSS, jQuery를 사용하여 select 태그를 스타일 커스텀하는 코드 예제입니다.
 slug: 2023-08-07-select-custom
 date: 2023-08-07 00:00:00+0000
+lastmod: 2023-08-07 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/select-custom.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
 ---
 select 태그의 CSS 커스텀은 제한적이기 때문에, 원하는 디자인을 구현하기 위해서는 ul 태그를 사용하여 옵션 목록을 작성한 후, jQuery를 사용하여 select 동작을 추가해야 한다.  
 그리고 select 옵션 데이터값을 전달하기 위해 input hidden 태그를 활용했다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 코드

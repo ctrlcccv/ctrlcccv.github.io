@@ -4,6 +4,7 @@ description: >
     Python과 Selenium을 사용하여 Google에서 검색 결과를 가져오는 방법
 slug: 2023-09-06-scraping
 date: 2023-09-06 00:00:00+0000
+lastmod: 2023-09-06 00:00:00+0000
 # image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/mouse-position.webp
 
 categories:

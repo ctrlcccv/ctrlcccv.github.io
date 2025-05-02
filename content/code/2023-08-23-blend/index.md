@@ -4,6 +4,7 @@ description: >
     mix-blend-mode는 CSS의 속성으로, 요소의 배경과 해당 요소의 내용물을 블렌딩하는 방법을 결정합니다. Photoshop과 같은 그래픽 편집 소프트웨어에서 사용되는 레이어 블렌딩 모드와 유사한 개념입니다.
 slug: 2023-08-23-blend
 date: 2023-08-23 00:00:00+0000
+lastmod: 2023-08-23 00:00:00+0000
 # image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/highlighter.webp
 
 categories:
@@ -13,6 +14,19 @@ tags:
 ---
 CSS의 mix-blend-mode 속성은 웹 디자인과 그래픽 작업을 더욱 흥미롭게 만들어주는 강력한 도구입니다.   
 이 속성을 활용하면 웹 요소들 사이에 다양한 블렌딩 효과를 적용하여 독특하고 시각적으로 매력적인 디자인을 구현할 수 있습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
 
 ## mix-blend-mode란?
 mix-blend-mode는 CSS의 속성으로, 요소의 배경과 해당 요소의 내용물을 블렌딩하는 방법을 결정합니다.   
@@ -59,7 +73,6 @@ difference 모드는 두 색상의 차이를 강조하여 픽셀 간의 차이�
 
 11. exclusion (제외) :  
 exclusion 모드는 두 색상을 혼합하여 중간 톤을 만듭니다. 배경과 요소의 색상을 조화롭게 블렌딩하여 이미지를 부드럽게 만들거나 화면을 완화할 때 사용됩니다.  
-<br>
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -71,6 +84,8 @@ exclusion 모드는 두 색상을 혼합하여 중간 톤을 만듭니다. 배�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## mix-blend-mode 속성의 활용 예시
 1. 텍스트 위에 배경 이미지 블렌딩 :  
