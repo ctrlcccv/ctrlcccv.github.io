@@ -1,6 +1,6 @@
 ---
 title: overscroll-behavior로 팝업 내부 스크롤과 body 스크롤 제어하기
-description: 레이어 팝업 안에서만 스크롤되도록 만들고, 배경 스크롤까지 제어하는 방법을 알려드립니다. overscroll-behavior와 jQuery를 활용한 팝업 구현 팁을 확인해보세요.
+description: 레이어 팝업 안에서만 스크롤 되도록 만들고, 배경 스크롤까지 제어하는 방법을 알려 드립니다. overscroll-behavior와 jQuery를 활용한 팝업 구현 팁을 확인해보세요.
 slug: 2023-03-13-popup-scroll
 date: 2023-03-13 00:00:00+0000
 lastmod: 2025-05-02 00:00:00+0000
@@ -13,9 +13,9 @@ tags:
     - 레이어 팝업
 ---
 
-팝업을 띄웠을 때, 배경이 같이 스크롤되면 불편하지 않으셨나요?  
-특히 모바일에서 팝업 내용을 스크롤하려고 했는데, 배경까지 움직이면 헷갈리고 짜증 나기 쉽습니다.  
-이 글에서는 `overscroll-behavior`와 jQuery를 활용하여 팝업 안에서만 스크롤되도록 만들고, 필요에 따라 배경(body) 스크롤도 완전히 차단하는 방법을 알려드립니다.
+팝업을 띄웠을 때, 배경이 같이 스크롤 되면 불편하지 않으셨나요?  
+특히 모바일에서 팝업 내용을 스크롤 하려고 했는데, 배경까지 움직이면 헷갈리고 짜증 나기 쉽습니다.  
+이 글에서는 `overscroll-behavior`와 jQuery를 활용하여 팝업 안에서만 스크롤 되도록 만들고, 필요에 따라 배경(body) 스크롤도 완전히 차단하는 방법을 알려 드립니다.
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -194,7 +194,7 @@ function popup() {
 팝업이 열릴 때 `body`에 `.disable_scroll`을 추가하면 다음과 같은 효과가 있습니다.
 
 * **배경 스크롤 완전 차단**  
-  사용자가 팝업 외부를 스크롤하려고 해도 움직이지 않습니다.
+  사용자가 팝업 외부를 스크롤 하려고 해도 움직이지 않습니다.
 
 * **모바일 터치 제어까지 차단**  
   `touch-action: none`으로 모바일 터치 반응도 막습니다.
@@ -209,7 +209,7 @@ function popup() {
 | 구분 | overscroll-behavior: none | .disable_scroll |
 |------|---------------------------|------------------|
 | 내부 스크롤이 끝났을 때 배경 스크롤 전파 | 차단 | 차단 |
-| 사용자가 직접 배경을 스크롤하려고 할 때 | 가능 | 불가능 |
+| 사용자가 직접 배경을 스크롤 하려고 할 때 | 가능 | 불가능 |
 | 모바일 터치 반응 | 허용 | 차단 |
 
 <br>
