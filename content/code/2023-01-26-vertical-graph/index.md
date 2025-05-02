@@ -13,6 +13,19 @@ tags:
 CSS를 활용하여 데이터에 따라 자동으로 정렬되는 세로형 막대그래프를 만들어보았습니다.  
 아래는 그래프의 HTML과 CSS 코드 예시입니다.
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## HTML 코드
 
 그래프를 구성하는 HTML 요소입니다.

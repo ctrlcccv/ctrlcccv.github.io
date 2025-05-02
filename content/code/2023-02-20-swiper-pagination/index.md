@@ -15,6 +15,19 @@ swiper 슬라이드는 기본적으로 동그라미 형태의 페이지 번호�
 이 페이징 기능을 응용하여 게시판 스타일의 페이징을 만들 수 있습니다.    
 이번 예제에서는 사용자들이 더 쉽게 이해하고 편리하게 사용할 수 있는 페이징을 구현하는 방법을 소개하겠습니다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 핵심 기능 설명
 * 부드러운 페이징 전환 :  
 Swiper 슬라이드는 페이지를 넘길 때 부드럽게 전환되는 효과를 제공합니다. 사용자가 페이지 간 전환을 원활하게 경험할 수 있습니다.
@@ -88,6 +101,9 @@ Swiper 슬라이드는 페이지를 넘길 때 부드럽게 전환되는 효과�
 .paging_list > li.swiper-pagination-bullet-active {border-color: #8ab4f8;color: #8ab4f8;}
 ```
 
+## jQuery 코드
+슬라이드 페이징 위치 조정 로직을 jQuery로 구현합니다.
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -98,9 +114,6 @@ Swiper 슬라이드는 페이지를 넘길 때 부드럽게 전환되는 효과�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
-## jQuery 코드
-슬라이드 페이징 위치 조정 로직을 jQuery로 구현합니다.
 
 ```js
 $(window).on('load', function() {

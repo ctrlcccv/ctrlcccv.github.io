@@ -15,6 +15,19 @@ jQuery와 Swiper 라이브러리를 사용하여 반응형 슬라이드를 만�
 Swiper 라이브러리를 사용하면 화면 크기에 따라 슬라이드의 수가 동적으로 변하도록 반응형 슬라이드를 손쉽게 구현할 수 있습니다.   
 하지만 loop 옵션을 사용하면 슬라이드를 무한 반복하기 위해 내용을 복제하는데, 이에 따라 몇 가지 문제가 발생할 수 있습니다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 문제 상황
 화면 크기에 따라 슬라이드의 개수가 변경되는 Swiper 반응형 슬라이드를 개발하셨다고 가정해봅시다.   
 PC 버전은 최대 5개, 모바일 버전은 최대 3개의 슬라이드를 보여줘야 합니다.  
@@ -23,6 +36,8 @@ Swiper의 breakpoints 옵션을 사용하여 화면 크기에 따라 슬라이�
 <br>
 이러한 상황에서 PC 버전의 슬라이드 개수가 5개 이상이면 문제가 없지만, 4개 이하일 때에도 슬라이드가 복제되어 정상적으로 작동하지 않습니다.  
 또한 슬라이드 개수에 따라 loop 옵션의 Boolean 값을 변경하더라도, 슬라이드 개수가 3개에서 5개 사이일 때 PC에서 모바일 크기로 변경하게 되면, 정상적으로 전환되지 않는 문제가 발생합니다.  
+
+<br>
 
 ## 해결 방법
 위의 문제를 해결하기 위해 다음과 같은 방법을 사용했습니다.
@@ -36,18 +51,6 @@ Swiper의 breakpoints 옵션을 사용하여 화면 크기에 따라 슬라이�
 - 슬라이드 인덱스 관리 :  
 Swiper 인스턴스의 activeIndexChange 이벤트를 활용하여 현재 슬라이드의 인덱스를 관리합니다. 이를 통해 슬라이드가 변경될 때 현재 인덱스를 갱신하여 올바른 슬라이드를 보여줍니다.
 <br><br>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 
 ### HTML 구조
 
@@ -84,6 +87,17 @@ Swiper의 스타일은 아래와 같이 정의되어 있습니다.
 ### jQuery 코드
 
 실제로 슬라이드를 초기화하고 관리하는 jQuery 코드입니다.
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 ```js
 $(window).on('load', function () {

@@ -14,6 +14,19 @@ tags:
 Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 슬라이드를 반응형으로 만드는 방법입니다.  
 슬라이드의 개수가 많아져도 유지보수가 편리하도록 코드를 구성하였습니다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## HTML 구조
 먼저, 각 슬라이드를 .slider 클래스로 감싼 뒤 내부에 슬라이드 아이템들을 넣습니다.   
 각 슬라이드는 이전 및 다음 버튼을 포함하고 있습니다.   
@@ -75,6 +88,10 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 .slider .btn.btn_next {right:0;transform: translate(0,-50%);}
 ```
 
+## jQuery 코드
+각 슬라이드에 Swiper를 적용하고, 반응형을 처리하기 위해 윈도우의 리사이즈 이벤트를 감지합니다.   
+이를 위해 .each() 메서드를 사용합니다.  
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -85,11 +102,6 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
-
-## jQuery 코드
-각 슬라이드에 Swiper를 적용하고, 반응형을 처리하기 위해 윈도우의 리사이즈 이벤트를 감지합니다.   
-이를 위해 .each() 메서드를 사용합니다.  
 
 ```js
 $(window).on('load', function () {
@@ -166,8 +178,8 @@ sliderAct() 함수 내에서는 현재 슬라이드에 고유한 클래스명을
 
 6. Swiper 인스턴스 옵션 설정 :  
 swiper 변수에 새로운 Swiper 인스턴스를 생성하며, 초기 옵션을 설정합니다. 슬라이드 개수, 초기 활성화 슬라이드, 여백, 무한 반복 여부, 네비게이션 버튼 등의 옵션을 지정하여 슬라이드 동작을 설정합니다.  
-<br>
 
+<br>
 
 ## 결론
 위의 코드 예제를 활용하면 Swiper를 사용하여 여러 개의 슬라이드를 쉽게 관리하고 반응형으로 만들 수 있습니다.   
