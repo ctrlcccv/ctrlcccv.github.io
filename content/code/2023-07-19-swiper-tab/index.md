@@ -4,6 +4,7 @@ description: >
     Swiper.js의 observer: true, observeParents: true 옵션을 활용하여 탭 메뉴와 함께 구현할 때 발생하는 오류를 해결하는 코드 예제입니다.
 slug: 2023-07-19-swiper-tab
 date: 2023-07-19 00:00:00+0000
+lastmod: 2023-07-19 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-07-19-swiper-tab.webp
 
 categories:
@@ -23,6 +24,19 @@ tags:
 <br>
 탭 메뉴를 눌렀을 때 슬라이드 초기화는 정상적으로 작동했지만, 화면을 리사이즈할 때 슬라이드의 realIndex 값이 제대로 갱신되지 않는 문제가 발생했다.  
 이전에 선택한 탭 메뉴의 슬라이드를 유지하기 위해 변수에 저장한 realIndex 값을 initialSlide 옵션에 넣어 현재 보고 있던 슬라이드로 이동하는데, 이로 인해 활성화되지 않은 탭 메뉴의 슬라이드에도 영향을 끼쳤다. 이 문제를 해결하기 위해 활성화된 탭 메뉴의 슬라이드의 realIndex 값만 업데이트하는 방식으로 변경했다.
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
 
 ## HTML 구조
 

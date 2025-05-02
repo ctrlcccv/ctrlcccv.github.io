@@ -4,6 +4,7 @@ description: >
     웹폰트를 사용할 때 OS별 렌더링 차이를 해결한 방법입니다.
 slug: 2023-07-19-web-font
 date: 2023-07-19 01:00:00+0000
+lastmod: 2023-07-19 01:00:00+0000
 # image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/swiper-tab.webp
 
 categories:
@@ -11,7 +12,20 @@ categories:
 tags:
     - 웹폰트
 ---
-웹 디자인에서 폰트 선택은 웹사이트나 앱의 전반적인 분위기와 사용자 경험에 큰 영향을 미칩니다. 하지만 때로는 다양한 운영체제(OS)와 브라우저에서 폰트가 다르게 표시되는 문제에 직면할 수 있습니다. 특히 웹폰트를 사용할 때, 윈도우와 맥 OS 간의 폰트 굵기 차이 문제는 종종 발생합니다. 
+웹 디자인에서 폰트 선택은 웹사이트나 앱의 전반적인 분위기와 사용자 경험에 큰 영향을 미칩니다. 하지만 때로는 다양한 운영체제(OS)와 브라우저에서 폰트가 다르게 표시되는 문제에 직면할 수 있습니다. 특히 웹폰트를 사용할 때, 윈도우와 맥 OS 간의 폰트 굵기 차이 문제는 종종 발생합니다.
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
 
 ## -webkit-font-smoothing: antialiased 속성과 안티앨리어싱 문제
 안티앨리어싱은 텍스트와 같은 작은 요소를 부드럽게 표시하기 위한 기술입니다. 웹폰트를 사용할 때, 텍스트가 부드럽게 보이도록 하기 위해 -webkit-font-smoothing: antialiased 속성을 추가하는 것이 일반적입니다. 그러나 윈도우 OS에서는 이 속성이 제대로 반영되지 않는 문제가 있습니다.  

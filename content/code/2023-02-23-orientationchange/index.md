@@ -15,6 +15,19 @@ tags:
 이러한 모드 전환을 감지하고 적절한 대응을 취하는 것은 중요한 과제 중 하나입니다.   
 특히 iOS 기기에서는 가로와 세로 모드 전환 감지가 조금 다른데요, jQuery를 사용하여 iOS 모바일 기기에서 가로와 세로 모드 전환을 감지하는 방법에 대해 알아보겠습니다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 문제 발견
 iOS 기기에서는 resize 이벤트를 사용하여 화면의 높이 값을 계산하는 도중 문제가 발생했습니다.  
 아이폰에서는 가로 모드에서 세로 모드로, 또는 그 반대로 화면 방향이 전환될 때 resize 이벤트가 정상적으로 실행되지 않는 것을 확인하였습니다.  
@@ -38,6 +51,11 @@ orientationchange 이벤트가 실행될 때 화면 방향 전환이 이전의 �
 따라서 iOS 기기를 구별하여 해당 이슈를 해결하는 코드를 추가하였습니다.  
 <br>
 
+
+
+## jQuery 코드
+아래는 위에서 설명한 내용을 바탕으로 jQuery를 사용하여 구현한 코드 예시입니다.
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -48,10 +66,6 @@ orientationchange 이벤트가 실행될 때 화면 방향 전환이 이전의 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
-
-## jQuery 코드
-아래는 위에서 설명한 내용을 바탕으로 jQuery를 사용하여 구현한 코드 예시입니다.
 
 ```js
 const ios = navigator.userAgent.match(/(iPod|iPhone|iPad)/)

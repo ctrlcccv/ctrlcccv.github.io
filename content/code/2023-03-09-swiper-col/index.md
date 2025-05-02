@@ -17,6 +17,19 @@ tags:
 <br>
 해당 문제를 해결하기 위해 1페이지에서 보이는 슬라이드 수만큼 swiper-slide 클래스로 그룹화하고, 그룹 안의 리스트를 CSS로 원하는 순서대로 정렬했다.
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## HTML
 
 ```html
@@ -62,17 +75,6 @@ ul, li {list-style: none;}
     .slider .list{width: 48%;margin-right: 2%;}
 }
 ```
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
 ## JS
 
@@ -156,6 +158,19 @@ function slideAct() {
     }
 }
 ```
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
 주로 반응형 홈페이지 작업을 하기 때문에, 모바일까지 고려하여 view 변수를 사용하여 디바이스별로 1페이지당 슬라이드 개수를 설정했다. 
 그리고 list 클래스의 총개수를 view 변숫값으로 나누어 각 list 클래스에 해당 값을 추가하고, 같은 index 값을 가진 list 클래스 상위에 wrapAll() 메서드로 swiper-slide 클래스 요소를 추가하여 슬라이드 그룹화를 구현했다.  
 <br>
