@@ -4,6 +4,7 @@ description: >
     Swiper.js 플러그인을 활용한 갤러리 형태의 반응형 슬라이드 코드 예제입니다.
 slug: 2023-08-04-swiper-gallery
 date: 2023-08-04 00:00:00+0000
+lastmod: 2023-08-04 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/swiper-gallery.webp
 
 categories:
