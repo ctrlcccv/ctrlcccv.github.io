@@ -4,6 +4,7 @@ description: >
     jQuery를 사용한 2단 탭 메뉴 구현 방법을 상세하게 설명합니다. 메인 및 서브 탭의 활성화, 스타일링 방법에 대해 설명합니다.  
 slug: 2023-12-12-nested-tab
 date: 2023-12-12 00:00:00+0000
+lastmod: 2023-12-12 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-12-nested-tab.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - 탭 메뉴
 ---
 jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다. 2단 탭 메뉴는 웹 페이지 내에서 다양한 컨텐츠를 효율적으로 구성하고, 사용자의 상호작용을 통해 해당 컨텐츠를 동적으로 표시하는 데 유용합니다. 이러한 탭 메뉴 구성은 정보의 구조화 및 사용자 경험(UX) 향상에 기여합니다.   
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -121,6 +134,8 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js

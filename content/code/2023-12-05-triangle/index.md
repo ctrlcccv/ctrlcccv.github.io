@@ -4,6 +4,7 @@ description: >
     사용자 입력에 기반을 둔 CSS 삼각형 코드 자동 생성 웹 애플리케이션을 다룹니다. 사용자는 직관적인 인터페이스를 통해 삼각형의 모양을 디자인하고, 즉시 생성되는 CSS 코드를 확인할 수 있습니다.
 slug: 2023-12-05-triangle
 date: 2023-12-05 00:00:00+0000
+lastmod: 2023-12-05 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-05-triangle2.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - CSS 도형
 ---
 사용자가 입력한 값에 따라 CSS 삼각형을 자동으로 생성하는 웹 애플리케이션을 소개합니다. 사용자는 삼각형의 크기, 색상, 방향을 설정할 수 있으며, 이에 따라 실시간으로 CSS 코드가 생성되고 적용됩니다. 이 기능은 웹 디자인에서 흔히 사용되는 삼각형 모양을 손쉽게 구현하고자 하는 웹 개발자들에게 유용합니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -91,6 +104,8 @@ body 태그는 flex 레이아웃을 사용하여 내용을 화면 중앙에 배�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js

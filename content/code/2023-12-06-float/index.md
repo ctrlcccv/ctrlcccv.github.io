@@ -4,6 +4,7 @@ description: >
     부동 소수점 연산의 정확도 문제를 다루며, 이진수 변환, 부동 소수점 표현의 한계와 같은 원인을 설명합니다. 또한, 정수 연산 사용, 고정 소수점 사용, 높은 정밀도 라이브러리 사용, 에러 보정 기술 등 다양한 해결 방안을 제시합니다.
 slug: 2023-12-06-float
 date: 2023-12-06 00:00:00+0000
+lastmod: 2023-12-06 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-06-float.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
 
 ---
 컴퓨터 프로그래밍에서 부동 소수점 연산의 정확도 문제는 오래된 도전 과제입니다. 특히, 1.1 + 0.1 == 1.2가 False로 평가되는 현상과 같은 예는 이 문제를 잘 보여줍니다. 이 글에서는 이 현상의 원인과 가능한 해결 방법을 탐구하겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## 부동 소수점 연산의 정확도 문제의 원인
@@ -43,6 +56,7 @@ tags:
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+<br>
 
 ## 해결 방법
 

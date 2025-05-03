@@ -1,5 +1,5 @@
 ---
-title: jQuery - 버튼 클릭 시 input 추가, 삭제하기
+title: jQuery -  버튼 클릭 시 input 추가, 삭제하기
 description: >  
     HTML, CSS, jQuery를 활용하여 웹 페이지에서 버튼 클릭으로 입력 필드를 동적으로 추가하고 삭제하는 기능을 구현한 방법을 상세히 설명합니다. 이 기능은 설문 조사 및 다양한 양식에서 유용합니다.
 slug: 2023-11-30-input-add

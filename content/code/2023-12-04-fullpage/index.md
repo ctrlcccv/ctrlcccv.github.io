@@ -4,6 +4,7 @@ description: >
     jQuery를 사용하여 풀페이지 스크롤 기능을 구현하는 방법을 자세히 설명하며, fullpage.js에 의존하지 않는 독립적인 접근 방식을 제시합니다. 페이지 내비게이션과 반응형 디자인을 개선하는 실용적인 예시를 제공합니다.  
 slug: 2023-12-04-fullpage
 date: 2023-12-04 00:00:00+0000
+lastmod: 2023-12-04 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-04-fullpage.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - 스크롤 이벤트
 ---
 사용자들이 웹사이트를 탐색할 때 부드럽고 직관적인 스크롤 경험을 제공하는 것은 필수적입니다. 이 예제에서는 jQuery를 활용하여 fullpage.js를 대체하는 풀페이지 스크롤 반응형 웹 페이지를 구현하는 방법을 설명합니다. 이 코드는 사용자가 웹 페이지의 다양한 섹션을 쉽게 탐색할 수 있도록 도와주며, 화면 크기에 따라 적절하게 반응하는 반응형 디자인을 특징으로 합니다. 이 구현은 모바일 기기 사용자를 포함한 모든 사용자에게 매끄러운 스크롤 경험을 제공합니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -83,6 +96,8 @@ footer {height: 300px;background: #000;}
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js
