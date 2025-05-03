@@ -4,6 +4,7 @@ description: >
     jQuery를 활용하여 스크롤에 따라 텍스트 스타일이 변하는 웹 기능을 설명합니다. 스크롤에 반응하는 불투명도, 크기, 위치 변화 구현 방법과 사용자 경험에 미치는 영향을 다룹니다.
 slug: 2023-11-22-scroll-text
 date: 2023-11-22 00:00:00+0000
+lastmod: 2023-11-22 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-22-scroll-text.webp
 
 categories:
@@ -12,6 +13,19 @@ tags:
     - 스크롤 이벤트
 ---
 이 글에서는 jQuery를 활용하여 특정한 스크롤 동작에 반응하여 텍스트의 스타일이 변화하는 웹 페이지 기능을 소개합니다. 사용자가 페이지를 스크롤 할 때마다 텍스트의 불투명도, 크기, 그리고 위치가 동적으로 변하도록 구현되었습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
 <br>
 
 ## HTML 구조
@@ -39,16 +53,7 @@ tags:
 * .content와 .content2 클래스는 요소가 화면 밖으로 벗어난 부분을 숨기는 속성을 가지고 있습니다.
 * .scroll_txt 클래스는 텍스트에 대한 기본 스타일을 설정합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<br>
 
 ## jQuery 코드
 ```js
@@ -133,9 +138,21 @@ $(window).scroll(() => {
 });
 ```
 jQuery 코드의 주요 구성 요소와 기능은 다음과 같습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
-* **요소 배열 정의**  
+### 요소 배열 정의  
 elements 배열은 특정 HTML 요소들과 그들에 적용할 스타일 변화 정보를 담고 있습니다.
 
 ```js

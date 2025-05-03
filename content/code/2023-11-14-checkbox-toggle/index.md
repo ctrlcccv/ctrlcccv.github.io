@@ -4,6 +4,7 @@ description: >
     CSS를 사용하여 토글 스위치를 만드는 방법입니다.
 slug: 2023-11-14-checkbox-toggle
 date: 2023-11-14 00:00:00+0000
+lastmod: 2023-11-14 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-14-checkbox-toggle.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - 입력 태그 커스텀
 ---
 토글 스위치는 웹 사이트나 애플리케이션에서 특정 기능이나 설정을 활성화하거나 비활성화하는 데 일반적으로 사용됩니다. 이 글에서는 CSS를 사용하여 직관적으로 상호 작용할 수 있는 토글 스위치 만드는 방법을 살펴보겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -30,16 +43,7 @@ tags:
 * **&lt;span class="slider"&gt;**   
 "slider" 클래스를 가진 &lt;span&gt; 요소는 토글 스위치의 시각적 모습을 나타냅니다. 이 부분은 사용자가 체크박스의 상태를 클릭하여 조작할 수 있습니다. 이 요소는 체크박스가 선택된 경우 "활성화" 위치를 나타내기 위해 시각적으로 왼쪽에서 오른쪽으로 슬라이드 됩니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<br>
 
 ## CSS 스타일
 ```css
@@ -51,6 +55,16 @@ tags:
 .toggle_switch input[type="checkbox"]:checked + .slider::before { transform:translateX(36px); } 
 ```
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 * **.toggle_switch**   
 **(토글 스위치 컨테이너 스타일링)**

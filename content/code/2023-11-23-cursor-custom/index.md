@@ -4,6 +4,7 @@ description: >
     웹사이트에 독특하고 매력적인 마우스 커서 효과를 구현하는 방법을 설명합니다. jQuery와 CSS를 활용하여 사용자의 마우스 움직임에 반응하고 웹사이트의 개성을 강조하는 커서 디자인의 중요성과 구현 방법을 다룹니다.   
 slug: 2023-11-23-cursor-custom
 date: 2023-11-23 03:00:00+0000
+lastmod: 2023-11-23 03:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-23-cursor-custom.webp
 
 categories:
@@ -13,11 +14,24 @@ tags:
 ---
 웹사이트를 방문하는 순간, 사용자는 다양한 시각적 요소를 통해 그 사이트의 성격을 인지합니다. 이 중에서도 종종 간과되지만 매우 중요한 요소가 바로 '마우스 커서'입니다. 전통적인 화살표 모양의 커서는 기능적으로는 충분하지만, 웹사이트의 창의성과 개성을 표현하는 데에는 한계가 있습니다. 이에 반해, 독창적으로 디자인된 커서는 사용자의 관심을 끌고, 웹사이트의 독특한 분위기를 조성하는 데 큰 역할을 합니다.
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
 특히, 디지털 시대에 웹사이트 디자인은 단순한 정보 전달을 넘어서, 사용자 경험과 감성을 자극하는 예술의 영역으로 진화하고 있습니다. 이러한 맥락에서, 커서 디자인은 사용자와의 첫 번째 상호작용 포인트로서, 웹사이트의 창의성을 바로 보여주는 기회가 됩니다. 예를 들어, 동적이고 반응형의 커서는 사용자의 탐색 경험을 풍부하게 만들고, 브랜드 아이덴티티를 강화하는 데 기여합니다.
 
 이 글에서는 이러한 전략적인 커서 디자인을 어떻게 구현하는지 살펴보겠습니다. 특히, 사용자의 마우스 움직임을 따라가는 독창적인 커서 효과의 구현을 통해, 웹사이트에 새로운 생명력을 불어넣는 방법을 소개합니다.
 
 제가 이 커서 효과를 처음 구현했을 때, 가장 큰 고민은 웹사이트의 성능과 호환성이었습니다. 이를 해결하기 위해, jQuery 코드를 최적화하고, CSS의 transform 속성을 적절히 활용하는 방법을 찾았습니다. 또한, 효과가 화려할수록 페이지 로딩 시간에 영향을 줄 수 있기 때문에, 성능 저하를 최소화하는 방법을 모색했습니다.  
+
 <br>
 
 ## HTML 구조
@@ -57,6 +71,11 @@ background-color를 통해 커서의 색상을 검은색으로 설정합니다.
 * **transition**  
 transform 속성에 적용된 애니메이션 효과를 200ms의 지속시간과 ease-out의 타이밍 함수로 설정함으로써, 커서의 움직임이 보다 부드럽고 자연스러워집니다.
 
+<br>
+
+## jQuery 코드
+동적인 커서 움직임을 구현합니다.
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -68,8 +87,6 @@ transform 속성에 적용된 애니메이션 효과를 200ms의 지속시간과
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-## jQuery 코드
-동적인 커서 움직임을 구현합니다.
 ```js
 // cursor 클래스를 가진 요소를 선택합니다.
 const $cursor = $('.cursor');

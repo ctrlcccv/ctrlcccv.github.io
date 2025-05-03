@@ -4,6 +4,7 @@ description: >
     CSS를 사용하여 체크박스와 라디오버튼을 커스텀하는 방법입니다.
 slug: 2023-11-13-checkbox-custom
 date: 2023-11-13 00:00:00+0000
+lastmod: 2023-11-13 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-13-checkbox-custom.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - 입력 태그 커스텀
 ---
 웹 디자인 및 개발 프로젝트에서, 체크박스와 라디오버튼은 사용자 인터페이스(UI) 요소 중 자주 활용되는 요소입니다. 그러나 기본적인 스타일링만으로는 디자인적으로 제한이 있을 수 있습니다. 이 글에서는 CSS를 사용하여 체크박스와 라디오버튼을 커스텀하는 방법을 자세히 살펴보겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -67,6 +80,8 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## 체크박스 커스텀 CSS 스타일
 ```css

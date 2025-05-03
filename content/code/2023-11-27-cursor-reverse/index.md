@@ -4,6 +4,7 @@ description: >
     이 글에서는 jQuery를 이용하여 마우스 커서에 반전 및 확대 애니메이션 효과를 추가하는 방법을 자세히 설명합니다. HTML, CSS, jQuery를 결합하여 사용자 상호작용에 따라 동적으로 반응하는 커서를 구현하는 과정을 소개합니다
 slug: 2023-11-27-cursor-reverse
 date: 2023-11-27 00:00:00+0000
+lastmod: 2023-11-27 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-27-cursor-reverse.webp
 
 categories:
@@ -14,6 +15,17 @@ tags:
 
 이 글에서는 jQuery를 이용하여 마우스 커서에 애니메이션 효과를 추가하는 코드를 소개합니다.   
 사용자의 마우스 움직임에 반응하여 커서가 반전되거나 확대되는 시각적 효과를 제공합니다.
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 이러한 접근 방식의 장점은 다음과 같습니다.
 
