@@ -7,6 +7,7 @@ description: >
 
 slug: 2024-04-03-useReducer
 date: 2024-04-03 00:00:00+0000
+lastmod: 2024-04-03 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-04-03-useReducer.webp
 
 categories:
@@ -15,6 +16,18 @@ tags:
 
 ---
 React 애플리케이션을 개발할 때, 상태 관리는 매우 중요한 요소입니다. React는 기본적으로 useState를 제공하지만, 더 복잡한 상황에서는 useReducer라는 든든한 조력자가 필요합니다. useReducer는 상태 로직을 명확하게 정의하고, 중앙 집중화하여 관리할 수 있도록 도와줍니다. 이 글에서는 useReducer의 작동 방식, 활용 방법, 그리고 다양한 상황에서의 사용 예시를 통해 애플리케이션의 유지 보수성과 확장성을 높이는 방법을 소개합니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## useReducer란?
