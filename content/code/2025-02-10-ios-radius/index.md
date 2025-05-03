@@ -7,6 +7,7 @@ description: >
 
 slug: 2025-02-10-ios-radius
 date: 2025-02-10 00:00:00+0000
+lastmod: 2025-02-10 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-02-10-ios-radius.webp
 
 categories:
@@ -15,16 +16,6 @@ tags:
 ---
 
 웹 개발 시, 특히 CSS를 사용할 때 종종 발생하는 문제 중 하나는 다양한 브라우저 간의 렌더링 차이입니다. 그중에서도 iOS 환경에서 border-radius와 overflow: hidden 속성을 함께 사용할 때 발생하는 문제가 있습니다. 이 문제는 요소의 둥근 모서리에 의도적으로 잘린 콘텐츠가 제대로 표시되지 않는 문제로 이어질 수 있습니다. 이번 포스트에서는 이 문제를 해결하기 위해 -webkit-mask-image 속성을 이용한 방법을 공유하고자 합니다.  
-
-<br>
-
-## 문제 설명
-일반적으로 border-radius 속성을 사용하면 요소의 모서리가 둥글게 처리됩니다. 그리고 overflow: hidden 속성을 추가하면 요소의 경계 바깥에 있는 콘텐츠가 잘리게 됩니다. 그러나 iOS 환경에서는 이 두 가지 속성을 동시에 사용할 때 원하는 대로 렌더링 되지 않는 경우가 많습니다. 즉, 둥근 모서리에 대해 제대로 잘리지 않거나 잘못된 영역을 잘라낼 수 있습니다. 이러한 문제는 크로스 브라우저 호환성을 고려할 때 매우 신경 쓰이는 부분입니다.
-
-<br>
-
-## 해결 방법 : isolation: isolate 및 -webkit-mask-image 사용
-iOS에서 발생하는 이 문제를 해결하기 위해 추가로 적용한 CSS 코드가 있습니다.
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -36,6 +27,16 @@ iOS에서 발생하는 이 문제를 해결하기 위해 추가로 적용한 CSS
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
+
+## 문제 설명
+일반적으로 border-radius 속성을 사용하면 요소의 모서리가 둥글게 처리됩니다. 그리고 overflow: hidden 속성을 추가하면 요소의 경계 바깥에 있는 콘텐츠가 잘리게 됩니다. 그러나 iOS 환경에서는 이 두 가지 속성을 동시에 사용할 때 원하는 대로 렌더링 되지 않는 경우가 많습니다. 즉, 둥근 모서리에 대해 제대로 잘리지 않거나 잘못된 영역을 잘라낼 수 있습니다. 이러한 문제는 크로스 브라우저 호환성을 고려할 때 매우 신경 쓰이는 부분입니다.
+
+<br>
+
+## 해결 방법 : isolation: isolate 및 -webkit-mask-image 사용
+iOS에서 발생하는 이 문제를 해결하기 위해 추가로 적용한 CSS 코드가 있습니다.
 
 ```css
 .your-element {
@@ -51,6 +52,18 @@ isolation: isolate; 속성은 요소를 별도의 레이어로 분리하여 다�
 
 * **-webkit-mask-image**  
 -webkit-mask-image: -webkit-radial-gradient(white, black); 속성은 요소의 마스크를 설정하여, 해당 요소의 특정 부분을 표시하거나 숨길 수 있는 효과를 제공합니다. 이 경우, 흰색 부분 (가장자리)에서는 요소를 보이게 하고, 검은색 부분 (중앙)에서는 요소를 숨깁니다. 이 속성을 추가함으로써, 둥근 모서리 효과를 잘 살리면서도 콘텐츠가 잘리는 문제를 해결할 수 있습니다.
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 

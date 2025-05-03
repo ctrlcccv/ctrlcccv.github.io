@@ -25,6 +25,17 @@ tags:
 이번 블로그 글에서는 Swiper.js 11 이상 버전에서 centeredSlides 옵션 사용 시 발생할 수 있는 슬라이드 전환 오류를 해결하는 방법을 소개합니다.
 최신 Swiper.js는 다양한 기능을 제공하지만, 특히 centeredSlides처럼 특정 옵션이 예상대로 작동하지 않는 경우가 있습니다. 슬라이드 개수가 부족하거나, 복제 슬라이드를 동적으로 생성해야 하는 상황에서는 이러한 오류가 더욱 자주 발생합니다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 이러한 슬라이드 전환 오류는 사용자가 콘텐츠를 매끄럽게 탐색하는 데 방해가 될 수 있으며, 경우에 따라 사이트 전반의 완성도에도 영향을 줄 수 있습니다.  
 이 글에서는 복제 슬라이드를 추가해 슬라이드 수를 확보하고, 그 과정에서 발생할 수 있는 다양한 오류를 해결하는 코드를 함께 살펴보겠습니다.  
 
@@ -99,6 +110,17 @@ tags:
 .slider_center .inner 요소는 슬라이드 내부의 레이아웃을 담당합니다.   
 left: 50%와 transform: translate(-50%)를 함께 사용하여 갤러리 콘텐츠를 정확히 중앙에 정렬하며, width: 200vw는 복제 슬라이드가 자연스럽게 이어지도록 보장합니다.  
 </span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 
@@ -184,17 +206,6 @@ function centerSlider() {
     });
 }
 ```
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 * **슬라이드 초기화**  
 <span class="txt">
     centerSlider 함수는 슬라이드를 초기 설정한 뒤, 부족한 개수만큼 복제 슬라이드를 생성해 추가합니다.

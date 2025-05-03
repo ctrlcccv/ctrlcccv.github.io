@@ -7,6 +7,7 @@ description: >
 
 slug: 2024-06-13-swiper-link
 date: 2024-06-13 00:00:00+0000
+lastmod: 2024-06-13 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-06-13-swiper-link.webp
 
 categories:
@@ -18,6 +19,17 @@ tags:
 현대 웹 개발에서 사용자 경험(UX)은 웹사이트의 성공을 좌우하는 중요한 요소입니다. 다양한 UI 라이브러리와 플러그인들이 이를 향상시키기 위해 사용되며, 그 중 Swiper는 반응형 슬라이드 쇼와 카루셀을 만들기 위한 인기 있는 선택지입니다. Swiper를 이용하면 멋진 이미지 슬라이더나 콘텐츠 카루셀을 손쉽게 만들 수 있지만, 때때로 예기치 않은 문제가 발생할 수 있습니다. 특히 메뉴를 Swiper로 구현할 때 링크 클릭이 제대로 작동하지 않는 문제는 개발자들에게 큰 골칫거리가 될 수 있습니다.  
 
 이 글에서는 Swiper로 만든 메뉴에서 링크 클릭이 되지 않는 문제를 해결하는 방법에 대해 자세히 다뤄보겠습니다. preventClicks와 preventClicksPropagation 옵션을 설정하여 문제를 해결하는 방법을 중심으로 설명하겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 
@@ -45,6 +57,13 @@ const swiper = new Swiper('.swiper-container', {
     preventClicksPropagation: false,
 });
 ```
+이와 같이 Swiper 인스턴스를 생성할 때 두 가지 옵션을 false로 설정해주면, 링크 클릭 문제가 해결됩니다.  
+
+<br>
+
+## 구현 예시
+
+다음은 Swiper를 이용한 메뉴에서 preventClicks와 preventClicksPropagation 옵션을 설정하여 링크 클릭 문제를 해결하는 예시입니다.
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -56,14 +75,6 @@ const swiper = new Swiper('.swiper-container', {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
-이와 같이 Swiper 인스턴스를 생성할 때 두 가지 옵션을 false로 설정해주면, 링크 클릭 문제가 해결됩니다.  
-
-<br>
-
-## 구현 예시
-
-다음은 Swiper를 이용한 메뉴에서 preventClicks와 preventClicksPropagation 옵션을 설정하여 링크 클릭 문제를 해결하는 예시입니다.
 
 ### HTML 구조
 

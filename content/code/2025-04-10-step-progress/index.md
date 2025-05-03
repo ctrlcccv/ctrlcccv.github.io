@@ -7,6 +7,7 @@ description: >
 
 slug: 2025-04-10-step-progress
 date: 2025-04-10 01:00:00+0000
+lastmod: 2025-04-10 01:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-10-step-progress.webp
 
 categories:
@@ -17,6 +18,17 @@ tags:
 웹사이트에서 사용자가 진행 상황을 쉽게 이해할 수 있도록 돕는 것은 매우 중요합니다. 이때 프로그레스바는 작업의 단계별 진행 상황을 명확하게 보여주는 유용한 도구입니다.
 
 이번 글에서는 jQuery와 CSS를 이용해 특정 단계에 'active' 클래스를 추가하면, 그 단계까지의 진행 상황이 시각적으로 표시되는 프로그레스바를 만드는 방법을 소개합니다. 또한 CSS를 활용하여 다양한 스타일을 쉽게 적용할 수 있습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 
@@ -73,6 +85,17 @@ tags:
 * **명확한 텍스트 표시**  
 <span class="txt">각 단계의 설명은 내부에 배치되어 현재 상태를 명확하게 강조합니다. 변화하는 색상은 사용자에게 진행 상황을 효과적으로 전달합니다.</span>
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## jQuery 코드
@@ -100,16 +123,6 @@ function initProgress() {
     });
 }
 ```
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
 * **`$('.progress').each(...)`** 
    - 페이지 내 모든 `.progress` 클래스를 가진 요소를 선택하고, 각 요소에 대해 반복합니다.
