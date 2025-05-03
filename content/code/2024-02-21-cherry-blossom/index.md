@@ -6,6 +6,7 @@ description: >
 
 slug: 2024-02-21-cherry-blossom
 date: 2024-02-21 00:00:00+0000
+lastmod: 2024-02-21 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-02-21-cherry-blossom.webp
 
 categories:
@@ -14,6 +15,19 @@ tags:
     - 배경 효과
 ---
 봄의 따스함과 벚꽃이 만발한 풍경을 연상시키는 웹사이트는 방문자에게 감동적인 인상을 남길 수 있습니다. 이 글에서는 jQuery와 CSS를 결합하여, 마치 봄바람을 타고 날리는 벚꽃 잎의 모습을 재현하는 효과를 만드는 방법에 대해 알아보겠습니다. 자동으로 화면에 벚꽃이 흩날리는 배경을 구현하며, 웹사이트에 생동감과 로맨틱한 느낌을 더할 수 있는 코드를 소개합니다.    
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
 <br>
 
 ## HTML 구조
@@ -84,6 +98,18 @@ tags:
    - 0%에서는 top: 0 및 opacity: 1로 시작하여 불투명한 상태에서 맨 위에서 시작합니다.
    - 80%까지는 opacity: 1을 유지하여 애니메이션이 80% 진행될 때까지 불투명 상태를 유지합니다.
    - 100%에서는 top: 100% 및 opacity: 0.2로 설정하여 애니메이션이 종료될 때 화면 아래로 내려가며 투명도가 낮아집니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## jQuery 코드
@@ -170,17 +196,6 @@ $(window).on('load', () => {
 });
 ```
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 - **변수 선언 및 초기화**
   - `$wrap`는 `cherry_blossom` 클래스를 가진 요소를 선택하는 jQuery 객체를 저장합니다.
   - `wrapH`는 벚꽃 배경의 높이로, `$wrap.height()`를 통해 값을 가져와 저장합니다.
@@ -203,6 +218,8 @@ $(window).on('load', () => {
 - **벚꽃 잎 생성 시작**
   - 문서가 모두 로드된 후 `petalGen` 함수를 호출하여 벚꽃 잎 생성을 시작합니다.  
   이때 `requestAnimationFrame`을 사용하여 부드러운 애니메이션을 지원합니다.
+
+<br>
 
 ## 결론
 jQuery와 CSS3 애니메이션을 활용하여 벚꽃 잎이 흩날리는 배경 효과를 구현하는 방법을 살펴봤습니다.   

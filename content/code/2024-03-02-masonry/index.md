@@ -6,6 +6,7 @@ description: >
 
 slug: 2024-03-03-masonry
 date: 2024-03-03 00:00:00+0000
+lastmod: 2024-03-03 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-03-masonry.webp
 
 categories:
@@ -14,6 +15,18 @@ tags:
 
 ---
 웹 디자인에서 다양한 레이아웃을 구현하는 것은 사용자 경험을 향상시키고 독특한 시각적 효과를 제공하는 데 중요합니다. 특히 핀터레스트와 같은 플랫폼은 독특하고 다양한 레이아웃 구성으로 사용자들을 매료시키고 있습니다. 이번 글에서는 핀터레스트 스타일의 레이아웃을 Masonry.js를 활용하여 어떻게 간편하게 구현할 수 있는지에 대해 알아보겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조

@@ -6,6 +6,7 @@ description: >
     JavaScript의 map() 메서드는 배열의 각 요소에 대해 주어진 함수를 실행하고 그 결과를 새로운 배열로 반환하는 함수형 프로그래밍 방식의 핵심 도구입니다. 이를 통해 간결하고 효율적인 코드를 작성하며 다양한 배열 조작 작업을 수행할 수 있습니다.  
 slug: 2024-03-05-js-map
 date: 2024-03-05 00:00:00+0000
+lastmod: 2024-03-05 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-05-js-map.webp
 
 categories:
@@ -15,6 +16,17 @@ tags:
 ---
 
 자바스크립트의 `map()` 메서드는 배열의 각 요소에 대해 주어진 함수를 실행하고 그 결과를 새로운 배열로 반환하는 함수형 프로그래밍 방식의 핵심 도구입니다. 이 메서드는 간결하고 효율적인 코드를 작성하며, 다양한 배열 조작 작업을 수행할 수 있도록 지원합니다.   
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 
