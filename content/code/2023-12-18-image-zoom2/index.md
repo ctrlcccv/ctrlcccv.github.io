@@ -5,6 +5,7 @@ description: >
 
 slug: 2023-12-18-image-zoom2
 date: 2023-12-18 00:00:00+0000
+lastmod: 2023-12-18 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-18-image-zoom2.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
     - 마우스 이벤트
 ---
 웹사이트에서 이미지에 마우스를 가져다 대면 이미지가 확대되며 마우스를 중심으로 주변 상세한 내용을 볼 수 있는 기능은 사용자 경험을 향상시키는 흔한 방법의 하나입니다. 이 글에서는 jQuery와 CSS의 기능을 결합하여 마우스 커서의 위치에 따라 이미지를 돋보기처럼 확대하는 효과를 만드는 방법을 설명합니다. 이 기능은 제품 이미지, 지도, 미술 작품과 같이 세부적인 부분을 가까이에서 살펴보아야 할 때 유용합니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -53,6 +66,8 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js

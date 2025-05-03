@@ -13,6 +13,18 @@ tags:
     - 마우스 이벤트
 ---
 온라인 쇼핑몰에서 제품 이미지를 크게 보고 싶은 사용자의 요구는 매우 흔합니다. 따라서 사용자가 상품 이미지에 좀 더 가까이 다가갈 수 있도록 '이미지 확대 기능'을 제공하는 것은 중요한 사용자 경험(UX) 요소 중 하나입니다. 이 글에서는 jQuery를 사용하여 이미지 위에 마우스를 올리면 해당 부분을 확대해주는 기능을 살펴보겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -67,6 +79,7 @@ zoom_result 클래스는 확대 결과를 보여주기 위한 부분이며, 처�
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+<br>
 
 ## jQuery 코드
 ```js

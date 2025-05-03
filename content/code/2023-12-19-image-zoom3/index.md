@@ -5,6 +5,7 @@ description: >
 
 slug: 2023-12-19-image-zoom3
 date: 2023-12-19 00:00:00+0000
+lastmod: 2023-12-19 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-19-image-zoom3.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
     - 마우스 이벤트
 ---
 웹 페이지 내 이미지에 마우스를 가져다 댈 때 해당 부분을 확대해서 보여주는 돋보기 효과는 e-커머스 상품 이미지, 지도, 예술 작품 등 상세 부분이 중요한 콘텐츠에 유용합니다. 이 글에서는 jQuery를 이용하여 간단하게 돋보기 효과를 구현하는 방법을 설명합니다.    
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -89,6 +102,8 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js

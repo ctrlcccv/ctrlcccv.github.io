@@ -5,6 +5,7 @@ description: >
 
 slug: 2023-12-30-youtube-size
 date: 2023-12-30 00:00:00+0000
+lastmod: 2023-12-30 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-30-youtube-size.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
     - YouTube
 ---
 유튜브 동영상을 웹페이지에 적절하게 삽입하는 것은 웹사이트의 시각적 매력을 높일 수 있는 중요한 방법입니다. 이 글에서는 유튜브 동영상을 반응형으로 만드는 CSS 기법을 소개하며, 사용자가 어떤 플랫폼이나 디바이스에서 접속하더라도 최적의 동영상 시청 경험을 제공하는 방법을 알아봅니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -47,6 +60,8 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## CSS 스타일
 ```css
@@ -83,9 +98,9 @@ tags:
   * `height`를 `0`으로 설정하고, `padding-bottom`을 비율에 맞게 `56.25%`로 설정함으로써 동영상의 가로 대 세로 비율인 16:9를 유지할 수 있게 합니다.  
 
 CSS에서 `padding-bottom` 비율을 계산함으로써 특정 가로 세로 비율을 유지하고자 할 때, 다음과 같은 과정을 통해 결정할 수 있습니다. 이 예제에서는 16:9 비율 (널리 사용되는 HD 비디오 형식) 이 사용됩니다. 16:9 비율에서 세로 비율은 가로 비율 대비 9/16입니다. 이 비율을 백분율로 변환하려면 다음과 같이 계산합니다.
-```
-(세로 / 가로) * 100 = (9 / 16) * 100 ≈ 56.25%
-```
+
+> (세로 / 가로) * 100 = (9 / 16) * 100 ≈ 56.25%
+
 이 계산은 가로 크기가 100%일 때 세로 크기를 유지 비율로 정하는 데 활용됩니다.    
 
 * **인라인 프레임 설정 (.video iframe)**  

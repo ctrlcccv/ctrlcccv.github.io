@@ -5,6 +5,7 @@ description: >
 
 slug: 2023-12-23-browser-zoom
 date: 2023-12-23 00:00:00+0000
+lastmod: 2023-12-23 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-23-browser-zoom.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
     - 마우스 이벤트
 ---
 웹사이트 사용자에게 컨텐츠를 더 세밀하게 볼 수 있는 기능을 제공하는 것은 사용자 친화적인 인터페이스 설계에 매우 중요합니다. 이 글에서는 jQuery를 이용하여 사용자가 웹페이지의 특정 부분의 확대 및 축소를 제어할 수 있는 기능을 소개합니다. 이 기능은 파이어폭스를 포함하여 대부분의 브라우저에서 호환됩니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -67,6 +80,8 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js
