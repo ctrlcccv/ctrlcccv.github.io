@@ -5,6 +5,7 @@ description: >
 
 slug: 2024-01-12-background-fixed2
 date: 2024-01-12 00:00:00+0000
+lastmod: 2024-01-12 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-12-background-fixed2.webp
 
 categories:
@@ -16,6 +17,17 @@ tags:
 
 `background-attachment: fixed` 속성으로 인해 발생하는 모바일 환경에서의 문제를 해결하는 방법을 자세히 알아보고, 구체적인 코드 예시를 통해 실제 웹사이트에 적용하는 방법을 제시합니다.  
  
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조

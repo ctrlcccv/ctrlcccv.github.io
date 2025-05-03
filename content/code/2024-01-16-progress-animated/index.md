@@ -5,6 +5,7 @@ description: >
 
 slug: 2024-01-16-progress-animated
 date: 2024-01-16 00:00:00+0000
+lastmod: 2024-01-16 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-16-progress-animated.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
     - 진행 표시줄
 ---
 웹 사이트나 애플리케이션에서 사용자의 작업 진행 상황을 표시하는 것은 필수적인 UX 요소 중 하나입니다. 잘 설계된 프로그레스바는 사용자가 현재 위치와 목표까지의 거리를 인지하는데 도움을 주며, 작업의 완수를 향한 동기 부여가 될 수 있습니다. 이 예제에서는 `<progress>` 태그와 CSS를 이용하여 프로그레스바를 구현하고, jQuery로 애니메이션 효과를 추가하여 사용자에게 더욱 생동감 있게 상태를 표시하는 방법을 알아봅니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -73,6 +86,18 @@ progress::-moz-progress-bar {
 * **브라우저 별 스타일링 호환성**
   * `-webkit-progress-bar` 및 `-webkit-progress-value`는 Webkit 기반 브라우저(Safari, Chrome 등)에서 프로그레스바의 배경과 값 영역을 스타일링 합니다.
   * `-moz-progress-bar`는 Mozilla 기반 브라우저(Firefox 등)에서 사용됩니다.    
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## jQuery 코드
@@ -94,16 +119,7 @@ $('progress').each(function () {
   * `.val(0)` 메서드로 프로그레스바의 초깃값을 0으로 설정합니다.
   * `.animate()` 메서드를 이용하여 `value` 속성을 0부터 `max`까지 1초 동안 부드럽게 증가시키는 애니메이션을 적용합니다.    
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<br>
 
 ## 활용 예시 (스크롤 이벤트 추가)
 위 코드와 함께 [jQuery - 스크롤 내리면 나타나는 애니메이션](https://ctrlcccv.github.io/code/2023-10-30-scroll-show/)을 활용하여 스크롤을 내리면 프로그레스바가 화면에 나타날 때 자연스럽게 증가하는 애니메이션 효과를 추가할 수 있습니다.  

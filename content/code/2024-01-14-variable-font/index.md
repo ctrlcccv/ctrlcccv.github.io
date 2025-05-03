@@ -16,6 +16,18 @@ tags:
 웹 디자인은 끊임없는 진화 속에 있으며, 가변 폰트(variable fonts)는 글꼴 디자인 분야에 혁명을 가져와 우리의 타이포그래피 접근 방식을 변화시켰습니다. 기존의 정적인 폰트와는 달리, 가변 폰트는 단일 폰트 파일 내에서 다양한 스타일 범위를 제공하여 디자이너와 개발자에게 이전에는 경험하지 못한 창의적인 유연성을 제공합니다.
 
 가변 글꼴은 보통 일반, 볼드, 이탤릭과 같은 다양한 글꼴 스타일에 대한 별도의 파일을 가지는 전통적인 방식을 벗어납니다. 대신, 하나의 가변 글꼴 파일은 무게, 너비, 그리고 기타 속성들 사이에서 자연스러운 전환을 가능케 하며, 이러한 유연성은 디자인과 개발 모두에게 새로운 가능성을 열어줍니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## 가변 폰트 장점
@@ -65,6 +77,8 @@ body {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ### font-variation-settings 속성
 font-variation-settings 속성은 CSS에서 가변 폰트의 여러 축(axis)에 대한 설정을 제어하는 데 사용되는 속성입니다. 이 속성은 @font-face 규칙 내에서 폰트를 정의할 때 사용되며, 각 축의 설정 값을 지정합니다. 각 축은 폰트 디자인의 특정 측면을 나타내며, 사용자는 이 값을 조절하여 원하는 스타일을 얻을 수 있습니다.   
