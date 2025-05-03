@@ -19,6 +19,17 @@ tags:
 
 최근 CSS는 점점 더 많은 기능을 제공하면서, 단순한 스타일링을 넘어서 인터랙션까지 제어할 수 있는 도구로 발전하고 있습니다. 그 대표적인 예가 animation-timeline 속성입니다. 이 속성을 활용하면 JavaScript 없이도 스크롤이나 화면 진입 같은 사용자 행동에 따라 애니메이션을 제어할 수 있습니다.
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## animation-timeline이란?
@@ -81,7 +92,17 @@ animation-timeline, scroll-timeline, view-timeline 등은 현재 최신 버전�
 </p>
 <script async src="https://public.codepenassets.com/embed/index.js"></script>
 
-<br>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## 예제 2: animation-range로 애니메이션 구간 제어

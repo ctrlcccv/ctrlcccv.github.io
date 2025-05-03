@@ -15,6 +15,7 @@ alternates:
     
 slug: 2025-04-15-swiper-center3
 date: 2025-04-15 01:00:00+0000
+lastmod: 2025-04-15 01:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-15-swiper-center3.webp
 
 categories:

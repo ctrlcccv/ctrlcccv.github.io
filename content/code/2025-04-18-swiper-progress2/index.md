@@ -28,6 +28,17 @@ tags:
 
 코드 예제와 함께 실제 웹 개발에서 어떻게 적용할 수 있는지 단계별로 살펴보며, 슬라이드와 프로그레스바 기능을 여러분의 웹사이트에 쉽게 추가하는 방법을 알려드립니다.  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -108,6 +119,17 @@ tags:
 
 * **현재 활성 단계 강조**  
 <span class="txt">.swiper-pagination-bullet-active 클래스는 현재 활성화된 페이지네이션 항목에 자동으로 부여되며, 해당 항목의 도트와 텍스트에 동일한 강조 스타일을 적용합니다. 이를 통해 사용자는 현재 위치를 한눈에 파악할 수 있습니다.</span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 
@@ -224,17 +246,6 @@ function centerSlider() {
     }
 }
 ```
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 * **슬라이드 제목 추출**  
 <span class="txt">슬라이드와 연동될 페이지네이션 항목의 텍스트를 titles 배열에 저장합니다. 각 단계의 텍스트는 .progress > li 요소를 each 메서드를 사용하여 반복적으로 추출되며, 이 배열은 이후 Swiper의 커스텀 페이지네이션 생성에 활용됩니다.</span>  
 

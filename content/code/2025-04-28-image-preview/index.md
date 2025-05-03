@@ -29,6 +29,17 @@ tags:
 
 웹 개발을 하다 보면 사용자의 파일 업로드를 처리해야 할 상황이 자주 발생합니다. 특히 이미지 파일의 경우, 업로드 후 미리보기를 제공하면 사용자 만족도를 크게 높일 수 있습니다. 이번 포스트에서는 jQuery를 활용하여 이미지 파일을 업로드하고 미리 보는 기능을 어떻게 구현하는지 알아보겠습니다.
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -126,6 +137,17 @@ input[type="file"]은 기본 스타일을 완전히 숨기고, 대신 시각적�
 * **미리보기 스타일**  
 <span class="txt">선택된 이미지를 전체 영역에 꽉 채워 보여주며, 삭제 버튼은 항상 일정 위치에 고정됩니다.</span>  
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## jQuery 코드
@@ -187,17 +209,6 @@ function imageFileUpload() {
     }
 }   
 ```
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 * **이벤트 리스너 설정**  
 <span class="txt">
 파일 선택과 삭제 버튼에 각각 이벤트를 연결해, 상황에 따라 기능이 정확하게 작동하도록 합니다.  
