@@ -5,6 +5,7 @@ description: >
 
 slug: 2023-12-15-image-zoom
 date: 2023-12-15 00:00:00+0000
+lastmod: 2023-12-15 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-15-image-zoom.webp
 
 categories:

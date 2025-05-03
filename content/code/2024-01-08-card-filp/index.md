@@ -5,6 +5,7 @@ description: >
 
 slug: 2024-01-08-card-filp
 date: 2024-01-08 00:00:00+0000
+lastmod: 2024-01-08 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-08-card-filp.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
     - CSS 애니메이션
 ---
 웹사이트나 어플리케이션의 UI에서 카드 뒤집기 애니메이션은 사용자의 관심을 끌고, 추가 정보나 인터랙션을 제공하는 멋진 방법입니다. 순수 CSS를 사용하여 구현할 수 있는 이 효과는 크로스 브라우저 호환성도 좋고, 퍼포먼스 또한 뛰어나서 많이 사용됩니다. 이 글에서는 가로로 뒤집히는 카드와 세로로 뒤집히는 카드 각각의 예를 통해 어떻게 카드 뒤집기 애니메이션을 구현할 수 있는지 상세하게 설명합니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조

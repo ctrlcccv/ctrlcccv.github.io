@@ -5,6 +5,7 @@ description: >
 
 slug: 2024-01-01-youtube-scroll
 date: 2024-01-01 00:00:00+0000
+lastmod: 2024-01-01 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-01-youtube-scroll.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
     - YouTube
 ---
 jQuery와 YouTube Iframe API를 사용하여 사용자가 스크롤 하면서 동영상이 있는 영역에 도달했을 때 자동으로 해당 유튜브 영상을 재생하고, 해당 영역에서 벗어났을 때 영상을 일시 중지하도록 하는 기능을 구현하는 코드를 설명합니다.   
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조

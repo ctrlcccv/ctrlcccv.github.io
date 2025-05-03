@@ -5,6 +5,7 @@ description: >
 
 slug: 2023-12-31-youtube-api
 date: 2023-12-31 00:00:00+0000
+lastmod: 2023-12-31 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-31-youtube-api.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
     - YouTube
 ---
 유튜브 API는 개발자가 유튜브의 다양한 기능을 활용할 수 있게 해주는 강력한 도구입니다. 특히, IFrame Player API는 웹 페이지에 유튜브 동영상을 쉽게 삽입하고 제어할 수 있는 기능을 제공합니다. 이 글에서는 유튜브 IFrame Player API를 활용하는 방법과 예제 코드를 다뤄보겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## IFrame Player API 사용 예시
