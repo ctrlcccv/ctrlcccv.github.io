@@ -5,6 +5,7 @@ description: >
     jQuery와 HTML5 캔버스를 사용하여 애니메이션 기능이 추가된 원형 프로그레스바를 구현하는 방법을 자세히 소개합니다.
 slug: 2024-01-28-circle-progress
 date: 2024-01-28 00:00:00+0000
+lastmod: 2024-01-28 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-28-circle-progress.webp
 
 categories:
@@ -13,6 +14,17 @@ tags:
     - 진행 표시줄
 ---
 jQuery와 HTML5의 캔버스 태그를 이용해 그려지는 이 프로그레스바는 데이터 로딩이나 작업 진행 상황을 시각적으로 표현해줍니다. 이 글에서는 이러한 원형 프로그레스바를 만들고, 원하는 퍼센트에 따라 애니메이션 되는 동적인 요소를 구성하는 방법을 알아보겠습니다.   
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -79,6 +91,8 @@ jQuery와 HTML5의 캔버스 태그를 이용해 그려지는 이 프로그레�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 

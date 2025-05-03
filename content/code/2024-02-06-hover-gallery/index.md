@@ -6,6 +6,7 @@ description: >
 
 slug: 2024-02-06-hover-gallery
 date: 2024-02-06 00:00:00+0000
+lastmod: 2024-02-06 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-02-06-hover-gallery.webp
 
 categories:
@@ -16,6 +17,18 @@ tags:
 웹사이트의 시각적인 매력을 높이는 데 중요한 요소 중 하나는 이미지 갤러리입니다. 이미지 갤러리는 사용자의 관심을 끌고, 웹사이트의 콘텐츠를 효과적으로 전시하는 방법으로 활용됩니다. 특히, 사용자의 마우스 호버(hover)를 감지하여 이미지가 확대되는 효과는 사용자 경험을 풍부하게 만들어 주는 요소입니다.  
 
 이 글에서는 마우스를 이미지 위에 올렸을 때 영역이 확대되는 갤러리 효과를 구현하는 데 필요한 HTML 구조와 CSS 코드를 상세히 설명합니다. HTML에서는 갤러리를 구성할 이미지들을 리스트 형태로 정의하고, CSS에서는 flexbox 레이아웃과 hover 선택자, 그리고 transition 속성을 활용하여 각 이미지가 자연스럽게 확대되도록 스타일링하는 방법을 다룹니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조

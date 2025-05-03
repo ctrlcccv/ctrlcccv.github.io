@@ -6,6 +6,7 @@ description: >
 
 slug: 2024-02-05-autocomplete
 date: 2024-02-05 00:00:00+0000
+lastmod: 2024-01-31 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-02-05-autocomplete.webp
 
 categories:
@@ -14,6 +15,18 @@ tags:
     - 자동완성
 ---
 자동완성 기능은 jQuery UI 라이브러리의 autocomplete 메서드를 사용하면 매우 간단하게 구현할 수 있습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -67,6 +80,18 @@ CSS 코드는 자동완성 입력 필드와 제안 메뉴의 스타일을 정의
 
 ## jQuery 코드
 jQuery의 `autocomplete` 메서드를 사용하여 사용자 입력에 따라 실시간으로 관련 제안을 보여주는 자동완성 기능을 쉽게 구현할 수 있습니다.   
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 ```js
 $(document).ready(function () {
     const data = [
@@ -114,17 +139,6 @@ $(document).ready(function () {
     });
 });
 ```
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 * **데이터 소스 정의**
   - `data` 배열은 자동완성에 사용될 데이터를 포함하고 있으며, 여기에는 웹 개발과 관련된 다양한 기술 명칭이 문자열 형태로 저장되어 있습니다.
 

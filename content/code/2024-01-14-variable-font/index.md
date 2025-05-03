@@ -5,6 +5,7 @@ description: >
 
 slug: 2024-01-14-variable-font
 date: 2024-01-14 00:00:00+0000
+lastmod: 2024-01-14 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-14-variable-font.webp
 
 categories:

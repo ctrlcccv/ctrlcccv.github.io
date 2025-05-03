@@ -6,6 +6,7 @@ description: >
 
 slug: 2024-02-05-css-has
 date: 2024-02-05 01:00:00+0000
+lastmod: 2024-02-05 01:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-02-05-css-has.webp
 
 categories:
@@ -14,6 +15,18 @@ tags:
     - 가상 클래스
 ---
 CSS는 웹 디자인과 스타일링에서 핵심적인 역할을 하는 언어입니다. 최근에 도입된 :has() 속성은 이전에는 어려웠던 특정 상황에서의 선택자를 간편하게 다룰 수 있게 해주는 강력한 기능입니다. 2023년 12월 이후, 이 기능은 최신 디바이스 및 브라우저에서 작동하며, 이전의 디바이스나 브라우저에서는 동작하지 않을 수 있습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 
@@ -61,6 +74,8 @@ h1:has(+ p) {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## 예제
 

@@ -5,6 +5,7 @@ description: >
     jQuery를 활용하여 내비게이션 메뉴에 마우스를 올릴 때 밑줄이 움직이는 효과를 만드는 방법을 자세히 설명합니다. 동적인 CSS 변수와 jQuery의 이벤트 핸들링 기능을 이용하여 효과적인 UI를 구현할 수 있습니다.
 slug: 2024-01-31-underline-move
 date: 2024-01-31 00:00:00+0000
+lastmod: 2024-01-31 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-31-underline-move.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
     - 마우스 이벤트
 ---
 웹 페이지의 내비게이션은 사용자 경험에서 매우 중요한 부분입니다. 특히, 내비게이션 메뉴에 마우스를 올렸을 때 동적인 효과를 주면 사용자의 시선을 끌고 상호작용을 유도할 수 있습니다. 이번 블로그 글에서는 jQuery와 CSS를 사용하여 메뉴에 마우스를 올렸을 때 밑줄이 움직이는 'hover 효과'를 만드는 방법에 대해 설명하겠습니다.   
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -116,6 +129,8 @@ nav .inner:hover .marker {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 
