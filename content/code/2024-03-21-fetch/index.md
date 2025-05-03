@@ -7,6 +7,7 @@ description: >
 
 slug: 2024-03-21-fetch
 date: 2024-03-21 00:00:00+0000
+lastmod: 2024-03-21 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-21-fetch.webp
 
 categories:
@@ -15,6 +16,17 @@ tags:
 
 ---
 JavaScript에서 데이터를 가져오는 것은 웹 개발의 핵심 요소입니다. Fetch API는 비동기적으로 네트워크 리소스를 가져오는 강력하고 유연한 도구로, XMLHttpRequest보다 더 간단하고 효율적인 방식으로 데이터를 처리할 수 있도록 해줍니다. 이 글에서는 Fetch API의 기본적인 사용법과 옵션 설정, Async/Await과의 활용 등을 다루며, API를 사용한 예제를 통해 이해를 높여보겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 
@@ -57,6 +69,8 @@ console.log(data);
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## Fetch 옵션 설정
 

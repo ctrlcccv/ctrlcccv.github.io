@@ -7,6 +7,7 @@ description: >
 
 slug: 2024-03-25-useEffect
 date: 2024-03-25 00:00:00+0000
+lastmod: 2024-03-25 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp
 
 categories:
@@ -17,6 +18,18 @@ tags:
 React useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드의 기능을 대체하고 부수 효과를 처리하는 강력한 도구입니다. 이 훅을 통해 컴포넌트의 상태 변화를 감지하고 그에 따라 필요한 작업을 수행할 수 있습니다. 의존성 배열을 활용하여 특정 상태의 변화에만 반응하도록 설정할 수 있고, 클린업 함수를 통해 메모리 누수를 방지할 수도 있습니다.  
 
 이 글에서는 useEffect 훅의 동작 원리, 주요 개념, 다양한 사용 사례, 그리고 실제 프로젝트 적용 예시까지 심층적으로 살펴봅니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## useEffect 훅의 동작 원리
@@ -69,6 +82,8 @@ function MyComponent() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## useEffect 훅의 다양한 사용 사례
 

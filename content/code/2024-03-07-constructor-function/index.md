@@ -7,6 +7,7 @@ description: >
 
 slug: 2024-03-07-constructor-function
 date: 2024-03-07 00:00:00+0000
+lastmod: 2024-03-07 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-07-constructor-function.webp
 
 categories:
@@ -15,6 +16,18 @@ tags:
 
 ---
 자바스크립트에서 객체를 만들 때, 생성자 함수는 매우 강력하고 유용한 도구입니다. 생성자 함수는 객체를 생성하고 초기화하는 역할을 수행하며, 객체 지향 프로그래밍에서 중요한 개념 중 하나입니다. 이 글에서는 자바스크립트 생성자 함수의 기본 개념과 다양한 활용 방법을 알아보겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## 생성자 함수란?

@@ -7,6 +7,7 @@ description: >
 
 slug: 2024-03-14-react-props
 date: 2024-03-14 00:00:00+0000
+lastmod: 2024-03-14 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-14-react-props.webp
 
 categories:
@@ -15,6 +16,17 @@ tags:
 
 ---
 리액트에서 컴포넌트는 코드 재사용성을 높여 개발 효율성을 극대화하는 핵심 요소입니다. 그러나 컴포넌트 간에 데이터를 전달해야 할 때 어려움이 발생할 수 있습니다. 이러한 문제를 해결하기 위해 리액트는 props라는 개념을 도입하여 부모 컴포넌트에서 자식 컴포넌트로 데이터를 효과적으로 전달할 수 있게 합니다. 이 글에서는 props를 심층적으로 이해하고, 다양한 활용 방법 및 최적화에 대해 알아보겠습니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 

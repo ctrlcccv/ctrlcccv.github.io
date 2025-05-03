@@ -7,6 +7,7 @@ description: >
 
 slug: 2024-03-06-js-this
 date: 2024-03-06 01:00:00+0000
+lastmod: 2024-03-06 01:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-06-js-this.webp
 
 categories:
@@ -17,6 +18,17 @@ tags:
 JavaScript에서의 this는 함수가 실행될 때 동적으로 결정되는 특별한 키워드로, 코드 내에서 현재 실행 컨텍스트를 나타냅니다. this의 동작 방식은 함수가 호출되는 상황에 따라 다르며, 이는 개발자에게 코드를 작성하는 동안 유연성을 제공합니다. this의 개념을 명확히 이해하고 활용하는 것은 JavaScript를 효과적으로 다루는 핵심 요소 중 하나입니다.  
 
 이 글에서는 this의 주요 바인딩 규칙과 예시를 살펴보겠습니다. 암시적 바인딩, 명시적 바인딩, new 바인딩, 전역 바인딩 등의 다양한 바인딩 방식을 통해 this가 어떻게 작동하는지 이해하고, 화살표 함수와 최신 JavaScript 기능이 this에 미치는 영향도 알아보겠습니다.   
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 
