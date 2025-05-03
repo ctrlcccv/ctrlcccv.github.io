@@ -4,6 +4,7 @@ description: >
     CSS와 jQuery를 사용하여 웹 페이지에 반응형 눈 내리는 효과를 만드는 방법을 단계별로 안내합니다. 눈송이의 크기, 속도, 개수를 조절하는 방법을 포함하여 모든 디바이스에서 일관된 사용자 경험을 제공합니다.
 slug: 2023-11-29-snow
 date: 2023-11-29 01:00:00+0000
+lastmod: 2023-11-29 01:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-29-snow2.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - 배경 효과
 ---
 CSS와 jQuery를 사용하여 웹 페이지에 눈 내리는 효과를 만드는 방법을 소개합니다. 이러한 효과는 특히 겨울철이나 특별한 행사를 위한 웹사이트에 매력적인 추가 요소가 될 수 있습니다. 본 글에서는 이러한 효과를 만드는 과정을 자세히 설명하고, 반응형 디자인을 고려하여 다양한 기기에서도 잘 작동하도록 구현하는 방법을 단계별로 안내합니다.     
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -32,16 +45,7 @@ CSS와 jQuery를 사용하여 웹 페이지에 눈 내리는 효과를 만드는
 * snow_wrap 클래스는 캔버스와 헤더를 감싸고, 전체 높이(100vh)를 차지합니다.
 * snow 클래스는 눈송이 애니메이션의 배경색을 설정합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<br>
 
 ## jQuery 코드
 ```js
@@ -131,6 +135,17 @@ setCanvasSize(); // 초기 캔버스 크기를 설정합니다.
 createParticles(); // 초기 파티클을 생성합니다.
 setInterval(draw, 33); // 33ms 간격으로 눈송이 애니메이션을 시작합니다.
 ```
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 * **캔버스 초기화 및 크기 설정**  
   * 캔버스와 2D 렌더링 컨텍스트를 초기화합니다.

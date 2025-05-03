@@ -4,6 +4,7 @@ description: >
     HTML, CSS, jQuery를 활용하여 웹 페이지에서 버튼 클릭으로 입력 필드를 동적으로 추가하고 삭제하는 기능을 구현한 방법을 상세히 설명합니다. 이 기능은 설문 조사 및 다양한 양식에서 유용합니다.
 slug: 2023-11-30-input-add
 date: 2023-11-30 01:00:00+0000
+lastmod: 2023-11-30 01:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-30-input-add.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - 입력 태그 커스텀
 ---
 jQuery를 사용하여 버튼 클릭 시 입력 필드(input)를 동적으로 추가하고 삭제하는 기능을 구현한 코드를 상세히 분석합니다. 이 기능은 사용자 인터페이스에서 흔히 볼 수 있는 요소로, 사용자가 필요에 따라 여러 입력 필드를 추가하고, 더 이상 필요 없는 필드는 삭제할 수 있게 해 줍니다. 특히 양식이나 설문 조사와 같은 상황에서 유용하게 사용됩니다. 이 기능을 구현하기 위해 HTML, CSS, 그리고 jQuery를 사용하며, 각각의 역할에 대해 자세히 설명하겠습니다.    
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -72,6 +85,8 @@ form { max-width: 500px; margin: 40px auto; padding: 20px; background: #fff; bor
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js

@@ -4,6 +4,7 @@ description: >
     jQuery를 활용하여 가로 스크롤에 따라 고정 요소의 위치 조정 방법을 소개하는 글입니다. 이 기법은 넓은 화면 레이아웃과 데이터가 많은 페이지에 유용합니다.
 slug: 2023-12-02-fixed-scroll
 date: 2023-12-02 00:00:00+0000
+lastmod: 2023-12-02 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-02-fixed-scroll.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - 스크롤 이벤트
 ---
 웹 페이지 디자인에서 고정 요소(Fixed elements)는 사용자 인터페이스의 중요한 부분을 이룹니다. 특히, 사용자가 페이지를 탐색할 때 항상 보이는 정보나 컨트롤을 제공하는 데 유용합니다. 이번 글에서는 jQuery를 활용하여 가로 스크롤 시 고정 요소의 위치를 조정하는 방법을 소개합니다. 이 기법은 사용자가 페이지를 가로로 스크롤 할 때 고정 요소가 화면에 계속 보이게 하면서 동시에 다른 내용이 가려지지 않도록 하는 데에 목적이 있습니다. 이러한 방식은 특히 넓은 화면 레이아웃이나 대용량의 데이터를 표시해야 하는 대시보드, 리포트 페이지에서 유용합니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -72,6 +85,8 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js

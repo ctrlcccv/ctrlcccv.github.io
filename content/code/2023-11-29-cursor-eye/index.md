@@ -4,6 +4,7 @@ description: >
     jQuery를 사용하여 마우스 움직임에 반응하는 눈동자 효과를 구현하는 방법을 탐구합니다. HTML과 CSS로 기본 구조와 스타일을 설정하고, jQuery로 동적인 움직임을 추가하는 과정을 자세히 다룹니다.
 slug: 2023-11-29-cursor-eye
 date: 2023-11-29 00:00:00+0000
+lastmod: 2023-11-29 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-29-cursor-eye.webp
 
 categories:
@@ -12,6 +13,18 @@ tags:
     - 마우스 이벤트
 ---
 jQuery를 활용하여 마우스 움직임에 따라 움직이는 눈의 효과를 구현하는 방법을 소개합니다. 이 코드는 웹 페이지에 독특한 상호작용 요소를 추가하며, 사용자의 마우스 움직임을 추적하여 눈동자가 마우스 커서를 따라 움직이는 시각적 효과를 생성합니다. 이런 종류의 동적인 요소는 페이지에 재미와 참여도를 더하는 데 효과적입니다.  
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -61,6 +74,8 @@ jQuery를 활용하여 마우스 움직임에 따라 움직이는 눈의 효과�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js

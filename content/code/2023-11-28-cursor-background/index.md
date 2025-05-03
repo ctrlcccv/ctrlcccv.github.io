@@ -4,6 +4,7 @@ description: >
     jQuery를 사용하여 마우스 움직임에 따라 배경 이미지와 텍스트가 움직이는 패럴랙스 효과를 구현하는 방법을 설명합니다. 이러한 인터랙티브 요소는 사용자 참여를 유도하고 웹사이트를 보다 몰입감 있는 공간으로 만듭니다.  
 slug: 2023-11-28-cursor-background
 date: 2023-11-28 00:00:00+0000
+lastmod: 2023-11-28 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-28-cursor-background2.webp
 
 categories:
@@ -13,6 +14,18 @@ tags:
 ---
 jQuery를 활용하여 마우스 움직임에 따라 배경 이미지와 텍스트가 움직이는 패럴랙스 효과를 구현하는 방법을 소개합니다.
 마우스 움직임에 반응하는 동적 요소가 사용자 참여를 유도하고, 더 몰입감 있는 브라우징 경험을 제공합니다.  
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
 <br>
 
 ## HTML 구조
@@ -53,6 +66,8 @@ title 클래스는 타이틀의 시각적 요소를 정의합니다.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 ```js
