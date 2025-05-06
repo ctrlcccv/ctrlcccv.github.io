@@ -5,19 +5,19 @@ title: >
 description: >  
     Learn how to create a lightweight CSS-only scrolling mouse animation to guide users down your webpage and improve user engagement.
 
-slug: 2025-05-05-mouse-scroll
-date: 2025-05-05 00:00:00+0000
-lastmod: 2025-05-05 00:00:00+0000
+slug: 2025-05-06-mouse-scroll
+date: 2025-05-06 00:00:00+0000
+lastmod: 2025-05-06 00:00:00+0000
 
 alternates:
   - title: "CSS로 마우스 스크롤 유도 애니메이션 만들기"
     href: "https://ctrlcccv.github.io/code/2023-12-04-mouse-scroll/"
     hreflang: "ko"
   - title: "Create a Scrolling Mouse Animation with CSS"
-    href: "https://ctrlcccv.github.io/code-en/2025-05-05-mouse-scroll/"
+    href: "https://ctrlcccv.github.io/code-en/2025-05-06-mouse-scroll/"
     hreflang: "en"
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-05-mouse-scroll-en.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-06-mouse-scroll-en.webp
 
 categories:
     - jQuery
