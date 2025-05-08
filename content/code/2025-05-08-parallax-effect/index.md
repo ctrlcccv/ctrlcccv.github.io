@@ -20,6 +20,17 @@ tags:
 
 웹사이트에 동적인 요소를 추가하면 방문자들의 시선을 사로잡고 페이지 체류 시간을 늘릴 수 있습니다. 특히 마우스의 움직임에 따라 요소들이 자연스럽게 반응하는 패럴랙스 효과는 시각적 매력을 높이는 데 효과적입니다. 이번 포스트에서는 jQuery를 활용하여 마우스 움직임에 반응하는 패럴랙스 효과를 구현하는 방법을 알아보겠습니다.
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <br>
 
 ## HTML 구조
@@ -80,7 +91,7 @@ overflow: hidden을 통해 내부 요소가 컨테이너를 벗어나지 않도�
 * **배경 이미지 스타일**  
 <span class="txt">
 배경 이미지는 컨테이너보다 큰 800x800 크기로 설정하여 움직임의 여유를 확보했습니다.  
-이렇게 하면 패럴랙스 효과가 더욱 자연스럽게 보입니다.
+이렇게 하면 패럴랙스 효과가 더 자연스럽게 보입니다.
 </span>
 
 * **타이틀 스타일**  
@@ -88,6 +99,17 @@ overflow: hidden을 통해 내부 요소가 컨테이너를 벗어나지 않도�
 타이틀은 절대 위치로 중앙에 배치되며, 텍스트 그림자를 통해 가독성을 높였습니다.  
 이 요소도 마우스 움직임에 따라 독립적으로 움직일 수 있습니다.
 </span>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 
@@ -156,6 +178,26 @@ requestAnimationFrame을 사용하여 부드러운 애니메이션을 구현합�
 
 <br>
 
+### 패럴랙스 효과 조절하기
+refreshParallax 함수에서 각 요소의 움직임을 조절할 수 있습니다.
+
+```js
+applyParallax('.bg', -200);  // 배경 이미지
+applyParallax('.title', -100);  // 타이틀 텍스트
+```
+
+여기서 숫자를 바꾸면 움직임이 달라집니다.
+- 숫자가 클수록 더 멀리 움직입니다 (예: -300)
+- 숫자가 작을수록 덜 움직입니다 (예: -50)
+- 마이너스(-)를 플러스(+)로 바꾸면 반대 방향으로 움직입니다
+
+🔍 실제로 테스트해보세요.
+- 배경 이미지가 너무 많이 움직인다면 -200을 -100으로 줄여보세요
+- 타이틀이 너무 적게 움직인다면 -100을 -150으로 늘려보세요
+- 반대 방향으로 움직이게 하고 싶다면 마이너스를 플러스로 바꿔보세요
+
+<br>
+
 ## 패럴랙스 효과의 활용 사례
 
 * **메인 페이지 상단 배너**  
@@ -172,24 +214,8 @@ requestAnimationFrame을 사용하여 부드러운 애니메이션을 구현합�
 
 * **포트폴리오 갤러리**  
 <span class="txt">
-작품 이미지들에 패럴랙스 효과를 적용하면 갤러리가 더욱 생동감 있게 보입니다.  
+작품 이미지들에 패럴랙스 효과를 적용하면 갤러리가 더 생동감 있게 보입니다.  
 마우스를 움직일 때마다 이미지들이 입체적으로 움직여 마치 실제 갤러리를 둘러보는 듯한 느낌을 줍니다.
-</span>
-
-<br>
-
-## 주의사항
-
-* **모바일 환경 고려**  
-<span class="txt">
-이 패럴랙스 효과는 마우스 움직임을 기반으로 하므로, 모바일 환경에서는 동작하지 않습니다.  
-모바일 사용자를 위한 대체 디자인이나 기능을 별도로 제공하는 것이 좋습니다.
-</span>
-
-* **성능 최적화**  
-<span class="txt">
-데스크톱 환경에서도 브라우저 성능에 따라 패럴랙스 효과가 부드럽게 동작하지 않을 수 있습니다.  
-이 경우 효과의 강도를 조절하거나, 저사양 기기에서는 효과를 비활성화하는 옵션을 제공하는 것이 좋습니다.  
 </span>
 
 <br>  
@@ -201,7 +227,7 @@ requestAnimationFrame을 사용하여 부드러운 애니메이션을 구현합�
 이 효과는 웹사이트의 메인 페이지나 특별한 섹션에 적용하면 사용자의 관심을 끌 수 있습니다.
 
 또한 다양한 활용 사례와 성능 최적화 팁을 통해 실제 프로젝트에서의 적용 방법도 알아보았습니다.  
-이러한 최적화 기법들을 적절히 활용하면 더욱 부드럽고 효율적인 패럴랙스 효과를 구현할 수 있습니다.
+이러한 최적화 기법들을 적절히 활용하면 더 부드럽고 효율적인 패럴랙스 효과를 구현할 수 있습니다.
 
 이 코드에 대해 궁금한 점이 있으시다면 댓글로 남겨주세요!  
 
