@@ -5,19 +5,19 @@ title: >
 description: >  
     Learn how to prevent background scrolling behind popups using CSS overscroll-behavior and jQuery. This guide covers scroll chaining control, mobile touch handling, and fully disabling page scroll for a seamless user experience.
 
-slug: 2025-05-12-popup-scroll
-date: 2025-05-12 00:00:00+0000
-lastmod: 2025-05-12 00:00:00+0000
+slug: 2025-05-09-popup-scroll
+date: 2025-05-09 00:00:00+0000
+lastmod: 2025-05-09 00:00:00+0000
 
 alternates:
   - title: "overscroll-behavior로 팝업 내부 스크롤과 body 스크롤 제어하기"
     href: "https://ctrlcccv.github.io/code/2023-03-13-popup-scroll/"
     hreflang: "ko"
   - title: "Disable Body Scroll Behind Popups (overscroll-behavior)"
-    href: "https://ctrlcccv.github.io/code-en/2025-05-12-popup-scroll/"
+    href: "https://ctrlcccv.github.io/code-en/2025-05-09-popup-scroll/"
     hreflang: "en"
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-12-popup-scroll-en.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-09-popup-scroll-en.webp
 
 categories:
     - jQuery
