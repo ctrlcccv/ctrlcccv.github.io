@@ -1,6 +1,6 @@
 ---
 title: >
-    jQuery - Swiper로 구현하는 Loop Grid Slider
+    jQuery - Swiper로 구현하는 Grid Loop Slider
 
 description: >  
     jQuery와 Swiper를 활용하여 반응형 그리드 슬라이더를 구현하는 방법을 소개합니다. 다양한 디바이스에서 최적화된 콘텐츠 전시를 위한 슬라이더를 직접 만들어보세요.
