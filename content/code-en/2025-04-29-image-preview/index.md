@@ -22,7 +22,7 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - jQuery
 tags:
-
+    - input
 ---
 Ever tried uploading a profile picture only to realize afterward that it wasn’t quite right? You’re not alone. According to UX research by NNGroup, nearly 1 in 5 user frustrations comes from confusing or limited upload experiences. That’s a big deal—especially considering how common file uploads are on the web.  
 
