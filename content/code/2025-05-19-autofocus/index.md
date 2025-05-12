@@ -7,8 +7,8 @@ description: >
 
 
 slug: 2025-05-19-autofocus
-date: 2025-05-12 00:00:00+0000
-lastmod: 2025-05-12 00:00:00+0000
+date: 2025-05-19 00:00:00+0000
+lastmod: 2025-05-19 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-19-autofocus.webp
 
