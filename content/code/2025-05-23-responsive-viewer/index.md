@@ -19,7 +19,7 @@ tags:
 
 다양한 디바이스에서 웹사이트가 어떻게 보이는지 일일이 확인하느라 불편했던 적이 있으신가요?
 
-반응형 웹사이트를 개발할 때 PC, 태블릿, 모바일 등 다양한 화면 크기에서 디자인이 어떻게 표현되는지 확인하는 것은 매우 중요합니다. 개발자 도구를 사용하거나 실제 기기로 테스트하는 방법도 있지만, 클라이언트에게 보여주거나 팀원들과 공유할 수 있는 독립적인 미리보기 도구가 있으면 더욱 편리합니다. 특히 포트폴리오에 이러한 도구를 포함시키면 자신이 만든 반응형 웹사이트의 장점을 효과적으로 보여줄 수 있습니다. 이번 포스트에서는 jQuery와 iframe을 활용하여 간단하면서도 효과적인 반응형 웹사이트 미리보기 툴을 만드는 방법을 알아보겠습니다.
+반응형 웹사이트를 개발할 때 PC, 태블릿, 모바일 등 다양한 화면 크기에서 디자인이 어떻게 표현되는지 확인하는 것은 매우 중요합니다. 개발자 도구를 사용하거나 실제 기기로 테스트하는 방법도 있지만, 클라이언트에게 보여주거나 팀원들과 공유할 수 있는 독립적인 미리보기 도구가 있으면 더욱 편리합니다. 이번 포스트에서는 jQuery와 iframe을 활용하여 반응형 웹사이트 미리보기 툴을 만드는 방법을 알아보겠습니다.
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -73,79 +73,17 @@ tags:
 ## CSS 스타일
 
 ```css
-.responsive_viewer {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.responsive_viewer h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-}
-
-.responsive_viewer .buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.responsive_viewer button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #485563;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.responsive_viewer button:hover {
-    background-color: #3a4654;
-}
-
-.responsive_viewer button.active {
-    background-color: #29323c;
-}
-
-.responsive_viewer .frame_container {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(45, 54, 65, 0.2);
-    padding: 20px;
-    transition: all 0.3s ease;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.responsive_viewer .iframe_wrapper {
-    border: 1px solid #cbd2d9;
-    box-shadow: 0 2px 4px rgba(71, 84, 99, 0.1);
-    transition: all 0.3s ease;
-    overflow: hidden;
-    position: relative;
-    height: calc(100vh - 350px);
-    max-width: 100%;
-}
-
-.responsive_viewer iframe {
-    border: none;
-    width: 100%;
-    height: 100%;
-    transform-origin: 0 0;
-}
-
-@media (max-width: 768px) {
-    .responsive_viewer .mo_hidden { 
-        display: none; 
-    }
+.responsive_viewer { display: flex; gap: 20px; max-width: 1200px; margin: 0 auto; flex-direction: column; } 
+.responsive_viewer h1 { margin-bottom: 20px; font-size: 24px; color: #333; text-align: center; } 
+.responsive_viewer .buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; } 
+.responsive_viewer button { padding: 10px 20px; background-color: #485563; border: none; border-radius: 5px; font-size: 16px; color: white; cursor: pointer; transition: background-color 0.3s; } 
+.responsive_viewer button:hover { background-color: #3a4654; } 
+.responsive_viewer button.active { background-color: #29323c; } 
+.responsive_viewer .frame_container { overflow: hidden; display: flex; justify-content: center; padding: 20px; background-color: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(45, 54, 65, 0.2); transition: all 0.3s ease; } 
+.responsive_viewer .iframe_wrapper { overflow: hidden; position: relative; height: calc(100vh - 350px); max-width: 100%; border: 1px solid #cbd2d9; box-shadow: 0 2px 4px rgba(71, 84, 99, 0.1); transition: all 0.3s ease; } 
+.responsive_viewer iframe { width: 100%; height: 100%; border: none; transform-origin: 0 0; } 
+@media (max-width: 768px){
+    .responsive_viewer .mo_hidden { display: none; } 
 }
 ```
 
@@ -301,15 +239,13 @@ applyScaling 함수는 디바이스 너비가 컨테이너보다 큰 경우 비�
 
 2. **클라이언트 프레젠테이션**  
 <span class="txt">
-클라이언트에게 웹사이트가 다양한 디바이스에서 어떻게 보이는지 직관적으로 보여줄 수 있어 프로젝트 진행 상황을 설명하기에 좋습니다.
+클라이언트에게 웹사이트가 다양한 디바이스에서 어떻게 보이는지 직관적으로 보여줄 수 있어, 프로젝트 진행 상황을 설명하기에 좋습니다.
 </span>
 
 3. **포트폴리오 강화 도구**  
 <span class="txt">
-개인 포트폴리오에 이 미리보기 툴을 포함시켜 자신이 제작한 반응형 웹사이트의 적응성을 직접 보여줄 수 있습니다. 면접관이나 클라이언트가 별도의 도구 없이도 다양한 화면 크기에서의 디자인을 확인할 수 있어 포트폴리오의 전문성과 방문자의 상호작용 가능성을 크게 향상시킬 수 있습니다.
+개인 포트폴리오에 이 미리보기 툴을 포함시켜 자신이 제작한 반응형 웹사이트의 적응성을 직접 보여줄 수 있습니다. 면접관이나 클라이언트가 별도의 도구 없이도 다양한 화면 크기에서의 디자인을 확인할 수 있어, 포트폴리오의 전문성과 방문자의 상호작용 가능성을 크게 향상시킬 수 있습니다.
 </span>
-
-💡 **팁**: iframe의 src 속성을 동적으로 변경할 수 있도록 입력 필드를 추가하면, 다양한 웹사이트를 테스트할 수 있는 더욱 유연한 도구로 발전시킬 수 있습니다.
 
 <br>
 
