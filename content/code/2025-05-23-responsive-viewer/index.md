@@ -6,8 +6,8 @@ description: >
     jQuery와 iframe을 활용하여 PC, 태블릿, 모바일 크기에서 웹사이트가 어떻게 보이는지 미리볼 수 있는 반응형 테스트 도구를 만드는 방법을 알아봅니다.  
 
 slug: 2025-05-23-responsive-viewer
-date: 2025-05-13 00:00:00+0000
-lastmod: 2025-05-13 00:00:00+0000
+date: 2025-05-23 00:00:00+0000
+lastmod: 2025-05-23 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-23-responsive-viewer.webp
 
