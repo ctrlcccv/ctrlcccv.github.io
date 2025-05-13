@@ -89,19 +89,72 @@
           if (xhr.status !== 200) {
             adBlockEnabled = true;
             showAdBlockMessage();
+            // Google Analytics로 광고 차단 사용자 이벤트 전송
+            if (typeof gtag === 'function') {
+              gtag('event', 'ad_blocker_detected', {
+                'event_category': 'Ad Blocker',
+                'event_label': window.location.pathname,
+                'non_interaction': true
+              });
+            }
+            // 광고 차단 상태를 로컬 스토리지에 저장 (상태 변화 추적용)
+            localStorage.setItem('adBlockEnabled', 'true');
           } else {
             // 추가 확인: 실제 구글 애드센스 기능 확인
             try {
               if (typeof window.adsbygoogle === 'undefined') {
                 adBlockEnabled = true;
                 showAdBlockMessage();
+                // Google Analytics로 광고 차단 사용자 이벤트 전송
+                if (typeof gtag === 'function') {
+                  gtag('event', 'ad_blocker_detected', {
+                    'event_category': 'Ad Blocker',
+                    'event_label': window.location.pathname,
+                    'non_interaction': true
+                  });
+                }
+                // 광고 차단 상태를 로컬 스토리지에 저장 (상태 변화 추적용)
+                localStorage.setItem('adBlockEnabled', 'true');
               } else {
                 adBlockEnabled = false;
                 hideAdBlockMessage();
+                // Google Analytics로 광고 차단 미사용자 이벤트 전송 (선택적)
+                if (typeof gtag === 'function') {
+                  gtag('event', 'no_ad_blocker', {
+                    'event_category': 'Ad Blocker',
+                    'event_label': window.location.pathname,
+                    'non_interaction': true
+                  });
+                }
+                // 이전에 광고 차단이 감지되었고, 현재는 감지되지 않은 경우 (허용으로 전환)
+                const previousAdBlockState = localStorage.getItem('adBlockEnabled');
+                if (previousAdBlockState === 'true') {
+                  // Google Analytics로 광고 차단 허용 전환 이벤트 전송
+                  if (typeof gtag === 'function') {
+                    gtag('event', 'ad_blocker_disabled', {
+                      'event_category': 'Ad Blocker',
+                      'event_label': 'User disabled ad blocker',
+                      'non_interaction': false
+                    });
+                  }
+                  console.log('사용자가 광고 차단을 허용으로 전환했습니다.');
+                  // 상태 초기화
+                  localStorage.setItem('adBlockEnabled', 'false');
+                }
               }
             } catch (e) {
               adBlockEnabled = true;
               showAdBlockMessage();
+              // Google Analytics로 광고 차단 사용자 이벤트 전송
+              if (typeof gtag === 'function') {
+                gtag('event', 'ad_blocker_detected', {
+                  'event_category': 'Ad Blocker',
+                  'event_label': window.location.pathname,
+                  'non_interaction': true
+                });
+              }
+              // 광고 차단 상태를 로컬 스토리지에 저장 (상태 변화 추적용)
+              localStorage.setItem('adBlockEnabled', 'true');
             }
           }
         }
@@ -109,6 +162,16 @@
       xhr.onerror = function() {
         adBlockEnabled = true;
         showAdBlockMessage();
+        // Google Analytics로 광고 차단 사용자 이벤트 전송
+        if (typeof gtag === 'function') {
+          gtag('event', 'ad_blocker_detected', {
+            'event_category': 'Ad Blocker',
+            'event_label': window.location.pathname,
+            'non_interaction': true
+          });
+        }
+        // 광고 차단 상태를 로컬 스토리지에 저장 (상태 변화 추적용)
+        localStorage.setItem('adBlockEnabled', 'true');
       };
       xhr.send();
     }
@@ -232,7 +295,7 @@
         });
         applyStyles(messageBox.querySelector('button'), styles.button);
         
-      }, 200); // 더 자주 체크하도록 간격 줄임
+      }, 500);
       
       document.getElementById('reload-page').addEventListener('click', function() {
         location.reload();
@@ -250,7 +313,9 @@
     // 페이지 로드 시 IP 확인 후 감지 시작
     window.addEventListener('load', function() {
       // 페이지가 완전히 로드된 후 약간의 지연을 두고 IP 확인 및 감지 시작
-      setTimeout(checkIPAndDetectAdBlock, 1000);
+      setTimeout(function() {
+        checkIPAndDetectAdBlock();
+      }, 1000);
     });
   })();
 </script>
