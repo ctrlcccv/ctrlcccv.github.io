@@ -11,6 +11,14 @@ lastmod: 2025-05-22 00:00:00+0000
     
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-22-auto-format-en.webp
 
+alternates:
+  - title: "jQuery - Swiper로 구현하는 Grid Loop Slider"
+    href: "https://ctrlcccv.github.io/code/2023-03-09-swiper-col/"
+    hreflang: "ko"
+  - title: "How to Build Custom Input Auto Format with jQuery"
+    href: "https://ctrlcccv.github.io/code-en/2025-05-22-auto-format/"
+    hreflang: "en"
+
 categories:
     - jQuery
 tags:

@@ -5,17 +5,17 @@ title: >
 description: >  
     Discover how to craft a responsive grid slider using jQuery and Swiper. Enhance your content display across devices with this step-by-step guide.
 
-slug: 2025-05-15-swiper-col
-date: 2025-05-15 00:00:00+0000
-lastmod: 2025-05-15 00:00:00+0000
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-15-swiper-col-en.webp
+slug: 2025-05-13-swiper-col
+date: 2025-05-13 00:00:00+0000
+lastmod: 2025-05-13 00:00:00+0000
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-13-swiper-col-en.webp
 
 alternates:
   - title: "jQuery - Swiper로 구현하는 Grid Loop Slider"
     href: "https://ctrlcccv.github.io/code/2023-03-09-swiper-col/"
     hreflang: "ko"
   - title: "How to Create a Swiper Grid Loop in jQuery"
-    href: "https://ctrlcccv.github.io/code-en/2025-05-15-swiper-col/"
+    href: "https://ctrlcccv.github.io/code-en/2025-05-13-swiper-col/"
     hreflang: "en"
 
 categories:
