@@ -29,7 +29,7 @@ Have you ever found it frustrating to enter a phone number split across multiple
 
 This small UX improvement can make a big difference, especially on mobile devices where precise tapping is harder. In this tutorial, I'll show you how to implement automatic field transitions for phone number inputs using jQuery.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -138,7 +138,7 @@ Fields are large, centered, and easy to read. Focus state includes a color chang
 The dashes between fields are styled for visibility but excluded from screen readers.
 </span>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

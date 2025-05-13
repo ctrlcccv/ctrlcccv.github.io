@@ -17,7 +17,7 @@ tags:
 ---
 로딩 애니메이션은 사용자가 데이터를 기다리는 동안 인터페이스에 적용되는 시각적 피드백이며, 좋은 사용자 경험을 만드는 데 있어 비중 있는 요소입니다. 이 글에서는 CSS를 이용해 원형 로딩 애니메이션을 구현하는 방법을 상세히 설명합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -72,7 +72,7 @@ CSS는 `loading` 클래스로 지정된 로딩 애니메이션을 시각적으�
     100% { transform: translate(-50%,-50%) rotate(360deg); }
 }
 ```
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

@@ -18,7 +18,7 @@ comments: false
 
 증명의 전장 10단계는 다음과 같은 전략으로 접근하는 것이 좋습니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

@@ -32,7 +32,7 @@ comments: false
 * 홀리베리, 캡사이신, 다크카카오, 와일드베리, 도넛, 솔방울
 * 음유시인, 스파클링, 파르페, 예언자  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

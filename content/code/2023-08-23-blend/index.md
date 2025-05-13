@@ -15,7 +15,7 @@ tags:
 CSS의 mix-blend-mode 속성은 웹 디자인과 그래픽 작업을 더욱 흥미롭게 만들어주는 강력한 도구입니다.   
 이 속성을 활용하면 웹 요소들 사이에 다양한 블렌딩 효과를 적용하여 독특하고 시각적으로 매력적인 디자인을 구현할 수 있습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -74,7 +74,7 @@ difference 모드는 두 색상의 차이를 강조하여 픽셀 간의 차이�
 11. exclusion (제외) :  
 exclusion 모드는 두 색상을 혼합하여 중간 톤을 만듭니다. 배경과 요소의 색상을 조화롭게 블렌딩하여 이미지를 부드럽게 만들거나 화면을 완화할 때 사용됩니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

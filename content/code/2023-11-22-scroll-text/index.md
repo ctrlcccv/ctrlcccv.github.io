@@ -14,7 +14,7 @@ tags:
 ---
 이 글에서는 jQuery를 활용하여 특정한 스크롤 동작에 반응하여 텍스트의 스타일이 변화하는 웹 페이지 기능을 소개합니다. 사용자가 페이지를 스크롤 할 때마다 텍스트의 불투명도, 크기, 그리고 위치가 동적으로 변하도록 구현되었습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -139,7 +139,7 @@ $(window).scroll(() => {
 ```
 jQuery 코드의 주요 구성 요소와 기능은 다음과 같습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

@@ -25,7 +25,7 @@ Swiper 슬라이드의 centeredSlides 옵션을 사용하여 두 가지 유형�
 [첫 번째 유형](#첫번째-유형)은 centeredSlides 옵션을 사용하여 슬라이드를 가운데로 정렬시켜 사용자에게 집중되는 효과를 가진 슬라이드를 만들었다.  
 [두 번째 유형](#두번째-유형)은 CSS의 transform: scale() 속성을 활용하여 슬라이드 요소의 크기에 변화를 주어 3D carousel 형태의 슬라이드를 만들었다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -211,7 +211,7 @@ function slider() {
 ```
 영역별로 크기를 지정하기 위해 transform: scale() 속성을 사용했다. 그리고 슬라이드가 넘어갈 때 크기가 부드럽게 변화하도록 transition 속성을 선언했다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

@@ -19,7 +19,7 @@ React useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드
 
 이 글에서는 useEffect 훅의 동작 원리, 주요 개념, 다양한 사용 사례, 그리고 실제 프로젝트 적용 예시까지 심층적으로 살펴봅니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -72,7 +72,7 @@ function MyComponent() {
 * **클린업 함수:** 컴포넌트가 언마운트되기 직전이나 다음 부수 효과 함수가 호출되기 직전에 실행되는 함수입니다.
 * **조건부 실행:** 특정 조건을 충족할 때만 부수 효과 함수를 실행합니다.   
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

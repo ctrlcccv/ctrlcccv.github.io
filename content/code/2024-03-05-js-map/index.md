@@ -17,7 +17,7 @@ tags:
 
 자바스크립트의 `map()` 메서드는 배열의 각 요소에 대해 주어진 함수를 실행하고 그 결과를 새로운 배열로 반환하는 함수형 프로그래밍 방식의 핵심 도구입니다. 이 메서드는 간결하고 효율적인 코드를 작성하며, 다양한 배열 조작 작업을 수행할 수 있도록 지원합니다.   
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -79,7 +79,7 @@ const discountedProducts = products.map((product) => {
 console.log(discountedProducts);
 ```
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

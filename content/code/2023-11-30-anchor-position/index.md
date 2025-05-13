@@ -14,7 +14,7 @@ tags:
 ---
 CSS 절대 위치 지정은 웹 페이지에서 요소들을 자유롭게 배치할 수 있는 강력한 기능입니다. 그러나 종종 다른 요소들에 상대적으로 위치를 지정해야 할 필요가 있습니다. 이러한 상황에서 '앵커 포지셔닝(anchor positioning)'이라는 새로운 개념이 등장했습니다. 이는 동적인 UI 요소들의 배치에 특히 유용합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -59,7 +59,7 @@ anchor-name 속성은 요소를 앵커로 지정하고 이름을 부여합니다
 ```
 이 예제에서 #tooltip은 --button-anchor 앵커의 바닥면 바로 아래에 있도록 설정됩니다. 이를 통해 버튼에 마우스를 올렸을 때 버튼 바로 아래에 툴팁이 나타나도록 할 수 있습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

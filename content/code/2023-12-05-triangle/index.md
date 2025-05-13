@@ -14,7 +14,7 @@ tags:
 ---
 사용자가 입력한 값에 따라 CSS 삼각형을 자동으로 생성하는 웹 애플리케이션을 소개합니다. 사용자는 삼각형의 크기, 색상, 방향을 설정할 수 있으며, 이에 따라 실시간으로 CSS 코드가 생성되고 적용됩니다. 이 기능은 웹 디자인에서 흔히 사용되는 삼각형 모양을 손쉽게 구현하고자 하는 웹 개발자들에게 유용합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -94,7 +94,7 @@ body 태그는 flex 레이아웃을 사용하여 내용을 화면 중앙에 배�
 * **반응형 디자인**   
 @media 쿼리를 사용하여 화면 크기가 1024px 이하일 때 컨테이너의 너비와 버튼의 스타일을 조정합니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

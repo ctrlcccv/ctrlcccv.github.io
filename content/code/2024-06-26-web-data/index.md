@@ -17,7 +17,7 @@ tags:
 
 오늘날 웹 애플리케이션은 단순한 정적 웹 페이지 그 이상을 요구합니다. 사용자 경험을 고도화하기 위해서는 데이터를 클라이언트 측에 저장하고 활용하는 기술이 필수적입니다. 여기서 가장 유명한 세 가지 방법은 쿠키, 로컬 스토리지, 세션 스토리지입니다. 이 세 가지 방식은 각각 고유의 목표와 특징을 가지고 있으며, 특정한 요구사항과 상황에 맞춰 사용됩니다. 이 글에서는 이러한 데이터 저장 방식의 차이점을 비교하고, 언제 어떤 방식을 사용해야 하는지에 대해 자세히 알아보겠습니다.    
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -60,7 +60,7 @@ tags:
 * **사용자 설정 저장**: 예를 들어, 테마 선택, 언어 설정 등을 저장하여 다음 방문 시 동일한 환경을 제공합니다.
 * **웹 애플리케이션 캐싱**: 특정 데이터나 파일을 캐싱하여 빠른 접근을 가능하게 합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

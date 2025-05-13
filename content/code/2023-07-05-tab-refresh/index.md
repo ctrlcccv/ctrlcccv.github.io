@@ -15,7 +15,7 @@ tags:
 처음에는 해시태그 방식을 사용하였으나, 해시태그 값의 아이디를 가진 요소로 자동 이동하는 브라우저의 기본 동작으로 인해 스크롤 위치가 변경되는 문제가 발생했다.
 이를 해결하기 위해 파라미터 방식으로 변경했다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -142,7 +142,7 @@ function tab() {
 }
 ```
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

@@ -41,7 +41,7 @@ comments : false
 
 * **포화 지방과 트랜스 지방 (나쁜 지방)** : 포화 지방과 트랜스 지방은 심혈관 건강에 부정적인 영향을 미칠 수 있으므로 제한하는 것이 좋습니다. 고지방 고칼로리 음식, 패스트푸드, 과자 등에 트랜스 지방이 많이 함유되어 있으므로 이러한 음식을 피하십시오.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

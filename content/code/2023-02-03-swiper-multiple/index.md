@@ -14,7 +14,7 @@ tags:
 Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 슬라이드를 반응형으로 만드는 방법입니다.  
 슬라이드의 개수가 많아져도 유지보수가 편리하도록 코드를 구성하였습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -92,7 +92,7 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 각 슬라이드에 Swiper를 적용하고, 반응형을 처리하기 위해 윈도우의 리사이즈 이벤트를 감지합니다.   
 이를 위해 .each() 메서드를 사용합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

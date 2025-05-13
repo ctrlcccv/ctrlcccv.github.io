@@ -14,7 +14,7 @@ comments: false
 ---
 안녕하세요, 쿠키런 킹덤의 팬 여러분! 최근 '수호의 성전'이 새로운 모습으로 돌아왔다는 소식, 들으셨나요? 오늘은 이 흥미진진한 업데이트에 대해 자세히 이야기해볼까 합니다. 이번 업데이트는 기존의 게임 플레이 방식을 완전히 새롭게 바꾸어 놓았습니다. 웨이브 수가 60에서 20으로 줄어들었으며, 다양한 난이도와 새로운 스킬 속성, 그리고 수동 전투 모드가 추가되어 더 전략적이고 다채로운 게임 경험을 제공합니다. 난이도는 EASY부터 INFINITY까지 6종류로 다양화되었으며, 난이도마다 특정 웨이브 수가 설정되어 있습니다. 이러한 변화들은 게임에 새로운 도전과 재미를 더해줄 것입니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

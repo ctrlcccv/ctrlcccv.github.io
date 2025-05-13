@@ -42,7 +42,7 @@ comments : false
 
 천식(Asthma)은 기도에 염증이 생겨 민감해지고 좁아지는 만성 질환입니다. 알레르겐, 운동, 차가운 공기, 연기 등 다양한 자극으로 유발될 수 있으며, 다음과 같은 증상이 나타납니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

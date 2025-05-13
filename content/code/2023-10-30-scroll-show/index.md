@@ -15,7 +15,7 @@ tags:
 jQuery의 스크롤 이벤트와 CSS의 transform 속성을 결합하여, **웹 페이지의 요소가 스크롤을 내릴 때 나타나는 효과**를 구현하는 방법입니다.
 아래에서 실제 예제 코드와 함께 이 기술을 구현하는 방법을 자세히 설명하겠습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -79,7 +79,7 @@ type_right 클래스가 추가되면 요소가 오른쪽에서 왼쪽으로 나�
 ## jQuery 코드
 jQuery를 사용하여 스크롤 이벤트를 모니터링하고, 요소들을 화면에 나타나게 하는 코드가 구현되어 있습니다. 
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

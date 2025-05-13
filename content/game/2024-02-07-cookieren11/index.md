@@ -28,7 +28,7 @@ comments: false
 * 뿅망치 피하기 : 3번 카드  
 * 인형극 : 4번 카드  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

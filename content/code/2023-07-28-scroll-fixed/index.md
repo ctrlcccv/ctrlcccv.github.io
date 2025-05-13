@@ -16,7 +16,7 @@ jQuery를 활용하여 웹 페이지 스크롤 시 특정 요소가 화면의 �
 
 예를 들어, 사용자가 페이지를 아래로 스크롤 하는 동안 사이드바의 광고나 메뉴가 특정 지점에 도달하면 그 위치에서 고정되어 나머지 페이지와 독립적으로 스크롤 되지 않습니다. 이러한 기능은 중요한 정보나 기능을 사용자의 시선에 지속적으로 노출시키는 데 매우 유용합니다. 또한, 반응형 디자인을 고려하여 화면 크기에 따라 고정 요소의 동작이 달라지도록 설정되어 있어, 다양한 디바이스와 화면 크기에서도 사용자 경험을 일관되게 유지할 수 있습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -76,7 +76,7 @@ wrap 클래스에 flex 레이아웃을 적용하여 내부 요소를 가로로 �
 * **고정 박스 스타일**  
 fixed_box는 절대 위치를 사용하여 필요에 따라 화면에 고정됩니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

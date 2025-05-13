@@ -16,7 +16,7 @@ tags:
 이 예제에서는 background 속성으로 밑줄 높이와 위치를 조정하여 간단하게 형광펜 효과를 구현할 수 있다.  
 그리고 transition 속성을 활용하여 마우스를 올렸을 때 밑줄이 부드럽게 이동하도록 애니메이션 효과를 추가해보았다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -58,7 +58,7 @@ linear-gradient를 사용하여 밑줄 색상을 입히고, background-position�
 background-position 속성으로 이동하는 방향을 변경할 수 있다.  
 이를 위해 center와 right 클래스를 추가하여 각각 다른 속성을 지정했다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

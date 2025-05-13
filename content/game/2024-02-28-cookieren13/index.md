@@ -56,7 +56,7 @@ comments: false
 오염된 몬스터 무리 처치 (수은기사) 조합입니다.  
 쿨타임 부옵션 많이 넣어주세요.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

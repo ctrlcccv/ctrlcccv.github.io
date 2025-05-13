@@ -15,7 +15,7 @@ tags:
 ---
 유튜브 동영상을 웹페이지에 적절하게 삽입하는 것은 웹사이트의 시각적 매력을 높일 수 있는 중요한 방법입니다. 이 글에서는 유튜브 동영상을 반응형으로 만드는 CSS 기법을 소개하며, 사용자가 어떤 플랫폼이나 디바이스에서 접속하더라도 최적의 동영상 시청 경험을 제공하는 방법을 알아봅니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -50,7 +50,7 @@ tags:
   * `frameborder` 속성은 iframe의 테두리를 나타냅니다. 여기서는 "0"으로 설정함으로써 테두리를 제거합니다.
   * `allowfullscreen` 속성은 사용자가 전체 화면 모드로 비디오를 볼 수 있도록 허용합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

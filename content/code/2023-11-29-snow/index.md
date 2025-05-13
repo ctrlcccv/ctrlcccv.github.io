@@ -14,7 +14,7 @@ tags:
 ---
 CSS와 jQuery를 사용하여 웹 페이지에 눈 내리는 효과를 만드는 방법을 소개합니다. 이러한 효과는 특히 겨울철이나 특별한 행사를 위한 웹사이트에 매력적인 추가 요소가 될 수 있습니다. 본 글에서는 이러한 효과를 만드는 과정을 자세히 설명하고, 반응형 디자인을 고려하여 다양한 기기에서도 잘 작동하도록 구현하는 방법을 단계별로 안내합니다.     
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -136,7 +136,7 @@ createParticles(); // 초기 파티클을 생성합니다.
 setInterval(draw, 33); // 33ms 간격으로 눈송이 애니메이션을 시작합니다.
 ```
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

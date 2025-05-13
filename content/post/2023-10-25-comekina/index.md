@@ -35,7 +35,7 @@ comments : false
 * **기타 질환** : 다른 질환이 존재하는 경우, 코메키나의 지속시간에 영향을 미칠 수 있습니다.
 코메키나를 복용하고도 증상이 계속되거나 악화하는 경우, 전문가와 상담하는 것이 중요합니다. 이러한 상황에서는 의사 또는 약사와의 상담을 통해 적절한 조치를 취할 수 있을 것입니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

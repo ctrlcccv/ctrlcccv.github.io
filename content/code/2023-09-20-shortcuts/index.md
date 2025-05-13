@@ -14,7 +14,7 @@ tags:
 ---
 파이썬 라이브러리인 pynput을 활용하여 키보드 이벤트를 감지하고, 특정 단축키를 눌렀을 때와 놓았을 때 실행되는 함수를 만드는 방법입니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -74,7 +74,7 @@ with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
 ```
 Listener 클래스는 on_press와 on_release 함수를 사용하여 키보드 이벤트를 감지하고, 사용자가 정의한 동작을 실행합니다. listener.join()은 리스너를 시작하고 계속해서 키보드 입력을 감지하는 역할을 합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

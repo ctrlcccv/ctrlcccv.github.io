@@ -13,7 +13,7 @@ tags:
 CSS를 활용하여 데이터에 따라 자동으로 정렬되는 세로형 막대그래프를 만들어보았습니다.  
 아래는 그래프의 HTML과 CSS 코드 예시입니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -97,7 +97,7 @@ CSS를 활용하여 데이터에 따라 자동으로 정렬되는 세로형 막�
 
 <br>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

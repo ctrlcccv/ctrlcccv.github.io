@@ -20,7 +20,7 @@ tags:
 
 이 글에서는 Swiper로 만든 메뉴에서 링크 클릭이 되지 않는 문제를 해결하는 방법에 대해 자세히 다뤄보겠습니다. preventClicks와 preventClicksPropagation 옵션을 설정하여 문제를 해결하는 방법을 중심으로 설명하겠습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -65,7 +65,7 @@ const swiper = new Swiper('.swiper-container', {
 
 다음은 Swiper를 이용한 메뉴에서 preventClicks와 preventClicksPropagation 옵션을 설정하여 링크 클릭 문제를 해결하는 예시입니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

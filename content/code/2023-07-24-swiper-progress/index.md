@@ -15,7 +15,7 @@ tags:
 ---
 Swiper.js 플러그인의 pagination 옵션을 텍스트로 변경하고, 각 페이지의 progress bar 형태를 추가했다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -85,7 +85,7 @@ pagination 부분에 들어갈 텍스트는 slide_tit 클래스에 별도로 작
 ```
 pagination 버튼이 active 되었을 때 progress bar 의 width값이 100%로 올라가는 애니메이션을 추가했다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

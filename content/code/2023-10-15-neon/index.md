@@ -15,7 +15,7 @@ tags:
 네온사인 효과는 웹 사이트에 화려함을 더해주어 사용자들에게 인상적인 경험을 제공하는 데 도움이 됩니다.   
 HTML과 CSS를 사용하여 네온사인 효과를 만드는 방법입니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -58,7 +58,7 @@ neon 클래스를 정의하고 해당 클래스에 원하는 스타일을 적용
 
 * **animation** : 애니메이션을 적용합니다. neon-flicker라는 애니메이션을 사용하여 텍스트가 번갈아 가며 반짝이도록 만듭니다. 애니메이션의 지속 시간, 반복 횟수 등을 설정할 수 있습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

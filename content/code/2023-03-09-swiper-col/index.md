@@ -27,7 +27,7 @@ tags:
 
 웹사이트를 만들 때 여러 개의 콘텐츠를 한 번에 보여주고 싶을 때가 있습니다. 예를 들어, 쇼핑몰에서는 상품 목록을, 포트폴리오에서는 작품들을 효과적으로 전시할 수 있습니다. 이번 포스트에서는 jQuery와 Swiper 라이브러리를 활용하여 반응형 그리드 슬라이더를 구현하는 방법을 알아보겠습니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -133,7 +133,7 @@ tags:
 모바일 화면(767px 이하)에서는 그리드 컬럼 너비를 조정하여 더 좁은 화면에서도 3개의 아이템이 잘 보이도록 만듭니다.
 </span>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

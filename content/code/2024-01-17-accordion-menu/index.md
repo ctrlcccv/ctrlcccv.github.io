@@ -33,7 +33,7 @@ HTML5의 `<details>` 태그를 이용하면 기본적인 열기/닫기 기능은
 **기본 아코디언 → 문제점 살펴보기 → jQuery로 개선 → CSS로 스타일링 → jQuery 없이 CSS만으로 개선**  
 이런 흐름으로 하나하나 차근차근 설명해 드리겠습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -146,7 +146,7 @@ $('.accordion_menu details').attr('open', true).each(function() {
 
 이제 스타일을 다듬어 더 깔끔한 UI로 만들어봅시다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

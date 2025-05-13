@@ -29,7 +29,7 @@ tags:
 이번 글에서는 CSS만 사용해서 마우스 스크롤 유도 애니메이션을 만드는 방법을 소개합니다.  
 마우스 모양과 부드럽게 움직이는 화살표로, 사용자의 시선을 자연스럽게 아래로 이끌어보세요!
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -147,7 +147,7 @@ tags:
 }
 ```
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

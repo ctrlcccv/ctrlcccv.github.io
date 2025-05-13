@@ -17,7 +17,7 @@ tags:
 ---
 JavaScript에서 배열을 다룰 때 종종 필요한 작업 중 하나는 특정 조건을 만족하는 요소들만 추출하는 것입니다. 이를 위해 JavaScript에서는 `filter()` 메서드를 제공합니다. `filter()` 메서드는 원본 배열에서 특정 조건을 만족하는 요소들로 이루어진 새로운 배열을 생성합니다. 이 글에서는 JavaScript의 `filter()` 메서드에 대해 자세히 알아보겠습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -66,7 +66,7 @@ const products = [
 ];
 const affordableProducts = products.filter(product => product.price < 100);
 ```
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

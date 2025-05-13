@@ -14,7 +14,7 @@ tags:
 ---
 웹 페이지를 개발하거나 사용자 인터페이스를 디자인할 때, 비밀번호 입력 필드는 중요한 부분 중 하나입니다. 그러나 사용자가 입력한 비밀번호를 확인하고 검토하는 것은 종종 번거롭고 실수하기 쉬운 작업입니다. 이런 이유로 jQuery와 같은 라이브러리를 사용하여 비밀번호 입력 필드를 보이기/숨기기 기능을 구현하는 것은 매우 유용합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -52,7 +52,7 @@ tags:
 .pw_show input[type="checkbox"] {display: flex;align-items: center;margin-right: 5px;font-size: 12px; }
 ```
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

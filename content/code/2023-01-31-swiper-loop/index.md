@@ -15,7 +15,7 @@ jQuery와 Swiper 라이브러리를 사용하여 반응형 슬라이드를 만�
 Swiper 라이브러리를 사용하면 화면 크기에 따라 슬라이드의 수가 동적으로 변하도록 반응형 슬라이드를 손쉽게 구현할 수 있습니다.   
 하지만 loop 옵션을 사용하면 슬라이드를 무한 반복하기 위해 내용을 복제하는데, 이에 따라 몇 가지 문제가 발생할 수 있습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -88,7 +88,7 @@ Swiper의 스타일은 아래와 같이 정의되어 있습니다.
 
 실제로 슬라이드를 초기화하고 관리하는 jQuery 코드입니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

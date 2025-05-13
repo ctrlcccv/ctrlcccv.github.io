@@ -39,7 +39,7 @@ comments: false
   * 산타모자 옆에 떨어져 있는 설탕 알갱이. 조금 딱딱하게 굳었고, 색도 바랬다.
   * 산타노움의 옆에 놓여있던 탁상시계. 바닥으로 떨어진 것 같은데, 그 충격으로 고장난 걸까?
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

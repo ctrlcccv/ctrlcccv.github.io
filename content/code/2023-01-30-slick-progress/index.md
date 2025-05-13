@@ -14,7 +14,7 @@ tags:
 
 Slick.js 플러그인을 활용하여 이미지 슬라이드와 함께 제목을 포함한 진행 표시줄을 구현하는 방법입니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -92,7 +92,7 @@ Slick.js 플러그인을 활용하여 이미지 슬라이드와 함께 제목을
 
 Slick 슬라이드와 진행 표시줄을 조작하는 jQuery 스크립트를 추가합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

@@ -14,7 +14,7 @@ tags:
 ---
 웹 디자인에서 폰트 선택은 웹사이트나 앱의 전반적인 분위기와 사용자 경험에 큰 영향을 미칩니다. 하지만 때로는 다양한 운영체제(OS)와 브라우저에서 폰트가 다르게 표시되는 문제에 직면할 수 있습니다. 특히 웹폰트를 사용할 때, 윈도우와 맥 OS 간의 폰트 굵기 차이 문제는 종종 발생합니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -74,7 +74,7 @@ navigator.platform을 사용하여 사용자의 운영체제가 Windows인지 �
 windowOS 클래스를 가진 요소들을 선택하고, 각 요소의 폰트 굵기를 조정하는 부분입니다. 각 요소의 폰트 굵기가 700인 경우 500으로 변경하고, 폰트 굵기가 500인 경우 400으로 변경합니다. 동시에 transform 속성을 사용하여 텍스트를 약간 회전시켜서 폰트가 왜곡되는 문제를 완화합니다.  
 <br>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

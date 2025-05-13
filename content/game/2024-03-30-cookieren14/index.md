@@ -43,7 +43,7 @@ comments: false
 
 빨간색 원으로 표시한 메뉴를 클릭하여 광장 이벤트 시간을 확인할 수 있습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

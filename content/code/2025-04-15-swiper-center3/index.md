@@ -26,7 +26,7 @@ tags:
 이번 블로그 글에서는 Swiper.js 11 이상 버전에서 centeredSlides 옵션 사용 시 발생할 수 있는 슬라이드 전환 오류를 해결하는 방법을 소개합니다.
 최신 Swiper.js는 다양한 기능을 제공하지만, 특히 centeredSlides처럼 특정 옵션이 예상대로 작동하지 않는 경우가 있습니다. 슬라이드 개수가 부족하거나, 복제 슬라이드를 동적으로 생성해야 하는 상황에서는 이러한 오류가 더욱 자주 발생합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -112,7 +112,7 @@ tags:
 left: 50%와 transform: translate(-50%)를 함께 사용하여 갤러리 콘텐츠를 정확히 중앙에 정렬하며, width: 200vw는 복제 슬라이드가 자연스럽게 이어지도록 보장합니다.  
 </span>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

@@ -14,7 +14,7 @@ tags:
     - 진행 표시줄
 ---
 jQuery와 HTML5의 캔버스 태그를 이용해 그려지는 이 프로그레스바는 데이터 로딩이나 작업 진행 상황을 시각적으로 표현해줍니다. 이 글에서는 이러한 원형 프로그레스바를 만들고, 원하는 퍼센트에 따라 애니메이션 되는 동적인 요소를 구성하는 방법을 알아보겠습니다.   
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -81,7 +81,7 @@ jQuery와 HTML5의 캔버스 태그를 이용해 그려지는 이 프로그레�
 * **캔버스 스타일링**
   * 캔버스 크기를 부모 요소에 맞추어 100%로 설정하여 반응형 디자인이 가능하도록 만듭니다.   
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

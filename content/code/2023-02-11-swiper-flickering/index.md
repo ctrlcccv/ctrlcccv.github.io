@@ -13,7 +13,7 @@ tags:
 iOS 환경에서 Swiper 슬라이드를 사용할 때 발생하는 깜박임 문제를 해결하는 방법입니다.  
 backface-visibility와 transform 속성을 활용하여 문제를 해결했습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

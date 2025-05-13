@@ -26,7 +26,7 @@ tags:
 ## 친근한 분위기와 마음 편안한 게임 플레이
 '브릭시티'는 힐링 게임의 특징을 가지고 있습니다. 동물의 숲 시리즈와 유사한 따뜻한 색감과 평온한 분위기, 마음을 편안하게 하는 배경 음악으로 가득 차 있습니다. 게임 내 캐릭터들의 대화와 아이템 설명은 유머와 위트로 가득 차 있어 플레이어들에게 웃음을 선사합니다. 또한 전 세계 이용자들의 도시를 탐험하고, 다양한 도시를 '시티 투어'를 통해 경험할 수 있습니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

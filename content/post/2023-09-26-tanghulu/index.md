@@ -30,7 +30,7 @@ tags:
 탕후루는 다양한 과일을 사용하여 만들 수 있는 간식입니다. 산사탕후루는 가장 기본적이며 산사나무 열매를 사용합니다. 그 외에도 사과, 배, 귤, 딸기탕후루가 있습니다. 각각의 종류는 해당 과일의 맛과 특징을 즐길 수 있는 다양한 변화를 제공합니다.  
 <br>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

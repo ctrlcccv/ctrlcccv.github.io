@@ -17,7 +17,7 @@ tags:
 
 웹 개발 시, 특히 CSS를 사용할 때 종종 발생하는 문제 중 하나는 다양한 브라우저 간의 렌더링 차이입니다. 그중에서도 iOS 환경에서 border-radius와 overflow: hidden 속성을 함께 사용할 때 발생하는 문제가 있습니다. 이 문제는 요소의 둥근 모서리에 의도적으로 잘린 콘텐츠가 제대로 표시되지 않는 문제로 이어질 수 있습니다. 이번 포스트에서는 이 문제를 해결하기 위해 -webkit-mask-image 속성을 이용한 방법을 공유하고자 합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -54,7 +54,7 @@ isolation: isolate; 속성은 요소를 별도의 레이어로 분리하여 다�
 -webkit-mask-image: -webkit-radial-gradient(white, black); 속성은 요소의 마스크를 설정하여, 해당 요소의 특정 부분을 표시하거나 숨길 수 있는 효과를 제공합니다. 이 경우, 흰색 부분 (가장자리)에서는 요소를 보이게 하고, 검은색 부분 (중앙)에서는 요소를 숨깁니다. 이 속성을 추가함으로써, 둥근 모서리 효과를 잘 살리면서도 콘텐츠가 잘리는 문제를 해결할 수 있습니다.
 
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

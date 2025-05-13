@@ -17,7 +17,7 @@ tags:
 ---
 웹 애플리케이션에서 카운트다운 타이머는 이벤트 시작, 제품 출시, 한정판 세일 등 다양한 상황에서 사용됩니다. 이런 카운트다운 타이머는 사용자가 남은 시간을 시각적으로 인지할 수 있게 해줍니다. 이 예제에서는 jQuery를 활용하여 숫자가 부드럽게 내려오는 카운트다운 애니메이션을 구현하는 방법을 설명합니다. 사용자는 목표 시간까지 남은 시간을 쉽게 확인할 수 있으며, 동적인 숫자 애니메이션으로 시각적인 즐거움도 경험할 수 있습니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -203,7 +203,7 @@ class Countdown {
     }
 }
 ```
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

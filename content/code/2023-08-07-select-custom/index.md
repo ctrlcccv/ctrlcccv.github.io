@@ -15,7 +15,7 @@ tags:
 select 태그의 CSS 커스텀은 제한적이기 때문에, 원하는 디자인을 구현하기 위해서는 ul 태그를 사용하여 옵션 목록을 작성한 후, jQuery를 사용하여 select 동작을 추가해야 한다.  
 그리고 select 옵션 데이터값을 전달하기 위해 input hidden 태그를 활용했다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -64,7 +64,7 @@ data-value 속성의 값은 실제 데이터값을 나타내며, jQuery를 사�
 .trigger를 클릭하면 옵션 목록이 펼쳐지고, .select_cus에 active 클래스가 추가된다.   
 그리고, 옵션을 선택하면 select 클래스가 추가된다. 이와 관련하여 CSS를 작성했다.   
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

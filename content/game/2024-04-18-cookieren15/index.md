@@ -37,7 +37,7 @@ comments: false
 * 레몬 크림 8개 이상
 * 바나나 토핑 8개 이상
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

@@ -24,7 +24,7 @@ tags:
 ## 건강한 실내 환경과 습도 조절
 식물 기르기는 실내 환경을 개선하고 신체 건강에도 도움을 줍니다. 공기가 건조한 환경에서는 기관지의 점막이 자극받고 면역력이 약해져 감기와 같은 질환에 노출될 수 있습니다. 하지만, 식물들은 증산 작용을 통해 수분을 대기 중으로 방출시키기 때문에 실내 습도 조절에 매우 효과적입니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

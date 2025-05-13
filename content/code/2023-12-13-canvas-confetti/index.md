@@ -15,7 +15,7 @@ tags:
 ---
 종이 폭죽 효과를 만드는 Canvas Confetti 라이브러리를 소개하고, jQuery와 함께 사용하는 방법을 알아봅니다. 이 플러그인은 화려한 종이 조각들을 화면에서 터뜨리는 효과를 쉽게 구현할 수 있게 해주며, 특히 이벤트나 축하의 순간에 생동감을 불어넣기에 적합합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -51,7 +51,7 @@ npm install --save canvas-confetti
 ```
 사용자가 클릭할 수 있는 HTML 요소를 정의합니다. 이 예시에서는 &lt;div&gt; 요소를 사용하고, btn_confetti라는 클래스를 부여하여 CSS와 jQuery 선택자로 쉽게 접근할 수 있도록 합니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

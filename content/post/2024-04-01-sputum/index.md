@@ -34,7 +34,7 @@ comments : false
 * 생강은 항염증 효과와 해열 효과가 있어 기침과 가래 증상을 완화하는 데 도움이 됩니다.
 * 레몬은 비타민 C가 풍부하여 면역력을 높이고 가래를 묽게 하는 데 도움이 됩니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

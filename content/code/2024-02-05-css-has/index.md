@@ -16,7 +16,7 @@ tags:
 ---
 CSS는 웹 디자인과 스타일링에서 핵심적인 역할을 하는 언어입니다. 최근에 도입된 :has() 속성은 이전에는 어려웠던 특정 상황에서의 선택자를 간편하게 다룰 수 있게 해주는 강력한 기능입니다. 2023년 12월 이후, 이 기능은 최신 디바이스 및 브라우저에서 작동하며, 이전의 디바이스나 브라우저에서는 동작하지 않을 수 있습니다.  
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -64,7 +64,7 @@ h1:has(+ p) {
 가상 요소는 `:has()` 안에서 유효한 선택자가 아니며, `:has()`의 앵커로 사용될 수 없습니다.  
 
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

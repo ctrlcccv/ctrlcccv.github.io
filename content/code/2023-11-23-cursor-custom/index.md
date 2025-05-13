@@ -14,7 +14,7 @@ tags:
 ---
 웹사이트를 방문하는 순간, 사용자는 다양한 시각적 요소를 통해 그 사이트의 성격을 인지합니다. 이 중에서도 종종 간과되지만 매우 중요한 요소가 바로 '마우스 커서'입니다. 전통적인 화살표 모양의 커서는 기능적으로는 충분하지만, 웹사이트의 창의성과 개성을 표현하는 데에는 한계가 있습니다. 이에 반해, 독창적으로 디자인된 커서는 사용자의 관심을 끌고, 웹사이트의 독특한 분위기를 조성하는 데 큰 역할을 합니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -76,7 +76,7 @@ transform 속성에 적용된 애니메이션 효과를 200ms의 지속시간과
 ## jQuery 코드
 동적인 커서 움직임을 구현합니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"

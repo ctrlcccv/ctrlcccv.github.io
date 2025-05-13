@@ -16,7 +16,7 @@ tags:
 ---
 무한 스크롤(infinite scroll)은 웹 애플리케이션에서 콘텐츠를 끊임없이 로드하여 사용자가 스크롤할 때마다 새로운 데이터를 자연스럽게 표시하는 기술입니다. 이 기술은 사용자 경험을 향상시키고 페이지 네비게이션을 개선하는 데 도움이 됩니다. 무한 스크롤을 구현하는 방법 중 하나는 jQuery와 Ajax를 사용하여 데이터를 동적으로 로드하는 것입니다.
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -113,7 +113,7 @@ $(document).ready(function() {
     }, observerOptions);
 });
 ```
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
