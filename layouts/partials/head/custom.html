@@ -44,3 +44,213 @@
     <link rel="alternate" title="{{ .title }}" href="{{ .href }}" hreflang="{{ .hreflang }}">
   {{ end }}
 {{ end }}
+
+
+<!-- 애드센스 광고 차단 감지 및 회복 팝업 시작 -->
+<script>
+  (function() {
+    // 광고 차단 상태를 저장
+    let adBlockEnabled = false;
+    
+    // 특정 IP 주소 목록 (이 IP들에서는 광고 차단 감지를 실행하지 않음)
+    const excludedIPs = ['59.6.179.20', '1751.193.10.107'];
+    
+    // 사용자 IP 확인 후 광고 차단 감지 실행
+    function checkIPAndDetectAdBlock() {
+      // IP 확인을 위한 외부 서비스 호출
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+          const userIP = data.ip;
+          
+          // IP가 제외 목록에 있는지 확인
+          if (excludedIPs.includes(userIP)) {
+            console.log('IP 제외 목록에 있는 사용자입니다. 광고 차단 감지를 실행하지 않습니다.');
+            return;
+          }
+          
+          // IP가 제외 목록에 없으면 광고 차단 감지 실행
+          detectAdBlock();
+        })
+        .catch(error => {
+          // IP 확인 실패 시에도 광고 차단 감지 실행 (기본 안전 조치)
+          console.error('IP 확인 실패:', error);
+          detectAdBlock();
+        });
+    }
+    
+    // 애드블록 감지 함수 - 더 효과적인 방법 적용
+    function detectAdBlock() {
+      // 방법 1: 일반적인 광고 스크립트 URL 감지 (동적 스크립트 삽입 제거)
+      const xhr = new XMLHttpRequest();
+      xhr.open('HEAD', 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status !== 200) {
+            adBlockEnabled = true;
+            showAdBlockMessage();
+          } else {
+            // 추가 확인: 실제 구글 애드센스 기능 확인
+            try {
+              if (typeof window.adsbygoogle === 'undefined') {
+                adBlockEnabled = true;
+                showAdBlockMessage();
+              } else {
+                adBlockEnabled = false;
+                hideAdBlockMessage();
+              }
+            } catch (e) {
+              adBlockEnabled = true;
+              showAdBlockMessage();
+            }
+          }
+        }
+      };
+      xhr.onerror = function() {
+        adBlockEnabled = true;
+        showAdBlockMessage();
+      };
+      xhr.send();
+    }
+  
+    // 애드블록 메시지 표시
+    function showAdBlockMessage() {
+      // 이미 오버레이가 있다면 다시 생성하지 않음
+      if (document.getElementById('adblock-overlay')) {
+        return;
+      }
+      
+      // 브라우저 언어 감지
+      const userLang = navigator.language || navigator.userLanguage;
+      const isKorean = userLang.startsWith('ko');
+      
+      // 스타일 정의 - 재사용을 위해 객체로 저장
+      const styles = {
+        overlay: {
+          'display': 'flex',
+          'position': 'fixed',
+          'top': '0',
+          'left': '0',
+          'width': '100%',
+          'height': '100%',
+          'background': 'rgba(0,0,0,0.8)',
+          'z-index': '999999',
+          'align-items': 'center',
+          'justify-content': 'center'
+        },
+        messageBox: {
+          'background': 'white',
+          'padding': '40px',
+          'border-radius': '8px',
+          'max-width': '500px',
+          'text-align': 'center', 
+          'display': 'block'
+        },
+        title: {
+          'margin-top': '0',
+          'color': '#000000',
+          'display': 'block'
+        },
+        paragraph: {
+          'display': 'block',
+          'line-height': '1.5'
+        },
+        button: {
+          'background': '#4f92ff',
+          'color': 'white',
+          'border': 'none',
+          'padding': '15px 30px',
+          'border-radius': '4px',
+          'cursor': 'pointer',
+          'margin-top': '20px',
+          'display': 'inline-block',
+          'font-weight': 'bold',
+          'font-size': '16px'
+        }
+      };
+      
+      // 스타일 적용 함수 - 요소에 스타일 객체의 모든 속성을 !important로 적용
+      function applyStyles(element, styleObj) {
+        if (!element) return;
+        
+        Object.keys(styleObj).forEach(property => {
+          element.style.setProperty(property, styleObj[property], 'important');
+        });
+      }
+      
+      const overlay = document.createElement('div');
+      overlay.id = 'adblock-overlay';
+      
+      const messageBox = document.createElement('div');
+      messageBox.className = 'adblock-message';
+      
+      // 초기 스타일 적용
+      applyStyles(overlay, styles.overlay);
+      applyStyles(messageBox, styles.messageBox);
+      
+      // 언어에 따라 다른 메시지 설정
+      if (isKorean) {
+        messageBox.innerHTML = `
+          <h2>사이트에서 광고를 허용해 주세요.</h2>
+          <p>광고 차단 프로그램을 사용 중인 것 같습니다. <br>이 사이트에서는 광고를 통해 자금을 지원받습니다.</p>
+          <button id="reload-page">새로고침</button>
+        `;
+      } else {
+        messageBox.innerHTML = `
+          <h2>Please allow ads on this site.</h2>
+          <p>It looks like you're using an ad blocker.<br>This site is supported by advertising.</p>
+          <button id="reload-page">Refresh</button>
+        `;
+      }
+      
+      // 내부 요소에 스타일 적용
+      applyStyles(messageBox.querySelector('h2'), styles.title);
+      messageBox.querySelectorAll('p').forEach(p => {
+        applyStyles(p, styles.paragraph);
+      });
+      applyStyles(messageBox.querySelector('button'), styles.button);
+      
+      overlay.appendChild(messageBox);
+      document.body.appendChild(overlay);
+      
+      // CSS 스타일이 오버라이드되지 않도록 주기적으로 체크하고 강제 적용
+      const ensureVisibility = setInterval(function() {
+        if (!document.getElementById('adblock-overlay')) {
+          clearInterval(ensureVisibility);
+          return;
+        }
+        
+        // 모든 스타일 재적용
+        applyStyles(overlay, styles.overlay);
+        applyStyles(messageBox, styles.messageBox);
+        
+        // 내부 요소에 스타일 재적용
+        applyStyles(messageBox.querySelector('h2'), styles.title);
+        messageBox.querySelectorAll('p').forEach(p => {
+          applyStyles(p, styles.paragraph);
+        });
+        applyStyles(messageBox.querySelector('button'), styles.button);
+        
+      }, 200); // 더 자주 체크하도록 간격 줄임
+      
+      document.getElementById('reload-page').addEventListener('click', function() {
+        location.reload();
+      });
+    }
+    
+    // 애드블록 메시지 숨기기
+    function hideAdBlockMessage() {
+      const overlay = document.getElementById('adblock-overlay');
+      if (overlay) {
+        overlay.remove();
+      }
+    }
+  
+    // 페이지 로드 시 IP 확인 후 감지 시작
+    window.addEventListener('load', function() {
+      // 페이지가 완전히 로드된 후 약간의 지연을 두고 IP 확인 및 감지 시작
+      setTimeout(checkIPAndDetectAdBlock, 1000);
+    });
+  })();
+</script>
+<!-- 애드센스 광고 차단 감지 및 회복 팝업 끝 -->
