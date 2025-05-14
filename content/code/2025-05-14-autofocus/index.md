@@ -5,11 +5,11 @@ title: >
 description: >  
     jQuery를 활용하여 전화번호를 입력할 때 탭이나 클릭 없이 자동으로 다음 칸으로 넘어가도록 구현해보세요. 모바일 환경에서도 더 편리하고 자연스러운 입력 UI를 만들 수 있습니다.
 
-slug: 2025-05-19-autofocus
-date: 2025-05-19 00:00:00+0000
-lastmod: 2025-05-19 00:00:00+0000
+slug: 2025-05-14-autofocus
+date: 2025-05-14 00:00:00+0000
+lastmod: 2025-05-14 00:00:00+0000
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-19-autofocus.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-14-autofocus.webp
 
 categories:
     - jQuery
@@ -266,5 +266,5 @@ jQuery를 활용한 전화번호 입력 자동 포커스 이동 기능은 작은
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-19-autofocus/">예제결과 미리보기</a>
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-14-autofocus/">예제결과 미리보기</a>
 </div> 
