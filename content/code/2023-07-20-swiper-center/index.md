@@ -12,7 +12,7 @@ categories:
 tags:
     - Swiper.js
 ---
-⚠️ 이 코드는 Swiper.js 3.3.1 버전을 기준으로 작성되었습니다. 최신 버전에서는 호환성 문제가 발생할 수 있습니다.
+⚠️ 이 코드는 Swiper.js 3.3.1 버전을 기준으로 작성되었습니다. 최신 버전에서는 호환성 문제가 발생할 수 있습니다. 
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/code/2023-01-31-swiper-loop/">[참고코드] jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)</a>
