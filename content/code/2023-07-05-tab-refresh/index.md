@@ -1,9 +1,9 @@
 ---
 title: jQuery - 탭메뉴 새로고침 후 현재 탭 유지
-description: URL 파라미터를 활용한 새로고침 시에도 탭이 유지되는 코드 예제입니다.
+description: jQuery를 활용하여 새로고침해도 사용자가 마지막으로 선택한 탭이 그대로 유지되는 탭메뉴를 구현하는 방법을 소개합니다. URL 파라미터를 활용한 상태 관리 기법을 배워보세요.
 slug: 2023-07-05-tab-refresh
 date: 2023-07-05 00:00:00+0000
-lastmod: 2023-07-05 00:00:00+0000
+lastmod: 2025-05-15 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/tab-refresh.webp
 
 categories:
@@ -11,10 +11,9 @@ categories:
 tags:
     - 탭 메뉴
 ---
-탭 메뉴를 클릭하면 선택한 컨텐츠 요소의 아이디가 파라미터 값으로 URL 뒤에 추가되어, 페이지가 새로고침 되어도 선택한 탭을 유지할 수 있도록 구현했다.  
-처음에는 해시태그 방식을 사용하였으나, 해시태그 값의 아이디를 가진 요소로 자동 이동하는 브라우저의 기본 동작으로 인해 스크롤 위치가 변경되는 문제가 발생했다.
-이를 해결하기 위해 파라미터 방식으로 변경했다.
+웹사이트에서 탭메뉴를 이용하다가 새로고침을 했을 때 첫 번째 탭으로 돌아가 버려서 불편했던 적 있으신가요?
 
+탭메뉴는 좁은 공간에 많은 내용을 담을 수 있어 웹사이트에서 자주 사용하는 UI 요소입니다. 하지만 기본 탭메뉴는 페이지를 새로고침하면 항상 첫 번째 탭으로 돌아가는 문제점이 있죠. 특히 내용이 많은 탭을 보다가 새로고침이 되면, 사용자는 다시 원하는 탭을 찾아 클릭해야 하는 번거로움을 겪게 됩니다. 이 글에서는 URL 파라미터를 활용해 새로고침 후에도 사용자가 마지막으로 봤던 탭을 그대로 유지하는 방법을 알아보겠습니다.
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -52,7 +51,19 @@ tags:
     </div>
 </div>
 ```
-tit_list 클래스의 a 태그에 선택될 컨텐츠의 id 값을 추가했다.  
+* **탭메뉴 제목 영역**  
+<span class="txt">
+탭 제목을 담은 ul 요소로, 각 탭은 li 안에 a 태그로 구성했습니다.
+각 a 태그의 href는 연결된 콘텐츠의 id를 가리키는 앵커 링크로 작성했습니다.
+</span>
+
+* **탭메뉴 콘텐츠 영역**  
+<span class="txt">
+각 탭에 해당하는 내용을 담고 있는 영역입니다.
+각 콘텐츠는 고유한 id를 가지고 있어 탭 제목의 href와 연결됩니다.
+</span>
+
+<br>
 
 ## CSS 스타일
 
@@ -69,6 +80,42 @@ ul, li {list-style: none;}
 .tab_wrap .tab_con {border: 1px solid #ddd;border-top: none;}
 .tab_wrap .tab_con .tab_list {display: none;height: 200px;padding: 15px;}
 ```
+
+* **기본 초기화 및 레이아웃**  
+<span class="txt">
+기본 마진과 패딩을 초기화하고, 폰트와 박스 사이징을 설정했습니다.
+탭 전체를 감싸는 .tab_wrap은 중앙 정렬과 최대 너비를 지정해 반응형으로 동작합니다.
+</span>
+
+* **탭 제목 스타일링**  
+<span class="txt">
+탭 제목 목록은 상대 위치로 설정하고, 하단에 구분선을 넣었습니다.
+각 탭 제목은 인라인 블록으로 배치해 가로로 나열되도록 했습니다.
+</span>
+
+* **활성화된 탭 스타일**  
+<span class="txt">
+활성화된 탭(.active)은 하단 테두리가 흰색이 되어 콘텐츠 영역과 자연스럽게 이어지고, 글자색은 파란색으로 바뀝니다.
+z-index를 사용해 활성화된 탭이 하단 구분선 위에 표시되도록 했습니다.
+</span>
+
+* **탭 콘텐츠 영역**  
+<span class="txt">
+탭 콘텐츠는 기본적으로 숨겨두고(display: none), 활성화될 때만 보이게 했습니다.
+고정된 높이와 내부 여백으로 콘텐츠를 보기 좋게 배치했습니다.
+</span>
+
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
 
 ## jQuery 코드
 
@@ -142,76 +189,56 @@ function tab() {
 }
 ```
 
+* **초기 설정**  
+<span class="txt">
+페이지 로딩이 끝나면 tab() 함수를 실행해 탭메뉴를 초기화합니다.
+URL 파라미터 이름으로는 'tabName'을 사용합니다.
+</span>
 
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+* **탭 활성화 함수**  
+<span class="txt">
+activateTab() 함수는 선택한 탭을 활성화하는 핵심 기능을 담당합니다.
+tabId가 'first'면 첫 번째 탭을 자동 선택합니다.
+기존에 활성화된 탭을 초기화하고 새로 선택된 탭과 콘텐츠를 보여줍니다.
+updateUrlParam이 true면 URL 주소도 함께 업데이트합니다.
+</span>
 
-크게 3가지의 내부 함수로 정의되어 있다.  
+* **URL 파라미터 관리 함수**  
+<span class="txt">
+setUrlParam() 함수는 현재 선택된 탭 ID를 URL 주소에 기록합니다.
+getUrlParam() 함수는 URL에서 탭 파라미터 값을 가져옵니다.
+URLSearchParams API로 파라미터를 간편하게 관리합니다.
+</span>
+
+* **이벤트 처리**  
+<span class="txt">
+탭 클릭 시 기본 앵커 동작을 막고(e.preventDefault()), 대신 activateTab() 함수를 호출합니다.
+페이지 로드 시 URL 파라미터를 확인해서 해당 탭을 활성화합니다.
+파라미터가 없으면 첫 번째 탭을 기본값으로 보여줍니다.
+</span>
+
+* **브라우저 네비게이션 지원**  
+<span class="txt">
+popstate 이벤트를 감지하여 브라우저의 뒤로가기, 앞으로가기 버튼을 눌렀을 때도 올바른 탭이 표시되도록 합니다.
+이 기능 덕분에 사용자가 브라우저의 이동 버튼을 눌러도 이전에 보던 탭이 그대로 유지됩니다. 페이지 이동 후에도 정보를 다시 찾는 번거로움 없이 일관된 화면을 볼 수 있어 훨씬 편리합니다.
+</span>
+
+* **스크롤 위치 조정**  
+<span class="txt">
+파라미터로 특정 탭을 열 때는 requestAnimationFrame을 사용해 해당 탭메뉴 위치로 화면을 자동 스크롤합니다.
+이렇게 하면 긴 페이지에서도 탭메뉴를 바로 볼 수 있습니다.
+</span>
+  
 <br>
-activateTab() 함수는 선택한 탭 메뉴를 활성화시키고 해당 탭의 컨텐츠를 보여주는 기능을 담당한다.  
-이 함수는 선택한 탭 메뉴의 id 값을 받아와서 해당 탭 메뉴를 활성화시킨다.  
-또한, URL의 파라미터 변경 여부를 updateUrlParam 파라미터로 받아서 true로 전달되면, 해당 탭 메뉴의 id 값을 URL의 파라미터로 추가하여 URL을 업데이트한다.  
-이렇게 구현함으로써, 탭 메뉴 클릭 이벤트 외에도 페이지 로드, 뒤로 가기, 앞으로 가기 이벤트에서도 URL 업데이트를 제어하여 의도하지 않은 페이지 이동 문제를 방지했다.  
-<br>
-setUrlParam() 함수는 URL의 파라미터 값을 변경하는 기능을 담당한다.  
-[URLSearchParams()](https://developer.mozilla.org/ko/docs/Web/API/URLSearchParams) 생성자 함수를 사용하여 URL의 문자열 객체를 생성하고, 전달받은 paramName 파라미터 값의 id 값을 URLSearchParams 객체의 set() 메소드를 사용하여 새로운 파라미터 값으로 설정했다.  
-이후 [history.pushState()](https://developer.mozilla.org/ko/docs/Web/API/History/pushState) 메소드를 사용하여 URL의 파라미터를 변경했다.  
-<br>
-getUrlParam() 함수는 URL의 파라미터 값을 가져오는 기능을 담당한다.    
-URLSearchParams() 생성자 함수를 사용하여 URL의 문자열 객체를 생성하고, get() 메소드를 통해 paramName 파라미터 값을 반환한다.  
-<br>
-함수 내부에서는 탭 메뉴를 클릭했을 때 activateTab() 함수를 실행한다.  
-페이지 로드 시 getUrlParam() 함수를 호출하여 URL 파라미터 값을 가져오고, 해당 값이 있다면 activateTab() 함수를 실행하여 해당 탭 메뉴를 활성화시킨다.   
-마지막으로, [popstate](https://developer.mozilla.org/ko/docs/Web/API/Window/popstate_event) 이벤트가 발생하면 getUrlParam() 함수를 호출하여 변경된 URL 파라미터 값을 가져온 후, 변경된 값이 있다면 activateTab() 함수를 실행하여 해당 탭 메뉴를 활성화시킨다.  
+
+## 결론
+
+이번 글에서는 jQuery로 새로고침 후에도 선택한 탭이 유지되는 탭메뉴를 만드는 방법을 알아보았습니다. URL 파라미터를 활용하면 페이지를 새로고침하거나 브라우저의 뒤로가기/앞으로가기 버튼을 눌러도 선택한 탭이 그대로 유지됩니다. 덕분에 사용자는 페이지를 오가며 탐색할 때도 원하는 정보를 쉽게 다시 찾을 수 있고, 일관된 화면을 경험할 수 있습니다.
+
+이 글이 도움이 되셨나요? 탭메뉴를 구현하면서 겪은 다른 문제나 개선 아이디어가 있으시면 댓글로 공유해주세요!
 
 <br>
 
 <div class="btn_wrap">
-    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-05-tab-refresh/tab-menu/" target="_blank">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-05-tab-refresh/tab-menu/">예제결과 미리보기</a>
 </div>
-
-<br>
-
-## jQuery 코드 (일반 탭 메뉴)
-```js
-$(window).on('load', function() {
-    tab();
-})
-
-function tab() {
-    //탭메뉴 실행 함수
-    function activateTab(tabId) {
-        //초기화
-        $(".tab_wrap .tit_list > li").removeClass("active");
-        $(".tab_wrap .tab_list").hide();
-
-        //실행
-        $(`.tab_wrap .tit_list > li a[href*="${tabId}"]`).parent().addClass("active");
-        $(tabId).show();
-    }
-
-    //탭메뉴 클릭할 때 실행
-    $(".tab_wrap .tit_list > li a").on("click", function(e) {
-        e.preventDefault();
-        let tabId = $(this).attr("href");
-        activateTab(tabId, true);
-    });
-
-    //페이지 로드 했을 때 탭메뉴 선택
-    let firstTabId = $('.tab_wrap .tit_list > li:first-child a').attr('href');
-    activateTab(firstTabId);
-}
-```
-<br> 
-
-<div class="btn_wrap">
-    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-05-tab-refresh/tab-refresh/">예제결과 미리보기 (일반 탭메뉴)</a>
-</div>
-
