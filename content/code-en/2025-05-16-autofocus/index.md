@@ -5,18 +5,18 @@ title: >
 description: >  
     Create seamless phone number input forms with jQuery by implementing automatic tabbing between fields. Improve UX on both mobile and desktop with this simple technique.
 
-slug: 2025-05-20-autofocus
-date: 2025-05-20 00:00:00+0000
-lastmod: 2025-05-20 00:00:00+0000
+slug: 2025-05-16-autofocus
+date: 2025-05-16 00:00:00+0000
+lastmod: 2025-05-16 00:00:00+0000
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-20-autofocus-en.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-16-autofocus-en.webp
 
 alternates:
-  - title: "jQuery - Swiper로 구현하는 Grid Loop Slider"
-    href: "https://ctrlcccv.github.io/code/2023-03-09-swiper-col/"
+  - title: "jQuery - 전화번호 입력 폼 자동 포커스 이동"
+    href: "https://ctrlcccv.github.io/code/2025-05-14-autofocus/"
     hreflang: "ko"
   - title: "How to Auto Tab Phone Number Input with jQuery"
-    href: "https://ctrlcccv.github.io/code-en/2025-05-20-autofocus/"
+    href: "https://ctrlcccv.github.io/code-en/2025-05-16-autofocus/"
     hreflang: "en"
 
 categories:
@@ -260,5 +260,5 @@ Have you tried something like this before? Or have a UX annoyance you want to fi
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-19-autofocus/">Live Example Preview</a>
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-14-autofocus/">Live Example Preview</a>
 </div> 
