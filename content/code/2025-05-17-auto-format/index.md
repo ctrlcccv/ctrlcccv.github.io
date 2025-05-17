@@ -5,11 +5,11 @@ title: >
 description: >  
     jQuery를 활용하여 입력 필드에 자동으로 하이픈이나 기타 구분자를 적용하는 방법을 소개합니다. 전화번호, 카드번호, 생년월일 등 다양한 형식의 입력을 자동화하세요.
 
-slug: 2025-05-21-auto-format
-date: 2025-05-21 00:00:00+0000
-lastmod: 2025-05-21 00:00:00+0000
+slug: 2025-05-17-auto-format
+date: 2025-05-17 00:00:00+0000
+lastmod: 2025-05-17 00:00:00+0000
     
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-21-auto-format.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-17-auto-format.webp
 
 categories:
     - jQuery
@@ -251,5 +251,5 @@ $('#card').on('blur', function() {
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-21-auto-format/">예제결과 미리보기</a>
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-17-auto-format/">예제결과 미리보기</a>
 </div> 
