@@ -1,0 +1,312 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="React의 useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드를 대체하고 부수 효과를 처리하는데 사용됩니다. 의존성 배열을 통해 특정 상태의 변화에만 반응하며, 클린업 함수를 활용하여 메모리 누수를 방지할 수 있습니다. "><title>React - useEffect 동작 원리, 주요 개념, 다양한 활용 사례
+</title><link rel=canonical href=https://ctrlcccv.github.io/code/2024-03-25-useeffect/><link rel=stylesheet href=/scss/style.min.28b92a33992f24a1736e2fb3e51db81d2fff6811e2d825462ecfdfbef05c62bc.css><meta property='og:title' content="React - useEffect 동작 원리, 주요 개념, 다양한 활용 사례\n"><meta property='og:description' content="React의 useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드를 대체하고 부수 효과를 처리하는데 사용됩니다. 의존성 배열을 통해 특정 상태의 변화에만 반응하며, 클린업 함수를 활용하여 메모리 누수를 방지할 수 있습니다. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2024-03-25-useeffect/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:published_time' content='2024-03-25T00:00:00+00:00'><meta property='article:modified_time' content='2024-03-25T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp'><meta name=twitter:title content="React - useEffect 동작 원리, 주요 개념, 다양한 활용 사례\n"><meta name=twitter:description content="React의 useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드를 대체하고 부수 효과를 처리하는데 사용됩니다. 의존성 배열을 통해 특정 상태의 변화에만 반응하며, 클린업 함수를 활용하여 메모리 누수를 방지할 수 있습니다. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"React - useEffect 동작 원리, 주요 개념, 다양한 활용 사례\n","datePublished":"2024-03-25T00:00:00Z","dateModified":"2024-03-25T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#useeffect-훅의-동작-원리>useEffect 훅의 동작 원리</a></li><li><a href=#useeffect-훅의-주요-개념>useEffect 훅의 주요 개념</a></li><li><a href=#useeffect-훅의-다양한-사용-사례>useEffect 훅의 다양한 사용 사례</a></li><li><a href=#useeffect-훅-활용-팁>useEffect 훅 활용 팁</a></li><li><a href=#결론>결론</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2024-03-25-useeffect/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp loading=lazy alt="Featured image of post React - useEffect 동작 원리, 주요 개념, 다양한 활용 사례
+"></a></div><div class=article-details><header class=article-category><a href=/categories/react/>React</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2024-03-25-useeffect/>React - useEffect 동작 원리, 주요 개념, 다양한 활용 사례</a></h2><h3 class=article-subtitle>React의 useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드를 대체하고 부수 효과를 처리하는데 사용됩니다. 의존성 배열을 통해 특정 상태의 변화에만 반응하며, 클린업 함수를 활용하여 메모리 누수를 방지할 수 있습니다.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2024-03-25T00:00:00Z>3월 25, 2024</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>5 분 정도</time></div></footer></div></header><section class=article-content><p>React useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드의 기능을 대체하고 부수 효과를 처리하는 강력한 도구입니다. 이 훅을 통해 컴포넌트의 상태 변화를 감지하고 그에 따라 필요한 작업을 수행할 수 있습니다. 의존성 배열을 활용하여 특정 상태의 변화에만 반응하도록 설정할 수 있고, 클린업 함수를 통해 메모리 누수를 방지할 수도 있습니다.</p><p>이 글에서는 useEffect 훅의 동작 원리, 주요 개념, 다양한 사용 사례, 그리고 실제 프로젝트 적용 예시까지 심층적으로 살펴봅니다.</p><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=useeffect-훅의-동작-원리>useEffect 훅의 동작 원리</h2><p>useEffect 훅은 컴포넌트가 렌더링 될 때마다 실행되는 함수를 정의합니다. 이 함수는 컴포넌트의 상태, props, 또는 DOM과 같은 외부 요소에 의존할 수 있습니다. 의존성이 변경될 때마다 useEffect 훅은 다시 실행됩니다.<br>useEffect 훅은 다음과 같은 두 가지 인자를 받습니다.</p><ul><li><strong>부수 효과 함수:</strong> 컴포넌트가 렌더링 될 때마다 실행되는 함수입니다.</li><li><strong>의존성 배열:</strong> 부수 효과 함수가 다시 실행될 때마다 확인해야 하는 값들의 배열입니다.</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useEffect</span><span class=p>,</span> <span class=nx>useState</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>MyComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 클릭 횟수를 저장하는 상태와 업데이트 함수를 정의합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>setCount</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 페이지 제목을 클릭 횟수로 업데이트합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nb>document</span><span class=p>.</span><span class=nx>title</span> <span class=o>=</span> <span class=sb>`</span><span class=si>${</span><span class=nx>count</span><span class=si>}</span><span class=sb>번 클릭했습니다`</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=p>[</span><span class=nx>count</span><span class=p>]);</span> <span class=c1>// count가 변경될 때만 실행됩니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=o>&lt;</span><span class=nx>p</span><span class=o>&gt;</span><span class=p>{</span><span class=nx>count</span><span class=p>}</span><span class=nx>번</span> <span class=nx>클릭했습니다</span><span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=o>&lt;</span><span class=nx>button</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setCount</span><span class=p>(</span><span class=nx>count</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)}</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nx>클릭하세요</span>
+</span></span><span class=line><span class=cl>            <span class=o>&lt;</span><span class=err>/button&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>위 코드에서 useEffect 훅은 count 값이 변경될 때마다 document.title을 업데이트합니다.<br><br></p><h2 id=useeffect-훅의-주요-개념>useEffect 훅의 주요 개념</h2><ul><li><strong>부수 효과:</strong> 컴포넌트 렌더링 흐름에 영향을 주는 작업들로, 상태 변경, 외부 API 호출, 구독 설정/해제 등이 해당합니다.</li><li><strong>의존성 배열:</strong> 부수 효과 함수가 다시 실행될 때마다 확인해야 하는 값들의 배열입니다.</li><li><strong>클린업 함수:</strong> 컴포넌트가 언마운트되기 직전이나 다음 부수 효과 함수가 호출되기 직전에 실행되는 함수입니다.</li><li><strong>조건부 실행:</strong> 특정 조건을 충족할 때만 부수 효과 함수를 실행합니다.</li></ul><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=useeffect-훅의-다양한-사용-사례>useEffect 훅의 다양한 사용 사례</h2><p><strong>데이터 불러오기</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useEffect</span><span class=p>,</span> <span class=nx>useState</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>MyComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 데이터 상태와 업데이트 함수를 정의합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=p>[</span><span class=nx>data</span><span class=p>,</span> <span class=nx>setData</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 외부 API에서 데이터를 가져와 상태를 업데이트합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kr>async</span> <span class=kd>function</span> <span class=nx>fetchData</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>response</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetch</span><span class=p>(</span><span class=s1>&#39;https://api.example.com/data&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>jsonData</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>response</span><span class=p>.</span><span class=nx>json</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            <span class=nx>setData</span><span class=p>(</span><span class=nx>jsonData</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fetchData</span><span class=p>();</span> <span class=c1>// 데이터를 가져오는 함수를 호출합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// 데이터를 가져오는 효과는 한 번만 실행됩니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 데이터 배열을 매핑하여 이름을 화면에 표시합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span><span class=nx>data</span><span class=p>.</span><span class=nx>map</span><span class=p>((</span><span class=nx>item</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=o>&lt;</span><span class=nx>p</span> <span class=nx>key</span><span class=o>=</span><span class=p>{</span><span class=nx>item</span><span class=p>.</span><span class=nx>id</span><span class=p>}</span><span class=o>&gt;</span><span class=p>{</span><span class=nx>item</span><span class=p>.</span><span class=nx>name</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>))}</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>스크롤 이벤트 처리</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useEffect</span><span class=p>,</span> <span class=nx>useState</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>MyComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 스크롤 위치를 저장하는 상태와 그 상태를 업데이트하는 함수를 정의합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=p>[</span><span class=nx>scrollTop</span><span class=p>,</span> <span class=nx>setScrollTop</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 컴포넌트가 처음 렌더링 될 때 스크롤 이벤트를 설정합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kd>function</span> <span class=nx>handleScroll</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>setScrollTop</span><span class=p>(</span><span class=nb>window</span><span class=p>.</span><span class=nx>pageYOffset</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=nb>window</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;scroll&#39;</span><span class=p>,</span> <span class=nx>handleScroll</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// 언마운트될 때 이벤트 리스너를 제거합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nb>window</span><span class=p>.</span><span class=nx>removeEventListener</span><span class=p>(</span><span class=s1>&#39;scroll&#39;</span><span class=p>,</span> <span class=nx>handleScroll</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 현재 스크롤 위치를 화면에 표시합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=o>&lt;</span><span class=nx>p</span><span class=o>&gt;</span><span class=nx>스크롤</span> <span class=nx>위치</span><span class=o>:</span> <span class=p>{</span><span class=nx>scrollTop</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span><span class=cm>/* 추가적인 JSX 코드 */</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>위 코드에서 useEffect 훅은 스크롤 이벤트 발생 시마다 scrollTop state를 업데이트합니다. 컴포넌트가 언마운트될 때 리스너를 제거하여 메모리 누수를 방지합니다.<br><br></p><p><strong>타이머 설정</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useEffect</span><span class=p>,</span> <span class=nx>useState</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>MyComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 초를 저장하는 상태와 초를 업데이트하는 함수를 정의합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=p>[</span><span class=nx>seconds</span><span class=p>,</span> <span class=nx>setSeconds</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 컴포넌트가 처음 렌더링 될 때 1초마다 초를 증가시키는 타이머를 설정합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>intervalId</span> <span class=o>=</span> <span class=nx>setInterval</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>setSeconds</span><span class=p>(</span><span class=nx>seconds</span> <span class=p>=&gt;</span> <span class=nx>seconds</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span> <span class=mi>1000</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// 언마운트될 때 타이머를 제거합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>clearInterval</span><span class=p>(</span><span class=nx>intervalId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 현재 경과된 시간을 화면에 표시합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=o>&lt;</span><span class=nx>p</span><span class=o>&gt;</span><span class=nx>경과</span> <span class=nx>시간</span><span class=o>:</span> <span class=p>{</span><span class=nx>seconds</span><span class=p>}</span><span class=nx>초</span><span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>위 코드에서 useEffect 훅은 1초 간격으로 타이머를 설정하여 seconds state를 업데이트합니다. 컴포넌트가 언마운트될 때 타이머를 제거하여 메모리 누수를 방지합니다.<br><br></p><p><strong>구독 설정/해제</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useEffect</span><span class=p>,</span> <span class=nx>useState</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>MyComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 데이터를 저장하는 상태와 업데이트 함수를 정의합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=p>[</span><span class=nx>data</span><span class=p>,</span> <span class=nx>setData</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// &#39;data-update&#39; 이벤트를 구독하고, 데이터가 업데이트될 때마다 상태를 업데이트합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>subscription</span> <span class=o>=</span> <span class=nx>socket</span><span class=p>.</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;data-update&#39;</span><span class=p>,</span> <span class=p>(</span><span class=nx>updatedData</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>setData</span><span class=p>(</span><span class=nx>updatedData</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// 언마운트될 때 구독을 해제합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>subscription</span><span class=p>.</span><span class=nx>unsubscribe</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 데이터 배열을 매핑하여 각 항목의 이름을 화면에 표시합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span><span class=nx>data</span><span class=p>.</span><span class=nx>map</span><span class=p>((</span><span class=nx>item</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=o>&lt;</span><span class=nx>p</span> <span class=nx>key</span><span class=o>=</span><span class=p>{</span><span class=nx>item</span><span class=p>.</span><span class=nx>id</span><span class=p>}</span><span class=o>&gt;</span><span class=p>{</span><span class=nx>item</span><span class=p>.</span><span class=nx>name</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>))}</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>위 코드에서 useEffect 훅은 socket.io를 사용하여 서버로부터 데이터 업데이트 이벤트를 구독하고 data state를 업데이트합니다. 컴포넌트가 언마운트될 때 구독을 해제하여 메모리 누수를 방지합니다.<br><br></p><p><strong>애니메이션 구현</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useEffect</span><span class=p>,</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useRef</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>MyComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 애니메이션 상태를 저장하는 상태 변수와 그 상태를 변경하는 함수를 정의합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=p>[</span><span class=nx>isAnimated</span><span class=p>,</span> <span class=nx>setIsAnimated</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 애니메이션을 적용할 요소에 대한 참조를 생성합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>animationRef</span> <span class=o>=</span> <span class=nx>useRef</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 애니메이션 상태에 따라 요소에 애니메이션을 적용하거나 중지합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>isAnimated</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>animationRef</span><span class=p>.</span><span class=nx>current</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>animation</span> <span class=o>=</span> <span class=s1>&#39;my-animation 1s ease-in-out&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>animationRef</span><span class=p>.</span><span class=nx>current</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>animation</span> <span class=o>=</span> <span class=s1>&#39;none&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=p>[</span><span class=nx>isAnimated</span><span class=p>]);</span> <span class=c1>// 애니메이션 상태가 변경될 때만 실행됩니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 애니메이션을 적용할 요소와 버튼을 화면에 표시합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>div</span> <span class=nx>ref</span><span class=o>=</span><span class=p>{</span><span class=nx>animationRef</span><span class=p>}</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=o>&lt;</span><span class=nx>p</span><span class=o>&gt;</span><span class=nx>애니메이션</span> <span class=nx>요소</span><span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=o>&lt;</span><span class=nx>button</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setIsAnimated</span><span class=p>(</span><span class=kc>true</span><span class=p>)}</span><span class=o>&gt;</span><span class=nx>애니메이션</span> <span class=nx>시작</span><span class=o>&lt;</span><span class=err>/button&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=o>&lt;</span><span class=nx>button</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setIsAnimated</span><span class=p>(</span><span class=kc>false</span><span class=p>)}</span><span class=o>&gt;</span><span class=nx>애니메이션</span> <span class=nx>중단</span><span class=o>&lt;</span><span class=err>/button&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>위 코드에서 useEffect 훅은 isAnimated state에 따라 애니메이션 CSS 클래스를 적용하여 애니메이션 효과를 구현합니다. useRef 훅을 사용하여 DOM 요소에 직접 접근하고 애니메이션 속성을 설정합니다.<br><br></p><h2 id=useeffect-훅-활용-팁>useEffect 훅 활용 팁</h2><ul><li><p><strong>의존성 배열을 최적화하여 불필요한 렌더링 방지</strong><br>의존성 배열에 꼭 필요한 값만 포함하여 컴포넌트 렌더링 성능을 향상시킬 수 있습니다.</p></li><li><p><strong>클린업 함수를 사용하여 메모리 누수 방지</strong><br>컴포넌트 언마운트 시 리스너, 타이머 등을 제거하여 메모리 누수를 방지합니다.</p></li><li><p><strong>조건부 실행으로 불필요한 부수 효과 제거</strong><br>특정 조건을 만족할 때만 부수 효과 함수를 실행하여 성능 향상 및 코드 간결화를 도모합니다.</p></li><li><p><strong>useRef 훅과 함께 사용하여 최적화</strong><br>변하지 않는 값을 저장하거나 DOM 요소에 직접 접근해야 하는 경우 useRef 훅과 함께 사용하여 성능을 향상시킬 수 있습니다.<br><br></p></li></ul><h2 id=결론>결론</h2><p><code>useEffect</code> 훅은 React 함수형 컴포넌트에서 라이프사이클 메서드를 대체하고 부수 효과를 처리하는 데 쓰입니다. 이를 활용하여 상태 변화를 감지하고 필요한 작업을 수행할 수 있습니다. 의존성 배열을 설정하여 특정 상태의 변화에만 반응하도록 조절할 수 있으며, 클린업 함수를 활용하여 메모리 누수를 방지할 수 있습니다. 이를 통해 React 애플리케이션의 성능과 유지보수성을 향상시킬 수 있습니다.</p></section><footer class=article-footer><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2024-05-16-loading/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-05-16-loading.webp loading=lazy data-key=2024-05-16-loading data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-05-16-loading.webp></div><div class=article-details><h2 class=article-title>리액트로 로딩화면 만들기: 단계별 안내 및 활용 예시</h2></div></a></article><article class=has-image><a href=/code/2024-05-13-darkmode/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-05-13-darkmode.webp loading=lazy data-key=2024-05-13-darkmode data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-05-13-darkmode.webp></div><div class=article-details><h2 class=article-title>React - useContext로 간편하게 다크모드 구현하기</h2></div></a></article><article class=has-image><a href=/code/2024-04-03-usereducer/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-04-03-useReducer.webp loading=lazy data-key=2024-04-03-useReducer data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-04-03-useReducer.webp></div><div class=article-details><h2 class=article-title>복잡한 로직도 쉽게! React useReducer 핵심 개념과 활용법</h2></div></a></article><article class=has-image><a href=/code/2024-03-14-react-props/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-14-react-props.webp loading=lazy data-key=2024-03-14-react-props data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-14-react-props.webp></div><div class=article-details><h2 class=article-title>React props: 컴포넌트 간 데이터 전달, 활용, 최적화</h2></div></a></article><article class=has-image><a href=/code/2024-03-05-component-split/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-05-component-split.webp loading=lazy data-key=2024-03-05-component-split data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-05-component-split.webp></div><div class=article-details><h2 class=article-title>React 컴포넌트 분리 기준: 관리하기 쉬운 코드 만들기</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//ctrlcccv.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
