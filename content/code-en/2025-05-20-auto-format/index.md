@@ -6,17 +6,17 @@ description: >
     Learn how to automatically apply hyphens or other separators to input fields using jQuery. Format phone numbers, card numbers, dates, and more with ease.
 
 slug: 2025-05-22-auto-format
-date: 2025-05-22 00:00:00+0000
-lastmod: 2025-05-22 00:00:00+0000
+date: 2025-05-20 00:00:00+0000
+lastmod: 2025-05-20 00:00:00+0000
     
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-22-auto-format-en.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-20-auto-format-en.webp
 
 alternates:
-  - title: "jQuery - Swiper로 구현하는 Grid Loop Slider"
-    href: "https://ctrlcccv.github.io/code/2023-03-09-swiper-col/"
+  - title: "jQuery - 전화번호/카드번호 자동 하이픈 및 커스텀 패턴 설정법"
+    href: "https://ctrlcccv.github.io/code/2025-05-17-auto-format/"
     hreflang: "ko"
   - title: "How to Build Custom Input Auto Format with jQuery"
-    href: "https://ctrlcccv.github.io/code-en/2025-05-22-auto-format/"
+    href: "https://ctrlcccv.github.io/code-en/2025-05-20-auto-format/"
     hreflang: "en"
 
 categories:
@@ -258,5 +258,5 @@ Try applying this code to your projects and feel free to customize it further! I
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-21-auto-format/">Live Example Preview</a>
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-17-auto-format/">Live Example Preview</a>
 </div> 
