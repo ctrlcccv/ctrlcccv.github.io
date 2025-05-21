@@ -17,6 +17,7 @@ tags:
 그리고 transition 속성을 활용하여 마우스를 올렸을 때 밑줄이 부드럽게 이동하도록 애니메이션 효과를 추가해보았다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,6 +27,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -59,6 +61,7 @@ background-position 속성으로 이동하는 방향을 변경할 수 있다.
 이를 위해 center와 right 클래스를 추가하여 각각 다른 속성을 지정했다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -68,6 +71,7 @@ background-position 속성으로 이동하는 방향을 변경할 수 있다.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

@@ -42,6 +42,7 @@ comments : false
 * **포화 지방과 트랜스 지방 (나쁜 지방)** : 포화 지방과 트랜스 지방은 심혈관 건강에 부정적인 영향을 미칠 수 있으므로 제한하는 것이 좋습니다. 고지방 고칼로리 음식, 패스트푸드, 과자 등에 트랜스 지방이 많이 함유되어 있으므로 이러한 음식을 피하십시오.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -51,6 +52,7 @@ comments : false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ### 어류와 오메가-3 지방산
 * **오메가-3 지방산** : 연어, 고등어, 마른 백조, 참치 등의 어류는 오메가-3 지방산을 풍부하게 함유하고 있어 심혈관 건강을 촉진하는데 도움을 줍니다. 오메가-3 지방산은 염증을 감소시키고 동맥경화를 예방하는 데 도움을 줄 수 있으므로 주간에 두 번 이상 어류를 섭취하는 것을 권장합니다.  

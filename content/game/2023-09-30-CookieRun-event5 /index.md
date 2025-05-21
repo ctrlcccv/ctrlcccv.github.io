@@ -33,6 +33,7 @@ comments: false
 * 음유시인, 스파클링, 파르페, 예언자  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -42,6 +43,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 버프 결정
 게임 내에서 얻을 수 있는 버프는 다양하며 팀의 구성과 전략에 큰 영향을 미칩니다. 아래에서 추천하는 버프를 나열하겠습니다.  

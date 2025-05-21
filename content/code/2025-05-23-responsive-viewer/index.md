@@ -22,6 +22,7 @@ tags:
 반응형 웹사이트를 개발할 때 PC, 태블릿, 모바일 등 다양한 화면 크기에서 디자인이 어떻게 표현되는지 확인하는 것은 매우 중요합니다. 개발자 도구를 사용하거나 실제 기기로 테스트하는 방법도 있지만, 클라이언트에게 보여주거나 팀원들과 공유할 수 있는 독립적인 미리보기 도구가 있으면 더욱 편리합니다. 이번 포스트에서는 jQuery와 iframe을 활용하여 반응형 웹사이트 미리보기 툴을 만드는 방법을 알아보겠습니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -31,6 +32,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -113,6 +115,7 @@ iframe은 테두리가 없고, 가로와 세로 100%로 설정되어 있습니�
 </span>
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -122,6 +125,7 @@ iframe은 테두리가 없고, 가로와 세로 100%로 설정되어 있습니�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

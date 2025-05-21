@@ -34,6 +34,7 @@ HTML5의 `<details>` 태그를 이용하면 기본적인 열기/닫기 기능은
 이런 흐름으로 하나하나 차근차근 설명해 드리겠습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -43,6 +44,7 @@ HTML5의 `<details>` 태그를 이용하면 기본적인 열기/닫기 기능은
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -147,6 +149,7 @@ $('.accordion_menu details').attr('open', true).each(function() {
 이제 스타일을 다듬어 더 깔끔한 UI로 만들어봅시다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -156,6 +159,7 @@ $('.accordion_menu details').attr('open', true).each(function() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```css
 .accordion_menu { 

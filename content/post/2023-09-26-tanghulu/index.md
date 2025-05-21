@@ -31,6 +31,7 @@ tags:
 <br>
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -40,6 +41,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 탕후루의 영양
 탕후루에는 다양한 영양소가 함유되어 있습니다. 특히, 산사나무 열매에는 풍부한 비타민 C가 포함되어 있어 피로 해소와 면역력 강화에 도움이 됩니다. 그러나 탕후루를 과다하게 섭취하면 부정적인 영향도 있을 수 있으므로 적절한 섭취량을 유지하는 것이 중요합니다.  

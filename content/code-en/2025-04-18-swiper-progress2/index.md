@@ -32,6 +32,7 @@ When you're presenting content in a sequence—think onboarding flows, quizzes, 
 What makes this combo powerful is its balance of interactivity and clarity. Best of all? It’s super flexible and easy to extend for any kind of step-based experience.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -41,6 +42,7 @@ What makes this combo powerful is its balance of interactivity and clarity. Best
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -109,6 +111,7 @@ Here’s the core styling to get our slider and progress bar working visually:
 Now let’s wire it all up:
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -118,6 +121,7 @@ Now let’s wire it all up:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```js
 $(document).ready(function(){

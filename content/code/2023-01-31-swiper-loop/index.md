@@ -16,6 +16,7 @@ Swiper 라이브러리를 사용하면 화면 크기에 따라 슬라이드의 �
 하지만 loop 옵션을 사용하면 슬라이드를 무한 반복하기 위해 내용을 복제하는데, 이에 따라 몇 가지 문제가 발생할 수 있습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,6 +26,7 @@ Swiper 라이브러리를 사용하면 화면 크기에 따라 슬라이드의 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -89,6 +91,7 @@ Swiper의 스타일은 아래와 같이 정의되어 있습니다.
 실제로 슬라이드를 초기화하고 관리하는 jQuery 코드입니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -98,6 +101,7 @@ Swiper의 스타일은 아래와 같이 정의되어 있습니다.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```js
 $(window).on('load', function () {

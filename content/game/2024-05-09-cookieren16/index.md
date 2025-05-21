@@ -48,6 +48,7 @@ comments: false
   * 호루라기, 시계, 망토
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -57,6 +58,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 51 ~ 59층
 
@@ -113,6 +115,7 @@ comments: false
   * 호루라기, 시계, 망토
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -122,6 +125,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 71 ~ 75층
 
@@ -206,6 +210,7 @@ comments: false
   * 무공비, 호루라기, 시계
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -215,6 +220,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 90층
 

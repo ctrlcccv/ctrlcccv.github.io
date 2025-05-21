@@ -26,6 +26,7 @@ tags:
 이 글에서는 `overscroll-behavior`와 jQuery를 활용하여 팝업 안에서만 스크롤 되도록 만들고, 필요에 따라 배경(body) 스크롤도 완전히 차단하는 방법을 알려 드립니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -35,6 +36,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -189,6 +191,7 @@ function popup() {
 }
 ```
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -198,6 +201,7 @@ function popup() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 * **팝업 열기**  
   버튼 클릭 시 `.pop_wrap`을 보여주며, `.type_disable` 클래스가 있을 경우 `body`에 `.disable_scroll`을 추가해 스크롤을 막습니다.

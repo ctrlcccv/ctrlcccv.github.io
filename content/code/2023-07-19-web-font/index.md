@@ -15,6 +15,7 @@ tags:
 웹 디자인에서 폰트 선택은 웹사이트나 앱의 전반적인 분위기와 사용자 경험에 큰 영향을 미칩니다. 하지만 때로는 다양한 운영체제(OS)와 브라우저에서 폰트가 다르게 표시되는 문제에 직면할 수 있습니다. 특히 웹폰트를 사용할 때, 윈도우와 맥 OS 간의 폰트 굵기 차이 문제는 종종 발생합니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -24,6 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -75,6 +77,7 @@ windowOS 클래스를 가진 요소들을 선택하고, 각 요소의 폰트 굵
 <br>
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -84,6 +87,7 @@ windowOS 클래스를 가진 요소들을 선택하고, 각 요소의 폰트 굵
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 
 ## 주의사항

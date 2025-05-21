@@ -19,6 +19,7 @@ tags:
 이 글에서는 마우스를 이미지 위에 올렸을 때 영역이 확대되는 갤러리 효과를 구현하는 데 필요한 HTML 구조와 CSS 코드를 상세히 설명합니다. HTML에서는 갤러리를 구성할 이미지들을 리스트 형태로 정의하고, CSS에서는 flexbox 레이아웃과 hover 선택자, 그리고 transition 속성을 활용하여 각 이미지가 자연스럽게 확대되도록 스타일링하는 방법을 다룹니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,6 +29,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -90,6 +92,7 @@ tags:
 ```
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -99,6 +102,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 * **.gallery 클래스**
   * 이 클래스는 &lt;ul&gt; 요소에 적용되어 전체 갤러리의 레이아웃을 결정합니다.

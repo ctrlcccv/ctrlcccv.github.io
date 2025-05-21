@@ -18,6 +18,7 @@ tags:
 `background-attachment: fixed` 속성으로 인해 발생하는 모바일 환경에서의 문제를 해결하는 방법을 자세히 알아보고, 구체적인 코드 예시를 통해 실제 웹사이트에 적용하는 방법을 제시합니다.  
  
  
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -27,6 +28,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -78,6 +80,7 @@ HTML 구조는 `bg_fixed` 클래스를 가진 div 요소들과 배경 이미지,
 ```
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -87,6 +90,7 @@ HTML 구조는 `bg_fixed` 클래스를 가진 div 요소들과 배경 이미지,
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 * **.bg_fixed 스타일링**
   * `height:100vh`는 배경이미지가 전체 뷰포트 높이를 차지하게 해줍니다.

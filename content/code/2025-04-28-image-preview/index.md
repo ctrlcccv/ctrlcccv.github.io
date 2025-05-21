@@ -30,6 +30,7 @@ tags:
 웹 개발을 하다 보면 사용자의 파일 업로드를 처리해야 할 상황이 자주 발생합니다. 특히 이미지 파일의 경우, 업로드 후 미리보기를 제공하면 사용자 만족도를 크게 높일 수 있습니다. 이번 포스트에서는 jQuery를 활용하여 이미지 파일을 업로드하고 미리 보는 기능을 어떻게 구현하는지 알아보겠습니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -39,6 +40,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -138,6 +140,7 @@ input[type="file"]은 기본 스타일을 완전히 숨기고, 대신 시각적�
 <span class="txt">선택된 이미지를 전체 영역에 꽉 채워 보여주며, 삭제 버튼은 항상 일정 위치에 고정됩니다.</span>  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -147,6 +150,7 @@ input[type="file"]은 기본 스타일을 완전히 숨기고, 대신 시각적�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

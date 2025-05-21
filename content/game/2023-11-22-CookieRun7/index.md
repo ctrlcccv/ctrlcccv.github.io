@@ -19,6 +19,7 @@ comments: false
 증명의 전장 10단계는 다음과 같은 전략으로 접근하는 것이 좋습니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,6 +29,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 조합
 

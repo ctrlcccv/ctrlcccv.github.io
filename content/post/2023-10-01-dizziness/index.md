@@ -43,6 +43,7 @@ comments : false
 * **어지럼증과 함께 나타나는 증상** : 구역감, 구토, 두통, 시력 장애, 청력 저하 등이 나타날 수 있습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -52,6 +53,7 @@ comments : false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 어지럼증의 치료
    

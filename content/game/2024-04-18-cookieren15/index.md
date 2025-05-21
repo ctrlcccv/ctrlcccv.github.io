@@ -38,6 +38,7 @@ comments: false
 * 바나나 토핑 8개 이상
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -47,6 +48,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 
 ## 칠리맛 쿠키 공략

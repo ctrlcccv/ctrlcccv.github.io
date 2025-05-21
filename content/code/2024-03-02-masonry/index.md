@@ -17,6 +17,7 @@ tags:
 웹 디자인에서 다양한 레이아웃을 구현하는 것은 사용자 경험을 향상시키고 독특한 시각적 효과를 제공하는 데 중요합니다. 특히 핀터레스트와 같은 플랫폼은 독특하고 다양한 레이아웃 구성으로 사용자들을 매료시키고 있습니다. 이번 글에서는 핀터레스트 스타일의 레이아웃을 Masonry.js를 활용하여 어떻게 간편하게 구현할 수 있는지에 대해 알아보겠습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,6 +27,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -78,6 +80,7 @@ $('.masonry').masonry({
 });
 ```
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -87,6 +90,7 @@ $('.masonry').masonry({
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 * jQuery Masonry 플러그인을 사용하여 .masonry 컨테이너 내의 .item 요소들에 Masonry 레이아웃을 적용합니다.
 * horizontalOrder 옵션을 사용하여 아이템을 수평으로 정렬합니다.  

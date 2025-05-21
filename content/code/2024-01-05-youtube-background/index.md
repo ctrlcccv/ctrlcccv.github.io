@@ -16,6 +16,7 @@ tags:
 웹사이트 디자인에서 동영상 배경은 방문자에게 강렬하고 다이나믹한 인상을 줄 수 있는 매력적인 요소입니다. 특히, 유튜브 동영상을 배경으로 사용하는 경우, 고품질의 영상 콘텐츠를 쉽게 통합할 수 있습니다. 이 글에서는 유튜브 동영상을 반응형 웹 디자인에 적합하게 배경으로 설정하는 방법을 소개합니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,6 +26,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -61,6 +63,7 @@ tags:
 - `playlist` 파라미터에 동영상 ID를 추가하여 동일한 동영상이 반복되도록 해야 합니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -70,6 +73,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

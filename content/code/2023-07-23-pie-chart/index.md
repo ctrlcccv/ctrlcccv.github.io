@@ -21,6 +21,7 @@ stroke-dasharray:100 40; 이라면 점선의 길이는 100, 간격은 40이다.
 점선의 간격에 원의 전체 둘레 값을 넣어 투명색 영역을 만든 뒤, 그래프 비율만큼 둘레 값을 계산하여 길이를 지정했다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -30,6 +31,7 @@ stroke-dasharray:100 40; 이라면 점선의 길이는 100, 간격은 40이다.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -90,6 +92,7 @@ stroke-width 속성의 크기는 영역의 가장자리 중심으로 늘어나�
 r 속성은 반지름의 크기를, cx, cy 속성은 &lt;circle&gt; 태그의 좌표 위치를 뜻한다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -99,6 +102,7 @@ r 속성은 반지름의 크기를, cx, cy 속성은 &lt;circle&gt; 태그의 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
   

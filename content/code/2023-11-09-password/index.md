@@ -15,6 +15,7 @@ tags:
 웹 페이지를 개발하거나 사용자 인터페이스를 디자인할 때, 비밀번호 입력 필드는 중요한 부분 중 하나입니다. 그러나 사용자가 입력한 비밀번호를 확인하고 검토하는 것은 종종 번거롭고 실수하기 쉬운 작업입니다. 이런 이유로 jQuery와 같은 라이브러리를 사용하여 비밀번호 입력 필드를 보이기/숨기기 기능을 구현하는 것은 매우 유용합니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -24,6 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 이러한 기능을 추가하면 사용자가 입력한 비밀번호를 실시간으로 확인할 수 있어서 오타를 방지하고 사용자 경험을 향상시킬 수 있습니다. 또한, 사용자는 필요할 때마다 비밀번호를 숨길 수 있어서 개인 정보 보호에 도움이 됩니다.  
 
@@ -53,6 +55,7 @@ tags:
 ```
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -62,6 +65,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## jQuery 코드
 ```js

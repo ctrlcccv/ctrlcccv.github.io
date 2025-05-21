@@ -14,15 +14,17 @@ CSS를 활용하여 데이터에 따라 자동으로 정렬되는 세로형 막�
 아래는 그래프의 HTML과 CSS 코드 예시입니다.
 
 
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<div class="ads_wrap">
+    <ins class="adsbygoogle"
+        style="display:block; text-align:center;"
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-8535540836842352"
+        data-ad-slot="2974559225"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
 
 <br>
 
@@ -95,18 +97,19 @@ CSS를 활용하여 데이터에 따라 자동으로 정렬되는 세로형 막�
 * bar > li : 각 막대그래프를 나타내며, 막대의 길이와 간격을 설정합니다.
 * bar > li span : 각 막대의 색상과 높이를 조절합니다.
 
-<br>
-
-
+<div class="ads_wrap">
 <ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+        style="display:block; text-align:center;"
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-8535540836842352"
+        data-ad-slot="2974559225"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<br>
 
 ## 결론
 

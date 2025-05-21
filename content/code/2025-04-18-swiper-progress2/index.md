@@ -29,6 +29,7 @@ tags:
 코드 예제와 함께 실제 웹 개발에서 어떻게 적용할 수 있는지 단계별로 살펴보며, 슬라이드와 프로그레스바 기능을 여러분의 웹사이트에 쉽게 추가하는 방법을 알려드립니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -38,6 +39,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -121,6 +123,7 @@ tags:
 <span class="txt">.swiper-pagination-bullet-active 클래스는 현재 활성화된 페이지네이션 항목에 자동으로 부여되며, 해당 항목의 도트와 텍스트에 동일한 강조 스타일을 적용합니다. 이를 통해 사용자는 현재 위치를 한눈에 파악할 수 있습니다.</span>
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -130,6 +133,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

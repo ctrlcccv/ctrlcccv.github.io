@@ -17,6 +17,7 @@ tags:
 CSS는 웹 디자인과 스타일링에서 핵심적인 역할을 하는 언어입니다. 최근에 도입된 :has() 속성은 이전에는 어려웠던 특정 상황에서의 선택자를 간편하게 다룰 수 있게 해주는 강력한 기능입니다. 2023년 12월 이후, 이 기능은 최신 디바이스 및 브라우저에서 작동하며, 이전의 디바이스나 브라우저에서는 동작하지 않을 수 있습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,6 +27,7 @@ CSS는 웹 디자인과 스타일링에서 핵심적인 역할을 하는 언어�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -65,6 +67,7 @@ h1:has(+ p) {
 
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -74,6 +77,7 @@ h1:has(+ p) {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

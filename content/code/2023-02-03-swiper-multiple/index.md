@@ -15,6 +15,7 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 슬라이드의 개수가 많아져도 유지보수가 편리하도록 코드를 구성하였습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -24,6 +25,7 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -93,6 +95,7 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 이를 위해 .each() 메서드를 사용합니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -102,6 +105,7 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```js
 $(window).on('load', function () {

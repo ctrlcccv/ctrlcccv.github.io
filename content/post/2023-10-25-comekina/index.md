@@ -36,6 +36,7 @@ comments : false
 코메키나를 복용하고도 증상이 계속되거나 악화하는 경우, 전문가와 상담하는 것이 중요합니다. 이러한 상황에서는 의사 또는 약사와의 상담을 통해 적절한 조치를 취할 수 있을 것입니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -45,6 +46,7 @@ comments : false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 코메키나의 장점과 단점
 코메키나는 다른 비염 치료제와 비교하여 자신만의 장점과 단점이 있습니다. 이를 통해 코메키나를 선택하는 데 도움을 줄 수 있습니다.

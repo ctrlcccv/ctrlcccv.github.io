@@ -18,6 +18,7 @@ Swiper.js 플러그인을 활용하여 갤러리 형태의 슬라이드를 만�
 이 예제는 PC에서는 작은 이미지의 썸네일이 5개, 모바일에서는 3개가 보이는 형태로 구현되어 있다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -27,6 +28,7 @@ Swiper.js 플러그인을 활용하여 갤러리 형태의 슬라이드를 만�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -85,6 +87,7 @@ Swiper.js 플러그인을 활용하여 갤러리 형태의 슬라이드를 만�
 .swiper-slide-thumb-active를 활용하여 현재 활성화된 썸네일에 선을 추가하여 사용자가 메인 슬라이드 이미지와 연관된 썸네일을 쉽게 확인할 수 있도록 만들었다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -94,6 +97,7 @@ Swiper.js 플러그인을 활용하여 갤러리 형태의 슬라이드를 만�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

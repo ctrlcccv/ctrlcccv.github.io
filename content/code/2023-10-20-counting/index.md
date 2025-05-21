@@ -15,6 +15,7 @@ tags:
 사용자가 웹 페이지를 스크롤 할 때, 화면에 특정 요소가 나타나면서 숫자가 부드럽게 증가하는 이 효과는 사용자 경험을 향상시키고 페이지의 시각적 매력을 높여줍니다. 이 글에서는 jQuery를 사용하여 **스크롤 내렸을 때 숫자 카운트 애니메이션을 만드는 방법**을 알아보겠습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -24,6 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -46,6 +48,7 @@ HTML 코드에는 카운트로 사용할 숫자를 표시할 요소가 필요합
 jQuery를 사용하여 스크롤 이벤트에 반응하고 숫자를 업데이트하며 애니메이션을 구현합니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -55,6 +58,7 @@ jQuery를 사용하여 스크롤 이벤트에 반응하고 숫자를 업데이�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```js
 $(document).ready(function() {

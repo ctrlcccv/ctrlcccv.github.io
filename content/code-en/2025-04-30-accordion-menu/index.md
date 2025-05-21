@@ -29,6 +29,7 @@ In this tutorial, you'll learn how to build a lightweight, accessible accordion 
 This method is perfect for developers who want a simple, fast-loading solution for FAQs, navigation menus, and expandable sections.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -38,6 +39,7 @@ This method is perfect for developers who want a simple, fast-loading solution f
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

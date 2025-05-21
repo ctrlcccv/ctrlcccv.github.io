@@ -19,6 +19,7 @@ IR 기법(Image Replacement Technique)은 웹 접근성을 개선하기 위해 �
 그리고 제이쿼리를 활용하여 파일을 선택하면 선택한 파일의 이름을 표시할 수 있도록 구현했다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,6 +29,7 @@ IR 기법(Image Replacement Technique)은 웹 접근성을 개선하기 위해 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -63,6 +65,7 @@ input[type="file"]:focus-visible ~ .file_btn, .file_cus:hover .file_btn {backgro
 이로써 웹 페이지의 내비게이션 및 상호작용이 더욱 명확하고 편리하게 이뤄질 수 있다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -72,6 +75,7 @@ input[type="file"]:focus-visible ~ .file_btn, .file_cus:hover .file_btn {backgro
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

@@ -27,6 +27,7 @@ tags:
 '브릭시티'는 힐링 게임의 특징을 가지고 있습니다. 동물의 숲 시리즈와 유사한 따뜻한 색감과 평온한 분위기, 마음을 편안하게 하는 배경 음악으로 가득 차 있습니다. 게임 내 캐릭터들의 대화와 아이템 설명은 유머와 위트로 가득 차 있어 플레이어들에게 웃음을 선사합니다. 또한 전 세계 이용자들의 도시를 탐험하고, 다양한 도시를 '시티 투어'를 통해 경험할 수 있습니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -36,6 +37,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 창작과 협력의 즐거움
 '브릭시티'는 브릭으로 건물을 짓고 도시를 건설하는 것뿐만 아니라, 피포들과의 소통과 협력도 중요한 요소입니다.   

@@ -16,6 +16,7 @@ swiper 슬라이드는 기본적으로 동그라미 형태의 페이지 번호�
 이번 예제에서는 사용자들이 더 쉽게 이해하고 편리하게 사용할 수 있는 페이징을 구현하는 방법을 소개하겠습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,6 +26,7 @@ swiper 슬라이드는 기본적으로 동그라미 형태의 페이지 번호�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -105,6 +107,7 @@ Swiper 슬라이드는 페이지를 넘길 때 부드럽게 전환되는 효과�
 슬라이드 페이징 위치 조정 로직을 jQuery로 구현합니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -114,6 +117,7 @@ Swiper 슬라이드는 페이지를 넘길 때 부드럽게 전환되는 효과�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```js
 $(window).on('load', function() {

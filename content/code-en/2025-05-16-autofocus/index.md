@@ -30,6 +30,7 @@ Have you ever found it frustrating to enter a phone number split across multiple
 This small UX improvement can make a big difference, especially on mobile devices where precise tapping is harder. In this tutorial, I'll show you how to implement automatic field transitions for phone number inputs using jQuery.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -39,6 +40,7 @@ This small UX improvement can make a big difference, especially on mobile device
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -139,6 +141,7 @@ The dashes between fields are styled for visibility but excluded from screen rea
 </span>
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -148,6 +151,7 @@ The dashes between fields are styled for visibility but excluded from screen rea
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

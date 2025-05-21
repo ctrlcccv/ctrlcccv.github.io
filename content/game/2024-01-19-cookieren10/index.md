@@ -28,6 +28,7 @@ comments: false
 무서운 소문이 미지의 대륙을 덮친 비스트이스트 대륙, 그중에서도 최강의 도전을 선사하는 Hard 난이도에 도전하는 시간이 찾아왔습니다. '베일에 싸인 은백색 왕국'의 어둠에 맞서, 비스트이스트 대륙에서의 힘들지만 흥미진진한 모험에 대비하세요. 이제, 용감한 쿠키 마스터 여러분을 위한 Hard 난이도의 클리어 공략을 시작하겠습니다.    
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -37,6 +38,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 1-1 ~ 1-5 클리어 조합
 

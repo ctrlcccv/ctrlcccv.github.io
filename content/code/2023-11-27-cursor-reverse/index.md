@@ -17,6 +17,7 @@ tags:
 사용자의 마우스 움직임에 반응하여 커서가 반전되거나 확대되는 시각적 효과를 제공합니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,6 +27,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 이러한 접근 방식의 장점은 다음과 같습니다.
 
@@ -67,6 +69,7 @@ body { background: #fff; }
   * .title과 .link 클래스는 텍스트와 링크의 스타일을 정의하며, 중앙 정렬과 상단 여백으로 시각적 구분을 제공합니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -76,6 +79,7 @@ body { background: #fff; }
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## jQuery 코드
 ```js

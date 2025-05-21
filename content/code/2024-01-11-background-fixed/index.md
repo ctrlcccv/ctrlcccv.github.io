@@ -16,6 +16,7 @@ tags:
 배경 이미지는 페이지의 분위기를 결정짓는 핵심적인 역할을 하며, 독특한 스크롤 효과는 사용자의 관심을 끌고 인터랙션을 유도합니다. 이번 글에서는 여러 배경 이미지들이 스크롤 시 고정되며, 콘텐츠가 그 위에서 스크롤 되는 효과를 구현하는 방법을 자세히 설명합니다. CSS의 `background-attachment` 속성을 사용하여 이러한 효과를 쉽게 만들 수 있습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,6 +26,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -68,6 +70,7 @@ CSS에서는 해당 HTML 구조에 스타일을 적용하여 각 섹션에 배�
 ```
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -77,6 +80,7 @@ CSS에서는 해당 HTML 구조에 스타일을 적용하여 각 섹션에 배�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 * **배경 이미지 공통 스타일 (.bg)**
 

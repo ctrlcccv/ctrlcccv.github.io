@@ -16,6 +16,7 @@ tags:
 유튜브 동영상을 웹페이지에 적절하게 삽입하는 것은 웹사이트의 시각적 매력을 높일 수 있는 중요한 방법입니다. 이 글에서는 유튜브 동영상을 반응형으로 만드는 CSS 기법을 소개하며, 사용자가 어떤 플랫폼이나 디바이스에서 접속하더라도 최적의 동영상 시청 경험을 제공하는 방법을 알아봅니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,6 +26,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -51,6 +53,7 @@ tags:
   * `allowfullscreen` 속성은 사용자가 전체 화면 모드로 비디오를 볼 수 있도록 허용합니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -60,6 +63,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

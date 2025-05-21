@@ -15,6 +15,7 @@ tags:
 웹 애플리케이션에서 회원가입 또는 로그인과 같은 기능을 구현할 때, 사용자의 휴대전화 번호를 인증하는 과정은 중요한 단계 중 하나입니다. 이를 위해서는 인증번호를 보내고, 그 유효시간을 관리하는 타이머를 구현해야 합니다. 이 블로그 글에서는 jQuery를 사용하여 인증번호 유효시간을 표시하는 예제를 설명하겠습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -24,6 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -73,6 +75,7 @@ tags:
 jQuery를 사용하여 인증번호 타이머를 구현하는 코드입니다. 사용자가 "인증번호 받기" 버튼을 클릭하면 타이머가 시작되고, 남은 시간을 표시합니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -82,6 +85,7 @@ jQuery를 사용하여 인증번호 타이머를 구현하는 코드입니다. �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```js
 $(document).ready(function() {

@@ -15,6 +15,7 @@ tags:
 컴퓨터 프로그래밍에서 부동 소수점 연산의 정확도 문제는 오래된 도전 과제입니다. 특히, 1.1 + 0.1 == 1.2가 False로 평가되는 현상과 같은 예는 이 문제를 잘 보여줍니다. 이 글에서는 이 현상의 원인과 가능한 해결 방법을 탐구하겠습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -24,6 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -46,6 +48,7 @@ tags:
 부동 소수점 연산에서는 이러한 근삿값을 사용합니다. 예를 들어, 1.1 + 0.1을 계산할 때, 각 숫자의 이진수 근삿값을 더합니다. 이 과정에서 미세한 오차가 누적되어, 최종 결과가 1.2와 정확히 일치하지 않을 수 있습니다. 이러한 오차는 특히 숫자가 많거나 복잡한 연산에서 더욱 눈에 띄게 됩니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -55,6 +58,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

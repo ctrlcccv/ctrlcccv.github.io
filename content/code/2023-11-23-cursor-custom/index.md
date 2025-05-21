@@ -15,6 +15,7 @@ tags:
 웹사이트를 방문하는 순간, 사용자는 다양한 시각적 요소를 통해 그 사이트의 성격을 인지합니다. 이 중에서도 종종 간과되지만 매우 중요한 요소가 바로 '마우스 커서'입니다. 전통적인 화살표 모양의 커서는 기능적으로는 충분하지만, 웹사이트의 창의성과 개성을 표현하는 데에는 한계가 있습니다. 이에 반해, 독창적으로 디자인된 커서는 사용자의 관심을 끌고, 웹사이트의 독특한 분위기를 조성하는 데 큰 역할을 합니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -24,6 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 
 특히, 디지털 시대에 웹사이트 디자인은 단순한 정보 전달을 넘어서, 사용자 경험과 감성을 자극하는 예술의 영역으로 진화하고 있습니다. 이러한 맥락에서, 커서 디자인은 사용자와의 첫 번째 상호작용 포인트로서, 웹사이트의 창의성을 바로 보여주는 기회가 됩니다. 예를 들어, 동적이고 반응형의 커서는 사용자의 탐색 경험을 풍부하게 만들고, 브랜드 아이덴티티를 강화하는 데 기여합니다.
@@ -77,6 +79,7 @@ transform 속성에 적용된 애니메이션 효과를 200ms의 지속시간과
 동적인 커서 움직임을 구현합니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -86,6 +89,7 @@ transform 속성에 적용된 애니메이션 효과를 200ms의 지속시간과
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```js
 // cursor 클래스를 가진 요소를 선택합니다.

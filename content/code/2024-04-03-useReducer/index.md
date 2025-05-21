@@ -18,6 +18,7 @@ tags:
 React 애플리케이션을 개발할 때, 상태 관리는 매우 중요한 요소입니다. React는 기본적으로 useState를 제공하지만, 더 복잡한 상황에서는 useReducer라는 든든한 조력자가 필요합니다. useReducer는 상태 로직을 명확하게 정의하고, 중앙 집중화하여 관리할 수 있도록 도와줍니다. 이 글에서는 useReducer의 작동 방식, 활용 방법, 그리고 다양한 상황에서의 사용 예시를 통해 애플리케이션의 유지 보수성과 확장성을 높이는 방법을 소개합니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -27,6 +28,7 @@ React 애플리케이션을 개발할 때, 상태 관리는 매우 중요한 요
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -94,6 +96,7 @@ function Counter() {
 }
 ```
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -103,6 +106,7 @@ function Counter() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 * **상태 관리:** 카운터 값을 `state` 변수에 저장하고 `dispatch` 함수로 업데이트합니다.
 * **액션 처리:** `reducer` 함수는 액션 타입에 따라 카운터 값을 증가/감소시킵니다.

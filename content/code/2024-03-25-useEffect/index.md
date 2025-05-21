@@ -20,6 +20,7 @@ React useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드
 이 글에서는 useEffect 훅의 동작 원리, 주요 개념, 다양한 사용 사례, 그리고 실제 프로젝트 적용 예시까지 심층적으로 살펴봅니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -29,6 +30,7 @@ React useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -73,6 +75,7 @@ function MyComponent() {
 * **조건부 실행:** 특정 조건을 충족할 때만 부수 효과 함수를 실행합니다.   
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -82,6 +85,7 @@ function MyComponent() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

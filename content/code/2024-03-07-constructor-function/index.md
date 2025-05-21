@@ -18,6 +18,7 @@ tags:
 자바스크립트에서 객체를 만들 때, 생성자 함수는 매우 강력하고 유용한 도구입니다. 생성자 함수는 객체를 생성하고 초기화하는 역할을 수행하며, 객체 지향 프로그래밍에서 중요한 개념 중 하나입니다. 이 글에서는 자바스크립트 생성자 함수의 기본 개념과 다양한 활용 방법을 알아보겠습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -27,6 +28,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -67,6 +69,7 @@ person2.sayHello(); // 출력: 안녕하세요, 제 이름은 Jane이고, 30살�
 ```
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -76,6 +79,7 @@ person2.sayHello(); // 출력: 안녕하세요, 제 이름은 Jane이고, 30살�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 위 코드에서 `new` 키워드를 사용하여 `Person` 생성자 함수를 호출하면, 새로운 객체가 생성되고 해당 객체의 속성들과 메서드들이 초기화됩니다.
 

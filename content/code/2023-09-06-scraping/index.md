@@ -17,6 +17,7 @@ Python과 Selenium을 사용하여 Google에서 검색 결과를 가져오는 �
 웹 스크래핑은 웹 사이트에서 정보를 추출하고 분석하는 데 매우 유용하며, Python과 Selenium을 통해 자동화할 수 있습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,6 +27,7 @@ Python과 Selenium을 사용하여 Google에서 검색 결과를 가져오는 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -60,6 +62,7 @@ driver.get("https://www.google.com")
 ```
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -69,6 +72,7 @@ driver.get("https://www.google.com")
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 검색어 입력
 Google 검색창을 찾아 검색어를 입력하고 검색을 실행합니다.

@@ -16,6 +16,7 @@ tags:
 패럴렉스 스크롤은 사용자의 스크롤 동작에 따라 배경과 전경의 요소들이 서로 다른 속도로 움직이면서 3D 같은 가시적 깊이감을 주는 기술입니다. 웹 디자인에서 이를 활용하면 더욱 몰입감 있고, 생동감 있는 사용자 경험을 제공할 수 있습니다. 이번 글에서는 jQuery를 이용해 간단한 패럴렉스 스크롤 효과를 구현하는 예제를 알아보겠습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,6 +26,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -66,6 +68,7 @@ tags:
   * `fast`와 `slow` 클래스를 가진 텍스트는 절대 위치로 설정되어 `transform: translate(-50%, -50%)`를 통해 가운데 정렬됩니다. zIndex는 배경보다 앞에 오도록 설정합니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -75,6 +78,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

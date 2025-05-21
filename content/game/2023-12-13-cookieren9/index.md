@@ -40,6 +40,7 @@ comments: false
   * 산타노움의 옆에 놓여있던 탁상시계. 바닥으로 떨어진 것 같은데, 그 충격으로 고장난 걸까?
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -49,6 +50,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 * **2-2 알 수 있는 이유**   
   * 책 내용에 의하면, 설탕은 시간이 지날수록 딱딱하게 뭉치고 색이 바래는 성질이 있다고 한다.

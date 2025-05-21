@@ -16,6 +16,7 @@ jQuery의 스크롤 이벤트와 CSS의 transform 속성을 결합하여, **웹 
 아래에서 실제 예제 코드와 함께 이 기술을 구현하는 방법을 자세히 설명하겠습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,6 +26,7 @@ jQuery의 스크롤 이벤트와 CSS의 transform 속성을 결합하여, **웹 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -80,6 +82,7 @@ type_right 클래스가 추가되면 요소가 오른쪽에서 왼쪽으로 나�
 jQuery를 사용하여 스크롤 이벤트를 모니터링하고, 요소들을 화면에 나타나게 하는 코드가 구현되어 있습니다. 
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -89,6 +92,7 @@ jQuery를 사용하여 스크롤 이벤트를 모니터링하고, 요소들을 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```js
 $(document).ready(function() {

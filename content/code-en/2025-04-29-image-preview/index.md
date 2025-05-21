@@ -31,6 +31,7 @@ Imagine running an online shop or setting up a profile page. Wouldn't it be help
 In this tutorial, we’ll walk through how to implement a clean, interactive image upload feature with live preview using jQuery. It’s beginner-friendly, reusable, and adds a polished touch to any website.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -40,6 +41,7 @@ In this tutorial, we’ll walk through how to implement a clean, interactive ima
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -98,6 +100,7 @@ Next, we’ll use some simple CSS to style the upload area and make it intuitive
 Now for the fun part. With just a few lines of jQuery, we can show a preview as soon as the user selects an image, and allow them to remove it if needed.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -107,6 +110,7 @@ Now for the fun part. With just a few lines of jQuery, we can show a preview as 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```js
 $(document).ready(function(){

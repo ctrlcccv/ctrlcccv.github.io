@@ -15,6 +15,7 @@ tags:
 jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다. 2단 탭 메뉴는 웹 페이지 내에서 다양한 컨텐츠를 효율적으로 구성하고, 사용자의 상호작용을 통해 해당 컨텐츠를 동적으로 표시하는 데 유용합니다. 이러한 탭 메뉴 구성은 정보의 구조화 및 사용자 경험(UX) 향상에 기여합니다.   
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -24,6 +25,7 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -125,6 +127,7 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
 각 탭에 대응하는 컨텐츠 영역의 스타일을 정의합니다. 기본적으로 숨겨져 있으며, 활성화된 탭에 해당하는 컨텐츠만 표시됩니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -134,6 +137,7 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 

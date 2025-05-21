@@ -19,6 +19,7 @@ tags:
 자바스크립트 화살표 함수는 간결한 문법으로 함수를 정의하는 강력한 도구입니다. 이 글에서는 기본적인 개념부터 심층적인 기능까지 다루며, 현대 자바스크립트 개발에 효과적으로 활용하는 방법을 제시합니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,6 +29,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -56,6 +58,7 @@ tags:
 이벤트 핸들러에서 화살표 함수를 사용하면 간결하게 코드를 작성할 수 있습니다. 이벤트 핸들러의 로직이 간단한 경우, 기존의 function 키워드를 사용한 방법보다 가독성이 높아집니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -65,6 +68,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```javascript
 const button = document.querySelector('button');

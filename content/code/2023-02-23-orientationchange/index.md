@@ -17,6 +17,7 @@ tags:
 특히 iOS 기기에서는 가로와 세로 모드 전환 감지가 조금 다른데요, jQuery를 사용하여 iOS 모바일 기기에서 가로와 세로 모드 전환을 감지하는 방법에 대해 알아보겠습니다.  
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,6 +27,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 <br>
 
@@ -58,6 +60,7 @@ orientationchange 이벤트가 실행될 때 화면 방향 전환이 이전의 �
 아래는 위에서 설명한 내용을 바탕으로 jQuery를 사용하여 구현한 코드 예시입니다.
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -67,6 +70,7 @@ orientationchange 이벤트가 실행될 때 화면 방향 전환이 이전의 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ```js
 const ios = navigator.userAgent.match(/(iPod|iPhone|iPad)/)

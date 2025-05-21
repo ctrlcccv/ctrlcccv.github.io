@@ -28,6 +28,7 @@ comments: false
   * 무공비, 유리병, 시계   
 
 
+<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -37,6 +38,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+</div>
 
 ## 각성 위험한 거대 모래 꿈틀이
 * **쿠키 및 토핑** 
