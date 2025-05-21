@@ -117,6 +117,18 @@ ul 태그 안에 li를 추가하면 새로운 텍스트가 자동으로 포함�
 - **애니메이션**은 @keyframes를 통해 왼쪽으로 지속해서 이동하는 효과를 구현합니다.  
 - **반응형 처리**를 통해 화면 크기에 따라 글자 크기와 여백을 조정하여 가독성과 공간 활용을 동시에 고려합니다.
 
+<div class="ads_wrap">
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
 <br>
 
 ## jQuery 코드
@@ -189,19 +201,6 @@ function setFlowBanner() {
     });
 }
 ```
-
-
-<div class="ads_wrap">
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</div>
 
 ### 주요 포인트 정리
 
