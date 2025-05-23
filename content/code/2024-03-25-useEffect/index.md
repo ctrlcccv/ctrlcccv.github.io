@@ -1,23 +1,131 @@
 ---
 title: >  
-    React - useEffect 동작 원리, 주요 개념, 다양한 활용 사례
+    React - useEffect 가이드 및 실전 예제
 
 description: >  
-    React의 useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드를 대체하고 부수 효과를 처리하는데 사용됩니다. 의존성 배열을 통해 특정 상태의 변화에만 반응하며, 클린업 함수를 활용하여 메모리 누수를 방지할 수 있습니다.
+    React useEffect 가이드 및 실전 예제입니다. 의존성 배열을 통한 실행 시점 제어와 클린업 함수의 활용법까지, 실제 개발에 바로 적용 가능한 예제와 함께 알아봅니다.
 
 slug: 2024-03-25-useEffect
 date: 2024-03-25 00:00:00+0000
-lastmod: 2024-03-25 00:00:00+0000
+lastmod: 2025-05-23 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp
 
 categories:
     - React
 tags:
-
+    - React Hooks
+    - useEffect
+    - 사이드 이펙트
+    - 클린업 함수
 ---
-React useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드의 기능을 대체하고 부수 효과를 처리하는 강력한 도구입니다. 이 훅을 통해 컴포넌트의 상태 변화를 감지하고 그에 따라 필요한 작업을 수행할 수 있습니다. 의존성 배열을 활용하여 특정 상태의 변화에만 반응하도록 설정할 수 있고, 클린업 함수를 통해 메모리 누수를 방지할 수도 있습니다.  
+웹 개발을 하다 보면 페이지가 처음 로드된 후에 특정 작업을 실행해야 할 때가 있지 않나요?
 
-이 글에서는 useEffect 훅의 동작 원리, 주요 개념, 다양한 사용 사례, 그리고 실제 프로젝트 적용 예시까지 심층적으로 살펴봅니다.  
+React로 컴포넌트를 개발할 때 화면이 그려진 후에 추가 작업을 실행해야 하는 경우가 자주 있습니다. 예를 들어 서버에서 데이터를 가져오거나, 이벤트 리스너를 등록하거나, 타이머를 설정하는 등의 작업을 페이지 로드 이후에 실행해야 할 때가 많습니다. 이런 작업들을 처리할 수 있게 해주는 것이 바로 React의 useEffect 훅입니다. 이번 글에서는 누구나 쉽게 이해할 수 있도록 useEffect의 기본 개념부터 실제 활용법까지 자세히 알아보겠습니다.  
+
+<div class="ads_wrap">
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<br>
+
+
+## useEffect 기본 개념
+
+useEffect는 React 컴포넌트에서 "부수 효과"를 처리하기 위한 훅입니다. 일상생활에 비유하자면, 방에 들어간 후에 불을 켜거나, 카페에 도착한 후 음료를 주문하는 것과 같습니다. 즉, 어떤 행동(렌더링)이 완료된 후에 수행하는 추가 작업이라고 생각하면 됩니다.
+
+```javascript
+import React, { useEffect } from 'react';
+
+function MyComponent() {
+  useEffect(() => {
+    // 화면이 그려진 후에 실행될 코드
+    console.log('컴포넌트가 화면에 나타났습니다!');
+  }, []); // 의존성 배열
+  
+  return <div>Hello World</div>;
+}
+```
+* **기본 구조**  
+<span class="txt">
+useEffect는 두 가지 인자를 받습니다. 첫 번째는 실행할 함수, 두 번째는 의존성 배열입니다.  
+위 예제에서는 빈 배열([])을 전달했기 때문에 컴포넌트가 처음 나타날 때만 실행됩니다.
+</span>
+
+* **실행 시점**  
+<span class="txt">
+useEffect 내부의 코드는 화면 렌더링이 완료된 후에 실행됩니다.  
+이는 자바스크립트의 이벤트 리스너와 비슷한 역할을 합니다.
+</span>
+
+<br>
+
+### 일상 속 예시로 이해하기
+
+* **방 입장**: 방에 들어간 후(컴포넌트 렌더링)에 불을 켜고(useEffect), 나갈 때(언마운트) 불을 끕니다(클린업 함수).
+* **식당**: 식당에 자리 잡은 후(렌더링)에 음식을 주문합니다(useEffect). 식사를 마치고 떠날 때(언마운트) 계산을 합니다(클린업 함수).
+* **여행**: 여행지에 도착한 후(렌더링)에 관광을 시작합니다(useEffect). 떠나기 전에(언마운트) 짐을 챙깁니다(클린업 함수).
+
+실제 사용 예를 생각해보면, 페이지가 로드된 후 서버에서 데이터를 가져오거나, 화면 크기가 변경될 때 레이아웃을 조정하거나, 타이머를 설정하는 등 다양한 상황에서 useEffect를 활용할 수 있습니다.
+
+<br>
+
+## 의존성 배열 사용하기
+
+```javascript
+import React, { useState, useEffect } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  
+  // 1. 빈 배열: 컴포넌트가 처음 나타날 때만 실행
+  useEffect(() => {
+    console.log('컴포넌트가 마운트되었습니다.');
+  }, []);
+  
+  // 2. 의존성 배열에 값 포함: 해당 값이 변경될 때마다 실행
+  useEffect(() => {
+    console.log(`카운트가 ${count}로 변경되었습니다.`);
+    document.title = `현재 카운트: ${count}`;
+  }, [count]);
+  
+  // 3. 의존성 배열 생략: 모든 상태 변화마다 실행 (거의 사용하지 않음)
+  useEffect(() => {
+    console.log('매번 렌더링될 때마다 실행됩니다.');
+  });
+  
+  return (
+    <div>
+      <p>현재 카운트: {count}</p>
+      <button onClick={() => setCount(count + 1)}>증가</button>
+    </div>
+  );
+}
+```
+* **빈 배열 ([])의 의미**  
+<span class="txt">
+컴포넌트가 처음 화면에 나타날 때(마운트될 때) 딱 한 번만 실행됩니다.  
+페이지를 처음 로드할 때 한 번만 실행해야 하는 초기화 코드에 적합합니다.
+</span>
+
+* **의존성 배열에 값 넣기 ([count])**  
+<span class="txt">
+배열 안에 넣은 값(count)이 변경될 때마다 useEffect가 다시 실행됩니다.  
+특정 값의 변화를 감지하여 작업을 수행할 때 사용합니다.
+</span>
+
+* **의존성 배열 생략**  
+<span class="txt">
+의존성 배열을 생략하면 컴포넌트가 리렌더링될 때마다 useEffect가 실행됩니다.  
+이 방식은 성능 문제를 일으킬 수 있어 꼭 필요한 경우가 아니면 사용하지 않는 게 좋습니다.
+</span>
 
 
 <div class="ads_wrap">
@@ -34,46 +142,103 @@ React useEffect 훅은 함수형 컴포넌트에서 라이프사이클 메서드
 
 <br>
 
-## useEffect 훅의 동작 원리
-
-useEffect 훅은 컴포넌트가 렌더링 될 때마다 실행되는 함수를 정의합니다. 이 함수는 컴포넌트의 상태, props, 또는 DOM과 같은 외부 요소에 의존할 수 있습니다. 의존성이 변경될 때마다 useEffect 훅은 다시 실행됩니다.  
-useEffect 훅은 다음과 같은 두 가지 인자를 받습니다.  
-
-* **부수 효과 함수:** 컴포넌트가 렌더링 될 때마다 실행되는 함수입니다.
-* **의존성 배열:** 부수 효과 함수가 다시 실행될 때마다 확인해야 하는 값들의 배열입니다.
+## 클린업 함수 (정리 함수)
 
 ```javascript
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function MyComponent() {
-    // 클릭 횟수를 저장하는 상태와 업데이트 함수를 정의합니다.
-    const [count, setCount] = useState(0);
-
-    // 페이지 제목을 클릭 횟수로 업데이트합니다.
-    useEffect(() => {
-        document.title = `${count}번 클릭했습니다`;
-    }, [count]); // count가 변경될 때만 실행됩니다.
-
-    return (
-        <div>
-            <p>{count}번 클릭했습니다</p>
-            <button onClick={() => setCount(count + 1)}>
-                클릭하세요
-            </button>
-        </div>
-    );
+function WindowResizeTracker() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  
+  useEffect(() => {
+    // 이벤트 핸들러 함수
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+    
+    // 이벤트 리스너 등록
+    window.addEventListener('resize', handleResize);
+    
+    // 클린업 함수: 컴포넌트가 언마운트될 때 실행
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  
+  return (
+    <div>
+      <p>현재 창 너비: {windowWidth}px</p>
+      {windowWidth < 768 ? <p>모바일 화면입니다.</p> : <p>데스크톱 화면입니다.</p>}
+    </div>
+  );
 }
 ```
-위 코드에서 useEffect 훅은 count 값이 변경될 때마다 document.title을 업데이트합니다.  
+* **클린업 함수란?**  
+<span class="txt">
+useEffect 내에서 return 함수는 컴포넌트가 사라지거나(언마운트) 다음 useEffect가 실행되기 전에 호출됩니다.  
+이 함수는 "정리"를 담당하며, 메모리 누수를 방지하고 리소스를 효율적으로 관리합니다.
+</span>
+
+* **언제 필요한가요?**  
+<span class="txt">
+이벤트 리스너, 타이머(setInterval, setTimeout), 외부 구독(웹소켓 등), 애니메이션 등 지속적으로 실행되는 작업을 등록했을 때 필요합니다.  
+컴포넌트가 사라져도 이런 작업들은 계속 실행될 수 있어 반드시 정리해줘야 합니다.
+</span>
+
 <br>
 
-## useEffect 훅의 주요 개념
+## 실제 활용 예시
 
-* **부수 효과:** 컴포넌트 렌더링 흐름에 영향을 주는 작업들로, 상태 변경, 외부 API 호출, 구독 설정/해제 등이 해당합니다.
-* **의존성 배열:** 부수 효과 함수가 다시 실행될 때마다 확인해야 하는 값들의 배열입니다.
-* **클린업 함수:** 컴포넌트가 언마운트되기 직전이나 다음 부수 효과 함수가 호출되기 직전에 실행되는 함수입니다.
-* **조건부 실행:** 특정 조건을 충족할 때만 부수 효과 함수를 실행합니다.   
+### 데이터 가져오기
 
+```javascript
+import React, { useState, useEffect } from 'react';
+
+function ProductList() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    // 데이터 가져오기
+    fetch('https://api.example.com/products')
+      .then(response => response.json())
+      .then(data => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('데이터를 가져오는 중 오류 발생:', error);
+        setLoading(false);
+      });
+  }, []); // 빈 배열: 컴포넌트가 처음 마운트될 때만 실행
+  
+  return (
+    <div>
+      <h2>상품 목록</h2>
+      {loading ? (
+        <p>로딩 중...</p>
+      ) : (
+        <ul>
+          {products.map(product => (
+            <li key={product.id}>{product.name} - {product.price}원</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+```
+* **데이터 로딩 관리**  
+<span class="txt">
+컴포넌트가 처음 나타날 때 API 요청을 보내고, 데이터가 로드될 때까지 로딩 상태를 표시합니다.  
+데이터를 한 번만 가져오기 위해 의존성 배열을 빈 배열([])로 설정했습니다.
+</span>
+
+* **사용자 경험 개선**  
+<span class="txt">
+로딩 상태를 통해 사용자에게 데이터를 가져오는 중임을 알려주고, 데이터가 준비되면 목록을 표시합니다.  
+이는 사용자가 빈 화면을 보는 시간을 줄여 더 나은 경험을 제공합니다.
+</span>
 
 <div class="ads_wrap">
 <ins class="adsbygoogle"
@@ -89,177 +254,137 @@ function MyComponent() {
 
 <br>
 
-## useEffect 훅의 다양한 사용 사례
-
-**데이터 불러오기**
+## 마운트와 언마운트 이해하기
 
 ```javascript
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function MyComponent() {
-    // 데이터 상태와 업데이트 함수를 정의합니다.
-    const [data, setData] = useState([]);
+// 자식 컴포넌트
+function ModalPopup({ onClose }) {
+  useEffect(() => {
+    // 🔵 마운트 시: 모달이 열리면 스크롤 막기
+    document.body.style.overflow = 'hidden';
+    console.log('모달이 열렸습니다!');
+    
+    // 🔴 언마운트 시: 모달이 닫히면 스크롤 다시 허용
+    return () => {
+      document.body.style.overflow = 'auto';
+      console.log('모달이 닫혔습니다!');
+    };
+  }, []);
+  
+  return (
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <h2>환영합니다!</h2>
+        <p>이것은 모달 팝업입니다.</p>
+        <button onClick={onClose}>닫기</button>
+      </div>
+    </div>
+  );
+}
 
-    useEffect(() => {
-        // 외부 API에서 데이터를 가져와 상태를 업데이트합니다.
-        async function fetchData() {
-            const response = await fetch('https://api.example.com/data');
-            const jsonData = await response.json();
-            setData(jsonData);
-        }
-        fetchData(); // 데이터를 가져오는 함수를 호출합니다.
-    }, []); // 데이터를 가져오는 효과는 한 번만 실행됩니다.
-
-    // 데이터 배열을 매핑하여 이름을 화면에 표시합니다.
-    return (
-        <div>
-            {data.map((item) => (
-                <p key={item.id}>{item.name}</p>
-            ))}
-        </div>
-    );
+// 부모 컴포넌트
+function App() {
+  const [showModal, setShowModal] = useState(false);
+  
+  return (
+    <div className="app">
+      <h1>useEffect 예제: 마운트와 언마운트</h1>
+      <button onClick={() => setShowModal(true)}>모달 열기</button>
+      
+      {/* showModal이 true일 때만 ModalPopup 컴포넌트가 화면에 나타남 */}
+      {showModal && <ModalPopup onClose={() => setShowModal(false)} />}
+    </div>
+  );
 }
 ```
+* **마운트란?**  
+<span class="txt">
+컴포넌트가 화면에 처음 나타나는 것을 의미합니다.  
+위 예제에서는 '모달 열기' 버튼을 클릭하여 ModalPopup 컴포넌트를 마운트합니다.
+</span>
 
-**스크롤 이벤트 처리**
-```javascript
-import React, { useEffect, useState } from 'react';
+* **언마운트란?**  
+<span class="txt">
+컴포넌트가 화면에서 사라지는 것을 의미합니다.  
+모달의 '닫기' 버튼을 클릭하면 ModalPopup 컴포넌트가 언마운트됩니다.
+</span>
 
-function MyComponent() {
-    // 스크롤 위치를 저장하는 상태와 그 상태를 업데이트하는 함수를 정의합니다.
-    const [scrollTop, setScrollTop] = useState(0);
+* **클린업 함수의 역할**  
+<span class="txt">
+모달이 열릴 때(마운트) 페이지 스크롤을 막고, 닫힐 때(언마운트) 스크롤을 다시 허용합니다.  
+이렇게 하면 모달이 열려 있는 동안 배경 콘텐츠가 스크롤되는 것을 방지할 수 있습니다.
+</span>
 
-    // 컴포넌트가 처음 렌더링 될 때 스크롤 이벤트를 설정합니다.
-    useEffect(() => {
-        function handleScroll() {
-            setScrollTop(window.pageYOffset);
-        }
-
-        window.addEventListener('scroll', handleScroll);
-
-        // 언마운트될 때 이벤트 리스너를 제거합니다.
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    // 현재 스크롤 위치를 화면에 표시합니다.
-    return (
-        <div>
-            <p>스크롤 위치: {scrollTop}</p>
-            {/* 추가적인 JSX 코드 */}
-        </div>
-    );
-}
-```
-위 코드에서 useEffect 훅은 스크롤 이벤트 발생 시마다 scrollTop state를 업데이트합니다. 컴포넌트가 언마운트될 때 리스너를 제거하여 메모리 누수를 방지합니다.  
 <br>
 
-**타이머 설정**
+## 주의사항 및 팁
+
+### 1. 무한 루프 방지하기
 ```javascript
-import React, { useEffect, useState } from 'react';
+// ❌ 잘못된 방법: 무한 루프 발생
+useEffect(() => {
+  setCount(count + 1); // count 변경 → 리렌더링 → 다시 useEffect 실행 → count 변경 ...
+}, [count]);
 
-function MyComponent() {
-    // 초를 저장하는 상태와 초를 업데이트하는 함수를 정의합니다.
-    const [seconds, setSeconds] = useState(0);
-
-    // 컴포넌트가 처음 렌더링 될 때 1초마다 초를 증가시키는 타이머를 설정합니다.
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setSeconds(seconds => seconds + 1);
-        }, 1000);
-
-        // 언마운트될 때 타이머를 제거합니다.
-        return () => clearInterval(intervalId);
-    }, []);
-
-    // 현재 경과된 시간을 화면에 표시합니다.
-    return (
-        <div>
-            <p>경과 시간: {seconds}초</p>
-        </div>
-    );
-}
+// ✅ 올바른 방법: 특정 조건에서만 상태 업데이트
+useEffect(() => {
+  if (someCondition) {
+    setCount(count + 1);
+  }
+}, [count, someCondition]);
 ```
-위 코드에서 useEffect 훅은 1초 간격으로 타이머를 설정하여 seconds state를 업데이트합니다. 컴포넌트가 언마운트될 때 타이머를 제거하여 메모리 누수를 방지합니다.  
-<br>
 
-**구독 설정/해제**
+### 2. 의존성 배열 올바르게 설정하기
 ```javascript
-import React, { useEffect, useState } from 'react';
+// ❌ 잘못된 방법: 의존성 배열에 필요한 값이 누락됨
+useEffect(() => {
+  console.log(name); // name을 사용하지만 의존성 배열에 포함되지 않음
+}, []); // 의존성 배열이 비어 있어 name이 변경되어도 effect가 실행되지 않음
 
-function MyComponent() {
-    // 데이터를 저장하는 상태와 업데이트 함수를 정의합니다.
-    const [data, setData] = useState([]);
-
-    // 'data-update' 이벤트를 구독하고, 데이터가 업데이트될 때마다 상태를 업데이트합니다.
-    useEffect(() => {
-        const subscription = socket.on('data-update', (updatedData) => {
-            setData(updatedData);
-        });
-
-        // 언마운트될 때 구독을 해제합니다.
-        return () => subscription.unsubscribe();
-    }, []);
-
-    // 데이터 배열을 매핑하여 각 항목의 이름을 화면에 표시합니다.
-    return (
-        <div>
-            {data.map((item) => (
-                <p key={item.id}>{item.name}</p>
-            ))}
-        </div>
-    );
-}
+// ✅ 올바른 방법: 사용하는 모든 변수를 의존성 배열에 포함
+useEffect(() => {
+  console.log(name);
+}, [name]); // name이 변경될 때마다 effect가 실행됨
 ```
-위 코드에서 useEffect 훅은 socket.io를 사용하여 서버로부터 데이터 업데이트 이벤트를 구독하고 data state를 업데이트합니다. 컴포넌트가 언마운트될 때 구독을 해제하여 메모리 누수를 방지합니다.  
-<br>
 
-**애니메이션 구현**
+### 3. 여러 개의 useEffect 분리하기
 ```javascript
-import React, { useEffect, useState, useRef } from 'react';
+// ❌ 잘못된 방법: 하나의 useEffect에서 여러 작업 처리
+useEffect(() => {
+  // 데이터 가져오기
+  fetchData();
+  
+  // 이벤트 리스너 등록
+  window.addEventListener('resize', handleResize);
+  
+  return () => {
+    window.removeEventListener('resize', handleResize);
+  };
+}, [fetchData]); // fetchData가 변경될 때마다 이벤트 리스너도 다시 등록됨
 
-function MyComponent() {
-    // 애니메이션 상태를 저장하는 상태 변수와 그 상태를 변경하는 함수를 정의합니다.
-    const [isAnimated, setIsAnimated] = useState(false);
+// ✅ 올바른 방법: 관련 있는 작업끼리 분리
+useEffect(() => {
+  fetchData();
+}, [fetchData]);
 
-    // 애니메이션을 적용할 요소에 대한 참조를 생성합니다.
-    const animationRef = useRef();
-
-    // 애니메이션 상태에 따라 요소에 애니메이션을 적용하거나 중지합니다.
-    useEffect(() => {
-        if (isAnimated) {
-            animationRef.current.style.animation = 'my-animation 1s ease-in-out';
-        } else {
-            animationRef.current.style.animation = 'none';
-        }
-    }, [isAnimated]); // 애니메이션 상태가 변경될 때만 실행됩니다.
-
-    // 애니메이션을 적용할 요소와 버튼을 화면에 표시합니다.
-    return (
-        <div ref={animationRef}>
-            <p>애니메이션 요소</p>
-            <button onClick={() => setIsAnimated(true)}>애니메이션 시작</button>
-            <button onClick={() => setIsAnimated(false)}>애니메이션 중단</button>
-        </div>
-    );
-}
+useEffect(() => {
+  window.addEventListener('resize', handleResize);
+  return () => {
+    window.removeEventListener('resize', handleResize);
+  };
+}, []); // 컴포넌트가 마운트될 때만 등록, 언마운트될 때만 제거
 ```
-위 코드에서 useEffect 훅은 isAnimated state에 따라 애니메이션 CSS 클래스를 적용하여 애니메이션 효과를 구현합니다. useRef 훅을 사용하여 DOM 요소에 직접 접근하고 애니메이션 속성을 설정합니다.  
-<br>
 
-## useEffect 훅 활용 팁
-
-* **의존성 배열을 최적화하여 불필요한 렌더링 방지**  
-의존성 배열에 꼭 필요한 값만 포함하여 컴포넌트 렌더링 성능을 향상시킬 수 있습니다.  
-
-* **클린업 함수를 사용하여 메모리 누수 방지**  
-컴포넌트 언마운트 시 리스너, 타이머 등을 제거하여 메모리 누수를 방지합니다.  
-
-* **조건부 실행으로 불필요한 부수 효과 제거**  
-특정 조건을 만족할 때만 부수 효과 함수를 실행하여 성능 향상 및 코드 간결화를 도모합니다.  
-
-* **useRef 훅과 함께 사용하여 최적화**  
-변하지 않는 값을 저장하거나 DOM 요소에 직접 접근해야 하는 경우 useRef 훅과 함께 사용하여 성능을 향상시킬 수 있습니다.  
 <br>
 
 ## 결론
-`useEffect` 훅은 React 함수형 컴포넌트에서 라이프사이클 메서드를 대체하고 부수 효과를 처리하는 데 쓰입니다. 이를 활용하여 상태 변화를 감지하고 필요한 작업을 수행할 수 있습니다. 의존성 배열을 설정하여 특정 상태의 변화에만 반응하도록 조절할 수 있으며, 클린업 함수를 활용하여 메모리 누수를 방지할 수 있습니다. 이를 통해 React 애플리케이션의 성능과 유지보수성을 향상시킬 수 있습니다.  
+
+이번 글에서는 React의 useEffect 훅에 대해 알아보았습니다. useEffect는 컴포넌트가 렌더링된 후에 부수 효과(side effects)를 실행할 수 있게 해주는 강력한 도구입니다. 의존성 배열을 활용하여 효과가 실행되는 시점을 제어하고, 클린업 함수를 통해 리소스를 효율적으로 관리할 수 있습니다.
+
+useEffect를 활용하면 이벤트 리스너 등록, 애니메이션 효과, 외부 API 호출, 로컬 스토리지 활용 등 다양한 작업을 수행할 수 있습니다. 특히 기존 자바스크립트 라이브러리의 이벤트와 비슷하지만, 더 세밀하고 유연하게 각 UI 요소마다 다른 효과를 적용할 수 있다는 장점이 있습니다.
+
+이 글이 React의 useEffect를 이해하는 데 도움이 되었길 바랍니다. 실제 프로젝트에 적용해보면서 더 깊이 이해해 보세요. 다른 궁금한 점이나 추가 예제가 필요하시면 댓글로 남겨주세요!
+
+<br>
