@@ -22,6 +22,8 @@ alternates:
 categories:
     - jQuery
 tags:
+    - Web Development
+    - UI/UX
 
 ---
 
