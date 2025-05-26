@@ -6,8 +6,8 @@ description: >
     React의 useRef 훅을 활용하여 DOM 요소에 직접 접근하고 렌더링과 무관하게 값을 유지하는 방법을 알아봅니다. 실무에서 자주 사용되는 예제와 함께 useRef의 모든 것을 정리했습니다.
 
 slug: 2025-06-02-react-useref
-date: 2025-05-24 00:00:00+0000
-lastmod: 2025-05-24 00:00:00+0000
+date: 2025-06-02 00:00:00+0000
+lastmod: 2025-06-02 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-02-react-useref.webp
 
