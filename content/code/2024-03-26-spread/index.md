@@ -13,6 +13,9 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - JavaScript
 tags:
+    - ES6
+    - 문법
+    - 웹개발
 
 ---
 자바스크립트는 동적이고 유연한 언어로, 여러 기능을 제공하여 개발자가 코드를 더 효율적으로 작성할 수 있도록 도와줍니다. 그 중 스프레드 문법은 ES6(ES2015)부터 도입되어 자바스크립트의 강력한 기능 중 하나로 자리 잡았습니다. 스프레드 문법은 배열과 객체를 다루는데 유용하며, 코드의 가독성과 유지보수성을 향상하는데 큰 역할을 합니다. 이번 글에서는 스프레드 문법의 개념과 다양한 활용법에 대해 알아보겠습니다.  
