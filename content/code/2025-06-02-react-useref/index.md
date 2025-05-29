@@ -89,7 +89,7 @@ function 렌더링카운터() {
   // useState - 값 변경 시 리렌더링 발생
   const [상태값, 상태변경] = useState(0);
   
-  // useRef - 리렌더링 시에도 값 유지, 값 변경해도 리렌더링 안 함
+  // useRef - 리렌더링 시에도 값 유지, 값 변경해도 리렌더링 하지 않음
   const 렌더링횟수 = useRef(0);
   
   useEffect(() => {
@@ -145,33 +145,34 @@ useRef를 통한 DOM 제어는 React의 가상 DOM 시스템을 우회합니다.
 ### 1. 무한 스크롤 구현하기
 
 ```jsx
-function 상품목록() {
-  const 마지막아이템Ref = useRef(null);
-  const [상품들, 상품설정] = useState([]);
-  const [페이지, 페이지설정] = useState(1);
+function ProductList() {
+  const lastItemRef = useRef(null);
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    const 관찰자 = new IntersectionObserver((entries) => {
+    // IntersectionObserver로 마지막 아이템 감지
+    const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         // 마지막 아이템이 화면에 보이면 다음 페이지 로드
-        페이지설정(이전페이지 => 이전페이지 + 1);
+        setPage(prevPage => prevPage + 1);
       }
     });
     
-    if (마지막아이템Ref.current) {
-      관찰자.observe(마지막아이템Ref.current);
+    if (lastItemRef.current) {
+      observer.observe(lastItemRef.current);
     }
     
-    return () => 관찰자.disconnect();
-  }, [상품들]);
+    return () => observer.disconnect();
+  }, [products]);
 
   return (
     <div>
-      {상품들.map((상품, 인덱스) => (
-        <div key={상품.id}>
+      {products.map((product, index) => (
+        <div key={product.id}>
           {/* 마지막 아이템에 ref 연결 */}
-          <div ref={인덱스 === 상품들.length - 1 ? 마지막아이템Ref : null}>
-            {상품.이름}
+          <div ref={index === products.length - 1 ? lastItemRef : null}>
+            {product.name}
           </div>
         </div>
       ))}
@@ -191,30 +192,31 @@ useRef와 IntersectionObserver를 함께 쓰면 사용자가 페이지 아래쪽
 ### 2. 비디오 플레이어 제어하기
 
 ```jsx
-function 비디오플레이어() {
-  const 비디오Ref = useRef(null);
-  const [재생중, 재생중설정] = useState(false);
+function VideoPlayer() {
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   
-  const 재생토글 = () => {
-    if (비디오Ref.current) {
-      if (재생중) {
-        비디오Ref.current.pause();
+  const togglePlay = () => {
+    if (videoRef.current) {
+      // 비디오 요소의 내장 메서드로 재생/정지 제어
+      if (isPlaying) {
+        videoRef.current.pause();
       } else {
-        비디오Ref.current.play();
+        videoRef.current.play();
       }
-      재생중설정(!재생중);
+      setIsPlaying(!isPlaying);
     }
   };
   
   return (
-    <div className="비디오-컨테이너">
+    <div className="video-container">
       <video 
-        ref={비디오Ref} 
-        src="/비디오경로.mp4"
-        onEnded={() => 재생중설정(false)}
+        ref={videoRef} 
+        src="/video-path.mp4"
+        onEnded={() => setIsPlaying(false)}
       />
-      <button onClick={재생토글}>
-        {재생중 ? '일시정지' : '재생'}
+      <button onClick={togglePlay}>
+        {isPlaying ? '일시정지' : '재생'}
       </button>
     </div>
   );
@@ -232,35 +234,35 @@ function 비디오플레이어() {
 ## useState vs useRef - 언제 무엇을 써야 할까?
 
 ```jsx
-function 상태비교컴포넌트() {
+function StateComparisonComponent() {
   // 화면에 보이는 값 - useState 사용
-  const [입력값, 입력값설정] = useState("");
-  const [제출됨, 제출됨설정] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
   
   // 화면에 보이지 않는 내부 값 - useRef 사용
-  const 제출횟수Ref = useRef(0);
-  const 타이머Ref = useRef(null);
+  const submitCountRef = useRef(0);
+  const timerRef = useRef(null);
   
-  const 제출처리 = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    제출됨설정(true);
-    제출횟수Ref.current += 1;
+    setIsSubmitted(true);
+    submitCountRef.current += 1;
     
     // 3초 후 알림 숨기기
-    clearTimeout(타이머Ref.current);
-    타이머Ref.current = setTimeout(() => {
-      제출됨설정(false);
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setIsSubmitted(false);
     }, 3000);
   };
   
   return (
-    <form onSubmit={제출처리}>
+    <form onSubmit={handleSubmit}>
       <input 
-        value={입력값}
-        onChange={(e) => 입력값설정(e.target.value)}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
       />
       <button type="submit">제출</button>
-      {제출됨 && <p>제출되었습니다!</p>}
+      {isSubmitted && <p>제출되었습니다!</p>}
     </form>
   );
 }
@@ -269,8 +271,8 @@ function 상태비교컴포넌트() {
 * **선택 기준**  
 <span class="txt">
 가장 중요한 질문은 "이 값이 바뀔 때 화면을 다시 그려야 하나요?"입니다.
-화면에 직접 표시되는 값(입력값, 제출됨)은 useState를 씁니다.
-내부 로직에만 필요한 값(제출횟수, 타이머ID)은 useRef를 쓰는 것이 효율적입니다.
+화면에 직접 표시되는 값(inputValue, isSubmitted)은 useState를 씁니다.
+내부 로직에만 필요한 값(submitCount, timerID)은 useRef를 쓰는 것이 효율적입니다.
 </span>
 
 * **렌더링 최적화**  
@@ -296,27 +298,27 @@ function 상태비교컴포넌트() {
 ## useRef 사용 시 주의사항
 
 ```jsx
-function 주의사항컴포넌트() {
-  const 참조값 = useRef(0);
-  const [상태값, 상태값설정] = useState(0);
+function CautionComponent() {
+  const refValue = useRef(0);
+  const [stateValue, setStateValue] = useState(0);
   
   // 잘못된 사용: 렌더링 중에 .current 값 변경
-  참조값.current += 1; // 이렇게 하면 안 됩니다!
+  refValue.current += 1; // 이렇게 하면 안 됩니다!
   
-  const 증가처리 = () => {
+  const handleIncrement = () => {
     // 올바른 사용: 이벤트 핸들러 안에서 .current 값 변경
-    참조값.current += 1;
-    console.log(참조값.current);
+    refValue.current += 1;
+    console.log(refValue.current);
     
     // 값을 화면에 표시하려면 상태를 업데이트해야 함
-    상태값설정(참조값.current);
+    setStateValue(refValue.current);
   };
   
   return (
     <div>
-      <p>참조값: {참조값.current}</p>
-      <p>상태값: {상태값}</p>
-      <button onClick={증가처리}>증가</button>
+      <p>참조값: {refValue.current}</p>
+      <p>상태값: {stateValue}</p>
+      <button onClick={handleIncrement}>증가</button>
     </div>
   );
 }
@@ -337,7 +339,7 @@ useRef 값을 화면에 반영하려면 useState와 함께 사용해야 합니�
 * **DOM 요소 존재 확인하기**  
 <span class="txt">
 DOM 요소에 접근하기 전에 그 요소가 실제로 있는지 확인해야 합니다.
-항상 if (참조.current) { /* 로직 수행 */ } 형태로 안전하게 접근하세요.
+항상 if (refValue.current) { /* 로직 수행 */ } 형태로 안전하게 접근하세요.
 </span>
 
 <br>
