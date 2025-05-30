@@ -6,8 +6,8 @@ description: >
     Master React's useMemo hook to prevent unnecessary re-renders. Learn real-world examples and best practices for optimizing your application performance.
 
 slug: 2025-06-05-react-usememo
-date: 2025-05-29 00:00:00+0000
-lastmod: 2025-05-29 00:00:00+0000
+date: 2025-06-05 00:00:00+0000
+lastmod: 2025-06-05 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-05-react-usememo-en.webp
 
