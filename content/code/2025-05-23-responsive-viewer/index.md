@@ -272,5 +272,5 @@ applyScaling 함수는 디바이스 너비가 컨테이너보다 큰 경우 비�
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-23-responsive-viewer/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-23-responsive-viewer/">예제결과 미리보기</a>
 </div>

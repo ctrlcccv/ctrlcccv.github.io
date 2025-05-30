@@ -236,5 +236,5 @@ Armed with these tips, you're ready to elevate your Swiper.js sliders and delive
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-15-swiper-center3/">Live Example Preview</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-15-swiper-center3/">Live Example Preview</a>
 </div>

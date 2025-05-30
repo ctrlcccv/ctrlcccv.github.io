@@ -260,6 +260,6 @@ HTML과 CSS, jQuery를 적절히 조합하면 누구나 쉽게, 그리고 멋지
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-17-accordion-menu/" target="_blank">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-17-accordion-menu/" target="_blank">예제결과 미리보기</a>
     <a href="https://developer.mozilla.org/ko/docs/Web/HTML/Reference/Elements/details" target="_blank">[참고문서] &lt;details&gt;: The Details disclosure element</a>
 </div>

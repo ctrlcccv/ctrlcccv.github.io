@@ -262,6 +262,6 @@ activateTab 함수는 선택한 탭만 활성화하고 해당 콘텐츠를 보�
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-27-tab-menu/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-27-tab-menu/">예제결과 미리보기</a>
     <a href="/code/2023-07-05-tab-refresh//">[관련글] jQuery - 탭메뉴 새로고침 후 현재 탭 유지</a>
 </div>

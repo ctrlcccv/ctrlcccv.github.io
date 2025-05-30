@@ -282,5 +282,5 @@ What other UI components have you made reusable in your projects? Have you found
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-27-tab-menu/">Live Example Preview</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-27-tab-menu/">Live Example Preview</a>
 </div>

@@ -254,6 +254,6 @@ function imageFileUpload() {
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-28-image-preview/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-28-image-preview/">예제결과 미리보기</a>
     <a href="/code/2023-08-09-file-custom/">[관련글] input[type="file"] 태그 커스텀 (웹 접근성 개선)</a>
 </div>

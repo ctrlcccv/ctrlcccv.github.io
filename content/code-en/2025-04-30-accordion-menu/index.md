@@ -281,7 +281,7 @@ If you found this tutorial helpful or have your own accordion customization tips
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-17-accordion-menu/">Live Example Preview</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-17-accordion-menu/">Live Example Preview</a>
 </div>
 
 

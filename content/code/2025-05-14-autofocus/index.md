@@ -278,5 +278,5 @@ jQuery를 활용한 전화번호 입력 자동 포커스 이동 기능은 작은
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-14-autofocus/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-14-autofocus/">예제결과 미리보기</a>
 </div> 

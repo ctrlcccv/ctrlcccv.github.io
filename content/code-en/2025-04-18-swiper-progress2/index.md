@@ -260,6 +260,6 @@ I’ve used this setup in quizzes and onboarding flows, and it’s worked like a
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-17-swiper-progress2/">Live Example Preview</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-17-swiper-progress2/">Live Example Preview</a>
     <a href="/code/2025-04-16-swiper-center3/">[Related Posts] Swiper.js: How to Fix Loop + CenteredSlides Issues</a>
 </div>

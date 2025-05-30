@@ -271,5 +271,5 @@ Feel free to leave a comment if you have any questions about the code!
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-08-parallax-effect/">Live Example Preview</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-08-parallax-effect/">Live Example Preview</a>
 </div> 

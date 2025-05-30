@@ -279,6 +279,6 @@ function centerSlider() {
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-17-swiper-progress2/index.html">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-17-swiper-progress2/index.html">예제결과 미리보기</a>
     <a href="/code/2025-04-15-swiper-center3/">[관련글] Swiper.js 11+ centeredSlides 슬라이드 전환 오류 해결</a>
 </div>

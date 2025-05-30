@@ -261,7 +261,7 @@ Choose based on the kind of user experience youâ€™re designing for. And if youâ€
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-03-13-popup-scroll/">Live Example Preview</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-03-13-popup-scroll/">Live Example Preview</a>
 </div>
 
 

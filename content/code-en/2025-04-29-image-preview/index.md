@@ -200,7 +200,7 @@ Every small upgrade to your user interface builds trust and delight. Try this fe
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-28-image-preview/">Live Example Preview</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-28-image-preview/">Live Example Preview</a>
 </div>
 
 

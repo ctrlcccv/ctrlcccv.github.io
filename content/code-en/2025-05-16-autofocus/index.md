@@ -264,5 +264,5 @@ Have you tried something like this before? Or have a UX annoyance you want to fi
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-14-autofocus/">Live Example Preview</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-14-autofocus/">Live Example Preview</a>
 </div> 

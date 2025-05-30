@@ -179,6 +179,6 @@ $(window).on('scroll', function() {
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-16-progress-animated/" target="_blank">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-16-progress-animated/" target="_blank">예제결과 미리보기</a>
     <a href="https://ctrlcccv.github.io/code/2024-01-28-circle-progress/">[관련글] jQuery - 원형 프로그레스바 및 애니메이션 구현하기</a>
 </div>

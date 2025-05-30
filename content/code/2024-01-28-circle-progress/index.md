@@ -205,5 +205,5 @@ jQuery와 HTML5의 캔버스를 활용하여 원형 프로그레스바와 애니
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-28-circle-progress/" target="_blank">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-28-circle-progress/" target="_blank">예제결과 미리보기</a>
 </div>

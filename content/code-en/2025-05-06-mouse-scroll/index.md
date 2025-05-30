@@ -210,7 +210,7 @@ Have a question or want to share your own variation? Leave a comment belowâ€”weâ
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-04-mouse-scroll/">Live Example Preview</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-04-mouse-scroll/">Live Example Preview</a>
 </div>
 
 

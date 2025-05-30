@@ -231,6 +231,6 @@ jQuery와 CSS3 애니메이션을 활용하여 벚꽃 잎이 흩날리는 배경
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-02-21-cherry-blossom/" target="_blank">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-02-21-cherry-blossom/" target="_blank">예제결과 미리보기</a>
 </div>
 

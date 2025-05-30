@@ -249,6 +249,6 @@ class Countdown {
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-10-countdown2/">예제결과 미리보기</a>
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-10-countdown2/">예제결과 미리보기</a>
     <a href="/code/2023-11-06-countdown/">[관련글] jQuery - 남은시간 타이머 만들기 (카운트다운)</a>
 </div>
