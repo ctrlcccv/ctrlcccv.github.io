@@ -23,6 +23,18 @@ tags:
 
 리액트 개발을 하다 보면 컴포넌트가 렌더링될 때마다 함수가 새롭게 생성되어 성능 문제가 발생하는 경우가 많습니다. 특히 자식 컴포넌트에 함수를 props로 전달할 때 이런 문제는 더욱 두드러집니다. React의 useCallback 훅은 이런 문제를 효과적으로 해결할 수 있습니다.
 
+<div class="ads_wrap">
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
 <br>
 
 ## useCallback 기본 개념 이해하기
@@ -77,10 +89,10 @@ function 텍스트에디터() {
 }
 ```
 
-<br>
-
 ### useCallback이란?
-useCallback은 함수를 "기억"해두는 React의 특별한 기능입니다. 컴포넌트가 리렌더링될 때마다 내부 함수가 새로 생성되는 것을 방지하고, 특정 의존성이 변경될 때만 함수를 새로 만들어 성능을 최적화합니다.
+useCallback은 함수를 "기억"해두는 React의 특별한 기능입니다. 컴포넌트가 리렌더링될 때마다 내부 함수가 새로 생성되는 것을 방지하고, 특정 의존성이 변경될 때만 함수를 새로 만들어 성능을 최적화합니다.  
+
+<br>
 
 ### 기본 구조
 ```jsx
@@ -92,9 +104,30 @@ const 기억된함수 = useCallback(
 );
 ```
 
+<br>
+
 ### 작동 방식
-1. **빈 의존성 배열**: 컴포넌트가 처음 렌더링될 때 한 번만 함수를 생성하고 이후에는 같은 함수 참조를 유지합니다.
-2. **의존성이 있는 경우**: 의존성 값이 변경될 때만 함수를 새로 생성합니다.
+위 예제에서 볼 수 있는 useCallback의 두 가지 주요 사용 패턴:
+
+1. **빈 의존성 배열**: `기본설정적용` 함수는 빈 의존성 배열(`[]`)을 사용하여 컴포넌트가 처음 나타날 때 한 번만 생성되고, 이후에는 항상 같은 함수를 재사용합니다. 이 함수는 항상 동일한 작업을 수행하므로 다시 만들 필요가 없습니다.
+
+2. **의존성이 있는 경우**: `색상변경` 함수는 `텍스트크기`를 의존성으로 가집니다. 이는 텍스트 크기가 바뀔 때마다 함수가 새로 만들어진다는 의미입니다. 함수 내부에서 `텍스트크기` 값을 사용하기 때문에, 항상 최신 값을 참조하기 위해서는 이렇게 해야 합니다.
+
+이렇게 useCallback을 사용하면, 특히 자식 컴포넌트에 함수를 전달할 때 불필요한 렌더링을 방지하여 앱의 성능을 향상시킬 수 있습니다.
+
+<br>
+
+<div class="ads_wrap">
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
 
 <br>
 
@@ -105,7 +138,6 @@ import React, { useState, useCallback } from 'react';
 
 // 자식 컴포넌트 (React.memo로 최적화)
 const TodoItem = React.memo(({ todo, onToggle }) => {
-  console.log(`TodoItem 렌더링: ${todo.text}`);
   return (
     <li>
       <input
@@ -125,14 +157,23 @@ function TodoList() {
     { id: 2, text: 'useCallback 이해하기', completed: false }
   ]);
   
-  // useCallback을 사용하여 함수 메모이제이션
-  const handleToggle = useCallback((id) => {
+  // useCallback 없이 함수 정의 - 매 렌더링마다 새로 생성됨
+  const handleToggleNormal = (id) => {
     setTodos(prevTodos =>
       prevTodos.map(todo =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
-  }, []); // 의존성 없음 - 함수가 항상 같게 유지됨
+  };
+  
+  // useCallback을 사용하여 함수 메모이제이션
+  const handleToggleOptimized = useCallback((id) => {
+    setTodos(prevTodos =>
+      prevTodos.map(todo =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  }, []); // 빈 의존성 배열: 함수가 항상 같게 유지됨
   
   return (
     <div>
@@ -141,7 +182,7 @@ function TodoList() {
           <TodoItem 
             key={todo.id} 
             todo={todo} 
-            onToggle={handleToggle}
+            onToggle={handleToggleOptimized} // 최적화된 함수 사용
           />
         ))}
       </ul>
@@ -150,7 +191,37 @@ function TodoList() {
 }
 ```
 
-리액트에서 컴포넌트가 렌더링될 때마다 내부 함수는 새로운 참조를 갖게 됩니다. JavaScript에서 함수는 내용이 아닌 참조로 비교되기 때문입니다. useCallback으로 함수를 감싸면 의존성이 변경되지 않는 한 동일한 함수 참조를 유지하여 React.memo로 최적화된 자식 컴포넌트의 불필요한 리렌더링을 방지할 수 있습니다.
+### 문제와 해결책
+
+**문제:**
+리액트에서 컴포넌트가 렌더링될 때마다 내부 함수는 새로 생성됩니다. JavaScript에서 함수는 내용이 같아도 다른 참조값을 가지므로, 자식 컴포넌트에 props로 전달할 때 문제가 됩니다.
+
+```jsx
+// 두 함수는 같은 일을 하지만 서로 다른 함수로 인식됩니다
+const fn1 = () => console.log('안녕');
+const fn2 = () => console.log('안녕');
+console.log(fn1 === fn2); // false
+```
+
+이 때문에 `React.memo`로 최적화한 자식 컴포넌트도 불필요하게 리렌더링됩니다. 부모가 리렌더링될 때마다 자식에게 전달되는 함수의 참조값이 매번 바뀌기 때문입니다.
+
+**해결책:**
+`useCallback`은 의존성 배열이 변경되지 않는 한 함수의 참조를 유지합니다:
+
+```jsx
+// 메모이제이션된 함수 - 컴포넌트가 리렌더링되어도 같은 참조 유지
+const handleToggle = useCallback((id) => {
+  // 함수 내용
+}, []);
+```
+
+**작동 원리:**
+1. 컴포넌트 첫 렌더링 시 함수가 생성되고 메모리에 저장됩니다.
+2. 컴포넌트가 다시 렌더링되어도 저장된 함수를 재사용합니다.
+3. 의존성 배열의 값이 변경된 경우에만 함수를 새로 생성합니다.
+4. 자식 컴포넌트는 props로 받은 함수의 참조가 변경되지 않아 불필요한 리렌더링을 방지합니다.
+
+이렇게 useCallback을 사용하면 React.memo로 최적화된 컴포넌트의 성능을 극대화할 수 있습니다. 특히 대규모 리스트나 복잡한 UI에서 효과적입니다.
 
 <br>
 
