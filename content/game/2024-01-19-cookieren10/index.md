@@ -19,6 +19,7 @@ comments: false
     <a href="https://www.sk2gacha.com/ckk/coupon/">쿠키런 킹덤 쿠폰 등록하기</a>
 </div>
 
+
 비스트이스트 월드에서는 '두툼한 스태미너 젤리'를 사용하여 전투에 참여하며, 이 아이템은 일정 시간마다 충전됩니다. 전투 클리어 시 비스킷, 비스킷 도우, 크럼블 등을 획득할 수 있습니다. 특히 1-14 스테이지에서는 전술 스킬 기능이 오픈되어, 쿠키의 특별한 능력을 활용하여 전투를 더욱 다채롭게 즐길 수 있습니다.  
 
 에피소드 1에서는 '베일에 싸인 은백색 왕국'의 스토리를 진행하며, 세인트릴리 쿠키의 여정이 담긴 도감이 추가됩니다. 또한, 전투에 입장 시 포자 효과가 발동하여 새로운 전투 전략을 시험해 볼 수 있습니다.  
@@ -28,7 +29,7 @@ comments: false
 무서운 소문이 미지의 대륙을 덮친 비스트이스트 대륙, 그중에서도 최강의 도전을 선사하는 Hard 난이도에 도전하는 시간이 찾아왔습니다. '베일에 싸인 은백색 왕국'의 어둠에 맞서, 비스트이스트 대륙에서의 힘들지만 흥미진진한 모험에 대비하세요. 이제, 용감한 쿠키 마스터 여러분을 위한 Hard 난이도의 클리어 공략을 시작하겠습니다.    
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -38,7 +39,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ## 1-1 ~ 1-5 클리어 조합
 
@@ -56,6 +57,7 @@ comments: false
 <div class="btn_wrap">
     <a href="https://www.sk2gacha.com/ckk/coupon/">쿠키런 킹덤 쿠폰 등록하기</a>
 </div>
+
 
 <br>
 

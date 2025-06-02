@@ -15,7 +15,7 @@ tags:
 애드센스 승인은 많은 블로거들에게 꿈 같은 성취입니다. 하지만 그 성취를 얻기까지 거절과 노력의 순환에서 벗어나기는 쉽지 않습니다. 저 또한 GitHub Pages를 이용한 블로그를 운영하며 애드센스 승인을 얻기 위해 6번의 거절을 겪은 뒤, 7번째 시도에서 성공했습니다. 이 과정에서 어떤 변화가 있었는지, 그 변화가 승인에 어떤 영향을 미쳤는지 공유하고자 합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -54,7 +54,7 @@ tags:
 SEO에 맞춘 글 작성은 블로그의 검색 엔진 랭킹을 향상시키는 데 도움이 되었으며, 블로그 트래픽을 늘리는 데 기여했습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -64,7 +64,7 @@ SEO에 맞춘 글 작성은 블로그의 검색 엔진 랭킹을 향상시키는
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 

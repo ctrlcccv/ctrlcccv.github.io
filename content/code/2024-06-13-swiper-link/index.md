@@ -23,7 +23,7 @@ tags:
 이 글에서는 Swiper로 만든 메뉴에서 링크 클릭이 되지 않는 문제를 해결하는 방법에 대해 자세히 다뤄보겠습니다. preventClicks와 preventClicksPropagation 옵션을 설정하여 문제를 해결하는 방법을 중심으로 설명하겠습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -33,7 +33,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -70,7 +70,7 @@ const swiper = new Swiper('.swiper-container', {
 다음은 Swiper를 이용한 메뉴에서 preventClicks와 preventClicksPropagation 옵션을 설정하여 링크 클릭 문제를 해결하는 예시입니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -80,21 +80,21 @@ const swiper = new Swiper('.swiper-container', {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ### HTML 구조
 
 ```html
 <div class="swiper-container">
     <div class="swiper-wrapper">
-        <div class="swiper-slide"><a href="https://example.com">Link 1</a></div>
-        <div class="swiper-slide"><a href="https://example2.com">Link 2</a></div>
-        <div class="swiper-slide"><a href="https://example3.com">Link 3</a></div>
-    </div>
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</div>
+        <div class="swiper-slide"><a href="https://example.com">Link 1</a>
+        <div class="swiper-slide"><a href="https://example2.com">Link 2</a>
+        <div class="swiper-slide"><a href="https://example3.com">Link 3</a>
+    
+    <div class="swiper-pagination">
+    <div class="swiper-button-next">
+    <div class="swiper-button-prev">
+
 ```
 
 ### JavaScript 설정

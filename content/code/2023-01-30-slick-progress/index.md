@@ -15,7 +15,7 @@ tags:
 Slick.js 플러그인을 활용하여 이미지 슬라이드와 함께 제목을 포함한 진행 표시줄을 구현하는 방법입니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ Slick.js 플러그인을 활용하여 이미지 슬라이드와 함께 제목을
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -37,11 +37,11 @@ Slick.js 플러그인을 활용하여 이미지 슬라이드와 함께 제목을
 <div class="slider_wrap">
     <!-- 이미지 슬라이드 -->
     <div class="slider">
-        <div class="list"><img src="images/text1.png"></div>
-        <div class="list"><img src="images/text2.png"></div>
-        <div class="list"><img src="images/text3.png"></div>
-        <div class="list"><img src="images/text4.png"></div>
-    </div>
+        <div class="list"><img src="images/text1.png">
+        <div class="list"><img src="images/text2.png">
+        <div class="list"><img src="images/text3.png">
+        <div class="list"><img src="images/text4.png">
+    
     <!-- 진행 표시줄 -->
     <ul class="progress">
         <li>
@@ -61,7 +61,7 @@ Slick.js 플러그인을 활용하여 이미지 슬라이드와 함께 제목을
             <strong class="tit">Slide 4</strong>
         </li>
     </ul>
-</div>
+
 ```
 
 ## CSS 코드
@@ -95,7 +95,7 @@ Slick.js 플러그인을 활용하여 이미지 슬라이드와 함께 제목을
 Slick 슬라이드와 진행 표시줄을 조작하는 jQuery 스크립트를 추가합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -105,7 +105,7 @@ Slick 슬라이드와 진행 표시줄을 조작하는 jQuery 스크립트를 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ```js
 $(window).on('load', function() {
@@ -170,3 +170,4 @@ function progress(){
 <div class="btn_wrap">
     <a target="_blank" href="/ctrlcccv-demo/2023-01-30-slick-progress/">예제결과 미리보기</a>
 </div>
+

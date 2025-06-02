@@ -21,7 +21,7 @@ stroke-dasharray:100 40; 이라면 점선의 길이는 100, 간격은 40이다.
 점선의 간격에 원의 전체 둘레 값을 넣어 투명색 영역을 만든 뒤, 그래프 비율만큼 둘레 값을 계산하여 길이를 지정했다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -31,7 +31,7 @@ stroke-dasharray:100 40; 이라면 점선의 길이는 100, 간격은 40이다.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -64,7 +64,7 @@ stroke-dasharray:100 40; 이라면 점선의 길이는 100, 간격은 40이다.
             <span class="txt">그래프 4</span>
         </li>
     </ul>
-</div>
+
 ```
 SVG <circle> 태그를 사용했고, data-* 속성에 각각 몇 퍼센트인지 작성했다.  
 
@@ -92,7 +92,7 @@ stroke-width 속성의 크기는 영역의 가장자리 중심으로 늘어나�
 r 속성은 반지름의 크기를, cx, cy 속성은 &lt;circle&gt; 태그의 좌표 위치를 뜻한다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -102,7 +102,7 @@ r 속성은 반지름의 크기를, cx, cy 속성은 &lt;circle&gt; 태그의 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
   
@@ -147,6 +147,7 @@ stroke-dasharray 속성의 시작 지점이 90° 이여서, 0°에서 시작하�
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-pie-chart/type-pc/">예제결과 미리보기</a>
 </div>
+
 <br>
 
 ## 반응형 작업
@@ -162,7 +163,7 @@ stroke-dasharray 속성의 시작 지점이 90° 이여서, 0°에서 시작하�
             <circle data-percent="30" />
             <circle data-percent="40" />
         </svg>
-    </div>
+    
     <!-- 원형 그래프 리스트 -->
     <ul class="pie_info">
         <li>
@@ -182,7 +183,7 @@ stroke-dasharray 속성의 시작 지점이 90° 이여서, 0°에서 시작하�
             <span class="txt">그래프 4</span>
         </li>
     </ul>
-</div>
+
 ```
 반응형 작업을 위해 pie_res 클래스를 추가했다.  
 SVG의 viewBox 속성은 SVG 요소의 위치 · 크기를 지정할 수 있는데, 이 속성을 사용하면 화면 크기에 따라 SVG 요소의 크기가 자동으로 맞춰져서 반응형 작업할 때 꼭 사용해야 한다. JS에서 viewBox 속성 값이 추가될 예정이다.  
@@ -253,3 +254,4 @@ function pieAct() {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-pie-chart/type-responsive/">예제결과 미리보기 (반응형)</a>
 </div>
+

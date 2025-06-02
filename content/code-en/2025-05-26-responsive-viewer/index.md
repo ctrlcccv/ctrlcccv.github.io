@@ -32,7 +32,7 @@ Ever found yourself repeatedly switching between different devices to check how 
 When building responsive websites, it's essential to verify how designs render across desktop, tablet, and mobile screen sizes. While browser developer tools work well, having a standalone preview tool is much more convenient for client presentations and team collaboration. This tutorial will show you how to build your own responsive website preview tool using jQuery and iframes.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -42,7 +42,7 @@ When building responsive websites, it's essential to verify how designs render a
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -57,14 +57,14 @@ Let's start with the HTML framework that creates our device preview interface:
         <button id="pcBtn" class="active" data-device="pc">Desktop <span class="mo_hidden">(1920px)</span></button>
         <button id="tabletBtn" data-device="tablet">Tablet <span class="mo_hidden">(768px)</span></button>
         <button id="mobileBtn" data-device="mobile">Mobile <span class="mo_hidden">(375px)</span></button>
-    </div>
+    
     
     <div class="frame_container">
         <div class="iframe_wrapper">
             <iframe class="preview_frame" src="https://example.com"></iframe>
-        </div>
-    </div>
-</div>
+        
+    
+
 ```
 
 * **Overall Structure**  
@@ -129,7 +129,7 @@ On smaller screens (below 768px), we hide the pixel dimensions to conserve space
 </span>
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -139,7 +139,7 @@ On smaller screens (below 768px), we hide the pixel dimensions to conserve space
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -282,3 +282,4 @@ How do you currently test your responsive designs? Have you created any extensio
 <div class="btn_wrap">
     <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-23-responsive-viewer/"></a>
 </div>
+

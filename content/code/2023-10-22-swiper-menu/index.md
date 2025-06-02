@@ -16,7 +16,7 @@ tags:
 [jQuery - Swiper 스와이프메뉴 클릭하면 가운데오기](https://ctrlcccv.github.io/code/2023-10-12-swiper-click/) 작업 이후, Swiper로 제작한 메뉴에 대한 추가 기능을 개발하게 되었습니다. 이번 작업에서는 **스크롤 이동과 활성화된 메뉴에 효과를 적용하고, 스크롤 했을 때 활성화된 메뉴를 가운데 정렬하는 기능**을 구현하였습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +26,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -45,17 +45,17 @@ HTML 구조를 살펴보겠습니다. 다음과 같이 메뉴와 컨텐츠 섹�
                 <li class="swiper-slide"><a href="#con6">여섯번째 메뉴</a></li>
                 <li class="swiper-slide"><a href="#con7">일곱번째 메뉴</a></li>
             </ul>
-        </div>
-    </div>
+        
+    
 
-    <div class="content" id="con1">1</div>
-    <div class="content" id="con2">2</div>
-    <div class="content" id="con3">3</div>
-    <div class="content" id="con4">4</div>
-    <div class="content" id="con5">5</div>
-    <div class="content" id="con6">6</div>
-    <div class="content" id="con7">7</div>
-</div>
+    <div class="content" id="con1">1
+    <div class="content" id="con2">2
+    <div class="content" id="con3">3
+    <div class="content" id="con4">4
+    <div class="content" id="con5">5
+    <div class="content" id="con6">6
+    <div class="content" id="con7">7
+
 ```
 
 ## CSS 스타일
@@ -84,7 +84,7 @@ menuScroll 함수는 메뉴를 고정하고 활성화된 메뉴 항목을 중앙
 클릭했을 때 가운데 정렬하는 initTabSwipers 함수는 [jQuery - Swiper 스와이프메뉴 클릭하면 가운데오기](https://ctrlcccv.github.io/code/2023-10-12-swiper-click/)를 참고해 주세요.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -94,7 +94,7 @@ menuScroll 함수는 메뉴를 고정하고 활성화된 메뉴 항목을 중앙
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ```js
 $(document).ready(function () {

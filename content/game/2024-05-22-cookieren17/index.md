@@ -22,6 +22,7 @@ comments: false
     <a href="https://www.sk2gacha.com/ckk/coupon/">쿠키런 킹덤 쿠폰 등록하기</a>
 </div>
 
+
 <br>
 
 ## 3-1 ~ 3-29 (미스틱플라워 O)
@@ -51,7 +52,7 @@ comments: false
   * 무공비, 호루라기, 시계
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -61,7 +62,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ## 3-10 (미스틱플라워 X)
 
@@ -118,7 +119,7 @@ comments: false
   * 무공비, 호루라기, 시계
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -128,7 +129,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ## 3-30 (미스틱플라워 X)
 

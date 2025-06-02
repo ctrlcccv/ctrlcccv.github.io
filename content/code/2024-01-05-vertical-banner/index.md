@@ -16,7 +16,7 @@ tags:
 jQuery와 CSS 애니메이션을 사용하여 아래에서 위로 흐르는 롤링 배너를 구현하는 코드를 설명합니다. 반응형으로 디자인되어 있어, 다양한 디스플레이에서 일관된 사용자 경험을 제공합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +26,7 @@ jQuery와 CSS 애니메이션을 사용하여 아래에서 위로 흐르는 롤�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -39,7 +39,7 @@ jQuery와 CSS 애니메이션을 사용하여 아래에서 위로 흐르는 롤�
         <li>아래에서 위로 흐르는 롤링 배너 2</li>
         <li>아래에서 위로 흐르는 롤링 배너 3</li>
     </ul>
-</div>
+
 ```
 * **배너 컨테이너**
   * 클래스 `vertical_banner`를 가진 div는 롤링 배너를 포함하는 컨테이너 역할을 합니다.
@@ -82,7 +82,7 @@ jQuery와 CSS 애니메이션을 사용하여 아래에서 위로 흐르는 롤�
 
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -92,7 +92,7 @@ jQuery와 CSS 애니메이션을 사용하여 아래에서 위로 흐르는 롤�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 

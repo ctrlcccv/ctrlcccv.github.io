@@ -23,7 +23,7 @@ Are your React applications slowing down due to repetitive calculations?
 
 In web development, performance issues frequently arise when complex calculations repeat during each render cycle. This slowdown becomes especially noticeable when filtering or sorting large datasets. React's useMemo hook offers an elegant and effective solution to this common challenge.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -33,7 +33,7 @@ In web development, performance issues frequently arise when complex calculation
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -67,7 +67,7 @@ function CalculationComponent() {
         onChange={(e) => setNumberB(Number(e.target.value))} 
       />
       <p>Sum: {sum}</p>
-    </div>
+    
   );
 }
 ```
@@ -120,7 +120,7 @@ function ParentComponent() {
 // React.memo prevents re-rendering if props haven't changed
 const OptimizedChild = React.memo(function({ userInfo }) {
   console.log("Child component rendering");
-  return <div>{userInfo.details}</div>;
+  return <div>{userInfo.details};
 });
 ```
 
@@ -128,7 +128,7 @@ In React, each render creates objects with new memory addresses. Since React per
 
 By implementing useMemo, we maintain consistent object references unless dependencies actually change, effectively preventing unnecessary re-renders in memoized child components.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -138,7 +138,7 @@ By implementing useMemo, we maintain consistent object references unless depende
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -177,7 +177,7 @@ function ProductList({ products, searchTerm, category, sortBy }) {
           <li key={product.id}>{product.name} - ${product.price}</li>
         ))}
       </ul>
-    </div>
+    
   );
 }
 ```
@@ -216,7 +216,7 @@ function WarningExampleComponent() {
     <div>
       <button onClick={() => setCount(prev => prev + 1)}>Increment</button>
       <p>Current count: {count}</p>
-    </div>
+    
   );
 }
 ```
@@ -228,7 +228,7 @@ Essential guidelines:
 * **Include All Dependencies**: Always list every value your calculation uses in the dependency array to prevent stale results.
 * **Prefer Primitive Values**: When possible, use primitive values (numbers, strings, booleans) in dependencies instead of objects or arrays.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -238,7 +238,7 @@ Essential guidelines:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 

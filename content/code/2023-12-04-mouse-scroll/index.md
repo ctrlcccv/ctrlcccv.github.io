@@ -30,7 +30,7 @@ tags:
 마우스 모양과 부드럽게 움직이는 화살표로, 사용자의 시선을 자연스럽게 아래로 이끌어보세요!
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -40,7 +40,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -52,8 +52,8 @@ tags:
         <span class="down_arrow1"></span>
         <span class="down_arrow2"></span>
         <span class="down_arrow3"></span>
-    </div>
-</div>
+    
+
 ```
 **구성 설명**
 
@@ -150,7 +150,7 @@ tags:
 ```
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -160,7 +160,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 
 **주요 포인트 설명**
@@ -204,3 +204,4 @@ tags:
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-04-mouse-scroll/">예제결과 미리보기</a>
 </div>
+

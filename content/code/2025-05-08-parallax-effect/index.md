@@ -29,7 +29,7 @@ tags:
 웹사이트에 동적인 요소를 추가하면 방문자들의 시선을 사로잡고 페이지 체류 시간을 늘릴 수 있습니다. 특히 마우스의 움직임에 따라 요소들이 자연스럽게 반응하는 패럴랙스 효과는 시각적 매력을 높이는 데 효과적입니다. 이번 포스트에서는 jQuery를 활용하여 마우스 움직임에 반응하는 패럴랙스 효과를 구현하는 방법을 알아보겠습니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -39,7 +39,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -49,7 +49,7 @@ tags:
 <div id="container">
     <img src="https://unsplash.it/800/800?random=" alt="배경 이미지" class="bg">
     <h1 class="title">타이틀</h1>
-</div>
+
 ```
 
 * **컨테이너 구조**  
@@ -111,7 +111,7 @@ overflow: hidden을 통해 내부 요소가 컨테이너를 벗어나지 않도�
 </span>
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -121,7 +121,7 @@ overflow: hidden을 통해 내부 요소가 컨테이너를 벗어나지 않도�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -247,4 +247,5 @@ applyParallax('.title', -100);  // 타이틀 텍스트
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-08-parallax-effect/">예제결과 미리보기</a>
-</div> 
+</div>
+ 

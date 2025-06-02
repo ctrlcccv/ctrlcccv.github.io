@@ -18,7 +18,7 @@ tags:
 웹사이트 방문자에게 중요한 공지사항이나 이벤트 정보를 팝업을 통해 알리는 경우가 많습니다. 하지만 반복적으로 같은 팝업이 나타난다면 사용자의 불편함을 초래할 수 있습니다. '오늘 하루 보지 않기' 기능은 이러한 사용자의 불편함을 최소화하여 웹사이트의 사용성을 향상시킵니다. 이 글에서는 jQuery를 활용해 쿠키를 설정하고 확인함으로써 이 기능을 구현하는 방법에 대해 상세히 알아보겠습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,7 +28,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -133,7 +133,7 @@ if (document.cookie.indexOf('hidePopup=true') >= 0) {
 ```
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -143,7 +143,7 @@ if (document.cookie.indexOf('hidePopup=true') >= 0) {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 - **jQuery 변수 선언**
   - `$popup` 변수에는 `$('.popup')`의 jQuery 객체가 저장됩니다. 이를 통해 팝업 요소를 쉽게 조작할 수 있습니다.
@@ -181,3 +181,4 @@ if (document.cookie.indexOf('hidePopup=true') >= 0) {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-05-12-today-close/" target="_blank">예제결과 미리보기</a>
 </div>
+

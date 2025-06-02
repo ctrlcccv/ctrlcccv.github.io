@@ -29,7 +29,7 @@ Want to create an engaging parallax effect that responds to mouse movement? Let'
 Adding dynamic elements to your website can capture visitors' attention and increase page engagement time. A parallax effect that smoothly responds to mouse movement is particularly effective in enhancing visual appeal. In this post, we'll explore how to implement a mouse-responsive parallax effect using jQuery.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -39,7 +39,7 @@ Adding dynamic elements to your website can capture visitors' attention and incr
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -49,7 +49,7 @@ Adding dynamic elements to your website can capture visitors' attention and incr
 <div id="container">
     <img src="https://unsplash.it/800/800?random=" alt="Background Image" class="bg">
     <h1 class="title">Title</h1>
-</div>
+
 ```
 
 * **Container Structure**  
@@ -111,7 +111,7 @@ This element will also move independently with mouse movement.
 </span>
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -121,7 +121,7 @@ This element will also move independently with mouse movement.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -272,4 +272,5 @@ Feel free to leave a comment if you have any questions about the code!
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-08-parallax-effect/">Live Example Preview</a>
-</div> 
+</div>
+ 

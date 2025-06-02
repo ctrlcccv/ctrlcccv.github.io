@@ -44,7 +44,7 @@ comments: false
 빨간색 원으로 표시한 메뉴를 클릭하여 광장 이벤트 시간을 확인할 수 있습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -54,7 +54,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ## 광장 청소하는 방법
 

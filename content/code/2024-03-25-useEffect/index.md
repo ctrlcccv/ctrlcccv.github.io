@@ -22,7 +22,7 @@ tags:
 
 React로 컴포넌트를 개발할 때 화면이 그려진 후에 추가 작업을 실행해야 하는 경우가 자주 있습니다. 예를 들어 서버에서 데이터를 가져오거나, 이벤트 리스너를 등록하거나, 타이머를 설정하는 등의 작업을 페이지 로드 이후에 실행해야 할 때가 많습니다. 이런 작업들을 처리할 수 있게 해주는 것이 바로 React의 useEffect 훅입니다. 이번 글에서는 누구나 쉽게 이해할 수 있도록 useEffect의 기본 개념부터 실제 활용법까지 자세히 알아보겠습니다.  
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -32,7 +32,7 @@ React로 컴포넌트를 개발할 때 화면이 그려진 후에 추가 작업�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -50,7 +50,7 @@ function MyComponent() {
     console.log('컴포넌트가 화면에 나타났습니다!');
   }, []); // 의존성 배열
   
-  return <div>Hello World</div>;
+  return <div>Hello World;
 }
 ```
 * **기본 구조**  
@@ -105,7 +105,7 @@ function Counter() {
     <div>
       <p>현재 카운트: {count}</p>
       <button onClick={() => setCount(count + 1)}>증가</button>
-    </div>
+    
   );
 }
 ```
@@ -128,7 +128,7 @@ function Counter() {
 </span>
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -138,7 +138,7 @@ function Counter() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -169,7 +169,7 @@ function WindowResizeTracker() {
     <div>
       <p>현재 창 너비: {windowWidth}px</p>
       {windowWidth < 768 ? <p>모바일 화면입니다.</p> : <p>데스크톱 화면입니다.</p>}
-    </div>
+    
   );
 }
 ```
@@ -224,7 +224,7 @@ function ProductList() {
           ))}
         </ul>
       )}
-    </div>
+    
   );
 }
 ```
@@ -240,7 +240,7 @@ function ProductList() {
 이는 사용자가 빈 화면을 보는 시간을 줄여 더 나은 경험을 제공합니다.
 </span>
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -250,7 +250,7 @@ function ProductList() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -279,8 +279,8 @@ function ModalPopup({ onClose }) {
         <h2>환영합니다!</h2>
         <p>이것은 모달 팝업입니다.</p>
         <button onClick={onClose}>닫기</button>
-      </div>
-    </div>
+      
+    
   );
 }
 
@@ -295,7 +295,7 @@ function App() {
       
       {/* showModal이 true일 때만 ModalPopup 컴포넌트가 화면에 나타남 */}
       {showModal && <ModalPopup onClose={() => setShowModal(false)} />}
-    </div>
+    
   );
 }
 ```

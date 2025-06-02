@@ -32,7 +32,7 @@ Have you ever needed to run code right after your React component renders on scr
 
 That's exactly what useEffect is for. Whether you need to fetch data, set up event listeners, or update the DOM, useEffect helps you perform these actions at the right time. This guide breaks down this essential React hook with practical examples you can start using today.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -42,7 +42,7 @@ That's exactly what useEffect is for. Whether you need to fetch data, set up eve
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -112,7 +112,7 @@ function UserProfile() {
       <button onClick={() => setDarkMode(!darkMode)}>
         Toggle {darkMode ? 'Light' : 'Dark'} Mode
       </button>
-    </div>
+    
   );
 }
 ```
@@ -132,7 +132,7 @@ Your effect runs whenever any value in the dependency array changes – great fo
 Your effect runs after every render – useful in rare cases but can cause performance issues if overused.
 </span>
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -142,7 +142,7 @@ Your effect runs after every render – useful in rare cases but can cause perfo
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -173,7 +173,7 @@ function WindowSizeTracker() {
     <div>
       <p>Current window width: {windowWidth}px</p>
       <p>{windowWidth < 768 ? 'Mobile view' : 'Desktop view'}</p>
-    </div>
+    
   );
 }
 ```
@@ -239,16 +239,16 @@ function WeatherDisplay() {
     };
   }, []);
   
-  if (loading) return <div>Loading weather data...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div>Loading weather data...;
+  if (error) return <div>{error};
   if (!weather) return null;
   
   return (
     <div>
       <h1>Current Weather</h1>
-      <div>Temperature: {weather.temperature}°F</div>
-      <div>Condition: {weather.condition}</div>
-    </div>
+      <div>Temperature: {weather.temperature}°F
+      <div>Condition: {weather.condition}
+    
   );
 }
 ```
@@ -294,9 +294,9 @@ function Modal({ isOpen, onClose, message }) {
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <button onClick={onClose}>Close</button>
-        <div>{message}</div>
-      </div>
-    </div>
+        <div>{message}
+      
+    
   );
 }
 ```
@@ -307,7 +307,7 @@ function Modal({ isOpen, onClose, message }) {
 With useEffect, you can target specific lifecycle events by using appropriate dependency arrays.
 </span>
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -317,7 +317,7 @@ With useEffect, you can target specific lifecycle events by using appropriate de
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -334,7 +334,7 @@ function BadCounter() {
     setCount(count + 1); // Updates state, triggering re-render and another effect run
   }, [count]);
   
-  return <div>{count}</div>;
+  return <div>{count};
 }
 
 // ✅ Solution: Use functional updates
@@ -355,7 +355,7 @@ function GoodCounter() {
       <button onClick={() => setShouldCount(!shouldCount)}>
         {shouldCount ? 'Stop' : 'Start'} Counting
       </button>
-    </div>
+    
   );
 }
 ```

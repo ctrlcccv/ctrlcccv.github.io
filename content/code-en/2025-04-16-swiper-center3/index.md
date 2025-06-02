@@ -29,7 +29,7 @@ Swiper.js has become a go-to solution for web developers looking to build sleek,
 In this guide, we’ll walk through a practical solution: using duplicate slides. By smartly duplicating your original slides, you can eliminate those common transition hiccups and deliver a smoother, more polished user experience. We’ll cover everything from the foundational HTML and CSS to the jQuery and Swiper.js logic that brings it all together. Let’s unlock the full potential of centeredSlides in your Swiper.js sliders!  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -39,7 +39,7 @@ In this guide, we’ll walk through a practical solution: using duplicate slides
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -66,11 +66,11 @@ Before jumping into JavaScript, let’s first lay down a solid foundation with o
             <li class="swiper-slide">9</li>
             <li class="swiper-slide">10</li>
         </ul>
-    </div>
-    <div class="pagination"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-</div>
+    
+    <div class="pagination">
+    <div class="swiper-button-prev">
+    <div class="swiper-button-next">
+
 ```
 * **.slider_center**: Acts as the main wrapper, managing overflow and positioning.
 * **.inner**: Helps achieve a centered layout—especially useful when dealing with duplicate slides.
@@ -105,7 +105,7 @@ This structure isn’t just for looks—it’s vital for how Swiper handles loop
 Now that the layout is ready, let’s add the JavaScript logic to duplicate slides and initialize Swiper for a smooth, centered experience.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -115,7 +115,7 @@ Now that the layout is ready, let’s add the JavaScript logic to duplicate slid
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ```js
 function centerSlider() {
@@ -238,3 +238,4 @@ Armed with these tips, you're ready to elevate your Swiper.js sliders and delive
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-15-swiper-center3/">Live Example Preview</a>
 </div>
+

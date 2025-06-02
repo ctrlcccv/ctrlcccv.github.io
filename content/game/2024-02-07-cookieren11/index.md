@@ -18,6 +18,7 @@ comments: false
     <a href="https://www.sk2gacha.com/ckk/coupon/">쿠키런 킹덤 쿠폰 등록하기</a>
 </div>
 
+
 <br>
 
 ## 프리레이드 버튼액션 선택 방법
@@ -29,7 +30,7 @@ comments: false
 * 인형극 : 4번 카드  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -39,7 +40,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 
 ## 프리레이드 첫번째 조합

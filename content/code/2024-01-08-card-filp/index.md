@@ -18,7 +18,7 @@ tags:
 웹사이트나 어플리케이션의 UI에서 카드 뒤집기 애니메이션은 사용자의 관심을 끌고, 추가 정보나 인터랙션을 제공하는 멋진 방법입니다. 순수 CSS를 사용하여 구현할 수 있는 이 효과는 크로스 브라우저 호환성도 좋고, 퍼포먼스 또한 뛰어나서 많이 사용됩니다. 이 글에서는 가로로 뒤집히는 카드와 세로로 뒤집히는 카드 각각의 예를 통해 어떻게 카드 뒤집기 애니메이션을 구현할 수 있는지 상세하게 설명합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,7 +28,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -41,24 +41,24 @@ tags:
     <div class="card_content">
         <div class="card_front">
             앞
-        </div>
+        
         <div class="card_back">
             뒤
-        </div>
-    </div>
-</div>
+        
+    
+
 
 <!-- 세로로 뒤집히는 카드 -->
 <div class="card vertical_card">
     <div class="card_content">
         <div class="card_front">
             앞
-        </div>
+        
         <div class="card_back">
             뒤
-        </div>
-    </div>
-</div>
+        
+    
+
 ```
 
 - **가로로 뒤집히는 카드 (.horizontal_card)** 
@@ -93,7 +93,7 @@ CSS를 통해 다양한 스타일과 애니메이션 효과를 정의합니다.
 ```
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -103,7 +103,7 @@ CSS를 통해 다양한 스타일과 애니메이션 효과를 정의합니다.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 - **기본 스타일 (position, width, height 등)**
 
@@ -134,3 +134,4 @@ CSS의 `transform` 및 `transition` 속성을 사용한 카드 뒤집기 애니�
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-08-card-filp/">예제결과 미리보기</a>
 </div>
+

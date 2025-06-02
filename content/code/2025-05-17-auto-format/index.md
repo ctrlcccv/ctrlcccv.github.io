@@ -30,7 +30,7 @@ tags:
 웹사이트나 앱에서 형식이 있는 데이터를 입력할 때, 사용자가 구분자까지 직접 입력하면 불편함을 느낄 수 있습니다. 특히 전화번호, 카드번호, 생년월일과 같이 특정 형식이 있는 데이터의 경우, 자동으로 하이픈이나 슬래시 등의 구분자를 적용해주면 사용자의 입력 시간을 단축하고 실수를 줄이며 데이터 입력의 정확성을 높일 수 있습니다. 이번 포스트에서는 jQuery를 활용하여 다양한 입력 필드에 자동 포맷을 적용하는 방법을 소개합니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -40,7 +40,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -55,7 +55,7 @@ tags:
     <input type="text" id="date" placeholder="YYYY/MM/DD" data-format="xxxx/xx/xx">
     <label for="card">카드번호:</label>
     <input type="text" id="card" placeholder="0000-0000-0000-0000" data-format="xxxx-xxxx-xxxx-xxxx">
-</div>
+
 ```
 
 * **커스텀 데이터 속성 활용**  
@@ -121,7 +121,7 @@ tags:
 </span>
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -131,7 +131,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -264,4 +264,5 @@ $('#card').on('blur', function() {
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-17-auto-format/">예제결과 미리보기</a>
-</div> 
+</div>
+ 

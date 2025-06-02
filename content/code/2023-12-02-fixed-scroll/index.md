@@ -15,7 +15,7 @@ tags:
 웹 페이지 디자인에서 고정 요소(Fixed elements)는 사용자 인터페이스의 중요한 부분을 이룹니다. 특히, 사용자가 페이지를 탐색할 때 항상 보이는 정보나 컨트롤을 제공하는 데 유용합니다. 이번 글에서는 jQuery를 활용하여 가로 스크롤 시 고정 요소의 위치를 조정하는 방법을 소개합니다. 이 기법은 사용자가 페이지를 가로로 스크롤 할 때 고정 요소가 화면에 계속 보이게 하면서 동시에 다른 내용이 가려지지 않도록 하는 데에 목적이 있습니다. 이러한 방식은 특히 넓은 화면 레이아웃이나 대용량의 데이터를 표시해야 하는 대시보드, 리포트 페이지에서 유용합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,18 +25,18 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
 ## HTML 구조
 ```html
 <div class="wrap">
-    <div class="left">브라우저 화면 크기 1000px 이하에서<br>오른쪽으로 스크롤 하여 고정 요소를 확인해보세요.</div>
+    <div class="left">브라우저 화면 크기 1000px 이하에서<br>오른쪽으로 스크롤 하여 고정 요소를 확인해보세요.
     <div class="right">
-        <div class="fixed_box">고정 요소</div>
-    </div>
-</div>
+        <div class="fixed_box">고정 요소
+    
+
 ```
 * **wrap 클래스**   
 주요 컨테이너로 전체 레이아웃을 감싸며, display: flex를 사용해 내부 요소들을 수평으로 정렬합니다.
@@ -78,7 +78,7 @@ tags:
   * 스타일 : position: fixed를 사용하여 항상 같은 위치에 고정합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -88,7 +88,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -141,3 +141,4 @@ $(window).on('scroll', function() {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-02-fixed-scroll/">예제결과 미리보기</a>
 </div>
+

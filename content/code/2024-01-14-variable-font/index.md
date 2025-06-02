@@ -19,7 +19,7 @@ tags:
 가변 글꼴은 보통 일반, 볼드, 이탤릭과 같은 다양한 글꼴 스타일에 대한 별도의 파일을 가지는 전통적인 방식을 벗어납니다. 대신, 하나의 가변 글꼴 파일은 무게, 너비, 그리고 기타 속성들 사이에서 자연스러운 전환을 가능케 하며, 이러한 유연성은 디자인과 개발 모두에게 새로운 가능성을 열어줍니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -29,7 +29,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -71,7 +71,7 @@ body {
 예를 들어, font-weight: 300을 사용하여 폰트의 두께를 조절할 수 있습니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -81,7 +81,7 @@ body {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -113,3 +113,4 @@ body {
 <div class="btn_wrap">
     <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings/">[참고문서] font-variation-settings</a>
 </div>
+

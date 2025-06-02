@@ -26,7 +26,7 @@ tags:
 이 글에서는 `overscroll-behavior`와 jQuery를 활용하여 팝업 안에서만 스크롤 되도록 만들고, 필요에 따라 배경(body) 스크롤도 완전히 차단하는 방법을 알려 드립니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -36,7 +36,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -45,17 +45,17 @@ tags:
 <div class="wrap">
     <a href="#" class="btn">배경(body) 스크롤 활성화<br>(overscroll-behavior:none 속성만 사용)</a>
     <a href="#" class="btn type_disable">배경(body) 스크롤 비활성화</a>
-</div>
+
 
 <div class="pop_wrap">
-    <div class="bg"></div>
+    <div class="bg">
     <div class="popup">
         <a href="#" class="close"><img src="images/close.png" alt="닫기"></a>
         <div class="popup_con">
             컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠
-        </div>
-    </div>
-</div>
+        
+    
+
 ```
 
 * **팝업 트리거 버튼**  
@@ -191,7 +191,7 @@ function popup() {
 }
 ```
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -201,7 +201,7 @@ function popup() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 * **팝업 열기**  
   버튼 클릭 시 `.pop_wrap`을 보여주며, `.type_disable` 클래스가 있을 경우 `body`에 `.disable_scroll`을 추가해 스크롤을 막습니다.
@@ -249,4 +249,5 @@ function popup() {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-03-13-popup-scroll/">예제결과 미리보기</a>
 </div>
+
 

@@ -16,7 +16,7 @@ tags:
 Swiper.js 플러그인의 pagination 옵션을 텍스트로 변경하고, 각 페이지의 progress bar 형태를 추가했다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +26,7 @@ Swiper.js 플러그인의 pagination 옵션을 텍스트로 변경하고, 각 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -56,8 +56,8 @@ Swiper.js 플러그인의 pagination 옵션을 텍스트로 변경하고, 각 �
         <span class="btn btn_prev">&lt;</span>
         <span class="num"></span>
         <span class="btn btn_next">&gt;</span>
-    </div>
-</div>
+    
+
 ```
 pagination 부분에 들어갈 텍스트는 slide_tit 클래스에 별도로 작성했다.  
 <br>
@@ -88,7 +88,7 @@ pagination 부분에 들어갈 텍스트는 slide_tit 클래스에 별도로 작
 pagination 버튼이 active 되었을 때 progress bar 의 width값이 100%로 올라가는 애니메이션을 추가했다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -98,7 +98,7 @@ pagination 버튼이 active 되었을 때 progress bar 의 width값이 100%로 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -170,3 +170,4 @@ function slider() {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-24-swiper-progress/">예제결과 미리보기</a>
 </div>
+

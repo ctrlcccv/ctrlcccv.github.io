@@ -29,7 +29,7 @@ In today’s fast-moving digital world, grabbing your visitors’ attention from
 In this tutorial, we’ll walk through how to build a **responsive, infinitely looping marquee banner using jQuery**, complete with adaptive styling for all screen sizes. Let’s dive in!  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -39,7 +39,7 @@ In this tutorial, we’ll walk through how to build a **responsive, infinitely l
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -62,7 +62,7 @@ Start by setting up the basic HTML for the banner:
         <li>TEXT4</li>
         <li>TEXT5</li>
     </ul>
-</div>
+
 ```
 **What’s Happening Here?**  
 
@@ -139,7 +139,7 @@ By adjusting padding and font size, the banner remains readable and visually bal
 Now for the fun part—bringing the marquee to life with jQuery:
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -149,7 +149,7 @@ Now for the fun part—bringing the marquee to life with jQuery:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ```javascript
 $(document).ready(function () {
@@ -259,5 +259,6 @@ Got ideas for using this banner in creative ways? Drop a comment below—we’d 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-flow-banner/">Live Example Preview</a>
 </div>
+
 
 

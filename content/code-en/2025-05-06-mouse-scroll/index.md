@@ -32,7 +32,7 @@ First impressions are crucial in web design, and the top section of your page—
 Using a scroll indicator designed with HTML and CSS helps guide users without relying on text instructions or JavaScript. It's lightweight, visually appealing, and enhances user engagement.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -42,7 +42,7 @@ Using a scroll indicator designed with HTML and CSS helps guide users without re
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -57,8 +57,8 @@ Here is the basic HTML structure needed to implement the scrolling mouse animati
         <span class="down_arrow1"></span>
         <span class="down_arrow2"></span>
         <span class="down_arrow3"></span>
-    </div>
-</div>
+    
+
 ```
 
 **Explanation**
@@ -74,7 +74,7 @@ Here is the basic HTML structure needed to implement the scrolling mouse animati
 Below is the CSS that brings the scroll animation to life using only CSS properties and keyframe animations:
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -84,7 +84,7 @@ Below is the CSS that brings the scroll animation to life using only CSS propert
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ```css
 /* Main container for the mouse scroll indicator */
@@ -212,5 +212,6 @@ Have a question or want to share your own variation? Leave a comment below—we�
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-04-mouse-scroll/">Live Example Preview</a>
 </div>
+
 
 

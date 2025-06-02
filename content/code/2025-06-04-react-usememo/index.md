@@ -23,7 +23,7 @@ React 앱에서 같은 계산을 계속 반복해서 수행하느라 답답했�
 
 웹 개발을 하다 보면 복잡한 계산이나 데이터 처리가 매 렌더링마다 반복되어 성능이 떨어지는 경우가 많습니다. 특히 대량의 데이터를 필터링하거나 정렬할 때는 화면이 버벅거리고 앱이 느려지는 문제가 발생합니다. 이런 상황에서 React의 useMemo 훅이 효과적인 해결책이 될 수 있습니다.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -33,7 +33,7 @@ React 앱에서 같은 계산을 계속 반복해서 수행하느라 답답했�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -70,7 +70,7 @@ function 계산컴포넌트() {
         onChange={(e) => 숫자B설정(Number(e.target.value))} 
       />
       <p>합계: {합계}</p>
-    </div>
+    
   );
 }
 ```
@@ -94,7 +94,7 @@ useMemo 훅은 두 가지 필수 인자를 받아 동작합니다:
 
 <br>
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -104,7 +104,7 @@ useMemo 훅은 두 가지 필수 인자를 받아 동작합니다:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -144,7 +144,7 @@ function ParentComponent() {
 // React.memo로 최적화된 자식 컴포넌트 - props가 변경될 때만 리렌더링
 const OptimizedChild = React.memo(function({ userInfo }) {
   console.log("자식 컴포넌트 렌더링");
-  return <div>{userInfo.details}</div>;
+  return <div>{userInfo.details};
 });
 ```
 
@@ -188,7 +188,7 @@ function ProductList({ products, searchTerm, category, sortBy }) {
           <li key={product.id}>{product.name} - {product.price}원</li>
         ))}
       </ul>
-    </div>
+    
   );
 }
 ```
@@ -205,7 +205,7 @@ function ProductList({ products, searchTerm, category, sortBy }) {
 
 이 패턴은 실무에서 가장 많이 활용되는 useMemo 사용법입니다. 사용자 입력에 따라 데이터를 실시간으로 필터링하고 정렬할 때 계산 비용이 크게 들 수 있는데, useMemo를 사용하면 필요한 경우에만 재계산하여 앱의 반응성을 유지할 수 있습니다.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -215,7 +215,7 @@ function ProductList({ products, searchTerm, category, sortBy }) {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -244,7 +244,7 @@ function WarningExampleComponent() {
     <div>
       <button onClick={() => setCount(prev => prev + 1)}>증가</button>
       <p>현재 카운트: {count}</p>
-    </div>
+    
   );
 }
 ```

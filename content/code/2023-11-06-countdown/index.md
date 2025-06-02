@@ -16,7 +16,7 @@ tags:
 이 타이머는 목표 날짜와 시간까지의 시간 차이를 계산하고 초, 분, 시간, 일 단위로 표시합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +26,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -38,7 +38,7 @@ tags:
     <span class="hours">0</span>시간
     <span class="minutes">0</span>분
     <span class="seconds">0</span>초
-</div>
+
 ```
 
 ## jQuery 코드
@@ -103,7 +103,7 @@ $(document).ready(function() {
 ```
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -113,7 +113,7 @@ $(document).ready(function() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 * **요소 선택 및 변수 선언**
   * $countdown : 카운트다운을 표시할 요소입니다.

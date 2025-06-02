@@ -30,8 +30,6 @@ comments : false
 * **제거** : 팩이 완전히 건조되었으면 얇은 막을 손으로 떼어냅니다. 팩을 제거할 때 피부를 강하게 당기지 않도록 주의하세요.  
 * **마무리** : 모델링팩 사용 후 피부는 추가적인 보습이 필요할 수 있습니다. 따라서 적절한 보습 크림이나 로션을 사용하여 피부에 수분을 공급하세요. 보습제를 사용하면 피부가 부드럽고 촉촉하게 유지됩니다.  
 
-
-<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -41,7 +39,6 @@ comments : false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
 
 ## 모델링팩의 효과
 * **피부 보습과 수분 공급** : 모델링팩은 피부에 깊숙한 수분을 공급하여 건조하고 탈수된 피부를 촉진합니다. 이로써 피부는 더욱 촉촉하고 산뜻하게 느껴지며, 건조로 인한 가려움증과 각질 증가를 방지할 수 있습니다.

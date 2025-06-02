@@ -15,7 +15,7 @@ tags:
 웹 디자인 및 개발 프로젝트에서, 체크박스와 라디오버튼은 사용자 인터페이스(UI) 요소 중 자주 활용되는 요소입니다. 그러나 기본적인 스타일링만으로는 디자인적으로 제한이 있을 수 있습니다. 이 글에서는 CSS를 사용하여 체크박스와 라디오버튼을 커스텀하는 방법을 자세히 살펴보겠습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -73,7 +73,7 @@ tags:
   * 나머지 구조는 체크박스와 유사하며, 라벨, 커스텀 스타일링을 위한 &lt;span&gt; 요소(mark 클래스)를 포함합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -83,7 +83,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 

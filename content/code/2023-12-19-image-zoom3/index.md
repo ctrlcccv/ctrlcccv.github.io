@@ -16,7 +16,7 @@ tags:
 웹 페이지 내 이미지에 마우스를 가져다 댈 때 해당 부분을 확대해서 보여주는 돋보기 효과는 e-커머스 상품 이미지, 지도, 예술 작품 등 상세 부분이 중요한 콘텐츠에 유용합니다. 이 글에서는 jQuery를 이용하여 간단하게 돋보기 효과를 구현하는 방법을 설명합니다.    
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +26,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -37,12 +37,12 @@ tags:
     <div class="img">
         <img src="https://picsum.photos/id/74/1000/1000" alt="이미지">
         <span class="magnifier"></span>
-    </div>
+    
     <div class="img">
         <img src="https://picsum.photos/id/74/1000/1000" alt="이미지">
         <span class="magnifier"></span>
-    </div>
-</div>
+    
+
 ```
 * **컨테이너 (.img_wrap):**
   * 이미지를 나열하는 외부 컨테이너입니다.
@@ -95,7 +95,7 @@ tags:
   * `::after` 가상 요소를 이용해 돋보기 중앙에 흰색 테두리를 추가합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -105,7 +105,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -177,3 +177,4 @@ jQuery와 간단한 HTML/CSS를 사용하여 이미지에 마우스 오버 시 �
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-19-image-zoom3/">예제결과 미리보기</a>
 </div>
+

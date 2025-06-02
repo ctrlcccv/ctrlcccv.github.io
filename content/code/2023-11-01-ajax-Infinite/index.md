@@ -17,7 +17,7 @@ tags:
 무한 스크롤(infinite scroll)은 웹 애플리케이션에서 콘텐츠를 끊임없이 로드하여 사용자가 스크롤할 때마다 새로운 데이터를 자연스럽게 표시하는 기술입니다. 이 기술은 사용자 경험을 향상시키고 페이지 네비게이션을 개선하는 데 도움이 됩니다. 무한 스크롤을 구현하는 방법 중 하나는 jQuery와 Ajax를 사용하여 데이터를 동적으로 로드하는 것입니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -27,7 +27,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 그러나 스크롤 이벤트를 사용하여 데이터를 로드하는 경우, 불필요한 이벤트 핸들링과 데이터 요청이 발생할 수 있습니다. 이에 따라 성능 문제가 발생할 수 있으며, 사용자 경험에 악영향을 미칠 수 있습니다.
 
@@ -39,7 +39,7 @@ tags:
 **container**라는 클래스로 스크롤 가능한 컨테이너를 만들고, **item** 클래스로 각각의 아이템을 나타냅니다.  
 이 컨테이너에는 스크롤 했을 때 동적으로 아이템이 추가됩니다.
 ```html
-<div class="container"></div>
+<div class="container">
 ```
 
 ## CSS 스타일
@@ -76,7 +76,7 @@ $(document).ready(function() {
                 const newData = data.slice((page - 1) * itemsPerPage, page * itemsPerPage);
                 newData.forEach(newItem => {
                     // 아이템을 컨테이너에 추가
-                    $(`${itemContainer}`).append(`<div class="${itemClass}">${newItem.item}</div>`);
+                    $(`${itemContainer}`).append(`<div class="${itemClass}">${newItem.item}`);
                 });
                 page++; // 다음 페이지로 이동
 
@@ -116,7 +116,7 @@ $(document).ready(function() {
 });
 ```
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -126,7 +126,7 @@ $(document).ready(function() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 * **페이지 및 아이템 관련 변수 설정**  
   * page 변수는 현재 페이지 번호를 저장합니다. 초깃값은 1입니다.
@@ -163,3 +163,4 @@ $(document).ready(function() {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-01-ajax-Infinite/">예제결과 미리보기</a>
 </div>
+

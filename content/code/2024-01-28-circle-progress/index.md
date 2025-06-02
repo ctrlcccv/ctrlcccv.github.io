@@ -15,7 +15,7 @@ tags:
 ---
 jQuery와 HTML5의 캔버스 태그를 이용해 그려지는 이 프로그레스바는 데이터 로딩이나 작업 진행 상황을 시각적으로 표현해줍니다. 이 글에서는 이러한 원형 프로그레스바를 만들고, 원하는 퍼센트에 따라 애니메이션 되는 동적인 요소를 구성하는 방법을 알아보겠습니다.   
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ jQuery와 HTML5의 캔버스 태그를 이용해 그려지는 이 프로그레�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -34,7 +34,7 @@ jQuery와 HTML5의 캔버스 태그를 이용해 그려지는 이 프로그레�
 <div class="canvas_wrap">
     <canvas class="canvas" width="300" height="300" data-percent="78"></canvas>
     <span class="percent"></span>
-</div>
+
 ```
 * **캔버스 컨테이너**
   * `canvas_wrap` 클래스는 캔버스 요소와 퍼센트 표시를 감싸는 컨테이너입니다. 이는 캔버스와 텍스트를 공간적으로 포함시켜 레이아웃을 관리하기 쉽게 도와줍니다.
@@ -84,7 +84,7 @@ jQuery와 HTML5의 캔버스 태그를 이용해 그려지는 이 프로그레�
   * 캔버스 크기를 부모 요소에 맞추어 100%로 설정하여 반응형 디자인이 가능하도록 만듭니다.   
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -94,7 +94,7 @@ jQuery와 HTML5의 캔버스 태그를 이용해 그려지는 이 프로그레�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -207,3 +207,4 @@ jQuery와 HTML5의 캔버스를 활용하여 원형 프로그레스바와 애니
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-28-circle-progress/" target="_blank">예제결과 미리보기</a>
 </div>
+

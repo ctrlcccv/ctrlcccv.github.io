@@ -34,7 +34,7 @@ HTML5의 `<details>` 태그를 이용하면 기본적인 열기/닫기 기능은
 이런 흐름으로 하나하나 차근차근 설명해 드리겠습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -44,7 +44,7 @@ HTML5의 `<details>` 태그를 이용하면 기본적인 열기/닫기 기능은
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -66,7 +66,7 @@ HTML5의 `<details>` 태그를 이용하면 기본적인 열기/닫기 기능은
         <summary>메뉴 3</summary>
         <p>메뉴 3의 내용입니다.</p>
     </details>
-</div>
+
 ```
 이렇게만 작성해도 클릭 시 메뉴가 열리고 닫히는 기본적인 아코디언 기능을 사용할 수 있습니다.  
 
@@ -108,7 +108,7 @@ $('.accordion_menu summary').on('click', function() {
 // 슬라이드 애니메이션 추가
 $('.accordion_menu details').attr('open', true).each(function() {
     const $summary = $(this).find('summary');
-    $summary.nextAll().wrapAll('<div class="con"></div>').parent().hide(); // 내용을 감싸고 숨김
+    $summary.nextAll().wrapAll('<div class="con">').parent().hide(); // 내용을 감싸고 숨김
     // summary 클릭 시 슬라이드 효과 적용
     $summary.on('click', function(e) {
         e.preventDefault(); // 기본 이벤트 막기
@@ -129,7 +129,7 @@ $('.accordion_menu details').attr('open', true).each(function() {
 // 아코디언 메뉴 + 슬라이드 효과
 $('.accordion_menu details').attr('open', true).each(function() {
     const $summary = $(this).find('summary');
-    $summary.nextAll().wrapAll('<div class="con"></div>').parent().hide(); // 내용을 감싸고 숨김
+    $summary.nextAll().wrapAll('<div class="con">').parent().hide(); // 내용을 감싸고 숨김
     $summary.on('click', function(e) { 
         e.preventDefault(); // 기본 동작 방지
         $(this).next('.con').slideToggle() // 내용 슬라이드 토글
@@ -149,7 +149,7 @@ $('.accordion_menu details').attr('open', true).each(function() {
 이제 스타일을 다듬어 더 깔끔한 UI로 만들어봅시다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -159,7 +159,7 @@ $('.accordion_menu details').attr('open', true).each(function() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ```css
 .accordion_menu { 

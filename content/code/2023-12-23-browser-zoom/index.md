@@ -16,7 +16,7 @@ tags:
 웹사이트 사용자에게 컨텐츠를 더 세밀하게 볼 수 있는 기능을 제공하는 것은 사용자 친화적인 인터페이스 설계에 매우 중요합니다. 이 글에서는 jQuery를 이용하여 사용자가 웹페이지의 특정 부분의 확대 및 축소를 제어할 수 있는 기능을 소개합니다. 이 기능은 파이어폭스를 포함하여 대부분의 브라우저에서 호환됩니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +26,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -73,7 +73,7 @@ tags:
   * 버튼에는 배경색, 굴곡, 글꼴 크기, 색상 스타일이 있습니다.   
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -83,7 +83,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -156,3 +156,4 @@ updateZoom();
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-23-browser-zoom/">예제결과 미리보기</a>
 </div>
+

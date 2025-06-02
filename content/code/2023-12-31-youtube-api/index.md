@@ -18,7 +18,7 @@ tags:
 유튜브 API는 개발자가 유튜브의 다양한 기능을 활용할 수 있게 해주는 강력한 도구입니다. 특히, IFrame Player API는 웹 페이지에 유튜브 동영상을 쉽게 삽입하고 제어할 수 있는 기능을 제공합니다. 이 글에서는 유튜브 IFrame Player API를 활용하는 방법과 예제 코드를 다뤄보겠습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,7 +28,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -36,7 +36,7 @@ tags:
 
 ```html
 <!-- YouTube 동영상을 삽입할 <div> 태그 -->
-<div id="player"></div>
+<div id="player">
 
 <!-- YouTube API 코드 비동기로 로드 -->
 <script>
@@ -86,7 +86,7 @@ tags:
 </script>
 ```
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -96,7 +96,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 * **YouTube API 스크립트 로드**  
   * onYouTubePlayerAPIReady 함수는 YouTube API 코드가 로드된 후 실행됩니다.
@@ -133,3 +133,4 @@ IFrame Player API의 자세한 기능 및 메서드에 대한 설명, 예제 코
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-31-youtube-api/">예제결과 미리보기</a>
 </div>
+

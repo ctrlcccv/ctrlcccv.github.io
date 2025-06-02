@@ -29,7 +29,7 @@ tags:
 
 웹사이트를 개발하다 보면 동일한 기능의 탭 메뉴가 여러 섹션에 필요한 경우가 많습니다. 이럴 때 비슷한 코드를 계속 반복해서 작성하면 유지보수도 어렵고 코드량도 불필요하게 많아집니다. 이번 글에서는 jQuery를 활용해 단 하나의 클래스로 여러 개의 탭 메뉴를 쉽게 구현하는 방법을 소개해 드립니다.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -39,7 +39,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -59,17 +59,17 @@ tags:
         <div id="tab1_1" class="tab_content">
             <h3>첫 번째 탭 내용</h3>
             <p>여기에 첫 번째 탭의 내용이 들어갑니다.</p>
-        </div>
+        
         <div id="tab1_2" class="tab_content">
             <h3>두 번째 탭 내용</h3>
             <p>여기에 두 번째 탭의 내용이 들어갑니다.</p>
-        </div>
+        
         <div id="tab1_3" class="tab_content">
             <h3>세 번째 탭 내용</h3>
             <p>여기에 세 번째 탭의 내용이 들어갑니다.</p>
-        </div>
-    </div>
-</div>
+        
+    
+
 
 <h2>두 번째 탭 메뉴</h2>
 <div class="tab_container">
@@ -82,17 +82,17 @@ tags:
         <div id="tab2_1" class="tab_content">
             <h3>공지사항</h3>
             <p>최신 공지사항이 여기에 표시됩니다.</p>
-        </div>
+        
         <div id="tab2_2" class="tab_content">
             <h3>자주 묻는 질문</h3>
             <p>FAQ 내용이 여기에 표시됩니다.</p>
-        </div>
+        
         <div id="tab2_3" class="tab_content">
             <h3>문의하기</h3>
             <p>문의 양식이 여기에 표시됩니다.</p>
-        </div>
-    </div>
-</div>
+        
+    
+
 ```
 
 * **탭 메뉴 컨테이너**  
@@ -122,11 +122,11 @@ tags:
 ```html
 <!-- 첫 번째 탭 메뉴의 링크와 콘텐츠 ID -->
 <li><a href="#tab1_1">탭 1</a></li>
-<div id="tab1_1" class="tab_content">...</div>
+<div id="tab1_1" class="tab_content">...
 
 <!-- 두 번째 탭 메뉴의 링크와 콘텐츠 ID -->
 <li><a href="#tab2_1">공지사항</a></li>
-<div id="tab2_1" class="tab_content">...</div>
+<div id="tab2_1" class="tab_content">...
 ```
 
 이렇게 ID를 명확하게 구분하면 여러 탭 메뉴가 서로 영향을 주지 않고 각각 독립적으로 작동합니다.
@@ -169,7 +169,7 @@ flex 속성으로 탭 버튼들이 균등한 너비로 정렬됩니다.
 적당한 여백을 주어 내용이 답답해 보이지 않도록 했습니다.
 </span>
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -179,7 +179,7 @@ flex 속성으로 탭 버튼들이 균등한 너비로 정렬됩니다.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 

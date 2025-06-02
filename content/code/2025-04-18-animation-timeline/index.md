@@ -20,7 +20,7 @@ tags:
 최근 CSS는 점점 더 많은 기능을 제공하면서, 단순한 스타일링을 넘어서 인터랙션까지 제어할 수 있는 도구로 발전하고 있습니다. 그 대표적인 예가 animation-timeline 속성입니다. 이 속성을 활용하면 JavaScript 없이도 스크롤이나 화면 진입 같은 사용자 행동에 따라 애니메이션을 제어할 수 있습니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -30,7 +30,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -95,7 +95,7 @@ animation-timeline, scroll-timeline, view-timeline 등은 현재 최신 버전�
 <script async src="https://public.codepenassets.com/embed/index.js"></script>
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -105,7 +105,7 @@ animation-timeline, scroll-timeline, view-timeline 등은 현재 최신 버전�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -116,7 +116,7 @@ animation-timeline, scroll-timeline, view-timeline 등은 현재 최신 버전�
 <div class="step">
     <h3>애니메이션 구간 조정</h3>
     <p>이 박스는 스크롤 진행률이 20%에서 40% 사이일 때만 애니메이션이 작동합니다.</p>
-</div>
+
 ```
 
 ### CSS
@@ -156,9 +156,9 @@ animation-timeline, scroll-timeline, view-timeline 등은 현재 최신 버전�
 ### HTML
 ```html
 <section class="scroll-section">
-    <div class="box delay-1">첫 번째 박스</div>
-    <div class="box delay-2">두 번째 박스</div>
-    <div class="box delay-3">세 번째 박스</div>
+    <div class="box delay-1">첫 번째 박스
+    <div class="box delay-2">두 번째 박스
+    <div class="box delay-3">세 번째 박스
 </section>
 ```
 

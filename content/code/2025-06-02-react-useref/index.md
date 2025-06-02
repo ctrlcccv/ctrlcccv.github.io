@@ -23,7 +23,7 @@ tags:
 
 React는 가상 DOM을 통해 UI를 효율적으로 관리하는 장점이 있지만, 때로는 실제 DOM 요소에 직접 접근해야 할 때가 있습니다. 또한 컴포넌트가 리렌더링되어도 값을 그대로 유지해야 하는 경우도 있습니다. 이런 상황에서 useRef 훅은 아주 유용한 해결책이 됩니다.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -33,7 +33,7 @@ React는 가상 DOM을 통해 UI를 효율적으로 관리하는 장점이 있�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -55,7 +55,7 @@ function 입력폼() {
     <div>
       <input ref={입력칸Ref} type="text" />
       <button onClick={포커스하기}>입력칸 포커스</button>
-    </div>
+    
   );
 }
 ```
@@ -103,7 +103,7 @@ function 렌더링카운터() {
       <p>렌더링 횟수: {렌더링횟수.current}</p>
       <p>상태값: {상태값}</p>
       <button onClick={() => 상태변경(상태값 + 1)}>상태 증가</button>
-    </div>
+    
   );
 }
 ```
@@ -126,7 +126,7 @@ useRef를 통한 DOM 제어는 React의 가상 DOM 시스템을 우회합니다.
 이것이 바로 useRef 값이 변경되어도 리렌더링이 발생하지 않는 이유입니다.
 </span>
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -136,7 +136,7 @@ useRef를 통한 DOM 제어는 React의 가상 DOM 시스템을 우회합니다.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -173,10 +173,10 @@ function ProductList() {
           {/* 마지막 아이템에 ref 연결 */}
           <div ref={index === products.length - 1 ? lastItemRef : null}>
             {product.name}
-          </div>
-        </div>
+          
+        
       ))}
-    </div>
+    
   );
 }
 ```
@@ -218,7 +218,7 @@ function VideoPlayer() {
       <button onClick={togglePlay}>
         {isPlaying ? '일시정지' : '재생'}
       </button>
-    </div>
+    
   );
 }
 ```
@@ -281,7 +281,7 @@ function StateComparisonComponent() {
 특히 타이머ID나 이전 상태값 저장 같은 경우에는 useRef가 더 적합합니다.
 </span>
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -291,7 +291,7 @@ function StateComparisonComponent() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -319,7 +319,7 @@ function CautionComponent() {
       <p>참조값: {refValue.current}</p>
       <p>상태값: {stateValue}</p>
       <button onClick={handleIncrement}>증가</button>
-    </div>
+    
   );
 }
 ```

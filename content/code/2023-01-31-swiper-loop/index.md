@@ -16,7 +16,7 @@ Swiper 라이브러리를 사용하면 화면 크기에 따라 슬라이드의 �
 하지만 loop 옵션을 사용하면 슬라이드를 무한 반복하기 위해 내용을 복제하는데, 이에 따라 몇 가지 문제가 발생할 수 있습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +26,7 @@ Swiper 라이브러리를 사용하면 화면 크기에 따라 슬라이드의 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -67,10 +67,10 @@ Swiper 인스턴스의 activeIndexChange 이벤트를 활용하여 현재 슬라
             <li class="swiper-slide">slider3</li>
             <li class="swiper-slide">slider4</li>
         </ul>
-    </div>
+    
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-</div>
+
 ```
 
 ### CSS 스타일
@@ -91,7 +91,7 @@ Swiper의 스타일은 아래와 같이 정의되어 있습니다.
 실제로 슬라이드를 초기화하고 관리하는 jQuery 코드입니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -101,7 +101,7 @@ Swiper의 스타일은 아래와 같이 정의되어 있습니다.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ```js
 $(window).on('load', function () {
@@ -202,3 +202,4 @@ Swiper의 loop 옵션 복제 문제를 해결하고, 반응형 슬라이드를 �
 <div class="btn_wrap">
     <a target="_blank" href="/ctrlcccv-demo/2023-01-31-swiper-loop/">예제결과 미리보기</a>
 </div>
+

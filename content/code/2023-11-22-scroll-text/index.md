@@ -15,7 +15,7 @@ tags:
 이 글에서는 jQuery를 활용하여 특정한 스크롤 동작에 반응하여 텍스트의 스타일이 변화하는 웹 페이지 기능을 소개합니다. 사용자가 페이지를 스크롤 할 때마다 텍스트의 불투명도, 크기, 그리고 위치가 동적으로 변하도록 구현되었습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 
 <br>
@@ -36,10 +36,10 @@ tags:
     <p class="scroll_txt type_fade">스크롤을 내리면 텍스트가 나타납니다.</p>
     <p class="scroll_txt type_size">스크롤을 내리면 텍스트의 크기가 변경됩니다.</p>
     <p class="scroll_txt type_right">스크롤을 내리면 텍스트가 오른쪽에서 왼쪽으로 이동합니다.</p>
-</div>
+
 <div class="content2">
     <p class="scroll_txt type_bottom">스크롤을 내리면 텍스트가 아래에서 위로 이동합니다.</p>
-</div>
+
 ```
 * div 태그는 .content와 .content2 클래스를 가지며, 각각 여러 p 태그를 포함합니다.
 * 각 p 태그는 scroll_txt 클래스와 추가적인 클래스 (type_fade, type_size, type_right, type_bottom)를 가지고 있습니다.
@@ -142,7 +142,7 @@ $(window).scroll(() => {
 jQuery 코드의 주요 구성 요소와 기능은 다음과 같습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -152,7 +152,7 @@ jQuery 코드의 주요 구성 요소와 기능은 다음과 같습니다.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 

@@ -30,7 +30,7 @@ Tired of typing hyphens manually every time you enter a phone number or credit c
 Manually adding separators like hyphens or slashes can be frustrating, especially when filling out forms on websites or apps. With data like phone numbers, card numbers, or dates, automatically applying these separators can save time, reduce errors, and improve data accuracy. This post will show you how to implement automatic formatting for various input fields using jQuery.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -40,7 +40,7 @@ Manually adding separators like hyphens or slashes can be frustrating, especiall
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -55,7 +55,7 @@ Manually adding separators like hyphens or slashes can be frustrating, especiall
     <input type="text" id="date" placeholder="YYYY/MM/DD" data-format="xxxx/xx/xx">
     <label for="card">Card Number:</label>
     <input type="text" id="card" placeholder="0000-0000-0000-0000" data-format="xxxx-xxxx-xxxx-xxxx">
-</div>
+
 ```
 
 * **Custom Data Attributes**  
@@ -120,7 +120,7 @@ Font size and color are adjusted for readability to enhance user input convenien
 </span>
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -130,7 +130,7 @@ Font size and color are adjusted for readability to enhance user input convenien
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -263,4 +263,5 @@ Try applying this code to your projects and feel free to customize it further! I
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-17-auto-format/">Live Example Preview</a>
-</div> 
+</div>
+ 

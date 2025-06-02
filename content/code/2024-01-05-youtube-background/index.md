@@ -16,7 +16,7 @@ tags:
 웹사이트 디자인에서 동영상 배경은 방문자에게 강렬하고 다이나믹한 인상을 줄 수 있는 매력적인 요소입니다. 특히, 유튜브 동영상을 배경으로 사용하는 경우, 고품질의 영상 콘텐츠를 쉽게 통합할 수 있습니다. 이 글에서는 유튜브 동영상을 반응형 웹 디자인에 적합하게 배경으로 설정하는 방법을 소개합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +26,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -35,7 +35,7 @@ tags:
 ```html
 <div class="video_bg">
     <iframe src="https://www.youtube.com/embed/rJe_YsLJqUY?autoplay=1&mute=1&loop=1&playlist=rJe_YsLJqUY"></iframe>
-</div>
+
 ```
 * **비디오 컨테이너**
   * `video_bg` 클래스를 가지는 `div` 요소는 유튜브 동영상 `iframe`을 감싸고 있으며, 반응형 배경의 컨테이너 역할을 합니다.
@@ -63,7 +63,7 @@ tags:
 - `playlist` 파라미터에 동영상 ID를 추가하여 동일한 동영상이 반복되도록 해야 합니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -73,7 +73,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -127,3 +127,4 @@ tags:
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-05-youtube-background/">예제결과 미리보기</a>
 </div>
+

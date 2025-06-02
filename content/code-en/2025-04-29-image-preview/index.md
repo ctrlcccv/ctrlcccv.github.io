@@ -31,7 +31,7 @@ Imagine running an online shop or setting up a profile page. Wouldn't it be help
 In this tutorial, we’ll walk through how to implement a clean, interactive image upload feature with live preview using jQuery. It’s beginner-friendly, reusable, and adds a polished touch to any website.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -41,7 +41,7 @@ In this tutorial, we’ll walk through how to implement a clean, interactive ima
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -59,8 +59,8 @@ We’ll start by creating a simple HTML structure that handles image selection a
     <div class="preview">
         <span class="img_box"><img class="preview_img" src="#" alt="Selected Image"></span>
         <button type="button" class="delect"><img src="images/image_file_delect.png" alt="삭제"></button>
-    </div>
-</div>
+    
+
 ```
 **What this does:**
 - `.image_file`: Wraps everything into a neat upload module.
@@ -100,7 +100,7 @@ Next, we’ll use some simple CSS to style the upload area and make it intuitive
 Now for the fun part. With just a few lines of jQuery, we can show a preview as soon as the user selects an image, and allow them to remove it if needed.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -110,7 +110,7 @@ Now for the fun part. With just a few lines of jQuery, we can show a preview as 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ```js
 $(document).ready(function(){
@@ -202,5 +202,6 @@ Every small upgrade to your user interface builds trust and delight. Try this fe
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-28-image-preview/">Live Example Preview</a>
 </div>
+
 
 

@@ -23,7 +23,7 @@ tags:
 
 리액트로 개발하다 보면 컴포넌트가 다시 그려질 때마다 함수가 새로 만들어져 성능이 저하되는 경우가 많습니다. 특히 자식 컴포넌트에 함수를 props로 넘겨줄 때 이런 문제가 더 심해집니다. React의 useCallback 훅은 이런 문제를 간단하게 해결해 줍니다.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -33,7 +33,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -78,13 +78,13 @@ function 텍스트에디터() {
       <div>
         <button onClick={() => set텍스트크기(텍스트크기 + 1)}>텍스트 크게</button>
         <button onClick={() => set텍스트크기(텍스트크기 - 1)}>텍스트 작게</button>
-      </div>
+      
       <div>
         <button onClick={() => 색상변경('red')} style={{ color: 'red' }}>빨강</button>
         <button onClick={() => 색상변경('blue')} style={{ color: 'blue' }}>파랑</button>
-      </div>
+      
       <button onClick={기본설정적용}>기본 설정으로</button>
-    </div>
+    
   );
 }
 ```
@@ -115,7 +115,7 @@ const 기억된함수 = useCallback(
 
 <br>
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -125,7 +125,7 @@ const 기억된함수 = useCallback(
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -184,7 +184,7 @@ function TodoList() {
           />
         ))}
       </ul>
-    </div>
+    
   );
 }
 ```
@@ -221,7 +221,7 @@ const handleToggle = useCallback((id) => {
 
 이렇게 useCallback을 사용하면 React.memo로 최적화된 컴포넌트의 성능을 극대화할 수 있습니다. 특히 대규모 리스트나 복잡한 UI에서 효과적입니다.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -231,7 +231,7 @@ const handleToggle = useCallback((id) => {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -272,7 +272,7 @@ function ProductSearch({ categoryId }) {
   }, [fetchProducts]); // useCallback으로 메모이제이션된 함수를 의존성으로 사용
   
   return (
-    <div>{/* UI 컴포넌트 */}</div>
+    <div>{/* UI 컴포넌트 */}
   );
 }
 ```

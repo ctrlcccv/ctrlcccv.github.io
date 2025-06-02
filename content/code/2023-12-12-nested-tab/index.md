@@ -15,7 +15,7 @@ tags:
 jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다. 2단 탭 메뉴는 웹 페이지 내에서 다양한 컨텐츠를 효율적으로 구성하고, 사용자의 상호작용을 통해 해당 컨텐츠를 동적으로 표시하는 데 유용합니다. 이러한 탭 메뉴 구성은 정보의 구조화 및 사용자 경험(UX) 향상에 기여합니다.   
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -46,11 +46,11 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
         </ul>
         <div class="sub_tab" id="sub_tab1">
             Sub Tab 1
-        </div>
+        
         <div class="sub_tab" id="sub_tab2">
             Sub Tab 2
-        </div>
-    </div>
+        
+    
 
     <div class="tab" id="tab2">
         <h1>Tab 2</h1>
@@ -60,11 +60,11 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
         </ul>
         <div class="sub_tab" id="sub_tab3">
             Sub Tab 3
-        </div>
+        
         <div class="sub_tab" id="sub_tab4">
             Sub Tab 4
-        </div>
-    </div>
+        
+    
 
     <div class="tab" id="tab3">
         <h1>Tab 3</h1>
@@ -74,12 +74,12 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
         </ul>
         <div class="sub_tab" id="sub_tab5">
             Sub Tab 5
-        </div>
+        
         <div class="sub_tab" id="sub_tab6">
             Sub Tab 6
-        </div>
-    </div>
-</div>
+        
+    
+
 ```
 * **tabs 클래스**  
 모든 탭을 감싸는 컨테이너 역할을 합니다. 이 구조는 메인 탭(.tab_nav)과 각 메인 탭에 연결된 서브 탭들을 포함합니다.
@@ -127,7 +127,7 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
 각 탭에 대응하는 컨텐츠 영역의 스타일을 정의합니다. 기본적으로 숨겨져 있으며, 활성화된 탭에 해당하는 컨텐츠만 표시됩니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -137,7 +137,7 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -222,3 +222,4 @@ if (!mainTabActive.length) {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-12-nested-tab/">예제결과 미리보기</a>
 </div>
+

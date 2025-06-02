@@ -80,7 +80,7 @@ comments: false
 이해를 돕기 위한 영상입니다.
 <div class="video_con">
   <iframe src="https://www.youtube.com/embed/VHlbILsocgo?si=t2oEZh9FeTvOo7Wt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
+
 
 <br><br>
 

@@ -36,8 +36,6 @@ comments: false
 * **보물**  
   * 무공비, 호루라기, 시계  
 
-
-<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -47,7 +45,6 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
 
 ## 결론
 쿠키런 킹덤의 새로운 에피소드 "펼쳐지는 거짓의 장막"에서는 세인트릴리 쿠키와 용감한 쿠키 일행이 거짓에 잠식된 요정왕국을 구하기 위한 모험을 떠나게 됩니다. 또한, 이 에피소드를 플레이하면서 세인트릴리 쿠키의 여정을 담은 스토리 도감의 마지막 조각을 수집할 수 있습니다. 종이 폭풍 효과와 함께 다양한 전투 상황에서 새로운 전략을 구사해보세요.  

@@ -19,7 +19,7 @@ IR 기법(Image Replacement Technique)은 웹 접근성을 개선하기 위해 �
 그리고 제이쿼리를 활용하여 파일을 선택하면 선택한 파일의 이름을 표시할 수 있도록 구현했다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -29,7 +29,7 @@ IR 기법(Image Replacement Technique)은 웹 접근성을 개선하기 위해 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -41,7 +41,7 @@ IR 기법(Image Replacement Technique)은 웹 접근성을 개선하기 위해 �
         <span class="file_name">파일을 선택해주세요.</span>
         <span class="file_btn">파일선택</span>
     </label>
-</div>
+
 ```
 input[type='file'] 태그 대신 추가한 요소는 사용자가 파일을 선택하고 파일 이름을 확인할 수 있는 방식으로 구성했다.  
 이 영역을 클릭하면 파일 선택이 가능하도록 label 태그를 활용했다.  
@@ -65,7 +65,7 @@ input[type="file"]:focus-visible ~ .file_btn, .file_cus:hover .file_btn {backgro
 이로써 웹 페이지의 내비게이션 및 상호작용이 더욱 명확하고 편리하게 이뤄질 수 있다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -75,7 +75,7 @@ input[type="file"]:focus-visible ~ .file_btn, .file_cus:hover .file_btn {backgro
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -108,3 +108,4 @@ function fileCus() {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-09-file-custom/">예제결과 미리보기</a>
 </div>
+

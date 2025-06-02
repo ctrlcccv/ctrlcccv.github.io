@@ -18,7 +18,7 @@ tags:
 웹 애플리케이션에서 카운트다운 타이머는 이벤트 시작, 제품 출시, 한정판 세일 등 다양한 상황에서 사용됩니다. 이런 카운트다운 타이머는 사용자가 남은 시간을 시각적으로 인지할 수 있게 해줍니다. 이 예제에서는 jQuery를 활용하여 숫자가 부드럽게 내려오는 카운트다운 애니메이션을 구현하는 방법을 설명합니다. 사용자는 목표 시간까지 남은 시간을 쉽게 확인할 수 있으며, 동적인 숫자 애니메이션으로 시각적인 즐거움도 경험할 수 있습니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,7 +28,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -37,23 +37,23 @@ tags:
 <div class="countdown">
     <div class="unit_group">
         <div class="unit">
-            <div class="digits" id="days_digits"></div>
-            <div class="unit_label">Days</div>
-        </div>
+            <div class="digits" id="days_digits">
+            <div class="unit_label">Days
+        
         <div class="unit">
-            <div class="digits" id="hrs_digits"></div>
-            <div class="unit_label">Hrs</div>
-        </div>
+            <div class="digits" id="hrs_digits">
+            <div class="unit_label">Hrs
+        
         <div class="unit">
-            <div class="digits" id="mins_digits"></div>
-            <div class="unit_label">Mins</div>
-        </div>
+            <div class="digits" id="mins_digits">
+            <div class="unit_label">Mins
+        
         <div class="unit">
-            <div class="digits" id="secs_digits"></div>
-            <div class="unit_label">Secs</div>
-        </div>
-    </div>
-</div>
+            <div class="digits" id="secs_digits">
+            <div class="unit_label">Secs
+        
+    
+
 ```
 * **주 카운트다운 요소**  
     * `.countdown` : 카운트다운 타이머의 모든 요소를 감싸는 컨테이너입니다.
@@ -175,9 +175,9 @@ class Countdown {
     // 숫자 요소 생성
     createDigits(container, newDigits) {
         newDigits.split('').forEach(digit => {
-            const $digitElement = $("<div class='digit' data-col></div>"); // 새로운 숫자 요소 생성
-            $digitElement.append($("<div data-pos='next'>" + digit + "</div>")) // 다음 숫자
-                        .append($("<div data-pos='prev'>" + digit + "</div>")); // 이전 숫자
+            const $digitElement = $("<div class='digit' data-col>"); // 새로운 숫자 요소 생성
+            $digitElement.append($("<div data-pos='next'>" + digit + "")) // 다음 숫자
+                        .append($("<div data-pos='prev'>" + digit + "")); // 이전 숫자
             container.append($digitElement); // 컨테이너에 추가
         });
     }
@@ -206,7 +206,7 @@ class Countdown {
 }
 ```
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -216,7 +216,7 @@ class Countdown {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 * **생성자 (constructor)**  
     <span class="txt">전달된 선택자를 통해 DOM 요소를 jQuery 객체로 저장하고, 업데이트 타이머 변수를 초기화합니다. `displayDigitsContainer`는 각 시간 단위의 숫자 컨테이너를 저장하는 객체입니다.</span>  

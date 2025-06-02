@@ -18,7 +18,7 @@ tags:
 다크 모드는 현대 웹 애플리케이션에서 매우 인기 있는 기능 중 하나입니다. 사용자는 화면을 어두운 테마로 변경하여 애플리케이션을 사용할 수 있습니다. 이러한 다양한 환경을 지원하기 위해 리액트의 Context API를 활용하여 다크 모드를 만들어 보겠습니다.   
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,7 +28,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -97,7 +97,7 @@ export default App;
 - `DarkModeProvider` 컴포넌트는 하위 컴포넌트들을 감싸며, 다크 모드 상태와 토글 함수를 하위 컴포넌트에 제공합니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -107,7 +107,7 @@ export default App;
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -130,7 +130,7 @@ const MainComponent = () => {
             </button>
             {/* 현재 모드에 따라 표시되는 텍스트가 변경됨 */}
             <h1>{isDarkMode ? '다크 모드' : '라이트 모드'}</h1>
-        </div>
+        
     );
 };
 

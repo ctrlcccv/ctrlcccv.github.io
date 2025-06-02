@@ -28,7 +28,7 @@ tags:
 웹사이트를 만들 때 여러 개의 콘텐츠를 한 번에 보여주고 싶을 때가 있습니다. 예를 들어, 쇼핑몰에서는 상품 목록을, 포트폴리오에서는 작품들을 효과적으로 전시할 수 있습니다. 이번 포스트에서는 jQuery와 Swiper 라이브러리를 활용하여 반응형 그리드 슬라이더를 구현하는 방법을 알아보겠습니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -38,7 +38,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -48,24 +48,24 @@ tags:
 <div class="slider">
     <div class="viewport">
         <div class="swiper-wrapper">
-            <div class="item">1</div>
-            <div class="item">2</div>
-            <div class="item">3</div>
-            <div class="item">4</div>
-            <div class="item">5</div>
-            <div class="item">6</div>
-            <div class="item">7</div>
-            <div class="item">8</div>
-            <div class="item">9</div>
-            <div class="item">10</div>
-            <div class="item">11</div>
-            <div class="item">12</div>
-        </div>
-    </div>
-    <div class="swiper-prev">이전</div>
-    <div class="swiper-next">다음</div>
-    <div class="swiper-pagination"></div>
-</div>
+            <div class="item">1
+            <div class="item">2
+            <div class="item">3
+            <div class="item">4
+            <div class="item">5
+            <div class="item">6
+            <div class="item">7
+            <div class="item">8
+            <div class="item">9
+            <div class="item">10
+            <div class="item">11
+            <div class="item">12
+        
+    
+    <div class="swiper-prev">이전
+    <div class="swiper-next">다음
+    <div class="swiper-pagination">
+
 ```
 
 * **슬라이더의 기본 구조**  
@@ -136,7 +136,7 @@ tags:
 </span>
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -146,7 +146,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -221,7 +221,7 @@ function slideAct() {
             const $items = state.originalItems[index].clone();
             const itemCount = $items.length;
             for (let i = 0; i < itemCount; i += itemsPerView) {
-                const $slide = $('<div class="swiper-slide"></div>');
+                const $slide = $('<div class="swiper-slide">');
                 $items.slice(i, i + itemsPerView).clone().appendTo($slide);
                 $wrapper.append($slide);
             }
@@ -348,3 +348,4 @@ CSS의 `grid-template-columns` 속성을 수정하여 다양한 그리드 레이
 <div class="btn_wrap">
     <a target="_blank" href="/ctrlcccv-demo/2023-03-09-swiper-col/">예제결과 미리보기</a>
 </div>
+

@@ -19,6 +19,7 @@ comments: false
     <a href="https://www.sk2gacha.com/ckk/coupon/">쿠키런 킹덤 쿠폰 등록하기</a>
 </div>
 
+
 <br>
 
 ## 반죽괴물 보스 조합
@@ -57,7 +58,7 @@ comments: false
 쿨타임 부옵션 많이 넣어주세요.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -67,7 +68,7 @@ comments: false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 * **쿠키 및 토핑**  
   * 수은기사 : 라즈베리 X 5   
@@ -82,6 +83,7 @@ comments: false
 <div class="btn_wrap">
     <a href="https://www.sk2gacha.com/ckk/coupon/">쿠키런 킹덤 쿠폰 등록하기</a>
 </div>
+
 
 <br>
 

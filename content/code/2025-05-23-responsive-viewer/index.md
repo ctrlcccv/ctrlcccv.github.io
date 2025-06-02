@@ -32,7 +32,7 @@ tags:
 반응형 웹사이트를 개발할 때 PC, 태블릿, 모바일 등 다양한 화면 크기에서 디자인이 어떻게 표현되는지 확인하는 것은 매우 중요합니다. 개발자 도구를 사용하거나 실제 기기로 테스트하는 방법도 있지만, 클라이언트에게 보여주거나 팀원들과 공유할 수 있는 독립적인 미리보기 도구가 있으면 더욱 편리합니다. 이번 포스트에서는 jQuery와 iframe을 활용하여 반응형 웹사이트 미리보기 툴을 만드는 방법을 알아보겠습니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -42,7 +42,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -55,14 +55,14 @@ tags:
         <button id="pcBtn" class="active" data-device="pc">PC <span class="mo_hidden">(1920px)</span></button>
         <button id="tabletBtn" data-device="tablet">태블릿 <span class="mo_hidden">(768px)</span></button>
         <button id="mobileBtn" data-device="mobile">모바일 <span class="mo_hidden">(375px)</span></button>
-    </div>
+    
     
     <div class="frame_container">
         <div class="iframe_wrapper">
             <iframe class="preview_frame" src="https://example.com"></iframe>
-        </div>
-    </div>
-</div>
+        
+    
+
 ```
 
 * **전체 구조**  
@@ -125,7 +125,7 @@ iframe은 테두리가 없고, 가로와 세로 100%로 설정되어 있습니�
 </span>
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -135,7 +135,7 @@ iframe은 테두리가 없고, 가로와 세로 100%로 설정되어 있습니�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -274,3 +274,4 @@ applyScaling 함수는 디바이스 너비가 컨테이너보다 큰 경우 비�
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-23-responsive-viewer/">예제결과 미리보기</a>
 </div>
+

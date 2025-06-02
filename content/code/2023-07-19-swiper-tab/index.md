@@ -26,7 +26,7 @@ tags:
 이전에 선택한 탭 메뉴의 슬라이드를 유지하기 위해 변수에 저장한 realIndex 값을 initialSlide 옵션에 넣어 현재 보고 있던 슬라이드로 이동하는데, 이로 인해 활성화되지 않은 탭 메뉴의 슬라이드에도 영향을 끼쳤다. 이 문제를 해결하기 위해 활성화된 탭 메뉴의 슬라이드의 realIndex 값만 업데이트하는 방식으로 변경했다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -36,7 +36,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -64,11 +64,11 @@ tags:
                         <li class="swiper-slide">slider4</li>
                         <li class="swiper-slide">slider5</li>
                     </ul>
-                </div>
+                
                 <span class="btn btn_prev">이전</span>
                 <span class="btn btn_next">다음</span>
-            </div>
-        </div>
+            
+        
         <div id="con02" class="tab_list">
             <!-- swiper-slide -->
             <div class="slider">
@@ -80,11 +80,11 @@ tags:
                         <li class="swiper-slide">slider4</li>
                         <li class="swiper-slide">slider5</li>
                     </ul>
-                </div>
+                
                 <span class="btn btn_prev">이전</span>
                 <span class="btn btn_next">다음</span>
-            </div>
-        </div>
+            
+        
         <div id="con03" class="tab_list">
             <!-- swiper-slide -->
             <div class="slider">
@@ -96,13 +96,13 @@ tags:
                         <li class="swiper-slide">slider4</li>
                         <li class="swiper-slide">slider5</li>
                     </ul>
-                </div>
+                
                 <span class="btn btn_prev">이전</span>
                 <span class="btn btn_next">다음</span>
-            </div>
-        </div>
-    </div>
-</div>
+            
+        
+    
+
 ```
 
 ## CSS 스타일
@@ -129,7 +129,7 @@ tags:
 ```
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -139,7 +139,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ## jQuery 코드
 
@@ -235,3 +235,4 @@ function slider() {
 <div class="btn_wrap">
     <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-19-swiper-tab/">예제결과 미리보기</a>
 </div>
+

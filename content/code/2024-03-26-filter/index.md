@@ -18,7 +18,7 @@ tags:
 JavaScript에서 배열을 다룰 때 종종 필요한 작업 중 하나는 특정 조건을 만족하는 요소들만 추출하는 것입니다. 이를 위해 JavaScript에서는 `filter()` 메서드를 제공합니다. `filter()` 메서드는 원본 배열에서 특정 조건을 만족하는 요소들로 이루어진 새로운 배열을 생성합니다. 이 글에서는 JavaScript의 `filter()` 메서드에 대해 자세히 알아보겠습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,7 +28,7 @@ JavaScript에서 배열을 다룰 때 종종 필요한 작업 중 하나는 특�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -69,7 +69,7 @@ const products = [
 const affordableProducts = products.filter(product => product.price < 100);
 ```
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -79,7 +79,7 @@ const affordableProducts = products.filter(product => product.price < 100);
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 **콜백 함수 팁**  
 * 콜백 함수는 간결하고 명확하게 작성하는 것이 좋습니다.

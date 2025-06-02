@@ -17,7 +17,7 @@ tags:
 봄의 따스함과 벚꽃이 만발한 풍경을 연상시키는 웹사이트는 방문자에게 감동적인 인상을 남길 수 있습니다. 이 글에서는 jQuery와 CSS를 결합하여, 마치 봄바람을 타고 날리는 벚꽃 잎의 모습을 재현하는 효과를 만드는 방법에 대해 알아보겠습니다. 자동으로 화면에 벚꽃이 흩날리는 배경을 구현하며, 웹사이트에 생동감과 로맨틱한 느낌을 더할 수 있는 코드를 소개합니다.    
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -27,7 +27,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 
 <br>
@@ -37,7 +37,7 @@ tags:
 이 div내에서 벚꽃 잎이 날리는 효과가 발생하게 됩니다.  
 
 ```html
-<div class="cherry_blossom"></div>
+<div class="cherry_blossom">
 ```
 
 ## CSS 스타일
@@ -102,7 +102,7 @@ tags:
    - 100%에서는 top: 100% 및 opacity: 0.2로 설정하여 애니메이션이 종료될 때 화면 아래로 내려가며 투명도가 낮아집니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -112,7 +112,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -233,4 +233,5 @@ jQuery와 CSS3 애니메이션을 활용하여 벚꽃 잎이 흩날리는 배경
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-02-21-cherry-blossom/" target="_blank">예제결과 미리보기</a>
 </div>
+
 

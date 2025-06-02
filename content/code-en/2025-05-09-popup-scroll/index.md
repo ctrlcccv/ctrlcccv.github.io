@@ -28,7 +28,7 @@ tags:
 You’ve probably seen this: you open a popup on your phone, try to scroll inside it, and suddenly the background page starts moving too. It’s distracting and frustrating. Fortunately, there are reliable ways to keep scrolling limited to the popup itself—or to disable background scroll entirely. In this guide, you’ll learn how to do both using CSS (`overscroll-behavior`) and a bit of jQuery. Let’s make sure your modals feel solid and user-friendly on any device.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -38,7 +38,7 @@ You’ve probably seen this: you open a popup on your phone, try to scroll insid
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -50,16 +50,16 @@ Here’s the basic markup we’ll be working with:
 <div class="wrap">
     <a href="#" class="btn">Enable body scroll<br>(using only overscroll-behavior: none)</a>
     <a href="#" class="btn type_disable">Disable body scroll</a>
-</div>
+
 <div class="pop_wrap">
-    <div class="bg"></div>
+    <div class="bg">
     <div class="popup">
         <a href="#" class="close"><img src="images/close.png" alt="닫기"></a>
         <div class="popup_con">
             Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content
-        </div>
-    </div>
-</div>
+        
+    
+
 ```
 
 * `.btn` triggers the popup.
@@ -176,14 +176,7 @@ Next, we’ll set up the layout and scroll behavior. Here's the CSS:
 * `.disable_scroll` locks the background by removing all scroll and touch interaction.
 * `overscroll-behavior: none` stops scroll chaining to parent elements.
 
-<br>
 
-## jQuery for Interaction
-
-Here’s the jQuery to control opening and closing the popup:
-
-
-<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -193,7 +186,13 @@ Here’s the jQuery to control opening and closing the popup:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
+
+<br>
+
+## jQuery for Interaction
+
+Here’s the jQuery to control opening and closing the popup:
 
 ```javascript
 $(document).ready(function () {
@@ -263,5 +262,6 @@ Choose based on the kind of user experience you’re designing for. And if you�
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-03-13-popup-scroll/">Live Example Preview</a>
 </div>
+
 
 

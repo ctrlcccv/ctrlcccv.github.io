@@ -30,7 +30,7 @@ Have you ever found it frustrating to enter a phone number split across multiple
 This small UX improvement can make a big difference, especially on mobile devices where precise tapping is harder. In this tutorial, I'll show you how to implement automatic field transitions for phone number inputs using jQuery.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -40,7 +40,7 @@ This small UX improvement can make a big difference, especially on mobile device
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -55,8 +55,8 @@ This small UX improvement can make a big difference, especially on mobile device
         <input type="tel" id="phone2" maxlength="4" class="phone_input" placeholder="4567" inputmode="numeric" pattern="[0-9]*" aria-label="First part of phone number">
         <span class="separator" aria-hidden="true">-</span>
         <input type="tel" id="phone3" maxlength="4" class="phone_input" placeholder="8901" inputmode="numeric" pattern="[0-9]*" aria-label="Last part of phone number">
-    </div>
-</div>
+    
+
 ```
 
 * **Input Fields**  
@@ -141,7 +141,7 @@ The dashes between fields are styled for visibility but excluded from screen rea
 </span>
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -151,7 +151,7 @@ The dashes between fields are styled for visibility but excluded from screen rea
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -265,4 +265,5 @@ Have you tried something like this before? Or have a UX annoyance you want to fi
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-14-autofocus/">Live Example Preview</a>
-</div> 
+</div>
+ 

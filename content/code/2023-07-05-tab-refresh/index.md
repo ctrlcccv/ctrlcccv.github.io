@@ -15,7 +15,7 @@ tags:
 
 탭메뉴는 좁은 공간에 많은 내용을 담을 수 있어 웹사이트에서 자주 사용하는 UI 요소입니다. 하지만 기본 탭메뉴는 페이지를 새로고침하면 항상 첫 번째 탭으로 돌아가는 문제점이 있죠. 특히 내용이 많은 탭을 보다가 새로고침이 되면, 사용자는 다시 원하는 탭을 찾아 클릭해야 하는 번거로움을 겪게 됩니다. 이 글에서는 URL 파라미터를 활용해 새로고침 후에도 사용자가 마지막으로 봤던 탭을 그대로 유지하는 방법을 알아보겠습니다.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -43,15 +43,15 @@ tags:
     <div class="tab_con">
         <div id="con01" class="tab_list">
             1번째 컨텐츠
-        </div>
+        
         <div id="con02" class="tab_list">
             2번째 컨텐츠
-        </div>
+        
         <div id="con03" class="tab_list">
             3번째 컨텐츠
-        </div>
-    </div>
-</div>
+        
+    
+
 ```
 * **탭메뉴 제목 영역**  
 <span class="txt">
@@ -107,7 +107,7 @@ z-index를 사용해 활성화된 탭이 하단 구분선 위에 표시되도록
 고정된 높이와 내부 여백으로 콘텐츠를 보기 좋게 배치했습니다.
 </span>
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -117,7 +117,7 @@ z-index를 사용해 활성화된 탭이 하단 구분선 위에 표시되도록
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -246,3 +246,4 @@ popstate 이벤트를 감지하여 브라우저의 뒤로가기, 앞으로가기
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-05-tab-refresh/tab-menu/">예제결과 미리보기</a>
 </div>
+

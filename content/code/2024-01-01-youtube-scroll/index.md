@@ -16,7 +16,6 @@ tags:
 jQuery와 YouTube Iframe API를 사용하여 사용자가 스크롤 하면서 동영상이 있는 영역에 도달했을 때 자동으로 해당 유튜브 영상을 재생하고, 해당 영역에서 벗어났을 때 영상을 일시 중지하도록 하는 기능을 구현하는 코드를 설명합니다.   
 
 
-<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +25,6 @@ jQuery와 YouTube Iframe API를 사용하여 사용자가 스크롤 하면서 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
 
 <br>
 
@@ -35,13 +33,13 @@ jQuery와 YouTube Iframe API를 사용하여 사용자가 스크롤 하면서 �
 ```html
 <div class="con">
     스크롤을 내려서 유튜브 동영상의<br>자동재생을 확인해보세요.
-</div>
+
 <div class="video" data-video-id="rJe_YsLJqUY">
-    <div class="player"></div>
-</div>
+    <div class="player">
+
 <div class="video" data-video-id="rJe_YsLJqUY">
-    <div class="player"></div>
-</div>
+    <div class="player">
+
 <!-- 더 많은 .video 요소를 추가할 수 있습니다. -->
 ```
 - **동영상 컨테이너 (.video)**
@@ -62,7 +60,6 @@ jQuery와 YouTube Iframe API를 사용하여 사용자가 스크롤 하면서 �
   - `.player` 요소는 비디오 플레이어가 들어갈 자리를 절대 위치로 지정합니다.
 
 
-<div class="ads_wrap">
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -72,7 +69,6 @@ jQuery와 YouTube Iframe API를 사용하여 사용자가 스크롤 하면서 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
 
 ## jQuery 코드
 
@@ -166,3 +162,4 @@ jQuery와 YouTube Iframe API를 활용하여 스크롤에 반응하는 동영상
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-01-youtube-scroll/">예제결과 미리보기</a>
 </div>
+

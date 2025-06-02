@@ -15,7 +15,7 @@ tags:
 jQuery를 활용하여 마우스 움직임에 따라 움직이는 눈의 효과를 구현하는 방법을 소개합니다. 이 코드는 웹 페이지에 독특한 상호작용 요소를 추가하며, 사용자의 마우스 움직임을 추적하여 눈동자가 마우스 커서를 따라 움직이는 시각적 효과를 생성합니다. 이런 종류의 동적인 요소는 페이지에 재미와 참여도를 더하는 데 효과적입니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ jQuery를 활용하여 마우스 움직임에 따라 움직이는 눈의 효과�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -34,7 +34,7 @@ jQuery를 활용하여 마우스 움직임에 따라 움직이는 눈의 효과�
 <div class="eyes">
     <span class="eye"></span>
     <span class="eye"></span>
-</div>
+
 ```
 * **컨테이너**  
   * eyes 클래스는 두 개의 눈을 담는 컨테이너로 작동합니다. 눈 요소를 그룹화하고, 전체적인 레이아웃을 관리합니다.
@@ -67,7 +67,7 @@ jQuery를 활용하여 마우스 움직임에 따라 움직이는 눈의 효과�
   * 눈동자의 색상은 .eye:before의 background 속성으로 변경합니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -77,7 +77,7 @@ jQuery를 활용하여 마우스 움직임에 따라 움직이는 눈의 효과�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -130,3 +130,4 @@ Query를 활용하여 마우스 움직임을 따라 눈이 움직이는 효과�
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-29-cursor-eye/">예제결과 미리보기</a>
 </div>
+

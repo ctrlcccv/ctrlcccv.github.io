@@ -18,7 +18,7 @@ tags:
 자바스크립트에서 객체를 다룰 때, 특히 객체의 속성 이름을 동적으로 생성하고자 할 때가 있습니다. 이때 ES6에서 도입된 Computed Property Name(계산된 속성 이름)은 매우 유용한 기능입니다. 이 기능은 객체 속성의 이름을 변수나 식을 통해 동적으로 생성할 수 있게 해줍니다. 이 글에서는 Computed Property Name이 무엇인지, 어떻게 사용하는지, 그리고 실제 개발에서 어떻게 활용할 수 있는지에 대해 알아보겠습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,7 +28,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -65,7 +65,7 @@ console.log(obj); // { 4: "four", helloworld: "helloworld" }
 위 코드에서 `obj` 객체는 2와 2를 더하여 `4`라는 속성 이름을 생성하고, "hello"와 "world" 문자열을 연결하여 `helloworld`라는 속성 이름을 동적으로 생성합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -75,7 +75,7 @@ console.log(obj); // { 4: "four", helloworld: "helloworld" }
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -185,7 +185,7 @@ const App = () => {
         <div>
             <h1>Count: {count}</h1>
             <button onClick={handleClick}>Increase Count</button>
-        </div>
+        
     );
 };
 

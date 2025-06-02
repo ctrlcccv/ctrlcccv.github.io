@@ -33,7 +33,7 @@ Modern websites often need multiple tab components on a single page – perhaps 
 
 In this tutorial, I'll show you how to build a scalable tab menu system with jQuery where adding new instances requires only HTML markup – with zero additional JavaScript. Let's create a solution that's both elegant and practical!
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -43,7 +43,7 @@ In this tutorial, I'll show you how to build a scalable tab menu system with jQu
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -65,17 +65,17 @@ Our solution starts with a consistent HTML structure that serves as the template
         <div id="tab1_1" class="tab_content">
             <h3>First Tab Content</h3>
             <p>Content for the first tab goes here.</p>
-        </div>
+        
         <div id="tab1_2" class="tab_content">
             <h3>Second Tab Content</h3>
             <p>Content for the second tab goes here.</p>
-        </div>
+        
         <div id="tab1_3" class="tab_content">
             <h3>Third Tab Content</h3>
             <p>Content for the third tab goes here.</p>
-        </div>
-    </div>
-</div>
+        
+    
+
 
 <h2>Second Tab Menu</h2>
 <div class="tab_container">
@@ -88,17 +88,17 @@ Our solution starts with a consistent HTML structure that serves as the template
         <div id="tab2_1" class="tab_content">
             <h3>Announcements</h3>
             <p>Latest announcements will appear here.</p>
-        </div>
+        
         <div id="tab2_2" class="tab_content">
             <h3>Frequently Asked Questions</h3>
             <p>FAQ content will appear here.</p>
-        </div>
+        
         <div id="tab2_3" class="tab_content">
             <h3>Contact Form</h3>
             <p>Contact form will appear here.</p>
-        </div>
-    </div>
-</div>
+        
+    
+
 ```
 
 * **The Container Pattern**  
@@ -125,11 +125,11 @@ When implementing multiple tab systems on one page, preventing ID conflicts is c
 ```html
 <!-- First instance uses the "tab1_" prefix -->
 <li><a href="#tab1_1">Tab 1</a></li>
-<div id="tab1_1" class="tab_content">...</div>
+<div id="tab1_1" class="tab_content">...
 
 <!-- Second instance uses the "tab2_" prefix -->
 <li><a href="#tab2_1">Announcements</a></li>
-<div id="tab2_1" class="tab_content">...</div>
+<div id="tab2_1" class="tab_content">...
 ```
 
 This namespacing approach ensures that each tab content has a unique identifier and stays properly linked to its controller. Think of it as creating separate channels that allow multiple tab systems to operate independently without interference.
@@ -170,7 +170,7 @@ Hover and active states provide clear visual cues to users, enhancing usability.
 All content panels start hidden and are revealed only when needed. The padding ensures that tab content remains readable with comfortable spacing.
 </span>
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -180,7 +180,7 @@ All content panels start hidden and are revealed only when needed. The padding e
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -257,7 +257,7 @@ This tab system provides a solid foundation that you can extend in many ways:
 
 The beauty of this approach is that it maintains a clean separation between structure (HTML), presentation (CSS), and behavior (JavaScript) while keeping your code DRY.
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -267,7 +267,7 @@ The beauty of this approach is that it maintains a clean separation between stru
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -284,3 +284,4 @@ What other UI components have you made reusable in your projects? Have you found
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-27-tab-menu/">Live Example Preview</a>
 </div>
+

@@ -15,7 +15,7 @@ tags:
 CSS와 jQuery를 사용하여 웹 페이지에 눈 내리는 효과를 만드는 방법을 소개합니다. 이러한 효과는 특히 겨울철이나 특별한 행사를 위한 웹사이트에 매력적인 추가 요소가 될 수 있습니다. 본 글에서는 이러한 효과를 만드는 과정을 자세히 설명하고, 반응형 디자인을 고려하여 다양한 기기에서도 잘 작동하도록 구현하는 방법을 단계별로 안내합니다.     
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ CSS와 jQuery를 사용하여 웹 페이지에 눈 내리는 효과를 만드는
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -33,7 +33,7 @@ CSS와 jQuery를 사용하여 웹 페이지에 눈 내리는 효과를 만드는
 ```html
 <div class="snow_wrap">
     <canvas class="snow"></canvas>
-</div>
+
 ```
 * snow_wrap 클래스는 캔버스를 포함하는 컨테이너입니다.
 * show 클래스는 눈송이 애니메이션을 표시하는 캔버스 요소입니다.   
@@ -139,7 +139,7 @@ setInterval(draw, 33); // 33ms 간격으로 눈송이 애니메이션을 시작�
 ```
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -149,7 +149,7 @@ setInterval(draw, 33); // 33ms 간격으로 눈송이 애니메이션을 시작�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 * **캔버스 초기화 및 크기 설정**  
   * 캔버스와 2D 렌더링 컨텍스트를 초기화합니다.
@@ -191,3 +191,4 @@ CSS와 jQuery를 사용하여 눈 내리는 효과를 만드는 과정을 단계
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-29-snow/">예제결과 미리보기</a>
 </div>
+

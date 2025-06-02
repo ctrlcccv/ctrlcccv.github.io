@@ -16,7 +16,7 @@ tags:
 웹 페이지를 스크롤 할 때 사용자의 위치를 가시적으로 나타내주는 프로그레스 바(진행 표시줄)는 사용자 경험을 향상시키는 아주 효과적인 방법입니다. 이러한 표시줄은 사용자가 문서 내에서 어디쯤 있는지, 얼마나 많은 내용을 소비했는지 한눈에 파악할 수 있도록 도와줍니다. 이 글에서는 jQuery를 이용해서 페이지 상단에 고정된 위치에 스크롤에 따라 너비가 변하는 프로그레스 바를 구현하는 방법에 대해 상세하게 알아보겠습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,15 +26,15 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
 ## HTML 구조
 ```html
 <div class="progress">
-    <div class="bar"></div>
-</div>
+    <div class="bar">
+
 ```
 * **프로그레스 컨테이너**
   * 클래스 `progress`로 지정된 `<div>` 요소는 프로그레스 바의 외부 컨테이너 역할을 합니다.
@@ -90,7 +90,7 @@ function updateProgressBar() {
 }
 ```
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -100,7 +100,7 @@ function updateProgressBar() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 * **문서와 윈도우 요소의 높이 측정**
   * 문서의 전체 높이를 `$(document).height()`로 가져옵니다.
@@ -129,3 +129,4 @@ function updateProgressBar() {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-18-scroll-progress/" target="_blank">예제결과 미리보기</a>
 </div>
+

@@ -15,7 +15,7 @@ tags:
 사용자들이 웹사이트를 탐색할 때 부드럽고 직관적인 스크롤 경험을 제공하는 것은 필수적입니다. 이 예제에서는 jQuery를 활용하여 fullpage.js를 대체하는 풀페이지 스크롤 반응형 웹 페이지를 구현하는 방법을 설명합니다. 이 코드는 사용자가 웹 페이지의 다양한 섹션을 쉽게 탐색할 수 있도록 도와주며, 화면 크기에 따라 적절하게 반응하는 반응형 디자인을 특징으로 합니다. 이 구현은 모바일 기기 사용자를 포함한 모든 사용자에게 매끄러운 스크롤 경험을 제공합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -89,7 +89,7 @@ footer {height: 300px;background: #000;}
   * 각 섹션은 다른 배경 색상을 가지며, 화면 높이에 맞춰 조정됩니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -99,7 +99,7 @@ footer {height: 300px;background: #000;}
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -264,3 +264,4 @@ function fullPage() {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-04-fullpage/">예제결과 미리보기</a>
 </div>
+

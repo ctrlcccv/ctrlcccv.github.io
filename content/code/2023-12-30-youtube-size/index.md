@@ -16,7 +16,7 @@ tags:
 유튜브 동영상을 웹페이지에 적절하게 삽입하는 것은 웹사이트의 시각적 매력을 높일 수 있는 중요한 방법입니다. 이 글에서는 유튜브 동영상을 반응형으로 만드는 CSS 기법을 소개하며, 사용자가 어떤 플랫폼이나 디바이스에서 접속하더라도 최적의 동영상 시청 경험을 제공하는 방법을 알아봅니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +26,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -36,8 +36,8 @@ tags:
 <div class="wrap">
     <div class="video">
         <iframe src="https://www.youtube.com/embed/Jruqk1rSGeg?si=55AFpgUVVnuSOb7p" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </div>
-</div>
+    
+
 ```
 * **외부 컨테이너 (.wrap)**
   * `wrap` 클래스를 가진 `div`는 유튜브 비디오를 감싸는 컨테이너로 사용되며, CSS를 통해 스타일링됩니다.
@@ -53,7 +53,7 @@ tags:
   * `allowfullscreen` 속성은 사용자가 전체 화면 모드로 비디오를 볼 수 있도록 허용합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -63,7 +63,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -122,3 +122,4 @@ CSS에서 `padding-bottom` 비율을 계산함으로써 특정 가로 세로 비
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-30-youtube-size/">예제결과 미리보기</a>
 </div>
+

@@ -16,7 +16,7 @@ tags:
 웹 페이지의 내비게이션은 사용자 경험에서 매우 중요한 부분입니다. 특히, 내비게이션 메뉴에 마우스를 올렸을 때 동적인 효과를 주면 사용자의 시선을 끌고 상호작용을 유도할 수 있습니다. 이번 블로그 글에서는 jQuery와 CSS를 사용하여 메뉴에 마우스를 올렸을 때 밑줄이 움직이는 'hover 효과'를 만드는 방법에 대해 설명하겠습니다.   
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +26,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -42,7 +42,7 @@ tags:
             <li><a href='#'>메뉴 5</a></li>
         </ul>
         <span class='marker'></span>
-    </div>
+    
 </nav>
 ```
 - `<nav>` 태그는 웹 페이지의 내비게이션 섹션을 정의하는데 사용됩니다. 고유한 식별자와 클래스 이름을 줄 수 있어 스타일링과 JavaScript 조작이 쉬워집니다.
@@ -122,7 +122,7 @@ nav .inner:hover .marker {
 - 메뉴 아이템에 대한 스타일은 `hover` 상태일 때와 일반 상태에서 다르게 설정하여 시각적인 피드백을 제공합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -132,7 +132,7 @@ nav .inner:hover .marker {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -168,3 +168,4 @@ jQuery와 CSS를 이용하여 메뉴 밑줄 이동 효과를 만드는 방법을
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-31-underline-move/" target="_blank">예제결과 미리보기</a>
 </div>
+

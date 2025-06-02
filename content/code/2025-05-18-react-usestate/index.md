@@ -23,7 +23,7 @@ tags:
 웹 개발을 하다 보면 사용자의 입력이나 버튼 클릭, API 호출 등으로 데이터가 변경되는 상황을 자주 마주하게 됩니다. 이런 변경 사항을 화면에 효과적으로 반영하는 것이 리액트의 핵심인데, 이때 필요한 것이 바로 useState 훅입니다. 마치 메모장에 숫자를 적어두고 필요할 때 확인하거나 바꾸는 것처럼 간단하게 상태를 관리할 수 있습니다.
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -33,7 +33,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -50,7 +50,7 @@ function Counter() {
     <div>
       <p>현재 카운트: {count}</p>
       <button onClick={() => setCount(count + 1)}>증가</button>
-    </div>
+    
   );
 }
 ```
@@ -86,7 +86,7 @@ function NameInput() {
         placeholder="이름을 입력하세요"
       />
       <p>안녕하세요, {이름 || '익명'}님!</p>
-    </div>
+    
   );
 }
 ```
@@ -133,7 +133,7 @@ function UserForm() {
       </select>
       
       <p>이름: {사용자.이름}, 나이: {사용자.나이}, 취미: {사용자.취미 || '없음'}</p>
-    </div>
+    
   );
 }
 ```
@@ -141,7 +141,7 @@ function UserForm() {
 📝 **참고**: 객체 상태 업데이트 시 반드시 새 객체를 생성해야 합니다. `사용자변경({...사용자, 이름: '홍길동'})`처럼 스프레드 연산자를 사용하면 기존 객체의 모든 속성을 복사한 후 특정 속성만 변경할 수 있습니다.
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin="anonymous"></script>
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -151,7 +151,7 @@ function UserForm() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -189,7 +189,7 @@ function SafeCounter() {
       <button onClick={한번증가}>1 증가</button>
       <button onClick={세번증가}>3 증가 (올바른 방식)</button>
       <button onClick={잘못된증가}>3 증가 (잘못된 방식)</button>
-    </div>
+    
   );
 }
 ```
@@ -235,7 +235,7 @@ function ExpensiveInitialState() {
     <div>
       <p>계산 결과: {결과}</p>
       <button onClick={() => 결과변경(이전값 => 이전값 + 1)}>증가</button>
-    </div>
+    
   );
 }
 ```
@@ -266,7 +266,7 @@ function AsyncUpdate() {
     <div>
       <p>카운트: {카운트}</p>
       <button onClick={버튼클릭}>증가</button>
-    </div>
+    
   );
 }
 ```
@@ -306,7 +306,7 @@ function TodoApp() {
           <li key={인덱스}>{할일}</li>
         ))}
       </ul>
-    </div>
+    
   );
 }
 ```

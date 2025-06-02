@@ -15,7 +15,7 @@ tags:
 토글 스위치는 웹 사이트나 애플리케이션에서 특정 기능이나 설정을 활성화하거나 비활성화하는 데 일반적으로 사용됩니다. 이 글에서는 CSS를 사용하여 직관적으로 상호 작용할 수 있는 토글 스위치 만드는 방법을 살펴보겠습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -58,7 +58,7 @@ tags:
 ```
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -68,7 +68,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 * **.toggle_switch**   
 **(토글 스위치 컨테이너 스타일링)**
@@ -112,3 +112,4 @@ tags:
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io//ctrlcccv-demo/2023-11-14-checkbox-toggle/">예제결과 미리보기</a>
 </div>
+

@@ -30,7 +30,7 @@ tags:
 웹 개발을 하다 보면 사용자의 파일 업로드를 처리해야 할 상황이 자주 발생합니다. 특히 이미지 파일의 경우, 업로드 후 미리보기를 제공하면 사용자 만족도를 크게 높일 수 있습니다. 이번 포스트에서는 jQuery를 활용하여 이미지 파일을 업로드하고 미리 보는 기능을 어떻게 구현하는지 알아보겠습니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -40,7 +40,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -55,8 +55,8 @@ tags:
     <div class="preview">
         <span class="img_box"><img class="preview_img" src="#" alt="Selected Image"></span>
         <button type="button" class="delect"><img src="images/image_file_delect.png" alt="삭제"></button>
-    </div>
-</div>
+    
+
 ```
 * **업로드 라벨 및 버튼**  
 <span class="txt">
@@ -86,8 +86,8 @@ label 안에 있는 span 요소가 업로드 버튼처럼 작동하며, 클릭 �
     <div class="preview">
         <span class="img_box"><img class="preview_img" src="#" alt="선택한 이미지"></span>
         <button type="button" class="delect"><img src="images/image_file_delect.png" alt="삭제"></button>
-    </div>
-</div>
+    
+
 
 <!-- 두 번째 이미지 업로드 필드 -->
 <div class="image_file">
@@ -98,8 +98,8 @@ label 안에 있는 span 요소가 업로드 버튼처럼 작동하며, 클릭 �
     <div class="preview">
         <span class="img_box"><img class="preview_img" src="#" alt="선택한 이미지"></span>
         <button type="button" class="delect"><img src="images/image_file_delect.png" alt="삭제"></button>
-    </div>
-</div>
+    
+
 ```
 
 이처럼 구조만 반복해서 작성하면, 자바스크립트가 각 .image_file 요소를 기준으로 동작하므로 서로 간섭 없이 각각 이미지 업로드와 삭제 기능을 사용할 수 있습니다.
@@ -140,7 +140,7 @@ input[type="file"]은 기본 스타일을 완전히 숨기고, 대신 시각적�
 <span class="txt">선택된 이미지를 전체 영역에 꽉 채워 보여주며, 삭제 버튼은 항상 일정 위치에 고정됩니다.</span>  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -150,7 +150,7 @@ input[type="file"]은 기본 스타일을 완전히 숨기고, 대신 시각적�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 

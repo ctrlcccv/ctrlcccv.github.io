@@ -35,7 +35,7 @@ comments : false
 * 레몬은 비타민 C가 풍부하여 면역력을 높이고 가래를 묽게 하는 데 도움이 됩니다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -45,7 +45,7 @@ comments : false
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ### 호흡기 관리
 

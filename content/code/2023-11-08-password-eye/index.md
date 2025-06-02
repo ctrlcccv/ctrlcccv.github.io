@@ -19,7 +19,7 @@ Internet Explorer 및 Microsoft Edge와 같은 일부 브라우저에서는 이�
 IE 및 Edge 브라우저에서 비밀번호 입력 필드의 "눈모양 표시" 버튼을 숨기려면 -ms-reveal 및 -ms-clear CSS 선택자를 사용해야 합니다. 이 선택자는 각각 눈모양 표시 버튼과 비밀번호 지우기 버튼을 나타냅니다. 아래는 이를 숨기는 방법을 보여주는 CSS 코드입니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -29,7 +29,7 @@ IE 및 Edge 브라우저에서 비밀번호 입력 필드의 "눈모양 표시" 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 

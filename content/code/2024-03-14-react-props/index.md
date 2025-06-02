@@ -21,7 +21,7 @@ tags:
 리액트에서 컴포넌트는 코드 재사용성을 높여 개발 효율성을 극대화하는 핵심 요소입니다. 그러나 컴포넌트 간에 데이터를 전달해야 할 때 어려움이 발생할 수 있습니다. 이러한 문제를 해결하기 위해 리액트는 props라는 개념을 도입하여 부모 컴포넌트에서 자식 컴포넌트로 데이터를 효과적으로 전달할 수 있게 합니다. 이 글에서는 props를 심층적으로 이해하고, 다양한 활용 방법 및 최적화에 대해 알아보겠습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -31,7 +31,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -51,7 +51,7 @@ const UserCard = ({ userName, userAge }) => {
         <div>
             <h1>{userName}</h1>
             <p>나이는 {userAge}살입니다.</p>
-        </div>
+        
     );
 };
 
@@ -59,7 +59,7 @@ const App = () => {
     return (
         <div>
             <UserCard userName="홍길동" userAge={20} />
-        </div>
+        
     );
 };
 ```
@@ -75,7 +75,7 @@ class UserCard extends React.Component {
             <div>
                 <h1>{userName}</h1>
                 <p>나이는 {userAge}살입니다.</p>
-            </div>
+            
         );
     }
 }
@@ -84,13 +84,13 @@ const App = () => {
     return (
         <div>
             <UserCard userName="이순신" userAge={30} />
-        </div>
+        
     );
 };
 ```
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -100,7 +100,7 @@ const App = () => {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ## props의 다양한 데이터 유형
 
@@ -128,7 +128,7 @@ const UserCard = ({
                 <button onClick={handleProfileClick}>프로필 보기</button>
             )}
             {CustomComponent && <CustomComponent />}
-        </div>
+        
     );
 };
 
@@ -147,7 +147,7 @@ const App = () => {
                 handleProfileClick={handleProfileClick}
                 CustomComponent={() => <p>추가 정보입니다.</p>}
             />
-        </div>
+        
     );
 };
 ```
@@ -168,7 +168,7 @@ const CounterApp = () => {
         <div>
             <CounterDisplay counter={counter} />
             <button onClick={handleClick}>카운터 증가</button>
-        </div>
+        
     );
 };
 
@@ -176,7 +176,7 @@ const CounterDisplay = ({ counter }) => {
     return (
         <div>
             <h1>카운터: {counter}</h1>
-        </div>
+        
     );
 };
 
@@ -192,7 +192,7 @@ const EnhancedCounterApp = () => {
     return (
         <div>
             <EnhancedCounterDisplay />
-        </div>
+        
     );
 };
 ```
@@ -207,7 +207,7 @@ const UserCard = ({ userName, userAge }) => {
         <div>
             <h1>{userName}</h1>
             <p>나이는 {userAge}살입니다.</p>
-        </div>
+        
     );
 };
 
@@ -222,7 +222,7 @@ const App = () => {
             <UserCard userName="홍길동" userAge={20} /> // 유효한 props
             <UserCard userAge={20} /> // ❌ 오류 발생: userName prop이 누락되었습니다.
             <UserCard userName="이순신" userAge="30" /> // ❌ 오류 발생: userAge prop은 숫자형이어야 합니다.
-        </div>
+        
     );
 };
 ```
@@ -247,7 +247,7 @@ const UserCard = ({ userName, userAge, extraProp }) => {
             <h1>{userName}</h1>
             <p>나이는 {userAge}살입니다.</p>
             <p>추가 prop: {extraProp}</p>
-        </div>
+        
     );
 };
 
@@ -257,7 +257,7 @@ const App = () => {
     return (
         <div>
             <EnhancedComponent userName="김유신" userAge={40} />
-        </div>
+        
     );
 };
 ```
@@ -269,7 +269,7 @@ const Wrapper = ({ content }) => {
     return (
         <div>
             {content}
-        </div>
+        
     );
 };
 
@@ -280,7 +280,7 @@ const App = () => {
                 <h1>안녕하세요</h1>
                 <p>리액트 props에 대한 블로그 글입니다.</p>
             </Wrapper>
-        </div>
+        
     );
 };
 ```
@@ -299,7 +299,7 @@ const DataDisplay = ({ items }) => {
             {processedItems.map((item) => (
                 <p key={item}>{item}</p>
             ))}
-        </div>
+        
     );
 };
 ```
@@ -330,7 +330,7 @@ const UserList = () => {
             {processedNames.map((name) => (
                 <p key={name}>{name}</p>
             ))}
-        </div>
+        
     );
 };
 
@@ -338,7 +338,7 @@ const App = () => {
     return (
         <div>
             <UserList />
-        </div>
+        
     );
 };
 ```

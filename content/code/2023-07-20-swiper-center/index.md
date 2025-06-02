@@ -26,7 +26,7 @@ Swiper 슬라이드의 centeredSlides 옵션을 사용하여 두 가지 유형�
 [두 번째 유형](#두번째-유형)은 CSS의 transform: scale() 속성을 활용하여 슬라이드 요소의 크기에 변화를 주어 3D carousel 형태의 슬라이드를 만들었다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -36,7 +36,7 @@ Swiper 슬라이드의 centeredSlides 옵션을 사용하여 두 가지 유형�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -53,10 +53,10 @@ Swiper 슬라이드의 centeredSlides 옵션을 사용하여 두 가지 유형�
             <li class="swiper-slide">slider4</li>
             <li class="swiper-slide">slider5</li>
         </ul>
-    </div>
+    
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-</div>
+
 ```
 
 ### CSS 스타일
@@ -151,6 +151,7 @@ function slider() {
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-20-swiper-center/type1/">예제결과 미리보기 (첫번째 유형)</a>
 </div>
 
+
 <br>
 
 ## 두번째 유형
@@ -166,10 +167,10 @@ function slider() {
             <li class="swiper-slide">slider4</li>
             <li class="swiper-slide">slider5</li>
         </ul>
-    </div>
+    
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-</div>
+
 ```
 
 ### CSS 스타일
@@ -214,7 +215,7 @@ function slider() {
 영역별로 크기를 지정하기 위해 transform: scale() 속성을 사용했다. 그리고 슬라이드가 넘어갈 때 크기가 부드럽게 변화하도록 transition 속성을 선언했다.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -224,7 +225,7 @@ function slider() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ### jQuery 코드
 ```js

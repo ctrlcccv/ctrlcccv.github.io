@@ -29,7 +29,7 @@ Have you ever wanted to showcase multiple pieces of content in a slider that not
 For instance, an online store might want to feature a product list, or a portfolio might aim to effectively showcase its work. In this post, we'll dive into how to implement a responsive grid slider using jQuery and the Swiper library.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -39,7 +39,7 @@ For instance, an online store might want to feature a product list, or a portfol
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -49,24 +49,24 @@ For instance, an online store might want to feature a product list, or a portfol
 <div class="slider">
     <div class="viewport">
         <div class="swiper-wrapper">
-            <div class="item">1</div>
-            <div class="item">2</div>
-            <div class="item">3</div>
-            <div class="item">4</div>
-            <div class="item">5</div>
-            <div class="item">6</div>
-            <div class="item">7</div>
-            <div class="item">8</div>
-            <div class="item">9</div>
-            <div class="item">10</div>
-            <div class="item">11</div>
-            <div class="item">12</div>
-        </div>
-    </div>
-    <div class="swiper-prev">Previous</div>
-    <div class="swiper-next">Next</div>
-    <div class="swiper-pagination"></div>
-</div>
+            <div class="item">1
+            <div class="item">2
+            <div class="item">3
+            <div class="item">4
+            <div class="item">5
+            <div class="item">6
+            <div class="item">7
+            <div class="item">8
+            <div class="item">9
+            <div class="item">10
+            <div class="item">11
+            <div class="item">12
+        
+    
+    <div class="swiper-prev">Previous
+    <div class="swiper-next">Next
+    <div class="swiper-pagination">
+
 ```
 
 * **Basic Slider Structure**  
@@ -118,7 +118,7 @@ Pagination is centered using `flex`, with styles defined for each `bullet` and t
 For mobile screens (767px and below), the grid column width is adjusted to ensure three items remain visible on narrower screens.
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -128,7 +128,7 @@ For mobile screens (767px and below), the grid column width is adjusted to ensur
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -203,7 +203,7 @@ function slideAct() {
             const $items = state.originalItems[index].clone();
             const itemCount = $items.length;
             for (let i = 0; i < itemCount; i += itemsPerView) {
-                const $slide = $('<div class="swiper-slide"></div>');
+                const $slide = $('<div class="swiper-slide">');
                 $items.slice(i, i + itemsPerView).clone().appendTo($slide);
                 $wrapper.append($slide);
             }
@@ -316,3 +316,4 @@ Was this tutorial helpful? If you have any questions or suggestions, feel free t
 <div class="btn_wrap">
     <a target="_blank" href="/ctrlcccv-demo/2023-03-09-swiper-col/">Live Example Preview</a>
 </div>
+

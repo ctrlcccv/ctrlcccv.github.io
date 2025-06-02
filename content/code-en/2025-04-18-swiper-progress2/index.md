@@ -27,12 +27,12 @@ tags:
 ---
 An intuitive way to guide users—step by step.  
 <br>
-When you're presenting content in a sequence—think onboarding flows, quizzes, product walkthroughs, or learning modules—giving users a clear visual cue of where they are can make all the difference. In this article, I’ll show you how to build a Swiper.js-powered slider with a custom step-based progress bar using just a little jQuery.  
+When you're presenting content in a sequence—think onboarding flows, quizzes, product walkthroughs, or learning modules—giving users a clear visual cue of where they are can make all the difference. In this article, I'll show you how to build a Swiper.js-powered slider with a custom step-based progress bar using just a little jQuery.  
 <br>
-What makes this combo powerful is its balance of interactivity and clarity. Best of all? It’s super flexible and easy to extend for any kind of step-based experience.  
+What makes this combo powerful is its balance of interactivity and clarity. Best of all? It's super flexible and easy to extend for any kind of step-based experience.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -42,13 +42,13 @@ What makes this combo powerful is its balance of interactivity and clarity. Best
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
 ## HTML Layout: The Foundation
 
-Let’s start with the basic structure:
+Let's start with the basic structure:
 
 ```html
 <div class="slider">
@@ -60,7 +60,7 @@ Let’s start with the basic structure:
             <li class="swiper-slide">4</li>
             <li class="swiper-slide">5</li>
         </ul>
-    </div>
+    
     <ul class="progress">
         <li>STEP 1</li>
         <li>STEP 2</li>
@@ -68,9 +68,9 @@ Let’s start with the basic structure:
         <li>STEP 4</li>
         <li>STEP 5</li>
     </ul>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-</div>
+    <div class="swiper-button-prev">
+    <div class="swiper-button-next">
+
 ```
 ### Quick Breakdown:  
 * **.slider** wraps everything.
@@ -82,7 +82,7 @@ Let’s start with the basic structure:
 
 ## CSS Styling: Make It Look Good
 
-Here’s the core styling to get our slider and progress bar working visually:
+Here's the core styling to get our slider and progress bar working visually:
 
 ```css
 .slider { --transition-duration: 0.7s; --progress-width: 0; position: relative; max-width: 640px; margin: 50px auto 0; } 
@@ -108,10 +108,10 @@ Here’s the core styling to get our slider and progress bar working visually:
 
 ## JavaScript: Making It Work with Swiper + jQuery
 
-Now let’s wire it all up:
+Now let's wire it all up:
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -121,7 +121,7 @@ Now let’s wire it all up:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ```js
 $(document).ready(function(){
@@ -246,7 +246,7 @@ Bonus: You could build a similar experience using Slick Carousel or even with va
 <br>
 
 ## Optional Enhancements
-* Add floating “Next” and “Back” buttons for better mobile UX.
+* Add floating "Next" and "Back" buttons for better mobile UX.
 * Swap out the step numbers for icons or custom labels.
 * Use requestAnimationFrame() for more fluid progress bar animations.
 
@@ -255,11 +255,12 @@ Bonus: You could build a similar experience using Slick Carousel or even with va
 ## Wrapping Up — How Will You Use It?
 Building a step-based slider with a visual progress indicator is a powerful way to guide users through content—whether it's educational, promotional, or interactive.  
 
-I’ve used this setup in quizzes and onboarding flows, and it’s worked like a charm. How about you? Got a project where this could fit in? Let me know in the comments—or feel free to fork the code and make it your own.  
+I've used this setup in quizzes and onboarding flows, and it's worked like a charm. How about you? Got a project where this could fit in? Let me know in the comments—or feel free to fork the code and make it your own.  
 
 <br>
 
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-17-swiper-progress2/">Live Example Preview</a>
-    <a href="/code/2025-04-16-swiper-center3/">[Related Posts] Swiper.js: How to Fix Loop + CenteredSlides Issues</a>
+    <a href="/code-en/2025-04-16-swiper-center3/">[Related Posts] Swiper.js: How to Fix Loop + CenteredSlides Issues</a>
 </div>
+

@@ -27,7 +27,7 @@ tags:
 최신 Swiper.js는 다양한 기능을 제공하지만, 특히 centeredSlides처럼 특정 옵션이 예상대로 작동하지 않는 경우가 있습니다. 슬라이드 개수가 부족하거나, 복제 슬라이드를 동적으로 생성해야 하는 상황에서는 이러한 오류가 더욱 자주 발생합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -37,7 +37,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 이러한 슬라이드 전환 오류는 사용자가 콘텐츠를 매끄럽게 탐색하는 데 방해가 될 수 있으며, 경우에 따라 사이트 전반의 완성도에도 영향을 줄 수 있습니다.  
 이 글에서는 복제 슬라이드를 추가해 슬라이드 수를 확보하고, 그 과정에서 발생할 수 있는 다양한 오류를 해결하는 코드를 함께 살펴보겠습니다.  
@@ -63,11 +63,11 @@ tags:
             <li class="swiper-slide">9</li>
             <li class="swiper-slide">10</li>
         </ul>
-    </div>
-    <div class="pagination"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-</div>
+    
+    <div class="pagination">
+    <div class="swiper-button-prev">
+    <div class="swiper-button-next">
+
 ```
 * **슬라이드 기본 구조**  
 <span class="txt">최상위 .slider_center 요소는 슬라이드 전체를 감싸는 컨테이너로, 전체 레이아웃의 틀을 형성합니다. 이 요소는 CSS를 통해 위치를 조정하고, 슬라이드가 컨테이너 밖으로 넘치지 않도록 오버플로우를 제어합니다.</span>
@@ -115,7 +115,7 @@ left: 50%와 transform: translate(-50%)를 함께 사용하여 갤러리 콘텐�
 </span>
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -125,7 +125,7 @@ left: 50%와 transform: translate(-50%)를 함께 사용하여 갤러리 콘텐�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -241,3 +241,4 @@ function centerSlider() {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-15-swiper-center3/">예제결과 미리보기</a>
 </div>
+

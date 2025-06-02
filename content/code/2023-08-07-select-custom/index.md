@@ -16,7 +16,7 @@ select 태그의 CSS 커스텀은 제한적이기 때문에, 원하는 디자인
 그리고 select 옵션 데이터값을 전달하기 위해 input hidden 태그를 활용했다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -26,7 +26,7 @@ select 태그의 CSS 커스텀은 제한적이기 때문에, 원하는 디자인
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -36,7 +36,7 @@ select 태그의 CSS 커스텀은 제한적이기 때문에, 원하는 디자인
     <input type="hidden" class="opt_val" value="">
     <div class="trigger">
         <span class="trigger_txt">옵션을 선택해주세요.</span>
-    </div>
+    
     <ul class="option">
         <li data-value="">옵션을 선택해주세요.</li>
         <li data-value="option1">옵션 1번입니다.</li>
@@ -45,7 +45,7 @@ select 태그의 CSS 커스텀은 제한적이기 때문에, 원하는 디자인
         <li data-value="option4">옵션 4번입니다.</li>
         <li data-value="option5">옵션 5번입니다.</li>
     </ul>
-</div>
+
 ```
 .select_cus는 select 태그, .trigger는 선택된 option 태그, .option의 li는 옵션 목록을 의미한다.  
 data-value 속성의 값은 실제 데이터값을 나타내며, jQuery를 사용하여 선택된 data-value 값을 input hidden 태그에 할당할 예정이다.  
@@ -67,7 +67,7 @@ data-value 속성의 값은 실제 데이터값을 나타내며, jQuery를 사�
 그리고, 옵션을 선택하면 select 클래스가 추가된다. 이와 관련하여 CSS를 작성했다.   
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -77,7 +77,7 @@ data-value 속성의 값은 실제 데이터값을 나타내며, jQuery를 사�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ## jQuery 코드
 ```js
@@ -191,3 +191,4 @@ function selectCus() {
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-07-select-custom/">예제결과 미리보기</a>
 </div>
+

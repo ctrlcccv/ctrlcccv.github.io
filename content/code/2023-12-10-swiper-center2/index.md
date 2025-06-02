@@ -18,12 +18,13 @@ tags:
     <a href="/code/2025-04-15-swiper-center3/">[관련글] Swiper.js 11+ centeredSlides 슬라이드 전환 오류 해결</a>
 </div>
 
+
 <br>
 
 웹 사이트에서 슬라이더는 사용자 인터페이스의 핵심 요소로서, 이미지나 콘텐츠를 돋보이게 하는 역할을 합니다. 본 글에서 다루는 코드는 jQuery와 Swiper 라이브러리를 사용하여 구현된 반응형 슬라이더입니다. 이 슬라이더는 사용자의 화면 크기에 따라 동적으로 조정되며, 항상 활성화된 슬라이드를 중앙에 크게 표시하여 사용자의 시선을 끕니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -33,7 +34,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -49,10 +50,10 @@ tags:
             <li class="swiper-slide"><span class="img"><img src="https://picsum.photos/id/50/1000/600" alt="썸네일 이미지"></span></li>
             <li class="swiper-slide"><span class="img"><img src="https://picsum.photos/id/60/1000/600" alt="썸네일 이미지"></span></li>
         </ul>
-    </div>
+    
     <span class="btn btn_prev"><img src="./images/arrow.png" alt="이젼"></span>
     <span class="btn btn_next"><img src="./images/arrow.png" alt="다음"></span>
-</div>
+
 ```
 * **슬라이더 컨테이너**  
 slider 클래스는 전체 슬라이더를 포함하는 외부 컨테이너입니다.
@@ -123,7 +124,7 @@ btn 클래스는 슬라이더를 이전과 다음으로 이동시키는 버튼�
 
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -133,7 +134,7 @@ btn 클래스는 슬라이더를 이전과 다음으로 이동시키는 버튼�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 

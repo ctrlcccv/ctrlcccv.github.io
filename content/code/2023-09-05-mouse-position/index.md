@@ -17,7 +17,7 @@ Tkinter를 사용하여 간단한 마우스 좌표 출력 프로그램을 만드
 이 프로젝트를 통해 Tkinter의 기본적인 사용법과 간단한 GUI 애플리케이션 개발 방법을 익힐 수 있습니다.   
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -27,7 +27,7 @@ Tkinter를 사용하여 간단한 마우스 좌표 출력 프로그램을 만드
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -70,7 +70,7 @@ update_mouse_position_label()
 ```
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -80,7 +80,7 @@ update_mouse_position_label()
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ## Tkinter 이벤트 루프 실행하기
 마지막으로, Tkinter의 이벤트 루프를 실행하여 프로그램이 화면에 나타나게 합니다.   

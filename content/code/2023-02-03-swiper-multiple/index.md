@@ -15,7 +15,7 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 슬라이드의 개수가 많아져도 유지보수가 편리하도록 코드를 구성하였습니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -25,7 +25,7 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -45,10 +45,10 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
             <li class="swiper-slide">slider5</li>
             <li class="swiper-slide">slider6</li>
         </ul>
-    </div>
+    
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-</div>
+
 
 <!-- 두번째 슬라이드 -->
 <div class="slider">
@@ -57,10 +57,10 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
             <li class="swiper-slide">slider1</li>
             <li class="swiper-slide">slider2</li>
         </ul>
-    </div>
+    
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-</div>
+
 
 
 <!-- 세번째 슬라이드 -->
@@ -72,10 +72,10 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
             <li class="swiper-slide">slider3</li>
             <li class="swiper-slide">slider4</li>
         </ul>
-    </div>
+    
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-</div>
+
 ```
 
 ## CSS 스타일
@@ -95,7 +95,7 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 이를 위해 .each() 메서드를 사용합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -105,7 +105,7 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 ```js
 $(window).on('load', function () {
@@ -194,3 +194,5 @@ swiper 변수에 새로운 Swiper 인스턴스를 생성하며, 초기 옵션을
     <a target="_blank" href="/ctrlcccv-demo/2023-02-03-swiper-multiple/">예제결과 미리보기</a>
     <a href="/code/2023-01-31-swiper-loop/">[관련글] jQuery - Swiper loop 옵션 복제 문제 해결 (반응형)</a>
 </div>
+    
+

@@ -18,7 +18,7 @@ tags:
 로딩 애니메이션은 사용자가 데이터를 기다리는 동안 인터페이스에 적용되는 시각적 피드백이며, 좋은 사용자 경험을 만드는 데 있어 비중 있는 요소입니다. 이 글에서는 CSS를 이용해 원형 로딩 애니메이션을 구현하는 방법을 상세히 설명합니다.  
 
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -28,7 +28,7 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 <br>
 
@@ -75,7 +75,7 @@ CSS는 `loading` 클래스로 지정된 로딩 애니메이션을 시각적으�
 }
 ```
 
-<div class="ads_wrap">
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -85,7 +85,7 @@ CSS는 `loading` 클래스로 지정된 로딩 애니메이션을 시각적으�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-</div>
+
 
 - **`position: fixed`**  
 `.loading` 요소가 브라우저 창에 고정되도록 설정합니다. 즉, 스크롤을 해도 항상 같은 위치에 있게 됩니다.
@@ -128,3 +128,4 @@ CSS는 `loading` 클래스로 지정된 로딩 애니메이션을 시각적으�
 <div class="btn_wrap">
     <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-02-06-circle-loading/" target="_blank">예제결과 미리보기</a>
 </div>
+
