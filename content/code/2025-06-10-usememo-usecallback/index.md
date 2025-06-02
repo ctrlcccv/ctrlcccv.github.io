@@ -14,9 +14,9 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - React
 tags:
-    - React 훅
-    - useMemo
-    - useCallback
+    - React Hooks
+    - 성능 최적화
+    - 상태 관리
 ---
 
 useMemo와 useCallback을 사용해보셨지만 정확한 차이점을 이해하기 어려우셨나요?
@@ -233,6 +233,8 @@ const simpleHandler = useCallback(() => {
 
 단순한 계산이나 함수는 메모이제이션 자체의 비용이 더 클 수 있습니다. 실제로 성능 문제가 발생한 부분에 집중해서 최적화하는 것이 좋습니다.
 
+<br>
+
 ### 2. 올바른 의존성 배열 관리
 
 ```javascript
@@ -248,6 +250,8 @@ const handleSubmit = useCallback(() => {
 ```
 
 의존성 배열에 사용되는 모든 값을 포함해야 합니다. 그렇지 않으면 예상치 못한 버그가 발생할 수 있습니다.
+
+<br>
 
 ### 3. 중첩된 객체와 함수 처리
 
@@ -301,6 +305,8 @@ function ProductList({ products, category }) {
 ```
 
 **성능 결과**: 1,000개 항목, 10번 렌더링 시 평균 렌더링 시간 120ms, 총 계산 횟수 10회
+
+<br>
 
 ### 최적화 후 (useMemo 사용):
 ```javascript
