@@ -6,8 +6,8 @@ description: >
     Learn how React's useCallback hook eliminates unnecessary re-renders, boosting your app's performance with practical, easy-to-follow examples.
 
 slug: 2025-06-11-react-usecallback
-date: 2025-06-03 00:00:00+0000
-lastmod: 2025-06-03 00:00:00+0000
+date: 2025-06-11 00:00:00+0000
+lastmod: 2025-06-11 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp
 
