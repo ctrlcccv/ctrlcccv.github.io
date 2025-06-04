@@ -92,9 +92,6 @@ useMemo 훅은 두 가지 필수 인자를 받아 동작합니다:
 ### 작동 원리
 위 예제에서 `합계` 값은 useMemo로 메모이제이션됩니다. 컴포넌트가 다시 그려져도 `숫자A`와 `숫자B`가 변하지 않았다면, 이전에 계산된 합계 값을 그대로 사용합니다. 이렇게 하면 불필요한 계산을 줄이고 앱 성능을 높일 수 있습니다.
 
-<br>
-
-
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
