@@ -13,7 +13,7 @@ tags:
 CSS를 활용하여 데이터에 따라 자동으로 정렬되는 세로형 막대그래프를 만들어보았습니다.  
 아래는 그래프의 HTML과 CSS 코드 예시입니다.
 
-
+<br>
 
 <ins class="adsbygoogle"
     style="display:block; text-align:center;"
@@ -97,6 +97,7 @@ CSS를 활용하여 데이터에 따라 자동으로 정렬되는 세로형 막�
 * bar > li : 각 막대그래프를 나타내며, 막대의 길이와 간격을 설정합니다.
 * bar > li span : 각 막대의 색상과 높이를 조절합니다.
 
+<br>
 
 <ins class="adsbygoogle"
     style="display:block; text-align:center;"
@@ -107,7 +108,6 @@ CSS를 활용하여 데이터에 따라 자동으로 정렬되는 세로형 막�
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
 
 <br>
 
