@@ -31,6 +31,7 @@ Ever come across the term "callback function" in web development and wondered wh
 
 Callback functions are fundamental to JavaScript and incredibly powerful. They're the backbone of asynchronous operations and are used throughout modern web development. In this guide, I'll break down what callback functions are and how to use them in straightforward terms.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -138,6 +139,7 @@ See you later!
 
 This approach makes your code more concise, especially when the callback is only needed once.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

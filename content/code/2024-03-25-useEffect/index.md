@@ -22,6 +22,7 @@ tags:
 
 React로 컴포넌트를 개발할 때 화면이 그려진 후에 추가 작업을 실행해야 하는 경우가 자주 있습니다. 예를 들어 서버에서 데이터를 가져오거나, 이벤트 리스너를 등록하거나, 타이머를 설정하는 등의 작업을 페이지 로드 이후에 실행해야 할 때가 많습니다. 이런 작업들을 처리할 수 있게 해주는 것이 바로 React의 useEffect 훅입니다. 이번 글에서는 누구나 쉽게 이해할 수 있도록 useEffect의 기본 개념부터 실제 활용법까지 자세히 알아보겠습니다.  
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -127,7 +128,7 @@ function Counter() {
 이 방식은 성능 문제를 일으킬 수 있어 꼭 필요한 경우가 아니면 사용하지 않는 게 좋습니다.
 </span>
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -240,6 +241,7 @@ function ProductList() {
 이는 사용자가 빈 화면을 보는 시간을 줄여 더 나은 경험을 제공합니다.
 </span>
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

@@ -15,7 +15,7 @@ tags:
 ---
 웹 사이트나 애플리케이션에서 사용자의 작업 진행 상황을 표시하는 것은 필수적인 UX 요소 중 하나입니다. 잘 설계된 프로그레스바는 사용자가 현재 위치와 목표까지의 거리를 인지하는데 도움을 주며, 작업의 완수를 향한 동기 부여가 될 수 있습니다. 이 예제에서는 `<progress>` 태그와 CSS를 이용하여 프로그레스바를 구현하고, jQuery로 애니메이션 효과를 추가하여 사용자에게 더욱 생동감 있게 상태를 표시하는 방법을 알아봅니다.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -89,7 +89,7 @@ progress::-moz-progress-bar {
   * `-webkit-progress-bar` 및 `-webkit-progress-value`는 Webkit 기반 브라우저(Safari, Chrome 등)에서 프로그레스바의 배경과 값 영역을 스타일링 합니다.
   * `-moz-progress-bar`는 Mozilla 기반 브라우저(Firefox 등)에서 사용됩니다.    
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

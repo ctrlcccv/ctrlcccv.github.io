@@ -31,7 +31,7 @@ First impressions are crucial in web design, and the top section of your page—
 
 Using a scroll indicator designed with HTML and CSS helps guide users without relying on text instructions or JavaScript. It's lightweight, visually appealing, and enhances user engagement.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -73,7 +73,7 @@ Here is the basic HTML structure needed to implement the scrolling mouse animati
 
 Below is the CSS that brings the scroll animation to life using only CSS properties and keyframe animations:
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

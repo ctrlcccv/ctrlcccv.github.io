@@ -23,6 +23,7 @@ useMemo와 useCallback을 사용해보셨지만 정확한 차이점을 이해하
 
 React에서 제공하는 이 두 가지 훅은 이름과 사용법이 매우 비슷해서 많은 개발자들이 혼동하곤 합니다. 하지만 실제로는 사용 목적과 동작 방식에 분명한 차이가 있습니다. 이번 글에서는 useMemo와 useCallback의 핵심 차이점을 실제 예제를 통해 쉽게 알아보겠습니다.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -157,6 +158,7 @@ function ParentComponent() {
 - `useCallback`은 함수의 참조가 계속 유지되어, `count`가 변경되어도 함수는 다시 생성되지 않습니다.
 - 두 경우 모두 `React.memo`로 감싼 자식 컴포넌트가 불필요하게 다시 렌더링되는 것을 방지합니다.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -270,6 +272,7 @@ const options = useMemo(() => {
 
 객체나 배열은 매번 새로운 참조가 생성되므로, 이러한 값들도 useMemo로 메모이제이션해야 합니다.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

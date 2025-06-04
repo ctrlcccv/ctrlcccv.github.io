@@ -28,7 +28,7 @@ Have you ever wanted to showcase multiple pieces of content in a slider that not
 
 For instance, an online store might want to feature a product list, or a portfolio might aim to effectively showcase its work. In this post, we'll dive into how to implement a responsive grid slider using jQuery and the Swiper library.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -117,7 +117,7 @@ Pagination is centered using `flex`, with styles defined for each `bullet` and t
 * **Responsive Handling**  
 For mobile screens (767px and below), the grid column width is adjusted to ensure three items remain visible on narrower screens.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

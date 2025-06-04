@@ -29,6 +29,7 @@ tags:
 
 Need to directly grab DOM elements or keep track of values without causing your component to re-render? React's useRef hook is your answer. While React normally manages updates through its virtual DOM, useRef gives you a way to work outside this system when needed.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -115,6 +116,7 @@ function RenderCounter() {
 * **Silent Updates** - When you change a useState value, React re-renders your component. Change a useRef value, and nothing happens on screen.
 * **Direct DOM Access** - useRef gives you a direct line to the actual DOM element, bypassing React's usual update system.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -250,6 +252,7 @@ function StateComparisonComponent() {
 * **The Golden Rule** - If users need to see it on screen, use useState. If it's just for internal tracking, use useRef.
 * **Performance Benefits** - Every useState update triggers a re-render of your component. useRef updates happen silently, making your app faster.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -260,7 +263,6 @@ function StateComparisonComponent() {
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
 
 <br>
 

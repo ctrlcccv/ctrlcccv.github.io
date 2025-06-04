@@ -29,7 +29,7 @@ Tired of typing hyphens manually every time you enter a phone number or credit c
 
 Manually adding separators like hyphens or slashes can be frustrating, especially when filling out forms on websites or apps. With data like phone numbers, card numbers, or dates, automatically applying these separators can save time, reduce errors, and improve data accuracy. This post will show you how to implement automatic formatting for various input fields using jQuery.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -119,7 +119,7 @@ Input fields are designed with proper padding and size for easy clicking and inp
 Font size and color are adjusted for readability to enhance user input convenience.
 </span>
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

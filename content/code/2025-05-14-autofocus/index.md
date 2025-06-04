@@ -29,7 +29,7 @@ tags:
 특히 모바일 환경에서는 작은 입력칸을 일일이 눌러야 해서 번거롭고 불편한데요.  
 이번 글에서는 jQuery를 활용하여 전화번호 입력 시 자동으로 다음 필드로 이동하는 기능을 구현해보겠습니다.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -144,7 +144,7 @@ tags:
 대시(-) 구분자는 적절한 크기와 간격으로 배치하여 입력 필드 사이를 자연스럽게 구분해줍니다.
 </span>
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

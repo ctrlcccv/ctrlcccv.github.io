@@ -31,6 +31,7 @@ tags:
 
 React는 가상 DOM을 통해 UI를 효율적으로 관리하는 장점이 있지만, 때로는 실제 DOM 요소에 직접 접근해야 할 때가 있습니다. 또한 컴포넌트가 리렌더링되어도 값을 그대로 유지해야 하는 경우도 있습니다. 이런 상황에서 useRef 훅은 아주 유용한 해결책이 됩니다.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -134,6 +135,7 @@ useRef를 통한 DOM 제어는 React의 가상 DOM 시스템을 우회합니다.
 이것이 바로 useRef 값이 변경되어도 리렌더링이 발생하지 않는 이유입니다.
 </span>
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

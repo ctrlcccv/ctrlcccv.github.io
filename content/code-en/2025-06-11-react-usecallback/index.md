@@ -31,6 +31,7 @@ Noticing your React app getting sluggish? One of the most common culprits is unn
 
 Luckily, React's `useCallback` hook offers an elegant solution to this performance bottleneck.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

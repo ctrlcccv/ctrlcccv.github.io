@@ -23,6 +23,7 @@ tags:
 
 콜백 함수는 자바스크립트에서 가장 기본적이면서도 강력한 개념 중 하나입니다. 특히 비동기 작업을 처리할 때 필수적인 요소이며, 웹 개발에서 매우 중요한 기술입니다. 이번 글에서는 콜백 함수가 무엇인지, 어떻게 활용하는지 쉽게 풀어서 설명해드리겠습니다.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -109,6 +110,8 @@ greet("홍길동", sayGoodbye);
 - `sayGoodbye` 함수는 콜백으로 사용됩니다.
 - `greet("홍길동", sayGoodbye)`를 호출하면, `greet` 함수가 실행된 후 `sayGoodbye` 함수가 호출됩니다.
 
+
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

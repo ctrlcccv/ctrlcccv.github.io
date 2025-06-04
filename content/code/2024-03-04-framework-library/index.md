@@ -18,7 +18,7 @@ tags:
 
 소프트웨어 개발의 핵심적인 요소로서 프레임워크와 라이브러리는 현대 개발 생태계에서 빼놓을 수 없는 역할을 수행하고 있습니다. 이 두 용어는 종종 혼용되기도 하지만, 각각의 개념은 명확한 의미와 역할을 지니고 있습니다. 이 글에서는 프레임워크와 라이브러리의 차이점에 대해 자세히 살펴보겠습니다.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -70,7 +70,7 @@ tags:
 **대표적인 프레임워크**  
 Angular, Express.js, Vue.js  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

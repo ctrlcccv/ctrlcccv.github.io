@@ -17,7 +17,7 @@ tags:
 ---
 웹 애플리케이션을 개발하다 보면, 데이터 로딩이나 리소스 준비가 필요한 경우 사용자를 기다리게 할 필요가 있습니다. 이러한 상황에서 로딩화면(Loading Screen)을 통해 사용자에게 진행중임을 알리고, 사용자 경험을 향상시킬 수 있습니다. 이번 글에서는 리액트를 활용하여 실제 동작하는 로딩화면을 단계별로 구현하는 방법을 설명합니다.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -116,7 +116,7 @@ export default LoadingScreen;
 
 기본 로딩 화면 기능을 구현하였으니, 이제 이를 확장하여 다른 상황에서도 사용할 수 있도록 추가적인 기능을 구현해 보겠습니다. 예를 들어, 데이터를 API에서 불러오는 동안 로딩 화면을 표시하도록 하겠습니다.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

@@ -27,7 +27,7 @@ tags:
 
 You’ve probably seen this: you open a popup on your phone, try to scroll inside it, and suddenly the background page starts moving too. It’s distracting and frustrating. Fortunately, there are reliable ways to keep scrolling limited to the popup itself—or to disable background scroll entirely. In this guide, you’ll learn how to do both using CSS (`overscroll-behavior`) and a bit of jQuery. Let’s make sure your modals feel solid and user-friendly on any device.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -176,6 +176,7 @@ Next, we’ll set up the layout and scroll behavior. Here's the CSS:
 * `.disable_scroll` locks the background by removing all scroll and touch interaction.
 * `overscroll-behavior: none` stops scroll chaining to parent elements.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -186,7 +187,6 @@ Next, we’ll set up the layout and scroll behavior. Here's the CSS:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
 
 <br>
 

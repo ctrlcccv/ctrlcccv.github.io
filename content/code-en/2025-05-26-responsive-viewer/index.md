@@ -31,7 +31,7 @@ Ever found yourself repeatedly switching between different devices to check how 
 
 When building responsive websites, it's essential to verify how designs render across desktop, tablet, and mobile screen sizes. While browser developer tools work well, having a standalone preview tool is much more convenient for client presentations and team collaboration. This tutorial will show you how to build your own responsive website preview tool using jQuery and iframes.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -128,7 +128,7 @@ The iframe is set to fill its container completely without borders. The `transfo
 On smaller screens (below 768px), we hide the pixel dimensions to conserve space. The iframe container's height adjusts dynamically based on the viewport height, maintaining visibility on all devices.
 </span>
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

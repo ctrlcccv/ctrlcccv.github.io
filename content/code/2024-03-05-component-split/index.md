@@ -21,7 +21,7 @@ tags:
 ---
 리액트 애플리케이션 개발에서 컴포넌트 분리는 코드의 구조를 명확하게 유지하고 유지보수성을 높이는 핵심 전략입니다. 이 글에서는 리액트 컴포넌트를 효과적으로 분리하는 기준과 전략을 심층적으로 다루고, 실제 개발에 적용할 수 있는 구체적인 예시 코드를 제공합니다.   
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -58,7 +58,7 @@ tags:
 * **상태와 라이프사이클:** 컴포넌트가 관리하는 상태와 라이프사이클 메서드를 고려하여 분리합니다.
 * **UI 요소:** 서로 다른 UI 요소는 별도의 컴포넌트로 분리합니다.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

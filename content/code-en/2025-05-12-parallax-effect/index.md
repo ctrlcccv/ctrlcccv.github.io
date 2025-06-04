@@ -28,7 +28,7 @@ Want to create an engaging parallax effect that responds to mouse movement? Let'
 
 Adding dynamic elements to your website can capture visitors' attention and increase page engagement time. A parallax effect that smoothly responds to mouse movement is particularly effective in enhancing visual appeal. In this post, we'll explore how to implement a mouse-responsive parallax effect using jQuery.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -110,7 +110,7 @@ The title is absolutely positioned in the center with text shadow for better rea
 This element will also move independently with mouse movement.
 </span>
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

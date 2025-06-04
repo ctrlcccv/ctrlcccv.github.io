@@ -29,6 +29,7 @@ tags:
 
 웹사이트를 개발하다 보면 동일한 기능의 탭 메뉴가 여러 섹션에 필요한 경우가 많습니다. 이럴 때 비슷한 코드를 계속 반복해서 작성하면 유지보수도 어렵고 코드량도 불필요하게 많아집니다. 이번 글에서는 jQuery를 활용해 단 하나의 클래스로 여러 개의 탭 메뉴를 쉽게 구현하는 방법을 소개해 드립니다.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -170,6 +171,8 @@ flex 속성으로 탭 버튼들이 균등한 너비로 정렬됩니다.
 </span>
 
 
+<br>
+
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -179,7 +182,6 @@ flex 속성으로 탭 버튼들이 균등한 너비로 정렬됩니다.
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
 
 <br>
 

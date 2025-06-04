@@ -15,7 +15,7 @@ tags:
 ---
 웹 페이지의 내비게이션은 사용자 경험에서 매우 중요한 부분입니다. 특히, 내비게이션 메뉴에 마우스를 올렸을 때 동적인 효과를 주면 사용자의 시선을 끌고 상호작용을 유도할 수 있습니다. 이번 블로그 글에서는 jQuery와 CSS를 사용하여 메뉴에 마우스를 올렸을 때 밑줄이 움직이는 'hover 효과'를 만드는 방법에 대해 설명하겠습니다.   
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -121,7 +121,7 @@ nav .inner:hover .marker {
 
 - 메뉴 아이템에 대한 스타일은 `hover` 상태일 때와 일반 상태에서 다르게 설정하여 시각적인 피드백을 제공합니다.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

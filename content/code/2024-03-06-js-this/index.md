@@ -19,7 +19,7 @@ JavaScript에서의 this는 함수가 실행될 때 동적으로 결정되는 �
 
 이 글에서는 this의 주요 바인딩 규칙과 예시를 살펴보겠습니다. 암시적 바인딩, 명시적 바인딩, new 바인딩, 전역 바인딩 등의 다양한 바인딩 방식을 통해 this가 어떻게 작동하는지 이해하고, 화살표 함수와 최신 JavaScript 기능이 this에 미치는 영향도 알아보겠습니다.   
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -77,7 +77,7 @@ globalFunction(); // 출력: true
 
 JavaScript에서 가장 흔하게 사용되는 this 바인딩 중 하나는 암시적 바인딩입니다. 이는 함수가 호출될 때, 해당 함수가 속한 객체에 바인딩 되는 것을 의미합니다.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

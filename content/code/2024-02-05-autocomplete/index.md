@@ -16,7 +16,7 @@ tags:
 ---
 자동완성 기능은 jQuery UI 라이브러리의 autocomplete 메서드를 사용하면 매우 간단하게 구현할 수 있습니다.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -83,7 +83,7 @@ CSS 코드는 자동완성 입력 필드와 제안 메뉴의 스타일을 정의
 ## jQuery 코드
 jQuery의 `autocomplete` 메서드를 사용하여 사용자 입력에 따라 실시간으로 관련 제안을 보여주는 자동완성 기능을 쉽게 구현할 수 있습니다.   
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

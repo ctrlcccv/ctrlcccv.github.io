@@ -28,7 +28,7 @@ Looking for an easy way to create an accordion menu without heavy JavaScript lib
 In this tutorial, you'll learn how to build a lightweight, accessible accordion using the HTML5 `<details>` element, style it beautifully with CSS, and optionally enhance it with jQuery for smoother interactions.  
 This method is perfect for developers who want a simple, fast-loading solution for FAQs, navigation menus, and expandable sections.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

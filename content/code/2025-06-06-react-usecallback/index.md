@@ -23,6 +23,7 @@ tags:
 
 리액트로 개발하다 보면 컴포넌트가 다시 그려질 때마다 함수가 새로 만들어져 성능이 저하되는 경우가 많습니다. 특히 자식 컴포넌트에 함수를 props로 넘겨줄 때 이런 문제가 더 심해집니다. React의 useCallback 훅은 이런 문제를 간단하게 해결해 줍니다.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -221,6 +222,7 @@ const handleToggle = useCallback((id) => {
 
 이렇게 useCallback을 사용하면 React.memo로 최적화된 컴포넌트의 성능을 극대화할 수 있습니다. 특히 대규모 리스트나 복잡한 UI에서 효과적입니다.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

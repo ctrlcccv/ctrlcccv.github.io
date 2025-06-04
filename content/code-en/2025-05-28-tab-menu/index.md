@@ -33,6 +33,7 @@ Modern websites often need multiple tab components on a single page – perhaps 
 
 In this tutorial, I'll show you how to build a scalable tab menu system with jQuery where adding new instances requires only HTML markup – with zero additional JavaScript. Let's create a solution that's both elegant and practical!
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -170,6 +171,7 @@ Hover and active states provide clear visual cues to users, enhancing usability.
 All content panels start hidden and are revealed only when needed. The padding ensures that tab content remains readable with comfortable spacing.
 </span>
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -257,6 +259,7 @@ This tab system provides a solid foundation that you can extend in many ways:
 
 The beauty of this approach is that it maintains a clean separation between structure (HTML), presentation (CSS), and behavior (JavaScript) while keeping your code DRY.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

@@ -31,7 +31,7 @@ When you're presenting content in a sequence—think onboarding flows, quizzes, 
 <br>
 What makes this combo powerful is its balance of interactivity and clarity. Best of all? It's super flexible and easy to extend for any kind of step-based experience.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -110,7 +110,7 @@ Here's the core styling to get our slider and progress bar working visually:
 
 Now let's wire it all up:
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

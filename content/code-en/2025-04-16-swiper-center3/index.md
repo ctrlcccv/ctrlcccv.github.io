@@ -28,7 +28,7 @@ Swiper.js has become a go-to solution for web developers looking to build sleek,
 <br>
 In this guide, we’ll walk through a practical solution: using duplicate slides. By smartly duplicating your original slides, you can eliminate those common transition hiccups and deliver a smoother, more polished user experience. We’ll cover everything from the foundational HTML and CSS to the jQuery and Swiper.js logic that brings it all together. Let’s unlock the full potential of centeredSlides in your Swiper.js sliders!  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -104,7 +104,7 @@ This structure isn’t just for looks—it’s vital for how Swiper handles loop
 
 Now that the layout is ready, let’s add the JavaScript logic to duplicate slides and initialize Swiper for a smooth, centered experience.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

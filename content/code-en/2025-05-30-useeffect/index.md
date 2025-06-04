@@ -32,6 +32,7 @@ Have you ever needed to run code right after your React component renders on scr
 
 That's exactly what useEffect is for. Whether you need to fetch data, set up event listeners, or update the DOM, useEffect helps you perform these actions at the right time. This guide breaks down this essential React hook with practical examples you can start using today.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -132,6 +133,7 @@ Your effect runs whenever any value in the dependency array changes – great fo
 Your effect runs after every render – useful in rare cases but can cause performance issues if overused.
 </span>
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -307,6 +309,7 @@ function Modal({ isOpen, onClose, message }) {
 With useEffect, you can target specific lifecycle events by using appropriate dependency arrays.
 </span>
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

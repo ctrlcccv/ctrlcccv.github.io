@@ -31,6 +31,7 @@ Are your React applications slowing down due to repetitive calculations?
 
 In web development, performance issues frequently arise when complex calculations repeat during each render cycle. This slowdown becomes especially noticeable when filtering or sorting large datasets. React's useMemo hook offers an elegant and effective solution to this common challenge.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -136,6 +137,7 @@ In React, each render creates objects with new memory addresses. Since React per
 
 By implementing useMemo, we maintain consistent object references unless dependencies actually change, effectively preventing unnecessary re-renders in memoized child components.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -236,6 +238,7 @@ Essential guidelines:
 * **Include All Dependencies**: Always list every value your calculation uses in the dependency array to prevent stale results.
 * **Prefer Primitive Values**: When possible, use primitive values (numbers, strings, booleans) in dependencies instead of objects or arrays.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
