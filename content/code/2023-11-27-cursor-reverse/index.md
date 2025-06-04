@@ -16,7 +16,7 @@ tags:
 이 글에서는 jQuery를 이용하여 마우스 커서에 애니메이션 효과를 추가하는 코드를 소개합니다.   
 사용자의 마우스 움직임에 반응하여 커서가 반전되거나 확대되는 시각적 효과를 제공합니다.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -28,6 +28,7 @@ tags:
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+<br>
 
 이러한 접근 방식의 장점은 다음과 같습니다.
 
@@ -68,7 +69,7 @@ body { background: #fff; }
 * **페이지 레이아웃**  
   * .title과 .link 클래스는 텍스트와 링크의 스타일을 정의하며, 중앙 정렬과 상단 여백으로 시각적 구분을 제공합니다.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -80,6 +81,7 @@ body { background: #fff; }
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+<br>
 
 ## jQuery 코드
 ```js

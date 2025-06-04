@@ -14,7 +14,7 @@ tags:
 ---
 파이썬 라이브러리인 pynput을 활용하여 키보드 이벤트를 감지하고, 특정 단축키를 눌렀을 때와 놓았을 때 실행되는 함수를 만드는 방법입니다.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

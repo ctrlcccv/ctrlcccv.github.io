@@ -25,7 +25,7 @@ tags:
 
 이번 글에서는 jQuery를 활용해 간단하면서도 부드럽게 흐르는 롤링 배너를 만드는 방법과, 다양한 화면 크기에 잘 대응할 수 있는 **반응형 버전**까지 함께 구현하는 과정을 소개합니다. 이 글을 통해 웹 프로젝트에 쉽게 적용할 수 있는 실전 예제를 익혀보시기 바랍니다.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -117,6 +117,7 @@ ul 태그 안에 li를 추가하면 새로운 텍스트가 자동으로 포함�
 - **애니메이션**은 @keyframes를 통해 왼쪽으로 지속해서 이동하는 효과를 구현합니다.  
 - **반응형 처리**를 통해 화면 크기에 따라 글자 크기와 여백을 조정하여 가독성과 공간 활용을 동시에 고려합니다.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

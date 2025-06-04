@@ -15,7 +15,7 @@ tags:
 CSS의 mix-blend-mode 속성은 웹 디자인과 그래픽 작업을 더욱 흥미롭게 만들어주는 강력한 도구입니다.   
 이 속성을 활용하면 웹 요소들 사이에 다양한 블렌딩 효과를 적용하여 독특하고 시각적으로 매력적인 디자인을 구현할 수 있습니다.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

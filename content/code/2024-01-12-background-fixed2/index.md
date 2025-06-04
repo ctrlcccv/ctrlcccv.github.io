@@ -17,7 +17,7 @@ tags:
 
 `background-attachment: fixed` 속성으로 인해 발생하는 모바일 환경에서의 문제를 해결하는 방법을 자세히 알아보고, 구체적인 코드 예시를 통해 실제 웹사이트에 적용하는 방법을 제시합니다.  
  
- 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

@@ -14,6 +14,7 @@ iOS 환경에서 Swiper 슬라이드를 사용할 때 발생하는 깜박임 문
 backface-visibility와 transform 속성을 활용하여 문제를 해결했습니다.  
 
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -24,7 +25,6 @@ backface-visibility와 transform 속성을 활용하여 문제를 해결했습�
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
 
 <br>
 

@@ -25,7 +25,7 @@ tags:
 탭 메뉴를 눌렀을 때 슬라이드 초기화는 정상적으로 작동했지만, 화면을 리사이즈할 때 슬라이드의 realIndex 값이 제대로 갱신되지 않는 문제가 발생했다.  
 이전에 선택한 탭 메뉴의 슬라이드를 유지하기 위해 변수에 저장한 realIndex 값을 initialSlide 옵션에 넣어 현재 보고 있던 슬라이드로 이동하는데, 이로 인해 활성화되지 않은 탭 메뉴의 슬라이드에도 영향을 끼쳤다. 이 문제를 해결하기 위해 활성화된 탭 메뉴의 슬라이드의 realIndex 값만 업데이트하는 방식으로 변경했다.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -128,8 +128,6 @@ tags:
 .slider .btn_prev {transform: rotateY(180deg);}
 ```
 
-
-
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -140,6 +138,7 @@ tags:
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+<br>
 
 ## jQuery 코드
 

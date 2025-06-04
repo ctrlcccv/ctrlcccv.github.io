@@ -15,6 +15,7 @@ tags:
 ---
 jQuery와 YouTube Iframe API를 사용하여 사용자가 스크롤 하면서 동영상이 있는 영역에 도달했을 때 자동으로 해당 유튜브 영상을 재생하고, 해당 영역에서 벗어났을 때 영상을 일시 중지하도록 하는 기능을 구현하는 코드를 설명합니다.   
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -59,6 +60,7 @@ jQuery와 YouTube Iframe API를 사용하여 사용자가 스크롤 하면서 �
   - `.video` 요소는 동영상의 구체적인 위치와 크기를 지정합니다.
   - `.player` 요소는 비디오 플레이어가 들어갈 자리를 절대 위치로 지정합니다.
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -69,6 +71,8 @@ jQuery와 YouTube Iframe API를 사용하여 사용자가 스크롤 하면서 �
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+<br>
 
 ## jQuery 코드
 

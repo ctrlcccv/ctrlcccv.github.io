@@ -18,7 +18,7 @@ IR 기법(Image Replacement Technique)은 웹 접근성을 개선하기 위해 �
 <br>
 그리고 제이쿼리를 활용하여 파일을 선택하면 선택한 파일의 이름을 표시할 수 있도록 구현했다.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -64,7 +64,7 @@ input[type="file"]:focus-visible ~ .file_btn, .file_cus:hover .file_btn {backgro
 이는 불필요하게 시각적인 변화를 유발하지 않으면서도 키보드 사용자들이 요소의 포커스 상태를 확인할 수 있도록 돕는 웹 접근성 기술이다.
 이로써 웹 페이지의 내비게이션 및 상호작용이 더욱 명확하고 편리하게 이뤄질 수 있다.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

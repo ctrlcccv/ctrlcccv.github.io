@@ -135,7 +135,7 @@ tags:
 모바일 화면(767px 이하)에서는 그리드 컬럼 너비를 조정하여 더 좁은 화면에서도 3개의 아이템이 잘 보이도록 만듭니다.
 </span>
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -146,7 +146,6 @@ tags:
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
 
 <br>
 

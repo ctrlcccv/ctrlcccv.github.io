@@ -14,7 +14,7 @@ tags:
 ---
 jQuery를 활용하여 마우스 움직임에 따라 움직이는 눈의 효과를 구현하는 방법을 소개합니다. 이 코드는 웹 페이지에 독특한 상호작용 요소를 추가하며, 사용자의 마우스 움직임을 추적하여 눈동자가 마우스 커서를 따라 움직이는 시각적 효과를 생성합니다. 이런 종류의 동적인 요소는 페이지에 재미와 참여도를 더하는 데 효과적입니다.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -66,7 +66,7 @@ jQuery를 활용하여 마우스 움직임에 따라 움직이는 눈의 효과�
   * eye 클래스의 background 속성을 변경하여 눈의 배경색을 조절할 수 있습니다.
   * 눈동자의 색상은 .eye:before의 background 속성으로 변경합니다.
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

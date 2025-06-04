@@ -16,7 +16,7 @@ Selenium은 웹 애플리케이션 테스트를 자동화하고 웹 스크래핑
 Python과 Selenium을 사용하여 Google에서 검색 결과를 가져오는 방법을 예제와 함께 설명하겠습니다.  
 웹 스크래핑은 웹 사이트에서 정보를 추출하고 분석하는 데 매우 유용하며, Python과 Selenium을 통해 자동화할 수 있습니다.  
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"

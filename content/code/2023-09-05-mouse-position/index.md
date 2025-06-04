@@ -16,7 +16,7 @@ Tkinter를 사용하여 간단한 마우스 좌표 출력 프로그램을 만드
 이 프로그램은 현재 마우스의 x와 y 좌표를 100ms마다 업데이트하여 화면에 표시합니다.   
 이 프로젝트를 통해 Tkinter의 기본적인 사용법과 간단한 GUI 애플리케이션 개발 방법을 익힐 수 있습니다.   
 
-
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
