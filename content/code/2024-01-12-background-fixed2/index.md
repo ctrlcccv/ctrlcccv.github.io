@@ -39,17 +39,17 @@ HTML 구조는 `bg_fixed` 클래스를 가진 div 요소들과 배경 이미지,
 ```html
 <div class="bg_fixed">
     <img src="https://picsum.photos/id/80/2000/2000" alt="배경 이미지">
-
+</div>
 
 <div class="bg_fixed">
     <img src="https://picsum.photos/id/81/2000/2000" alt="배경 이미지">
+</div>
 
-
-<div class="contents">콘텐츠
+<div class="contents">컨텐츠</div>
 
 <div class="bg_fixed">
     <img src="https://picsum.photos/id/83/2000/2000" alt="배경 이미지">
-
+</div>
 ```
 
 ## CSS 스타일

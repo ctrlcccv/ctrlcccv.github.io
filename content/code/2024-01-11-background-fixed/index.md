@@ -35,9 +35,9 @@ tags:
 HTML 구조는 간단합니다. 각각의 배경 이미지를 가진 `<div>` 태그들로 구성되어 있습니다. 각 `div`에는 고유의 클래스(`bg_type1`, `bg_type2`, `bg_type3`)가 할당되어, 특정한 배경 이미지를 지정할 수 있도록 합니다.
 
 ```html
-<div class="bg bg_type1">
-<div class="bg bg_type2">
-<div class="bg bg_type3">
+<div class="bg bg_type1"></div>
+<div class="bg bg_type2"></div>
+<div class="bg bg_type3"></div>
 ```
 이들 각각의 `div`는 페이지에서 전체 높이(`100vh`)의 섹션으로 표시되며, 각각 다른 배경 이미지를 가집니다.   
 <br>
