@@ -42,7 +42,7 @@ tags:
             <li><a href='#'>메뉴 5</a></li>
         </ul>
         <span class='marker'></span>
-    
+    </div>
 </nav>
 ```
 - `<nav>` 태그는 웹 페이지의 내비게이션 섹션을 정의하는데 사용됩니다. 고유한 식별자와 클래스 이름을 줄 수 있어 스타일링과 JavaScript 조작이 쉬워집니다.
