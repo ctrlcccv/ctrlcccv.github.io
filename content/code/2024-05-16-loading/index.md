@@ -55,8 +55,8 @@ function App() {
 
     return (
         <div className="App">
-            {isLoading ? <LoadingScreen /> : <div>콘텐츠를 여기에 삽입하세요!}
-        
+            {isLoading ? <LoadingScreen /> : <div>콘텐츠를 여기에 삽입하세요!</div>}
+        </div>
     );
 }
 
@@ -69,9 +69,9 @@ import './LoadingScreen.css';
 const LoadingScreen = () => {
     return (
         <div className="loading-screen">
-            <div className="spinner">
+            <div className="spinner"></div>
             <p>로딩 중...</p>
-        
+        </div>
     )
 };
 
@@ -159,8 +159,9 @@ function App() {
             <div>
                 <h1>데이터 불러오기 완료</h1>
                 <pre>{JSON.stringify(data, null, 2)}</pre>
+            </div>
             }
-        
+        </div>
     );
 }
 
