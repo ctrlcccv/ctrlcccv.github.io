@@ -45,10 +45,10 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
             <li class="swiper-slide">slider5</li>
             <li class="swiper-slide">slider6</li>
         </ul>
-    
+    </div>
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-
+</div>
 
 <!-- 두번째 슬라이드 -->
 <div class="slider">
@@ -57,10 +57,10 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
             <li class="swiper-slide">slider1</li>
             <li class="swiper-slide">slider2</li>
         </ul>
-    
+    </div>
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-
+</div>
 
 
 <!-- 세번째 슬라이드 -->
@@ -72,10 +72,10 @@ Swiper 플러그인을 사용하여 같은 클래스명을 가진 여러 개의 
             <li class="swiper-slide">slider3</li>
             <li class="swiper-slide">slider4</li>
         </ul>
-    
+    </div>
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-
+</div>
 ```
 
 ## CSS 스타일
