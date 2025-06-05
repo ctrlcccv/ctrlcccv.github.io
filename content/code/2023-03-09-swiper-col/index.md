@@ -52,24 +52,24 @@ tags:
 <div class="slider">
     <div class="viewport">
         <div class="swiper-wrapper">
-            <div class="item">1
-            <div class="item">2
-            <div class="item">3
-            <div class="item">4
-            <div class="item">5
-            <div class="item">6
-            <div class="item">7
-            <div class="item">8
-            <div class="item">9
-            <div class="item">10
-            <div class="item">11
-            <div class="item">12
-        
-    
-    <div class="swiper-prev">이전
-    <div class="swiper-next">다음
-    <div class="swiper-pagination">
-
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+            <div class="item">10</div>
+            <div class="item">11</div>
+            <div class="item">12</div>
+        </div>
+    </div>
+    <div class="swiper-prev">이전</div>
+    <div class="swiper-next">다음</div>
+    <div class="swiper-pagination"></div>
+</div>
 ```
 
 * **슬라이더의 기본 구조**  
