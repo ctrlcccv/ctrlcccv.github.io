@@ -33,16 +33,16 @@ tags:
 ## HTML 구조
 
 ```html
-<div class="img_wrap">
+<div class="img_wrap"> 
     <div class="img">
         <img src="https://picsum.photos/id/74/1000/1000" alt="이미지">
         <span class="magnifier"></span>
-    
+    </div>
     <div class="img">
         <img src="https://picsum.photos/id/74/1000/1000" alt="이미지">
         <span class="magnifier"></span>
-    
-
+    </div>
+</div>
 ```
 * **컨테이너 (.img_wrap):**
   * 이미지를 나열하는 외부 컨테이너입니다.
