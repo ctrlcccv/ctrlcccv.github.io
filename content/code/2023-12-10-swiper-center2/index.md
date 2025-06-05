@@ -50,10 +50,10 @@ tags:
             <li class="swiper-slide"><span class="img"><img src="https://picsum.photos/id/50/1000/600" alt="썸네일 이미지"></span></li>
             <li class="swiper-slide"><span class="img"><img src="https://picsum.photos/id/60/1000/600" alt="썸네일 이미지"></span></li>
         </ul>
-    
+    </div>
     <span class="btn btn_prev"><img src="./images/arrow.png" alt="이젼"></span>
     <span class="btn btn_next"><img src="./images/arrow.png" alt="다음"></span>
-
+</div>
 ```
 * **슬라이더 컨테이너**  
 slider 클래스는 전체 슬라이더를 포함하는 외부 컨테이너입니다.

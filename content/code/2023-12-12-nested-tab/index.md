@@ -46,11 +46,11 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
         </ul>
         <div class="sub_tab" id="sub_tab1">
             Sub Tab 1
-        
+        </div>
         <div class="sub_tab" id="sub_tab2">
             Sub Tab 2
-        
-    
+        </div>
+    </div>
 
     <div class="tab" id="tab2">
         <h1>Tab 2</h1>
@@ -60,11 +60,11 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
         </ul>
         <div class="sub_tab" id="sub_tab3">
             Sub Tab 3
-        
+        </div>
         <div class="sub_tab" id="sub_tab4">
             Sub Tab 4
-        
-    
+        </div>
+    </div>
 
     <div class="tab" id="tab3">
         <h1>Tab 3</h1>
@@ -74,12 +74,12 @@ jQuery를 사용하여 2단 탭 메뉴를 구현하는 방법을 소개합니다
         </ul>
         <div class="sub_tab" id="sub_tab5">
             Sub Tab 5
-        
+        </div>
         <div class="sub_tab" id="sub_tab6">
             Sub Tab 6
-        
-    
-
+        </div>
+    </div>
+</div>
 ```
 * **tabs 클래스**  
 모든 탭을 감싸는 컨테이너 역할을 합니다. 이 구조는 메인 탭(.tab_nav)과 각 메인 탭에 연결된 서브 탭들을 포함합니다.
