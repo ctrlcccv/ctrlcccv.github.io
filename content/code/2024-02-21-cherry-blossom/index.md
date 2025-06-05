@@ -35,7 +35,7 @@ tags:
 이 div내에서 벚꽃 잎이 날리는 효과가 발생하게 됩니다.  
 
 ```html
-<div class="cherry_blossom">
+<div class="cherry_blossom"></div>
 ```
 
 ## CSS 스타일
