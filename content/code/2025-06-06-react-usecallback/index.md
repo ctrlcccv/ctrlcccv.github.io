@@ -79,13 +79,13 @@ function 텍스트에디터() {
       <div>
         <button onClick={() => set텍스트크기(텍스트크기 + 1)}>텍스트 크게</button>
         <button onClick={() => set텍스트크기(텍스트크기 - 1)}>텍스트 작게</button>
-      
+      </div>
       <div>
         <button onClick={() => 색상변경('red')} style={{ color: 'red' }}>빨강</button>
         <button onClick={() => 색상변경('blue')} style={{ color: 'blue' }}>파랑</button>
-      
+      </div>
       <button onClick={기본설정적용}>기본 설정으로</button>
-    
+    </div>
   );
 }
 ```
@@ -185,7 +185,7 @@ function TodoList() {
           />
         ))}
       </ul>
-    
+    </div>
   );
 }
 ```
@@ -274,7 +274,7 @@ function ProductSearch({ categoryId }) {
   }, [fetchProducts]); // useCallback으로 메모이제이션된 함수를 의존성으로 사용
   
   return (
-    <div>{/* UI 컴포넌트 */}
+    <div>{/* UI 컴포넌트 */}</div>
   );
 }
 ```

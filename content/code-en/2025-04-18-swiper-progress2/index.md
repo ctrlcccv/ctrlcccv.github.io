@@ -63,7 +63,7 @@ Let's start with the basic structure:
             <li class="swiper-slide">4</li>
             <li class="swiper-slide">5</li>
         </ul>
-    
+    </div>
     <ul class="progress">
         <li>STEP 1</li>
         <li>STEP 2</li>
@@ -71,9 +71,9 @@ Let's start with the basic structure:
         <li>STEP 4</li>
         <li>STEP 5</li>
     </ul>
-    <div class="swiper-button-prev">
-    <div class="swiper-button-next">
-
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
 ```
 ### Quick Breakdown:  
 * **.slider** wraps everything.

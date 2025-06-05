@@ -86,13 +86,13 @@ function ExampleComponent({ data }) {
   return (
     <div>
       {/* useMemo: 이미 처리된 결과를 바로 사용 */}
-      <div>처리된 항목 수: {processedData.length}
+      <div>처리된 항목 수: {processedData.length}</div>
       
       {/* useCallback: 함수를 호출해야 결과를 얻음 */}
       <button onClick={() => console.log(processData())}>
         데이터 처리 결과 보기
       </button>
-    
+    </div>
   );
 }
 ```
@@ -148,7 +148,7 @@ function ParentComponent() {
         data={activeItems} 
         onItemClick={handleItemClick} 
       />
-    
+    </div>
   );
 }
 ```

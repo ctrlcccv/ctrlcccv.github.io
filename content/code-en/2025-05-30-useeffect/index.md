@@ -116,7 +116,7 @@ function UserProfile() {
       <button onClick={() => setDarkMode(!darkMode)}>
         Toggle {darkMode ? 'Light' : 'Dark'} Mode
       </button>
-    
+    </div>
   );
 }
 ```
@@ -178,7 +178,7 @@ function WindowSizeTracker() {
     <div>
       <p>Current window width: {windowWidth}px</p>
       <p>{windowWidth < 768 ? 'Mobile view' : 'Desktop view'}</p>
-    
+    </div>
   );
 }
 ```
@@ -244,16 +244,16 @@ function WeatherDisplay() {
     };
   }, []);
   
-  if (loading) return <div>Loading weather data...;
-  if (error) return <div>{error};
+  if (loading) return <div>Loading weather data...</div>;
+  if (error) return <div>{error}</div>;
   if (!weather) return null;
   
   return (
     <div>
       <h1>Current Weather</h1>
-      <div>Temperature: {weather.temperature}°F
-      <div>Condition: {weather.condition}
-    
+      <div>Temperature: {weather.temperature}°F</div>
+      <div>Condition: {weather.condition}</div>
+    </div>
   );
 }
 ```
@@ -299,9 +299,9 @@ function Modal({ isOpen, onClose, message }) {
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <button onClick={onClose}>Close</button>
-        <div>{message}
-      
-    
+        <div>{message}</div>
+      </div>
+    </div>
   );
 }
 ```
@@ -340,7 +340,7 @@ function BadCounter() {
     setCount(count + 1); // Updates state, triggering re-render and another effect run
   }, [count]);
   
-  return <div>{count};
+  return <div>{count}</div>;
 }
 
 // ✅ Solution: Use functional updates
@@ -361,7 +361,7 @@ function GoodCounter() {
       <button onClick={() => setShouldCount(!shouldCount)}>
         {shouldCount ? 'Stop' : 'Start'} Counting
       </button>
-    
+    </div>
   );
 }
 ```

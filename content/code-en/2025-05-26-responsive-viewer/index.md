@@ -60,14 +60,14 @@ Let's start with the HTML framework that creates our device preview interface:
         <button id="pcBtn" class="active" data-device="pc">Desktop <span class="mo_hidden">(1920px)</span></button>
         <button id="tabletBtn" data-device="tablet">Tablet <span class="mo_hidden">(768px)</span></button>
         <button id="mobileBtn" data-device="mobile">Mobile <span class="mo_hidden">(375px)</span></button>
-    
+    </div>
     
     <div class="frame_container">
         <div class="iframe_wrapper">
             <iframe class="preview_frame" src="https://example.com"></iframe>
-        
-    
-
+        </div>
+    </div>
+</div>
 ```
 
 * **Overall Structure**  

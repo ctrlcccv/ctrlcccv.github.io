@@ -52,24 +52,24 @@ For instance, an online store might want to feature a product list, or a portfol
 <div class="slider">
     <div class="viewport">
         <div class="swiper-wrapper">
-            <div class="item">1
-            <div class="item">2
-            <div class="item">3
-            <div class="item">4
-            <div class="item">5
-            <div class="item">6
-            <div class="item">7
-            <div class="item">8
-            <div class="item">9
-            <div class="item">10
-            <div class="item">11
-            <div class="item">12
-        
-    
-    <div class="swiper-prev">Previous
-    <div class="swiper-next">Next
-    <div class="swiper-pagination">
-
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+            <div class="item">10</div>
+            <div class="item">11</div>
+            <div class="item">12</div>
+        </div>
+    </div>
+    <div class="swiper-prev">Previous</div>
+    <div class="swiper-next">Next</div>
+    <div class="swiper-pagination"></div>
+</div>
 ```
 
 * **Basic Slider Structure**  
@@ -206,7 +206,7 @@ function slideAct() {
             const $items = state.originalItems[index].clone();
             const itemCount = $items.length;
             for (let i = 0; i < itemCount; i += itemsPerView) {
-                const $slide = $('<div class="swiper-slide">');
+                const $slide = $('<div class="swiper-slide"></div>');
                 $items.slice(i, i + itemsPerView).clone().appendTo($slide);
                 $wrapper.append($slide);
             }

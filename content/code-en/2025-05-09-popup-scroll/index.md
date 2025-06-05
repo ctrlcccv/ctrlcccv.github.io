@@ -53,16 +53,17 @@ Here’s the basic markup we’ll be working with:
 <div class="wrap">
     <a href="#" class="btn">Enable body scroll<br>(using only overscroll-behavior: none)</a>
     <a href="#" class="btn type_disable">Disable body scroll</a>
+</div>
 
 <div class="pop_wrap">
-    <div class="bg">
+    <div class="bg"></div>
     <div class="popup">
         <a href="#" class="close"><img src="images/close.png" alt="닫기"></a>
         <div class="popup_con">
             Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content<br>Content
-        
-    
-
+        </div>
+    </div>
+</div>
 ```
 
 * `.btn` triggers the popup.

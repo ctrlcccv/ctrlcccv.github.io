@@ -52,7 +52,7 @@ Adding dynamic elements to your website can capture visitors' attention and incr
 <div id="container">
     <img src="https://unsplash.it/800/800?random=" alt="Background Image" class="bg">
     <h1 class="title">Title</h1>
-
+</div>
 ```
 
 * **Container Structure**  

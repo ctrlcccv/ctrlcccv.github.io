@@ -79,7 +79,7 @@ function CalculationComponent() {
         onChange={(e) => setNumberB(Number(e.target.value))} 
       />
       <p>Sum: {sum}</p>
-    
+    </div>
   );
 }
 ```
@@ -132,7 +132,7 @@ function ParentComponent() {
 // React.memo prevents re-rendering if props haven't changed
 const OptimizedChild = React.memo(function({ userInfo }) {
   console.log("Child component rendering");
-  return <div>{userInfo.details};
+  return <div>{userInfo.details}</div>;
 });
 ```
 
@@ -190,7 +190,7 @@ function ProductList({ products, searchTerm, category, sortBy }) {
           <li key={product.id}>{product.name} - ${product.price}</li>
         ))}
       </ul>
-    
+    </div>
   );
 }
 ```
@@ -229,7 +229,7 @@ function WarningExampleComponent() {
     <div>
       <button onClick={() => setCount(prev => prev + 1)}>Increment</button>
       <p>Current count: {count}</p>
-    
+    </div>
   );
 }
 ```

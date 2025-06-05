@@ -65,7 +65,7 @@ function InputForm() {
     <div>
       <input ref={inputRef} type="text" />
       <button onClick={focusInput}>Focus Input</button>
-    
+    </div>
   );
 }
 ```
@@ -110,7 +110,7 @@ function RenderCounter() {
       <p>Render count: {renderCount.current}</p>
       <p>State value: {stateValue}</p>
       <button onClick={() => setStateValue(stateValue + 1)}>Increase State</button>
-    
+    </div>
   );
 }
 ```
@@ -166,10 +166,10 @@ function ProductList() {
           {/* Connect ref to last item */}
           <div ref={index === products.length - 1 ? lastItemRef : null}>
             {product.name}
-          
-        
+          </div>
+        </div>
       ))}
-    
+    </div>
   );
 }
 ```
@@ -206,7 +206,7 @@ function VideoPlayer() {
       <button onClick={togglePlay}>
         {isPlaying ? 'Pause' : 'Play'}
       </button>
-    
+    </div>
   );
 }
 ```
@@ -293,7 +293,7 @@ function WarningsComponent() {
       <p>Ref value: {refValue.current}</p>
       <p>State value: {stateValue}</p>
       <button onClick={handleIncrement}>Increment</button>
-    
+    </div>
   );
 }
 ```

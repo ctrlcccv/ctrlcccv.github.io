@@ -65,7 +65,7 @@ Start by setting up the basic HTML for the banner:
         <li>TEXT4</li>
         <li>TEXT5</li>
     </ul>
-
+</div>
 ```
 **What’s Happening Here?**  
 
@@ -231,7 +231,7 @@ function setMarqueeBanner() {
 Add ARIA roles to improve compatibility with screen readers. For example:
 
 ```html
-<div class="marquee_banner" role="marquee" aria-label="Important updates">
+<div class="marquee_banner" role="marquee" aria-label="Important updates"></div>
 ```
 
 ### Performance Boost

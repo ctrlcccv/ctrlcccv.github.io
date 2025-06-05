@@ -62,8 +62,8 @@ We’ll start by creating a simple HTML structure that handles image selection a
     <div class="preview">
         <span class="img_box"><img class="preview_img" src="#" alt="Selected Image"></span>
         <button type="button" class="delect"><img src="images/image_file_delect.png" alt="삭제"></button>
-    
-
+    </div>
+</div>
 ```
 **What this does:**
 - `.image_file`: Wraps everything into a neat upload module.

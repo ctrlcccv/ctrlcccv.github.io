@@ -58,7 +58,7 @@ Manually adding separators like hyphens or slashes can be frustrating, especiall
     <input type="text" id="date" placeholder="YYYY/MM/DD" data-format="xxxx/xx/xx">
     <label for="card">Card Number:</label>
     <input type="text" id="card" placeholder="0000-0000-0000-0000" data-format="xxxx-xxxx-xxxx-xxxx">
-
+</div>
 ```
 
 * **Custom Data Attributes**  

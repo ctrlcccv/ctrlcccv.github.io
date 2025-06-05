@@ -63,17 +63,17 @@ tags:
         <div id="tab1_1" class="tab_content">
             <h3>첫 번째 탭 내용</h3>
             <p>여기에 첫 번째 탭의 내용이 들어갑니다.</p>
-        
+        </div>
         <div id="tab1_2" class="tab_content">
             <h3>두 번째 탭 내용</h3>
             <p>여기에 두 번째 탭의 내용이 들어갑니다.</p>
-        
+        </div>
         <div id="tab1_3" class="tab_content">
             <h3>세 번째 탭 내용</h3>
             <p>여기에 세 번째 탭의 내용이 들어갑니다.</p>
-        
-    
-
+        </div>
+   </div> 
+</div>
 
 <h2>두 번째 탭 메뉴</h2>
 <div class="tab_container">
@@ -86,17 +86,17 @@ tags:
         <div id="tab2_1" class="tab_content">
             <h3>공지사항</h3>
             <p>최신 공지사항이 여기에 표시됩니다.</p>
-        
+        </div>
         <div id="tab2_2" class="tab_content">
             <h3>자주 묻는 질문</h3>
             <p>FAQ 내용이 여기에 표시됩니다.</p>
-        
+        </div>
         <div id="tab2_3" class="tab_content">
             <h3>문의하기</h3>
             <p>문의 양식이 여기에 표시됩니다.</p>
-        
-    
-
+        </div>
+    </div>
+</div>
 ```
 
 * **탭 메뉴 컨테이너**  
@@ -126,11 +126,11 @@ tags:
 ```html
 <!-- 첫 번째 탭 메뉴의 링크와 콘텐츠 ID -->
 <li><a href="#tab1_1">탭 1</a></li>
-<div id="tab1_1" class="tab_content">...
+<div id="tab1_1" class="tab_content">...</div>
 
 <!-- 두 번째 탭 메뉴의 링크와 콘텐츠 ID -->
 <li><a href="#tab2_1">공지사항</a></li>
-<div id="tab2_1" class="tab_content">...
+<div id="tab2_1" class="tab_content">...</div>
 ```
 
 이렇게 ID를 명확하게 구분하면 여러 탭 메뉴가 서로 영향을 주지 않고 각각 독립적으로 작동합니다.

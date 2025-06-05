@@ -81,7 +81,7 @@ function 계산컴포넌트() {
         onChange={(e) => 숫자B설정(Number(e.target.value))} 
       />
       <p>합계: {합계}</p>
-    
+    </div>
   );
 }
 ```
@@ -153,7 +153,7 @@ function ParentComponent() {
 // React.memo로 최적화된 자식 컴포넌트 - props가 변경될 때만 리렌더링
 const OptimizedChild = React.memo(function({ userInfo }) {
   console.log("자식 컴포넌트 렌더링");
-  return <div>{userInfo.details};
+  return <div>{userInfo.details}</div>;
 });
 ```
 
@@ -197,7 +197,7 @@ function ProductList({ products, searchTerm, category, sortBy }) {
           <li key={product.id}>{product.name} - {product.price}원</li>
         ))}
       </ul>
-    
+    </div>
   );
 }
 ```
@@ -254,7 +254,7 @@ function WarningExampleComponent() {
     <div>
       <button onClick={() => setCount(prev => prev + 1)}>증가</button>
       <p>현재 카운트: {count}</p>
-    
+    </div>
   );
 }
 ```

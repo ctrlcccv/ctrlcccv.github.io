@@ -86,7 +86,7 @@ Here’s the basic structure for a simple accordion menu:
         <summary>Menu 3</summary>
         <p>This is the content for Menu 3.</p>
     </details>
-
+</div>
 ```
 
 Each `<details>` block creates a clickable section that expands and collapses when users interact with it.
@@ -129,7 +129,7 @@ Let’s add smooth sliding transitions to the accordion panels for a better user
 $('.accordion_menu details').attr('open', true).each(function() {
     const $summary = $(this).find('summary'); // Find the summary inside each <details>
     
-    $summary.nextAll().wrapAll('<div class="con">').parent().hide(); 
+    $summary.nextAll().wrapAll('<div class="con"></div>').parent().hide(); 
     // Wrap all content after summary in a div and hide it
 
     $summary.on('click', function(e) {
@@ -153,7 +153,7 @@ To create a fully functional accordion — where only one panel is open and tran
 $('.accordion_menu details').attr('open', true).each(function() {
     const $summary = $(this).find('summary'); // Find the summary inside each <details>
 
-    $summary.nextAll().wrapAll('<div class="con">').parent().hide(); 
+    $summary.nextAll().wrapAll('<div class="con"></div>').parent().hide(); 
     // Wrap all content after summary in a hidden div
 
     $summary.on('click', function(e) {

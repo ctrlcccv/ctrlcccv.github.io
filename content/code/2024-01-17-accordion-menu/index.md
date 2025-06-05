@@ -111,7 +111,7 @@ $('.accordion_menu summary').on('click', function() {
 // 슬라이드 애니메이션 추가
 $('.accordion_menu details').attr('open', true).each(function() {
     const $summary = $(this).find('summary');
-    $summary.nextAll().wrapAll('<div class="con">').parent().hide(); // 내용을 감싸고 숨김
+    $summary.nextAll().wrapAll('<div class="con"></div>').parent().hide(); // 내용을 감싸고 숨김
     // summary 클릭 시 슬라이드 효과 적용
     $summary.on('click', function(e) {
         e.preventDefault(); // 기본 이벤트 막기
@@ -132,7 +132,7 @@ $('.accordion_menu details').attr('open', true).each(function() {
 // 아코디언 메뉴 + 슬라이드 효과
 $('.accordion_menu details').attr('open', true).each(function() {
     const $summary = $(this).find('summary');
-    $summary.nextAll().wrapAll('<div class="con">').parent().hide(); // 내용을 감싸고 숨김
+    $summary.nextAll().wrapAll('<div class="con"></div>').parent().hide(); // 내용을 감싸고 숨김
     $summary.on('click', function(e) { 
         e.preventDefault(); // 기본 동작 방지
         $(this).next('.con').slideToggle() // 내용 슬라이드 토글

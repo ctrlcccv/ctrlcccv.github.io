@@ -224,7 +224,7 @@ function slideAct() {
             const $items = state.originalItems[index].clone();
             const itemCount = $items.length;
             for (let i = 0; i < itemCount; i += itemsPerView) {
-                const $slide = $('<div class="swiper-slide">');
+                const $slide = $('<div class="swiper-slide"></div>');
                 $items.slice(i, i + itemsPerView).clone().appendTo($slide);
                 $wrapper.append($slide);
             }

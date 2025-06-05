@@ -58,8 +58,8 @@ This small UX improvement can make a big difference, especially on mobile device
         <input type="tel" id="phone2" maxlength="4" class="phone_input" placeholder="4567" inputmode="numeric" pattern="[0-9]*" aria-label="First part of phone number">
         <span class="separator" aria-hidden="true">-</span>
         <input type="tel" id="phone3" maxlength="4" class="phone_input" placeholder="8901" inputmode="numeric" pattern="[0-9]*" aria-label="Last part of phone number">
-    
-
+    </div>
+</div>
 ```
 
 * **Input Fields**  

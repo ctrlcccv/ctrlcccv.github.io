@@ -69,11 +69,11 @@ Before jumping into JavaScript, let’s first lay down a solid foundation with o
             <li class="swiper-slide">9</li>
             <li class="swiper-slide">10</li>
         </ul>
-    
-    <div class="pagination">
-    <div class="swiper-button-prev">
-    <div class="swiper-button-next">
-
+    </div>
+    <div class="pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
 ```
 * **.slider_center**: Acts as the main wrapper, managing overflow and positioning.
 * **.inner**: Helps achieve a centered layout—especially useful when dealing with duplicate slides.
