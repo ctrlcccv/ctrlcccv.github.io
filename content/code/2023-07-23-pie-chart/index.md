@@ -38,33 +38,33 @@ stroke-dasharray:100 40; 이라면 점선의 길이는 100, 간격은 40이다.
 ## HTML 구조
 ```html
 <div class="pie_wrap">
-    <!-- 원형 그래프 -->
-    <svg class="pie">
-        <circle data-percent="10" />
-        <circle data-percent="20" />
-        <circle data-percent="30" />
-        <circle data-percent="40" />
-    </svg>
-    <!-- 원형 그래프 리스트 -->
-    <ul class="pie_info">
-        <li>
-            <span class="color"></span>
-            <span class="txt">그래프 1</span>
-        </li>
-        <li>
-            <span class="color"></span>
-            <span class="txt">그래프 2</span>
-        </li>
-        <li>
-            <span class="color"></span>
-            <span class="txt">그래프 3</span>
-        </li>
-        <li>
-            <span class="color"></span>
-            <span class="txt">그래프 4</span>
-        </li>
-    </ul>
-
+	<!-- 원형 그래프 -->
+	<svg class="pie">
+		<circle data-percent="10" />
+		<circle data-percent="20" />
+		<circle data-percent="30" />
+		<circle data-percent="40" />
+	</svg>
+	<!-- 원형 그래프 리스트 -->
+	<ul class="pie_info">
+		<li>
+			<span class="color"></span>
+			<span class="txt">그래프 1</span>
+		</li>
+		<li>
+			<span class="color"></span>
+			<span class="txt">그래프 2</span>
+		</li>
+		<li>
+			<span class="color"></span>
+			<span class="txt">그래프 3</span>
+		</li>
+		<li>
+			<span class="color"></span>
+			<span class="txt">그래프 4</span>
+		</li>
+	</ul>
+</div>
 ```
 SVG <circle> 태그를 사용했고, data-* 속성에 각각 몇 퍼센트인지 작성했다.  
 
@@ -155,35 +155,35 @@ stroke-dasharray 속성의 시작 지점이 90° 이여서, 0°에서 시작하�
 ### HTML 구조
 ```html
 <div class="pie_wrap">
-    <!-- 원형 그래프 -->
-    <div class="pie_res">
-        <svg class="pie">
-            <circle data-percent="10" />
-            <circle data-percent="20" />
-            <circle data-percent="30" />
-            <circle data-percent="40" />
-        </svg>
-    
-    <!-- 원형 그래프 리스트 -->
-    <ul class="pie_info">
-        <li>
-            <span class="color"></span>
-            <span class="txt">그래프 1</span>
-        </li>
-        <li>
-            <span class="color"></span>
-            <span class="txt">그래프 2</span>
-        </li>
-        <li>
-            <span class="color"></span>
-            <span class="txt">그래프 3</span>
-        </li>
-        <li>
-            <span class="color"></span>
-            <span class="txt">그래프 4</span>
-        </li>
-    </ul>
-
+	<!-- 원형 그래프 -->
+	<div class="pie_res">
+		<svg class="pie">
+			<circle data-percent="10" />
+			<circle data-percent="20" />
+			<circle data-percent="30" />
+			<circle data-percent="40" />
+		</svg>
+	</div>
+	<!-- 원형 그래프 리스트 -->
+	<ul class="pie_info">
+		<li>
+			<span class="color"></span>
+			<span class="txt">그래프 1</span>
+		</li>
+		<li>
+			<span class="color"></span>
+			<span class="txt">그래프 2</span>
+		</li>
+		<li>
+			<span class="color"></span>
+			<span class="txt">그래프 3</span>
+		</li>
+		<li>
+			<span class="color"></span>
+			<span class="txt">그래프 4</span>
+		</li>
+	</ul>
+</div>
 ```
 반응형 작업을 위해 pie_res 클래스를 추가했다.  
 SVG의 viewBox 속성은 SVG 요소의 위치 · 크기를 지정할 수 있는데, 이 속성을 사용하면 화면 크기에 따라 SVG 요소의 크기가 자동으로 맞춰져서 반응형 작업할 때 꼭 사용해야 한다. JS에서 viewBox 속성 값이 추가될 예정이다.  
