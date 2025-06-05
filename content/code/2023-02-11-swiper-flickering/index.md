@@ -54,10 +54,10 @@ iOS 기기에서 Swiper 슬라이드를 사용하면, 슬라이드를 넘길 때
             <li class="swiper-slide">slider5</li>
             <li class="swiper-slide">slider6</li>
         </ul>
-    
+    </div>
     <span class="swiper-button-prev">이전</span>
     <span class="swiper-button-next">다음</span>
-
+</div>
 ```
 
 ### CSS 속성 적용
