@@ -37,28 +37,29 @@ tags:
 카드의 HTML 구조는 간단합니다. 두 개의 주요 클래스 `.card`와 `.card_content`를 활용해 카드의 외부 컨테이너와 내부 콘텐츠를 구성합니다. 
 
 ```html
+<!-- 가로로 뒤집히는 카드 -->
 <div class="card horizontal_card">
     <div class="card_content">
         <div class="card_front">
             앞
-        
+        </div>
         <div class="card_back">
             뒤
-        
-    
-
+        </div>
+    </div>
+</div>
 
 <!-- 세로로 뒤집히는 카드 -->
 <div class="card vertical_card">
     <div class="card_content">
         <div class="card_front">
             앞
-        
+        </div>
         <div class="card_back">
             뒤
-        
-    
-
+        </div>
+    </div>
+</div>
 ```
 
 - **가로로 뒤집히는 카드 (.horizontal_card)** 
