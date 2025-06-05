@@ -42,7 +42,7 @@ tags:
         <input type="password" id="pw" name="pw" value="password!@">
         <label class="pw_show"><input type="checkbox">비밀번호 표시</label>
     </form>
-
+</div>
 ```
 
 ## CSS 스타일
