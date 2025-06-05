@@ -283,6 +283,6 @@ How do you currently test your responsive designs? Have you created any extensio
 <br>
 
 <div class="btn_wrap">
-    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-23-responsive-viewer/"></a>
+    <a href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-23-responsive-viewer/">Live Example Preview</a>
 </div>
 
