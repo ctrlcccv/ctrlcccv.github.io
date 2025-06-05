@@ -67,10 +67,10 @@ Swiper 인스턴스의 activeIndexChange 이벤트를 활용하여 현재 슬라
             <li class="swiper-slide">slider3</li>
             <li class="swiper-slide">slider4</li>
         </ul>
-    
+    </div>
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-
+</div>
 ```
 
 ### CSS 스타일
