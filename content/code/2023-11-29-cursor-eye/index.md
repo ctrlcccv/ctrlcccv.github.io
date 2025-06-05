@@ -34,7 +34,7 @@ jQuery를 활용하여 마우스 움직임에 따라 움직이는 눈의 효과�
 <div class="eyes">
     <span class="eye"></span>
     <span class="eye"></span>
-
+</div>
 ```
 * **컨테이너**  
   * eyes 클래스는 두 개의 눈을 담는 컨테이너로 작동합니다. 눈 요소를 그룹화하고, 전체적인 레이아웃을 관리합니다.
