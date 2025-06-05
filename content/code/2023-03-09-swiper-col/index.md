@@ -17,7 +17,7 @@ alternates:
   - title: "How to Create a Swiper Grid Loop in jQuery"
     href: "https://ctrlcccv.github.io/code-en/2025-05-13-swiper-col/"
     hreflang: "en"
-  - title: "Grid Loop Slider Example"
+  - title: "jQuery - Swiper로 구현하는 Grid Loop Slider"
     href: "https://ctrlcccv.github.io/code/2023-03-09-swiper-col/"
     hreflang: "x-default"
 
