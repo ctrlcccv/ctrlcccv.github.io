@@ -45,17 +45,17 @@ HTML 구조를 살펴보겠습니다. 다음과 같이 메뉴와 컨텐츠 섹�
                 <li class="swiper-slide"><a href="#con6">여섯번째 메뉴</a></li>
                 <li class="swiper-slide"><a href="#con7">일곱번째 메뉴</a></li>
             </ul>
-        
-    
+        </div>
+    </div>
 
-    <div class="content" id="con1">1
-    <div class="content" id="con2">2
-    <div class="content" id="con3">3
-    <div class="content" id="con4">4
-    <div class="content" id="con5">5
-    <div class="content" id="con6">6
-    <div class="content" id="con7">7
-
+    <div class="content" id="con1">1</div>
+    <div class="content" id="con2">2</div>
+    <div class="content" id="con3">3</div>
+    <div class="content" id="con4">4</div>
+    <div class="content" id="con5">5</div>
+    <div class="content" id="con6">6</div>
+    <div class="content" id="con7">7</div>
+</div>
 ```
 
 ## CSS 스타일
