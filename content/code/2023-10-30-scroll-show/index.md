@@ -35,12 +35,12 @@ HTML에서는 div 요소들을 사용하여 컨텐츠를 구성하고, 각각의
 이 클래스는 스크롤 애니메이션을 적용할 대상을 나타냅니다.
 ```html
 <div class="scroll_wrap">
-    <div class="scroll_on">제자리에서 나타납니다.
-    <div class="scroll_on type_top">위에서 나타납니다.
-    <div class="scroll_on type_left">왼쪽에서 나타납니다.
-    <div class="scroll_on type_right">오른쪽에서 나타납니다.
-    <div class="scroll_on type_bottom">밑에서 나타납니다.
-
+    <div class="scroll_on">제자리에서 나타납니다.</div>
+    <div class="scroll_on type_top">위에서 나타납니다.</div>
+    <div class="scroll_on type_left">왼쪽에서 나타납니다.</div>
+    <div class="scroll_on type_right">오른쪽에서 나타납니다.</div>
+    <div class="scroll_on type_bottom">밑에서 나타납니다.</div>
+</div>
 ```
 
 ## CSS 스타일
