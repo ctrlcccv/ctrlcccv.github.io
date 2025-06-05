@@ -33,7 +33,7 @@ tags:
 
 웹 앱에서 특정 요소에 포커스를 주거나 스크롤 위치를 조정할 때마다 복잡한 코드를 작성해야 해서 불편했던 적이 있으신가요? 
 
-React는 가상 DOM을 통해 UI를 효율적으로 관리하는 장점이 있지만, 때로는 실제 DOM 요소에 직접 접근해야 할 때가 있습니다. 또한 컴포넌트가 리렌더링되어도 값을 그대로 유지해야 하는 경우도 있습니다. 이런 상황에서 useRef 훅은 아주 유용한 해결책이 됩니다.
+React는 가상 DOM을 통해 UI를 효율적으로 관리하지만, 때로는 실제 DOM 요소에 직접 접근하거나 컴포넌트가 리렌더링되어도 값을 그대로 유지해야 할 때가 있습니다. 이런 상황에서 useRef 훅은 아주 유용한 해결책이 됩니다.
 
 <br>
 
@@ -68,7 +68,7 @@ function 입력폼() {
     <div>
       <input ref={입력칸Ref} type="text" />
       <button onClick={포커스하기}>입력칸 포커스</button>
-    
+    </div>
   );
 }
 ```
@@ -116,7 +116,7 @@ function 렌더링카운터() {
       <p>렌더링 횟수: {렌더링횟수.current}</p>
       <p>상태값: {상태값}</p>
       <button onClick={() => 상태변경(상태값 + 1)}>상태 증가</button>
-    
+    </div>
   );
 }
 ```
@@ -187,18 +187,18 @@ function ProductList() {
           {/* 마지막 아이템에 ref 연결 */}
           <div ref={index === products.length - 1 ? lastItemRef : null}>
             {product.name}
-          
-        
+          </div>
+        </div>
       ))}
-    
+    </div>
   );
 }
 ```
 
 * **무한 스크롤 효과적으로 구현하기**  
 <span class="txt">
-useRef와 IntersectionObserver를 함께 쓰면 사용자가 페이지 아래쪽까지 스크롤했을 때 자동으로 새 데이터를 불러오는 무한 스크롤을 쉽게 만들 수 있습니다.
-마지막 상품이 화면에 보이는지 감지해서 자동으로 다음 페이지를 불러옵니다.
+useRef와 IntersectionObserver를 함께 사용하면 무한 스크롤을 쉽게 구현할 수 있습니다.
+마지막 상품이 화면에 보이면 자동으로 다음 페이지를 불러옵니다.
 </span>
 
 <br>
@@ -232,7 +232,7 @@ function VideoPlayer() {
       <button onClick={togglePlay}>
         {isPlaying ? '일시정지' : '재생'}
       </button>
-    
+    </div>
   );
 }
 ```
@@ -240,7 +240,6 @@ function VideoPlayer() {
 * **미디어 요소 직접 제어하기**  
 <span class="txt">
 비디오나 오디오 같은 미디어 요소를 useRef로 참조하면 play(), pause() 같은 내장 메서드를 직접 호출할 수 있습니다.
-이렇게 하면 미디어 플레이어의 다양한 기능을 React 앱에 쉽게 통합할 수 있습니다.
 </span>
 
 <br>
@@ -295,6 +294,7 @@ function StateComparisonComponent() {
 특히 타이머ID나 이전 상태값 저장 같은 경우에는 useRef가 더 적합합니다.
 </span>
 
+<br>
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -333,7 +333,7 @@ function CautionComponent() {
       <p>참조값: {refValue.current}</p>
       <p>상태값: {stateValue}</p>
       <button onClick={handleIncrement}>증가</button>
-    
+    </div>
   );
 }
 ```
@@ -358,12 +358,70 @@ DOM 요소에 접근하기 전에 그 요소가 실제로 있는지 확인해야
 
 <br>
 
-## 결론
+## useRef 핵심 개념 퀴즈!
 
-useRef는 React 애플리케이션에서 DOM을 직접 제어하고 리렌더링 없이 값을 유지해야 할 때 유용한 도구입니다.가상 DOM을 우회하여 작동하기 때문에 렌더링 성능에 영향을 주지 않으면서 필요한 작업을 수행할 수 있습니다.
+```javascript
+import React, { useState, useRef, useEffect } from 'react';
 
-사용자에게 보여지는 값은 useState로, 내부 로직에만 필요한 값은 useRef로 관리하는 패턴을 기억하세요. 이렇게 하면 앱의 성능을 최적화하면서도 필요한 기능을 모두 구현할 수 있습니다.
+function CounterComponent() {
+  const [count, setCount] = useState(0);
+  const refCount = useRef(0);
+  const countButtonRef = useRef(null);
+  
+  const handleStateClick = () => {
+    setCount(count + 1);
+  };
+  
+  const handleRefClick = () => {
+    refCount.current += 1;
+    console.log("refCount:", refCount.current);
+  };
+  
+  useEffect(() => {
+    console.log("컴포넌트 렌더링됨");
+  });
+  
+  return (
+    <div>
+      <p>State 카운트: {count}</p>
+      <p>Ref 카운트: {refCount.current}</p>
+      <button onClick={handleStateClick}>State 증가</button>
+      <button ref={countButtonRef} onClick={handleRefClick}>Ref 증가</button>
+    </div>
+  );
+}
+```
 
-useRef를 활용한 여러분만의 특별한 방법이나 사례가 있다면 댓글로 알려주세요! 함께 더 좋은 React 개발 방법을 찾아봅시다.
+위 코드를 살펴보고 아래 질문에 답해보세요.  
+
+'Ref 증가' 버튼을 5번 클릭했을 때, 화면에 보이는 "Ref 카운트" 값은 얼마일까요?
+
+<div class="quiz-wrap">
+  <span>정답 입력 : <input type="text" class="quiz-input"></span>
+</div>
+
+<details>
+<summary>정답 확인하기</summary>
+
+
+정답: 0  
+
+<br>
+
+이 문제는 useRef의 가장 중요한 특성을 이해하고 있는지 확인하는 문제입니다.
+
+'Ref 증가' 버튼을 클릭하면 내부적으로 refCount.current 값은 5까지 증가하지만, 화면에는 여전히 초기값인 0이 표시됩니다. 이것이 useRef의 핵심 특성을 보여주는 부분입니다.
+
+1. **값이 변해도 화면이 갱신되지 않습니다.**
+<span class="txt">
+useRef의 .current 값이 변경되어도 컴포넌트는 다시 렌더링되지 않습니다. 따라서 console.log에는 증가된 값이 출력되지만, 화면에는 반영되지 않습니다.
+</span>
+
+2. **DOM 업데이트와의 관계**
+<span class="txt">
+React의 가상 DOM 시스템은 state가 변경될 때만 화면을 업데이트합니다. useRef는 이 메커니즘 밖에서 작동하므로, 값이 변경되어도 화면에 자동으로 반영되지 않습니다.
+</span>
+
+</details>
 
 <br>
