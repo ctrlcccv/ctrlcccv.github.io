@@ -36,10 +36,11 @@ tags:
     <img src="https://picsum.photos/id/80/2000/2000" alt="배경 이미지" class="bg">
     <p class="fast">빠르게 올라갑니다.</p>
     <p class="slow">느리게 올라갑니다.</p>
+</div>
 
 <div class="container">
     <h1>Parallax Scroll</h1>
-
+</div>
 ```
 * **패럴렉스 컨테이너**
   * `parallax` 클래스를 가진 `<div>`는 패럴렉스 효과를 적용할 요소의 컨테이너 역할을 합니다.
