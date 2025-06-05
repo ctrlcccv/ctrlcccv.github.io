@@ -42,7 +42,7 @@ React로 컴포넌트를 개발할 때 화면이 그려진 후에 추가 작업�
 
 useEffect는 React 컴포넌트에서 "부수 효과"를 처리하기 위한 훅입니다. 일상생활에 비유하자면, 방에 들어간 후에 불을 켜거나, 카페에 도착한 후 음료를 주문하는 것과 같습니다. 즉, 어떤 행동(렌더링)이 완료된 후에 수행하는 추가 작업이라고 생각하면 됩니다.
 
-```javascript
+```jsx
 import React, { useEffect } from 'react';
 
 function MyComponent() {
@@ -51,7 +51,7 @@ function MyComponent() {
     console.log('컴포넌트가 화면에 나타났습니다!');
   }, []); // 의존성 배열
   
-  return <div>Hello World;
+  return <div>Hello World</div>;
 }
 ```
 * **기본 구조**  
@@ -80,7 +80,7 @@ useEffect 내부의 코드는 화면 렌더링이 완료된 후에 실행됩니�
 
 ## 의존성 배열 사용하기
 
-```javascript
+```jsx
 import React, { useState, useEffect } from 'react';
 
 function Counter() {
@@ -106,7 +106,7 @@ function Counter() {
     <div>
       <p>현재 카운트: {count}</p>
       <button onClick={() => setCount(count + 1)}>증가</button>
-    
+    </div>
   );
 }
 ```
@@ -145,7 +145,7 @@ function Counter() {
 
 ## 클린업 함수 (정리 함수)
 
-```javascript
+```jsx
 import React, { useState, useEffect } from 'react';
 
 function WindowResizeTracker() {
@@ -170,7 +170,7 @@ function WindowResizeTracker() {
     <div>
       <p>현재 창 너비: {windowWidth}px</p>
       {windowWidth < 768 ? <p>모바일 화면입니다.</p> : <p>데스크톱 화면입니다.</p>}
-    
+    </div>
   );
 }
 ```
@@ -192,7 +192,7 @@ useEffect 내에서 return 함수는 컴포넌트가 사라지거나(언마운�
 
 ### 데이터 가져오기
 
-```javascript
+```jsx
 import React, { useState, useEffect } from 'react';
 
 function ProductList() {
@@ -225,7 +225,7 @@ function ProductList() {
           ))}
         </ul>
       )}
-    
+    </div>
   );
 }
 ```
@@ -258,7 +258,7 @@ function ProductList() {
 
 ## 마운트와 언마운트 이해하기
 
-```javascript
+```jsx
 import React, { useState, useEffect } from 'react';
 
 // 자식 컴포넌트
@@ -281,8 +281,8 @@ function ModalPopup({ onClose }) {
         <h2>환영합니다!</h2>
         <p>이것은 모달 팝업입니다.</p>
         <button onClick={onClose}>닫기</button>
-      
-    
+      </div>
+    </div>
   );
 }
 
@@ -297,7 +297,7 @@ function App() {
       
       {/* showModal이 true일 때만 ModalPopup 컴포넌트가 화면에 나타남 */}
       {showModal && <ModalPopup onClose={() => setShowModal(false)} />}
-    
+    </div>
   );
 }
 ```
@@ -324,7 +324,7 @@ function App() {
 ## 주의사항 및 팁
 
 ### 1. 무한 루프 방지하기
-```javascript
+```jsx
 // ❌ 잘못된 방법: 무한 루프 발생
 useEffect(() => {
   setCount(count + 1); // count 변경 → 리렌더링 → 다시 useEffect 실행 → count 변경 ...
@@ -339,7 +339,7 @@ useEffect(() => {
 ```
 
 ### 2. 의존성 배열 올바르게 설정하기
-```javascript
+```jsx
 // ❌ 잘못된 방법: 의존성 배열에 필요한 값이 누락됨
 useEffect(() => {
   console.log(name); // name을 사용하지만 의존성 배열에 포함되지 않음
@@ -352,7 +352,7 @@ useEffect(() => {
 ```
 
 ### 3. 여러 개의 useEffect 분리하기
-```javascript
+```jsx
 // ❌ 잘못된 방법: 하나의 useEffect에서 여러 작업 처리
 useEffect(() => {
   // 데이터 가져오기
