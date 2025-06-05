@@ -46,9 +46,9 @@ tags:
         <option value="down-right">아래 - 오른쪽</option>
     </select>    
     <button class="generate">삼각형 만들기</button>
-    <div class="css_code">
-    <div class="triangle">
-
+    <div class="css_code"></div>
+    <div class="triangle"></div>
+</div>
 ```
 * **컨테이너 (.container)**  
 주요 인터페이스 요소를 담는 컨테이너로, 중앙 정렬과 스타일링을 위한 기본 설정이 적용되어 있습니다.
