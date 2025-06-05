@@ -45,13 +45,13 @@ tags:
 **함수 컴포넌트**   
 함수 컴포넌트에서는 props를 함수의 인자로 전달합니다.
 
-```javascript
+```jsx
 const UserCard = ({ userName, userAge }) => {
     return (
         <div>
             <h1>{userName}</h1>
             <p>나이는 {userAge}살입니다.</p>
-        
+        </div>
     );
 };
 
@@ -59,7 +59,7 @@ const App = () => {
     return (
         <div>
             <UserCard userName="홍길동" userAge={20} />
-        
+        </div>
     );
 };
 ```
@@ -67,7 +67,7 @@ const App = () => {
 **클래스 컴포넌트**   
 클래스 컴포넌트에서는 `this.props` 객체를 통해 props에 접근할 수 있습니다.
 
-```javascript
+```jsx
 class UserCard extends React.Component {
     render() {
         const { userName, userAge } = this.props;
@@ -75,7 +75,7 @@ class UserCard extends React.Component {
             <div>
                 <h1>{userName}</h1>
                 <p>나이는 {userAge}살입니다.</p>
-            
+            </div>
         );
     }
 }
@@ -84,7 +84,7 @@ const App = () => {
     return (
         <div>
             <UserCard userName="이순신" userAge={30} />
-        
+        </div>
     );
 };
 ```
@@ -107,7 +107,7 @@ const App = () => {
 
 props는 문자열, 숫자, 객체, 배열 등 다양한 기본 자료형뿐 아니라 함수, 컴포넌트, 심지어 객체의 콜백 함수까지 전달할 수 있습니다.
 
-```javascript
+```jsx
 const UserCard = ({
     userName,
     userAge,
@@ -129,7 +129,7 @@ const UserCard = ({
                 <button onClick={handleProfileClick}>프로필 보기</button>
             )}
             {CustomComponent && <CustomComponent />}
-        
+        </div>
     );
 };
 
@@ -148,7 +148,7 @@ const App = () => {
                 handleProfileClick={handleProfileClick}
                 CustomComponent={() => <p>추가 정보입니다.</p>}
             />
-        
+        </div>
     );
 };
 ```
@@ -157,7 +157,7 @@ const App = () => {
 ## props 활용 팁 
 
 **`React.cloneElement` 함수를 사용하여 props 동적 변경**  
-```javascript
+```jsx
 const CounterApp = () => {
     const [counter, setCounter] = useState(0);
 
@@ -169,7 +169,7 @@ const CounterApp = () => {
         <div>
             <CounterDisplay counter={counter} />
             <button onClick={handleClick}>카운터 증가</button>
-        
+        </div>
     );
 };
 
@@ -177,7 +177,7 @@ const CounterDisplay = ({ counter }) => {
     return (
         <div>
             <h1>카운터: {counter}</h1>
-        
+        </div>
     );
 };
 
@@ -193,14 +193,14 @@ const EnhancedCounterApp = () => {
     return (
         <div>
             <EnhancedCounterDisplay />
-        
+        </div>
     );
 };
 ```
 
 **`PropTypes` 라이브러리를 사용하여 props 유형 검증**  
 
-```javascript
+```jsx
 import PropTypes from "prop-types";
 
 const UserCard = ({ userName, userAge }) => {
@@ -208,7 +208,7 @@ const UserCard = ({ userName, userAge }) => {
         <div>
             <h1>{userName}</h1>
             <p>나이는 {userAge}살입니다.</p>
-        
+        </div>
     );
 };
 
@@ -223,14 +223,14 @@ const App = () => {
             <UserCard userName="홍길동" userAge={20} /> // 유효한 props
             <UserCard userAge={20} /> // ❌ 오류 발생: userName prop이 누락되었습니다.
             <UserCard userName="이순신" userAge="30" /> // ❌ 오류 발생: userAge prop은 숫자형이어야 합니다.
-        
+        </div>
     );
 };
 ```
 
 **전달된 props를 래핑하여 재사용**  
 
-```javascript
+```jsx
 const withAdditionalProps = (Component) => {
     return (props) => {
         const additionalProps = {
@@ -248,7 +248,7 @@ const UserCard = ({ userName, userAge, extraProp }) => {
             <h1>{userName}</h1>
             <p>나이는 {userAge}살입니다.</p>
             <p>추가 prop: {extraProp}</p>
-        
+        </div>  
     );
 };
 
@@ -258,19 +258,19 @@ const App = () => {
     return (
         <div>
             <EnhancedComponent userName="김유신" userAge={40} />
-        
+        </div>
     );
 };
 ```
 
 **`children` prop을 사용하여 자식 컴포넌트 내용 접근**  
 
-```javascript
+```jsx
 const Wrapper = ({ content }) => {
     return (
         <div>
             {content}
-        
+        </div>
     );
 };
 
@@ -281,14 +281,14 @@ const App = () => {
                 <h1>안녕하세요</h1>
                 <p>리액트 props에 대한 블로그 글입니다.</p>
             </Wrapper>
-        
+        </div>
     );
 };
 ```
 
 **함수형 컴포넌트의 `useMemo` hook을 사용하여 props 최적화**  
 
-```javascript
+```jsx
 const DataDisplay = ({ items }) => {
     const processedItems = useMemo(() => {
         // 데이터를 처리하는 비용이 많이 드는 작업
@@ -300,14 +300,14 @@ const DataDisplay = ({ items }) => {
             {processedItems.map((item) => (
                 <p key={item}>{item}</p>
             ))}
-        
+        </div>
     );
 };
 ```
 
 **커스텀 Hook을 사용하여 props 재사용성 향상**  
 
-```javascript
+```jsx
 const UserData = (names) => {
     const processedNames = useMemo(() => {
         // 데이터를 처리하는 비용이 많이 드는 작업
@@ -331,7 +331,7 @@ const UserList = () => {
             {processedNames.map((name) => (
                 <p key={name}>{name}</p>
             ))}
-        
+        </div>
     );
 };
 
@@ -339,7 +339,7 @@ const App = () => {
     return (
         <div>
             <UserList />
-        
+        </div>
     );
 };
 ```
