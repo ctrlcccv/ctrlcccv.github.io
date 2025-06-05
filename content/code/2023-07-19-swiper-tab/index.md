@@ -64,11 +64,12 @@ tags:
                         <li class="swiper-slide">slider4</li>
                         <li class="swiper-slide">slider5</li>
                     </ul>
-                
+                </div>
                 <span class="btn btn_prev">이전</span>
                 <span class="btn btn_next">다음</span>
+            </div>
+        </div>
             
-        
         <div id="con02" class="tab_list">
             <!-- swiper-slide -->
             <div class="slider">
@@ -80,11 +81,12 @@ tags:
                         <li class="swiper-slide">slider4</li>
                         <li class="swiper-slide">slider5</li>
                     </ul>
-                
+                </div>
                 <span class="btn btn_prev">이전</span>
                 <span class="btn btn_next">다음</span>
-            
-        
+            </div>
+        </div>
+
         <div id="con03" class="tab_list">
             <!-- swiper-slide -->
             <div class="slider">
@@ -96,13 +98,13 @@ tags:
                         <li class="swiper-slide">slider4</li>
                         <li class="swiper-slide">slider5</li>
                     </ul>
-                
+                </div>
                 <span class="btn btn_prev">이전</span>
                 <span class="btn btn_next">다음</span>
-            
-        
-    
-
+            </div>
+        </div>
+    </div>
+</div>
 ```
 
 ## CSS 스타일
