@@ -35,7 +35,7 @@ tags:
 ```html
 <div class="video_bg">
     <iframe src="https://www.youtube.com/embed/rJe_YsLJqUY?autoplay=1&mute=1&loop=1&playlist=rJe_YsLJqUY"></iframe>
-
+</div>
 ```
 * **비디오 컨테이너**
   * `video_bg` 클래스를 가지는 `div` 요소는 유튜브 동영상 `iframe`을 감싸고 있으며, 반응형 배경의 컨테이너 역할을 합니다.
