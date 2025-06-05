@@ -114,7 +114,7 @@ animation-timeline, scroll-timeline, view-timeline 등은 현재 최신 버전�
 <div class="step">
     <h3>애니메이션 구간 조정</h3>
     <p>이 박스는 스크롤 진행률이 20%에서 40% 사이일 때만 애니메이션이 작동합니다.</p>
-
+</div>
 ```
 
 ### CSS
@@ -154,9 +154,9 @@ animation-timeline, scroll-timeline, view-timeline 등은 현재 최신 버전�
 ### HTML
 ```html
 <section class="scroll-section">
-    <div class="box delay-1">첫 번째 박스
-    <div class="box delay-2">두 번째 박스
-    <div class="box delay-3">세 번째 박스
+    <div class="box delay-1">첫 번째 박스</div>
+    <div class="box delay-2">두 번째 박스</div>
+    <div class="box delay-3">세 번째 박스</div>
 </section>
 ```
 

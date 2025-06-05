@@ -67,11 +67,11 @@ tags:
             <li class="swiper-slide">9</li>
             <li class="swiper-slide">10</li>
         </ul>
-    
-    <div class="pagination">
-    <div class="swiper-button-prev">
-    <div class="swiper-button-next">
-
+    </div>
+    <div class="pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
 ```
 * **슬라이드 기본 구조**  
 <span class="txt">최상위 .slider_center 요소는 슬라이드 전체를 감싸는 컨테이너로, 전체 레이아웃의 틀을 형성합니다. 이 요소는 CSS를 통해 위치를 조정하고, 슬라이드가 컨테이너 밖으로 넘치지 않도록 오버플로우를 제어합니다.</span>

@@ -58,8 +58,8 @@ tags:
     <div class="preview">
         <span class="img_box"><img class="preview_img" src="#" alt="Selected Image"></span>
         <button type="button" class="delect"><img src="images/image_file_delect.png" alt="삭제"></button>
-    
-
+    </div>
+</div>
 ```
 * **업로드 라벨 및 버튼**  
 <span class="txt">

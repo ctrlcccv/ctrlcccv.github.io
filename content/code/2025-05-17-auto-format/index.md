@@ -58,7 +58,7 @@ tags:
     <input type="text" id="date" placeholder="YYYY/MM/DD" data-format="xxxx/xx/xx">
     <label for="card">카드번호:</label>
     <input type="text" id="card" placeholder="0000-0000-0000-0000" data-format="xxxx-xxxx-xxxx-xxxx">
-
+</div>
 ```
 
 * **커스텀 데이터 속성 활용**  

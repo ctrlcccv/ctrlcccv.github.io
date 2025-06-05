@@ -55,17 +55,16 @@ tags:
 <div class="responsive_viewer">
     <h1>반응형 웹사이트 미리보기</h1>
     <div class="buttons">
-        <button id="pcBtn" class="active" data-device="pc">PC <span class="mo_hidden">(1920px)</span></button>
-        <button id="tabletBtn" data-device="tablet">태블릿 <span class="mo_hidden">(768px)</span></button>
-        <button id="mobileBtn" data-device="mobile">모바일 <span class="mo_hidden">(375px)</span></button>
-    
-    
+        <button id="pcBtn" class="active" data-device="pc">PC<span class="mo_hidden">(1920px)</span></button>
+        <button id="tabletBtn" data-device="tablet">태블릿<span class="mo_hidden">(768px)</span></button>
+        <button id="mobileBtn" data-device="mobile">모바일<span class="mo_hidden">(375px)</span></button>
+    </div>
     <div class="frame_container">
         <div class="iframe_wrapper">
             <iframe class="preview_frame" src="https://example.com"></iframe>
-        
-    
-
+        </div>
+    </div>
+</div>
 ```
 
 * **전체 구조**  

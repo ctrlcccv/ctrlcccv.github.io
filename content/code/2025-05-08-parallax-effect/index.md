@@ -52,7 +52,7 @@ tags:
 <div id="container">
     <img src="https://unsplash.it/800/800?random=" alt="배경 이미지" class="bg">
     <h1 class="title">타이틀</h1>
-
+</div>
 ```
 
 * **컨테이너 구조**  

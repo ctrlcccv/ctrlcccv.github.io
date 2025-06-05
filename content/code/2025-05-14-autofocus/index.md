@@ -58,8 +58,8 @@ tags:
         <input type="tel" id="phone2" maxlength="4" class="phone_input" placeholder="0000" inputmode="numeric" pattern="[0-9]*" aria-label="전화번호 중간자리">
         <span class="separator" aria-hidden="true">-</span>
         <input type="tel" id="phone3" maxlength="4" class="phone_input" placeholder="0000" inputmode="numeric" pattern="[0-9]*" aria-label="전화번호 뒷자리">
-    
-
+    </div>
+</div>
 ```
 
 * **전화번호 입력 필드**  

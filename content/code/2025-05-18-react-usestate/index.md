@@ -52,7 +52,7 @@ function Counter() {
     <div>
       <p>현재 카운트: {count}</p>
       <button onClick={() => setCount(count + 1)}>증가</button>
-    
+    </div>
   );
 }
 ```
@@ -88,7 +88,7 @@ function NameInput() {
         placeholder="이름을 입력하세요"
       />
       <p>안녕하세요, {이름 || '익명'}님!</p>
-    
+    </div>
   );
 }
 ```
@@ -135,7 +135,7 @@ function UserForm() {
       </select>
       
       <p>이름: {사용자.이름}, 나이: {사용자.나이}, 취미: {사용자.취미 || '없음'}</p>
-    
+    </div>
   );
 }
 ```
@@ -193,7 +193,7 @@ function SafeCounter() {
       <button onClick={한번증가}>1 증가</button>
       <button onClick={세번증가}>3 증가 (올바른 방식)</button>
       <button onClick={잘못된증가}>3 증가 (잘못된 방식)</button>
-    
+    </div>
   );
 }
 ```
@@ -239,7 +239,7 @@ function ExpensiveInitialState() {
     <div>
       <p>계산 결과: {결과}</p>
       <button onClick={() => 결과변경(이전값 => 이전값 + 1)}>증가</button>
-    
+    </div>
   );
 }
 ```
@@ -270,7 +270,7 @@ function AsyncUpdate() {
     <div>
       <p>카운트: {카운트}</p>
       <button onClick={버튼클릭}>증가</button>
-    
+    </div>
   );
 }
 ```
@@ -310,7 +310,7 @@ function TodoApp() {
           <li key={인덱스}>{할일}</li>
         ))}
       </ul>
-    
+    </div>
   );
 }
 ```
