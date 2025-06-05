@@ -68,8 +68,8 @@ Swiper 슬라이드는 페이지를 넘길 때 부드럽게 전환되는 효과�
             <li class="swiper-slide">slider14</li>
             <li class="swiper-slide">slider15</li>
         </ul>
+    </div>
     
-
     <!-- 페이징 -->
     <div class="paging_wrap">
         <span class="page_btn paging_first">&lt;&lt;</span>
@@ -77,11 +77,11 @@ Swiper 슬라이드는 페이지를 넘길 때 부드럽게 전환되는 효과�
         <div class="num">
             <ul class="paging_list">
             </ul>
-        
+        </div>
         <span class="page_btn paging_next">&gt;</span>
         <span class="page_btn paging_last">&gt;&gt;</span>
-    
-
+    </div>
+</div>
 ```
 
 ## CSS 스타일
