@@ -36,7 +36,7 @@ tags:
 
 ```html
 <!-- YouTube 동영상을 삽입할 <div> 태그 -->
-<div id="player">
+<div id="player"></div>
 
 <!-- YouTube API 코드 비동기로 로드 -->
 <script>
