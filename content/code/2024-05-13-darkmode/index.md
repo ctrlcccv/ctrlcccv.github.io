@@ -130,7 +130,7 @@ const MainComponent = () => {
             </button>
             {/* 현재 모드에 따라 표시되는 텍스트가 변경됨 */}
             <h1>{isDarkMode ? '다크 모드' : '라이트 모드'}</h1>
-        
+        </div>
     );
 };
 
