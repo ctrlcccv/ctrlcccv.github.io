@@ -128,7 +128,7 @@ tags:
 
 다음은 댓글 시스템 예시의 코드 블록입니다.
 
-```js
+```jsx
 // CommentList.js
 function CommentList({ comments }) {
     return (
