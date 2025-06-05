@@ -39,7 +39,7 @@ tags:
 **container**라는 클래스로 스크롤 가능한 컨테이너를 만들고, **item** 클래스로 각각의 아이템을 나타냅니다.  
 이 컨테이너에는 스크롤 했을 때 동적으로 아이템이 추가됩니다.
 ```html
-<div class="container">
+<div class="container"></div>
 ```
 
 ## CSS 스타일
