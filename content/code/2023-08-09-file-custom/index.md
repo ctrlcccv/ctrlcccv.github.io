@@ -41,7 +41,7 @@ IR 기법(Image Replacement Technique)은 웹 접근성을 개선하기 위해 �
         <span class="file_name">파일을 선택해주세요.</span>
         <span class="file_btn">파일선택</span>
     </label>
-
+</div>
 ```
 input[type='file'] 태그 대신 추가한 요소는 사용자가 파일을 선택하고 파일 이름을 확인할 수 있는 방식으로 구성했다.  
 이 영역을 클릭하면 파일 선택이 가능하도록 label 태그를 활용했다.  
