@@ -16,6 +16,9 @@ alternates:
   - title: "jQuery - Dynamic Parallax Effect on Mouse Move"
     href: "https://ctrlcccv.github.io/code-en/2025-05-12-parallax-effect/"
     hreflang: "en"
+  - title: "jQuery - 마우스 따라 움직이는 패럴랙스 효과 구현하기"
+    href: "https://ctrlcccv.github.io/code/2025-05-08-parallax-effect/"
+    hreflang: "x-default"
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-12-parallax-effect-en.webp
 

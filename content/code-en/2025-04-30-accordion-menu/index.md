@@ -16,6 +16,9 @@ alternates:
   - title: "Simple <details> Accordion: CSS (Optional jQuery)"
     href: "https://ctrlcccv.github.io/code-en/2025-04-30-accordion-menu/"
     hreflang: "en"
+  - title: "<details> 태그로 쉽게 구현하는 아코디언 메뉴 (CSS/jQuery)"
+    href: "https://ctrlcccv.github.io/code/2024-01-17-accordion-menu/"
+    hreflang: "x-default"
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-30-accordion-menu-en.webp
 

@@ -18,6 +18,9 @@ alternates:
   - title: "What is a Callback in JS: Functions That Wait" 
     href: "https://ctrlcccv.github.io/code-en/2025-06-12-javascript-callback/"
     hreflang: "en"
+  - title: "JavaScript 콜백 함수(Callback function) 쉽게 이해하기"
+    href: "https://ctrlcccv.github.io/code/2025-06-09-javascript-callback/"
+    hreflang: "x-default"
 
 categories:
     - JavaScript

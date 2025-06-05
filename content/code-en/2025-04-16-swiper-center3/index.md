@@ -12,6 +12,9 @@ alternates:
   - title: "Swiper.js: How to Fix Loop + CenteredSlides Issues"
     href: "https://ctrlcccv.github.io/code-en/2025-04-16-swiper-center3/"
     hreflang: "en"
+  - title: "Swiper.js 11+ centeredSlides 슬라이드 전환 오류 해결"
+    href: "https://ctrlcccv.github.io/code/2025-04-15-swiper-center3/"
+    hreflang: "x-default"
 
 slug: 2025-04-16-swiper-center3
 date: 2025-04-16 00:00:00+0000

@@ -18,6 +18,9 @@ alternates:
   - title: "React useEffect Tutorial: From Basic to Advanced"
     href: "https://ctrlcccv.github.io/code-en/2025-05-30-useeffect/"
     hreflang: "en"
+  - title: "React - useEffect 가이드 및 실전 예제"
+    href: "https://ctrlcccv.github.io/code/2024-03-25-useeffect/"
+    hreflang: "x-default"
 
 categories:
     - React

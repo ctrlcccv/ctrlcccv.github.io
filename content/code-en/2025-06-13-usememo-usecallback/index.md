@@ -18,6 +18,9 @@ alternates:
   - title: "React Memoization: useMemo vs useCallback Differences" 
     href: "https://ctrlcccv.github.io/code-en/2025-06-13-usememo-usecallback/"
     hreflang: "en"
+  - title: "React useMemo vs useCallback 차이점 쉽게 이해하기"
+    href: "https://ctrlcccv.github.io/code/2025-06-10-usememo-usecallback/"
+    hreflang: "x-default"
 
 categories:
     - React

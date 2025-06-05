@@ -18,7 +18,10 @@ alternates:
   - title: "React useMemo Tutorial: Optimize Render Performance" 
     href: "https://ctrlcccv.github.io/code-en/2025-06-05-react-usememo/"
     hreflang: "en"
-    
+  - title: "useMemo 활용한 React 객체 안정화 & 리렌더링 최적화 기법"
+    href: "https://ctrlcccv.github.io/code/2025-06-04-react-usememo/"
+    hreflang: "x-default"
+
 categories:
     - React
 tags:
