@@ -53,10 +53,10 @@ Swiper 슬라이드의 centeredSlides 옵션을 사용하여 두 가지 유형�
             <li class="swiper-slide">slider4</li>
             <li class="swiper-slide">slider5</li>
         </ul>
-    
+    </div>
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-
+</div>
 ```
 
 ### CSS 스타일
@@ -167,10 +167,10 @@ function slider() {
             <li class="swiper-slide">slider4</li>
             <li class="swiper-slide">slider5</li>
         </ul>
-    
+    </div>
     <span class="btn btn_prev">이전</span>
     <span class="btn btn_next">다음</span>
-
+</div>
 ```
 
 ### CSS 스타일
