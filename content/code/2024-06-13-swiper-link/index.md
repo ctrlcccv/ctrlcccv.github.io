@@ -88,14 +88,14 @@ const swiper = new Swiper('.swiper-container', {
 ```html
 <div class="swiper-container">
     <div class="swiper-wrapper">
-        <div class="swiper-slide"><a href="https://example.com">Link 1</a>
-        <div class="swiper-slide"><a href="https://example2.com">Link 2</a>
-        <div class="swiper-slide"><a href="https://example3.com">Link 3</a>
-    
-    <div class="swiper-pagination">
-    <div class="swiper-button-next">
-    <div class="swiper-button-prev">
-
+        <div class="swiper-slide"><a href="https://example.com">Link 1</a></div>
+        <div class="swiper-slide"><a href="https://example2.com">Link 2</a></div>
+        <div class="swiper-slide"><a href="https://example3.com">Link 3</a></div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
 ```
 
 ### JavaScript 설정
