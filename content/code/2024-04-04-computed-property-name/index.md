@@ -185,7 +185,7 @@ const App = () => {
         <div>
             <h1>Count: {count}</h1>
             <button onClick={handleClick}>Increase Count</button>
-        
+        </div>
     );
 };
 
