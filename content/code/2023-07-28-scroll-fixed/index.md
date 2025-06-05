@@ -35,11 +35,11 @@ jQuery를 활용하여 웹 페이지 스크롤 시 특정 요소가 화면의 �
 ```html
 <header></header>
 <div class="wrap">
-    <div class="left">
+    <div class="left"></div>
     <div class="right">
-        <div class="fixed_box">고정 요소
-    
-
+        <div class="fixed_box">고정 요소</div>
+    </div>
+</div>
 <footer></footer>
 ```
 * **header와 footer**  
