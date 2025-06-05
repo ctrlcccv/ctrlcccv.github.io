@@ -37,23 +37,23 @@ tags:
 <div class="countdown">
     <div class="unit_group">
         <div class="unit">
-            <div class="digits" id="days_digits">
-            <div class="unit_label">Days
-        
+            <div class="digits" id="days_digits"></div>
+            <div class="unit_label">Days</div>
+        </div>
         <div class="unit">
-            <div class="digits" id="hrs_digits">
-            <div class="unit_label">Hrs
-        
+            <div class="digits" id="hrs_digits"></div>
+            <div class="unit_label">Hrs</div>
+        </div>
         <div class="unit">
-            <div class="digits" id="mins_digits">
-            <div class="unit_label">Mins
-        
+            <div class="digits" id="mins_digits"></div>
+            <div class="unit_label">Mins</div>
+        </div>
         <div class="unit">
-            <div class="digits" id="secs_digits">
-            <div class="unit_label">Secs
-        
-    
-
+            <div class="digits" id="secs_digits"></div>
+            <div class="unit_label">Secs</div>
+        </div>
+    </div>
+</div>
 ```
 * **주 카운트다운 요소**  
     * `.countdown` : 카운트다운 타이머의 모든 요소를 감싸는 컨테이너입니다.
