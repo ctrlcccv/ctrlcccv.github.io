@@ -33,7 +33,8 @@ CSS와 jQuery를 사용하여 웹 페이지에 눈 내리는 효과를 만드는
 ```html
 <div class="snow_wrap">
     <canvas class="snow"></canvas>
-
+    <h1>브라우저 화면 크기를 변경하여<br>반응형 전환 효과를 확인해보세요.</h1>
+</div>
 ```
 * snow_wrap 클래스는 캔버스를 포함하는 컨테이너입니다.
 * show 클래스는 눈송이 애니메이션을 표시하는 캔버스 요소입니다.   

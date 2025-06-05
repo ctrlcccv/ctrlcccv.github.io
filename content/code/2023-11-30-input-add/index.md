@@ -35,8 +35,8 @@ jQuery를 사용하여 버튼 클릭 시 입력 필드(input)를 동적으로 �
     <div class="input_wrap">
         <div class="input_list">
             <input type="text" name="input_array[]" placeholder="입력해주세요." />
-        
-    
+        </div>
+    </div>
     <button class="add_field">추가하기</button>
 </form>
 ```
