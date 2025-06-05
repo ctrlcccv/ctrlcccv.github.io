@@ -38,17 +38,17 @@ active 클래스를 추가하면 해당 항목이 가운데 정렬됩니다.
 <div class="menu_wrap">
     <div class="in_Layer tab_swiper">
         <ul class="menu swiper-wrapper">
-            <li class="swiper-slide"><a href="#self">첫번째 메뉴</a></li>
+            <li class="swiper-slide active"><a href="#self">첫번째 메뉴</a></li>
             <li class="swiper-slide"><a href="#self">두번째 메뉴</a></li>
             <li class="swiper-slide"><a href="#self">세번째 메뉴</a></li>
-            <li class="swiper-slide active"><a href="#self">네번째 메뉴</a></li>
+            <li class="swiper-slide"><a href="#self">네번째 메뉴</a></li>
             <li class="swiper-slide"><a href="#self">다섯번째 메뉴</a></li>
             <li class="swiper-slide"><a href="#self">여섯번째 메뉴</a></li>
             <li class="swiper-slide"><a href="#self">일곱번째 메뉴</a></li>
             <li class="swiper-slide"><a href="#self">여덟번째 메뉴</a></li>
         </ul>
-    
-
+    </div>
+</div>
 ```
 
 ## CSS 스타일
