@@ -36,7 +36,7 @@ select 태그의 CSS 커스텀은 제한적이기 때문에, 원하는 디자인
     <input type="hidden" class="opt_val" value="">
     <div class="trigger">
         <span class="trigger_txt">옵션을 선택해주세요.</span>
-    
+    </div>
     <ul class="option">
         <li data-value="">옵션을 선택해주세요.</li>
         <li data-value="option1">옵션 1번입니다.</li>
@@ -45,7 +45,7 @@ select 태그의 CSS 커스텀은 제한적이기 때문에, 원하는 디자인
         <li data-value="option4">옵션 4번입니다.</li>
         <li data-value="option5">옵션 5번입니다.</li>
     </ul>
-
+</div>
 ```
 .select_cus는 select 태그, .trigger는 선택된 option 태그, .option의 li는 옵션 목록을 의미한다.  
 data-value 속성의 값은 실제 데이터값을 나타내며, jQuery를 사용하여 선택된 data-value 값을 input hidden 태그에 할당할 예정이다.  
