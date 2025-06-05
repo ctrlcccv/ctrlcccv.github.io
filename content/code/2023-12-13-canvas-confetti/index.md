@@ -49,7 +49,7 @@ npm install --save canvas-confetti
 ## 사용 예시
 ### HTML 구조
 ```html
-<div class="btn_confetti">폭죽 버튼 클릭
+<div class="btn_confetti">폭죽 버튼 클릭</div>
 ```
 사용자가 클릭할 수 있는 HTML 요소를 정의합니다. 이 예시에서는 &lt;div&gt; 요소를 사용하고, btn_confetti라는 클래스를 부여하여 CSS와 jQuery 선택자로 쉽게 접근할 수 있도록 합니다.  
 
