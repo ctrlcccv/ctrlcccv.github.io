@@ -38,7 +38,7 @@ tags:
     <span class="hours">0</span>시간
     <span class="minutes">0</span>분
     <span class="seconds">0</span>초
-
+</div>
 ```
 
 ## jQuery 코드
