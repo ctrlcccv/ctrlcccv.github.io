@@ -33,8 +33,8 @@ tags:
 ## HTML 구조
 ```html
 <div class="progress">
-    <div class="bar">
-
+    <div class="bar"></div>
+</div>
 ```
 * **프로그레스 컨테이너**
   * 클래스 `progress`로 지정된 `<div>` 요소는 프로그레스 바의 외부 컨테이너 역할을 합니다.

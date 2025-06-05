@@ -35,7 +35,7 @@ jQuery와 HTML5의 캔버스 태그를 이용해 그려지는 이 프로그레�
 <div class="canvas_wrap">
     <canvas class="canvas" width="300" height="300" data-percent="78"></canvas>
     <span class="percent"></span>
-
+</div>
 ```
 * **캔버스 컨테이너**
   * `canvas_wrap` 클래스는 캔버스 요소와 퍼센트 표시를 감싸는 컨테이너입니다. 이는 캔버스와 텍스트를 공간적으로 포함시켜 레이아웃을 관리하기 쉽게 도와줍니다.
