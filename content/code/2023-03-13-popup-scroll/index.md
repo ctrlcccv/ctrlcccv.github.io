@@ -45,20 +45,20 @@ tags:
 
 ## HTML 구조
 ```html
-<div class="wrap">
+<div class="wrap ko">
     <a href="#" class="btn">배경(body) 스크롤 활성화<br>(overscroll-behavior:none 속성만 사용)</a>
     <a href="#" class="btn type_disable">배경(body) 스크롤 비활성화</a>
-
+</div>
 
 <div class="pop_wrap">
-    <div class="bg">
+    <div class="bg"></div>
     <div class="popup">
         <a href="#" class="close"><img src="images/close.png" alt="닫기"></a>
         <div class="popup_con">
             컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠<br>컨텐츠
-        
-    
-
+        </div>
+    </div>
+</div>
 ```
 
 * **팝업 트리거 버튼**  
