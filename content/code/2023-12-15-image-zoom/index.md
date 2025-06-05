@@ -35,9 +35,9 @@ tags:
 <div class="container">
     <div class="img_wrap">
         <img src="https://picsum.photos/id/20/1000/1000" alt="이미지" class="img">
-    
-    <div class="zoom_result">
-
+    </div>
+    <div class="zoom_result"></div>
+</div>
 ```
 * **컨테이너**  
 상위 컨테이너 container 클래스는 이미지와 결과를 담는 역할을 합니다.
