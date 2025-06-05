@@ -34,7 +34,7 @@ tags:
 ```html
 <div class="image">
     <img src="https://picsum.photos/id/20/1000/1000" alt="이미지">
-
+</div>
 ```
 * **이미지 컨테이너**  
 
