@@ -44,17 +44,17 @@ tags:
         <div class="input_wrap">
             <input type="tel" id="tel" name="tel">
             <button class="btn_send">인증번호 받기</button>
-        
+        </div>
         <label for="code">인증번호 입력</label>
         <div class="input_wrap">
             <div class="code_wrap">
                 <input type="tel" id="code" name="code">
                 <span class="time"></span>
-            
+            </div>
             <button class="btn_auth">인증하기</button>
-        
+        </div>
     </form>
-
+</div>
 ```
 
 ## CSS 스타일
