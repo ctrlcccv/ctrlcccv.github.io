@@ -35,17 +35,17 @@ tags:
 
 ```html
 <div class="masonry">
-    <div class="item" style="height: 300px;">1
-    <div class="item" style="height: 100px;">2
-    <div class="item" style="height: 200px;">3
-    <div class="item" style="height: 300px;">4
-    <div class="item" style="height: 100px;">5
-    <div class="item" style="height: 200px;">6
-    <div class="item" style="height: 100px;">7
-    <div class="item" style="height: 150px;">8
-    <div class="item" style="height: 100px;">9
-    <div class="item" style="height: 200px;">10
-
+    <div class="item" style="height: 300px;">1</div>
+    <div class="item" style="height: 100px;">2</div>
+    <div class="item" style="height: 200px;">3</div>
+    <div class="item" style="height: 300px;">4</div>
+    <div class="item" style="height: 100px;">5</div>
+    <div class="item" style="height: 200px;">6</div>
+    <div class="item" style="height: 100px;">7</div>
+    <div class="item" style="height: 150px;">8</div>
+    <div class="item" style="height: 100px;">9</div>
+    <div class="item" style="height: 200px;">10</div>
+</div>
 ```
 * masonry 클래스로 감싸진 컨테이너를 생성합니다.
 * 각각의 요소는 item 클래스로 정의하여 균형있는 배치를 구성합니다.  
