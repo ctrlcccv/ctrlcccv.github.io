@@ -48,8 +48,8 @@ tags:
 HTML 구조는 마우스 커서 애니메이션 효과를 위한 기본적인 뼈대를 제공합니다.   
 cursor 클래스 요소는 마우스 커서를 시각적으로 대체합니다.
 ```html
-<div class="cursor">
-<div class="title">마우스를 요소 위에 올리면 반전됩니다.
+<div class="cursor"></div>
+<div class="title">마우스를 요소 위에 올리면 반전됩니다.</div>
 <a href="#self" class="link">링크 위에 올리면 확대됩니다.</a>
 ```
 

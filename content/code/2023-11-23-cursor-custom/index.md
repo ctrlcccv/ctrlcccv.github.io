@@ -39,7 +39,7 @@ tags:
 ## HTML 구조
 cursor 클래스를 가진 div 요소를 생성합니다. 이 요소가 마우스를 따라 움직이는 커서 역할을 합니다.
 ```html
-<div class="cursor">
+<div class="cursor"></div>
 ```
 
 ## CSS 스타일

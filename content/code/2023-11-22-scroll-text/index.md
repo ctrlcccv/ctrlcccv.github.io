@@ -34,10 +34,11 @@ tags:
     <p class="scroll_txt type_fade">스크롤을 내리면 텍스트가 나타납니다.</p>
     <p class="scroll_txt type_size">스크롤을 내리면 텍스트의 크기가 변경됩니다.</p>
     <p class="scroll_txt type_right">스크롤을 내리면 텍스트가 오른쪽에서 왼쪽으로 이동합니다.</p>
+</div>
 
 <div class="content2">
     <p class="scroll_txt type_bottom">스크롤을 내리면 텍스트가 아래에서 위로 이동합니다.</p>
-
+</div>
 ```
 * div 태그는 .content와 .content2 클래스를 가지며, 각각 여러 p 태그를 포함합니다.
 * 각 p 태그는 scroll_txt 클래스와 추가적인 클래스 (type_fade, type_size, type_right, type_bottom)를 가지고 있습니다.
