@@ -41,7 +41,7 @@ Swiper.js 플러그인의 pagination 옵션을 텍스트로 변경하고, 각 �
         <li class="swiper-slide">4번째 슬라이드</li>
         <li class="swiper-slide">5번째 슬라이드</li>
     </ul>
-
+    
     <!-- 슬라이드 타이틀 (pagination) -->
     <ul class="slide_tit">
         <li>1번째 슬라이드</li>
@@ -56,8 +56,8 @@ Swiper.js 플러그인의 pagination 옵션을 텍스트로 변경하고, 각 �
         <span class="btn btn_prev">&lt;</span>
         <span class="num"></span>
         <span class="btn btn_next">&gt;</span>
-    
-
+    </div>
+</div>
 ```
 pagination 부분에 들어갈 텍스트는 slide_tit 클래스에 별도로 작성했다.  
 <br>
