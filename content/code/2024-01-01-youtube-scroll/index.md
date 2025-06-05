@@ -33,14 +33,14 @@ jQuery와 YouTube Iframe API를 사용하여 사용자가 스크롤 하면서 �
 
 ```html
 <div class="con">
-    스크롤을 내려서 유튜브 동영상의<br>자동재생을 확인해보세요.
-
+    스크롤을 내려서 유튜브 동영상의<br>자동재생을 확인해보세요.  
+</div>
 <div class="video" data-video-id="rJe_YsLJqUY">
-    <div class="player">
-
+    <div class="player"></div>
+</div>
 <div class="video" data-video-id="rJe_YsLJqUY">
-    <div class="player">
-
+    <div class="player"></div>
+</div>
 <!-- 더 많은 .video 요소를 추가할 수 있습니다. -->
 ```
 - **동영상 컨테이너 (.video)**
