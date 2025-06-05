@@ -51,12 +51,12 @@ tags:
 ```html
 <div class="mouse_scroll" aria-label="스크롤 유도">
     <span class="mouse"></span>
-    <div class="down_arrow">
-        <span class="down_arrow1"></span>
-        <span class="down_arrow2"></span>
-        <span class="down_arrow3"></span>
-    
-
+    <div class="dowm_arrow">
+        <span class="dowm_arrow1"></span>
+        <span class="dowm_arrow2"></span>
+        <span class="dowm_arrow3"></span>
+    </div>
+</div>
 ```
 **구성 설명**
 
