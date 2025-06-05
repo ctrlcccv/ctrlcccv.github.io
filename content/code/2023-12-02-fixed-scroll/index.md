@@ -32,11 +32,12 @@ tags:
 ## HTML 구조
 ```html
 <div class="wrap">
-    <div class="left">브라우저 화면 크기 1000px 이하에서<br>오른쪽으로 스크롤 하여 고정 요소를 확인해보세요.
+    <div class="left">브라우저 화면 크기 1000px 이하에서<br>오른쪽으로 스크롤하여 고정 요소를 확인해보세요.</div>
     <div class="right">
-        <div class="fixed_box">고정 요소
-    
-
+        <div class="fixed_box">고정 요소</div>
+    </div>
+</div>
+<div style="height: 100vh;"></div>
 ```
 * **wrap 클래스**   
 주요 컨테이너로 전체 레이아웃을 감싸며, display: flex를 사용해 내부 요소들을 수평으로 정렬합니다.
