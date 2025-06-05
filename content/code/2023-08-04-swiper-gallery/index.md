@@ -38,22 +38,6 @@ Swiper.js 플러그인을 활용하여 갤러리 형태의 슬라이드를 만�
     <!-- 메인 슬라이드 -->
     <div class="list">
         <div class="inner">
-            <ul class="swiper-wrapper slide_list">
-                <li class="swiper-slide">1</li>
-                <li class="swiper-slide">2</li>
-                <li class="swiper-slide">3</li>
-                <li class="swiper-slide">4</li>
-                <li class="swiper-slide">5</li>
-                <li class="swiper-slide">6</li>
-                <li class="swiper-slide">7</li>
-            </ul>
-            <span class="btn btn_prev">이전</span>
-            <span class="btn btn_next">다음</span>
-        
-    
-
-    <!-- 갤러리 썸네일 -->
-    <div class="thumbs">
         <ul class="swiper-wrapper slide_list">
             <li class="swiper-slide">1</li>
             <li class="swiper-slide">2</li>
@@ -63,8 +47,24 @@ Swiper.js 플러그인을 활용하여 갤러리 형태의 슬라이드를 만�
             <li class="swiper-slide">6</li>
             <li class="swiper-slide">7</li>
         </ul>
-    
+        <span class="btn btn_prev">이전</span>
+        <span class="btn btn_next">다음</span>
+        </div>
+    </div>
 
+    <!-- 갤러리 썸네일 -->
+    <div class="thumbs">
+        <ul class="swiper-wrapper slide_list">
+        <li class="swiper-slide">1</li>
+        <li class="swiper-slide">2</li>
+        <li class="swiper-slide">3</li>
+        <li class="swiper-slide">4</li>
+        <li class="swiper-slide">5</li>
+        <li class="swiper-slide">6</li>
+        <li class="swiper-slide">7</li>
+        </ul>
+    </div>
+</div>
 ```
 .gallery 안에는 .list 슬라이드와 .thumbs 슬라이드가 각각 구현되어 있다.  
 .list 슬라이드(메인 슬라이드)는 큰 이미지를 보여주며, .thumbs 슬라이드는 작은 썸네일을 보여준다.  
