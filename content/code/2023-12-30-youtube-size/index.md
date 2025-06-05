@@ -36,8 +36,8 @@ tags:
 <div class="wrap">
     <div class="video">
         <iframe src="https://www.youtube.com/embed/Jruqk1rSGeg?si=55AFpgUVVnuSOb7p" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    
-
+    </div>
+</div>
 ```
 * **외부 컨테이너 (.wrap)**
   * `wrap` 클래스를 가진 `div`는 유튜브 비디오를 감싸는 컨테이너로 사용되며, CSS를 통해 스타일링됩니다.
