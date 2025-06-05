@@ -94,7 +94,7 @@ function Counter() {
             Count: {state.count}
             <button onClick={() => dispatch({ type: 'increment' })}>+</button>
             <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
-        
+        </div>
     );
 }
 ```
@@ -173,7 +173,7 @@ function TodoList() {
                     </li>
                 ))}
             </ul>
-        
+        </div>
     );
 }
 ```
