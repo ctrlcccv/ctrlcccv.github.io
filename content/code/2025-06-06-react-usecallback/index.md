@@ -106,7 +106,6 @@ const 기억된함수 = useCallback(
 ```
 
 ### 작동 방식
-위 예제에서 볼 수 있는 useCallback의 두 가지 주요 사용 패턴:
 
 1. **빈 의존성 배열**: `기본설정적용` 함수는 빈 의존성 배열(`[]`)을 사용하여 컴포넌트가 처음 나타날 때 한 번만 만들어지고, 이후에는 계속 같은 함수를 재사용합니다. 이 함수는 항상 같은 일을 수행하므로 다시 만들 필요가 없습니다.
 
@@ -115,7 +114,6 @@ const 기억된함수 = useCallback(
 이렇게 useCallback을 활용하면, 특히 자식 컴포넌트에 함수를 전달할 때 불필요한 재렌더링을 방지하여 앱 성능을 높일 수 있습니다.
 
 <br>
-
 
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -126,7 +124,6 @@ const 기억된함수 = useCallback(
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
 
 <br>
 
@@ -155,15 +152,6 @@ function TodoList() {
     { id: 1, text: '리액트 공부하기', completed: false },
     { id: 2, text: 'useCallback 이해하기', completed: false }
   ]);
-  
-  // useCallback 없이 함수 정의 - 매 렌더링마다 새로 생성됨
-  const handleToggleNormal = (id) => {
-    setTodos(prevTodos =>
-      prevTodos.map(todo =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  };
   
   // useCallback을 사용하여 함수 메모이제이션
   const handleToggleOptimized = useCallback((id) => {
@@ -205,7 +193,7 @@ console.log(fn1 === fn2); // false
 이 때문에 `React.memo`로 최적화한 자식 컴포넌트도 불필요하게 리렌더링됩니다. 부모가 리렌더링될 때마다 자식에게 전달되는 함수의 참조값이 매번 바뀌기 때문입니다.
 
 **해결책:**
-`useCallback`은 의존성 배열이 바뀌지 않는 한 같은 함수를 계속 사용합니다:
+`useCallback`은 의존성 배열이 바뀌지 않는 한 같은 함수를 계속 사용합니다.
 
 ```jsx
 // 메모이제이션된 함수 - 컴포넌트가 리렌더링되어도 같은 참조 유지
@@ -218,9 +206,6 @@ const handleToggle = useCallback((id) => {
 1. 컴포넌트 첫 렌더링 시 함수가 생성되고 메모리에 저장됩니다.
 2. 컴포넌트가 다시 렌더링되어도 저장된 함수를 재사용합니다.
 3. 의존성 배열의 값이 변경된 경우에만 함수를 새로 생성합니다.
-4. 자식 컴포넌트는 props로 받은 함수의 참조가 변경되지 않아 불필요한 리렌더링을 방지합니다.
-
-이렇게 useCallback을 사용하면 React.memo로 최적화된 컴포넌트의 성능을 극대화할 수 있습니다. 특히 대규모 리스트나 복잡한 UI에서 효과적입니다.
 
 <br>
 
@@ -234,6 +219,42 @@ const handleToggle = useCallback((id) => {
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+<br>
+
+## 모범 사례와 흔한 실수
+
+```jsx
+function WarningExampleComponent() {
+  const [count, setCount] = useState(0);
+  
+  // 1. 불필요한 사용 (과도한 최적화의 예)
+  const simpleHandler = useCallback(() => {
+    console.log('간단한 핸들러');
+  }, []); // 단순한 함수에는 useCallback이 과도할 수 있음
+  
+  // 2. 의존성 배열 오류 (잘못된 사용)
+  const wrongDependencies = useCallback(() => {
+    console.log(`현재 카운트: ${count}`); // count 사용
+  }, []); // 버그: count가 의존성에서 누락됨
+  
+  // 3. 올바른 사용 예제
+  const correctExample = useCallback(() => {
+    console.log(`현재 카운트: ${count}`);
+    console.log(`사용자 이름: ${user.name}`);
+  }, [count, user.name]); // 올바른 의존성: 사용하는 모든 값 포함
+  
+  // 4. 함수형 업데이트로 의존성 줄이기
+  const incrementWithoutDeps = useCallback(() => {
+    setCount(c => c + 1); // 이전 상태를 기반으로 업데이트
+  }, []); // count가 의존성에 필요하지 않음
+}
+```
+
+useCallback 사용 시 주요 가이드라인:
+
+* **성능 측정 후 최적화하기**: React DevTools Profiler로 실제 성능 문제를 먼저 확인하세요.
+* **의존성 배열 제대로 관리하기**: 함수 안에서 사용하는 모든 값을 의존성 배열에 포함시키세요.
+* **함수형 업데이트 활용하기**: 이전 상태를 기반으로 업데이트하면 의존성 배열에서 해당 상태를 제거할 수 있습니다.
 
 <br>
 
@@ -263,11 +284,6 @@ function ProductSearch({ categoryId }) {
     }
   }, [categoryId, searchTerm]); // categoryId나 searchTerm이 변경될 때만 함수 재생성
   
-  // 검색어 변경 핸들러
-  const handleSearchChange = useCallback((e) => {
-    setSearchTerm(e.target.value);
-  }, []);
-  
   // 컴포넌트 마운트 시 또는 categoryId 변경 시 상품 불러오기
   useEffect(() => {
     fetchProducts();
@@ -286,52 +302,79 @@ function ProductSearch({ categoryId }) {
 
 <br>
 
-## 모범 사례와 흔한 실수
+## useCallback 최적화 퀴즈!
 
 ```jsx
-function WarningExampleComponent() {
+import React, { useState, useCallback } from 'react';
+
+// 자식 컴포넌트 (React.memo로 최적화)
+const Button = React.memo(({ onClick, label }) => {
+  console.log(`${label} 버튼 렌더링됨`);
+  return <button onClick={onClick}>{label}</button>;
+});
+
+function Counter() {
   const [count, setCount] = useState(0);
-  const [user, setUser] = useState({ name: '홍길동' });
+  const [theme, setTheme] = useState('light');
   
-  // 1. 불필요한 사용 (과도한 최적화의 예)
-  const simpleHandler = useCallback(() => {
-    console.log('간단한 핸들러');
-  }, []); // 단순한 함수에는 useCallback이 과도할 수 있음
+  // 방법 1
+  const incrementWithEmptyDeps = useCallback(() => {
+    setCount(count + 1);
+  }, []);
   
-  // 2. 의존성 배열 오류 (잘못된 사용)
-  const wrongDependencies = useCallback(() => {
-    console.log(`현재 카운트: ${count}`); // count 사용
-    console.log(`사용자 이름: ${user.name}`); // user.name 사용
-  }, []); // 버그: count와 user.name이 의존성에서 누락됨
+  // 방법 2
+  const incrementWithDeps = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
   
-  // 3. 올바른 사용 예제
-  const correctExample = useCallback(() => {
-    console.log(`현재 카운트: ${count}`);
-    console.log(`사용자 이름: ${user.name}`);
-  }, [count, user.name]); // 올바른 의존성: 사용하는 모든 값 포함
+  // 방법 3
+  const incrementWithFunctionalUpdate = useCallback(() => {
+    setCount(prevCount => prevCount + 1);
+  }, []);
   
-  // 4. 함수형 업데이트로 의존성 줄이기
-  const incrementWithoutDeps = useCallback(() => {
-    setCount(c => c + 1); // 이전 상태를 기반으로 업데이트
-  }, []); // count가 의존성에 필요하지 않음
+  return (
+    <div style={{ background: theme === 'dark' ? '#333' : '#fff' }}>
+      <p>카운트: {count}</p>
+      <Button onClick={incrementWithDeps} label="증가" />
+      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        테마 변경
+      </button>
+    </div>
+  );
 }
 ```
 
-useCallback 사용 시 주요 가이드라인:
+위 코드에는 세 가지 방법으로 구현된 카운트 증가 함수가 있습니다. 이 중에서 불필요한 리렌더링을 막으면서도 정확하게 작동하는 최적의 방법은 무엇일까요? 자신의 생각을 아래에 적어보세요.
 
-* **성능 측정 후 최적화하기**: React DevTools Profiler로 실제 성능 문제를 먼저 확인하세요.
-* **간단한 함수는 그냥 쓰기**: 너무 단순한 함수에 useCallback을 쓰면 오히려 손해일 수 있습니다.
-* **의존성 배열 제대로 관리하기**: 함수 안에서 사용하는 모든 값을 의존성 배열에 포함시키세요.
-* **함수형 업데이트 활용하기**: 이전 상태를 기반으로 업데이트하면 의존성 배열에서 해당 상태를 제거할 수 있습니다.
+<div class="quiz-wrap2">
+    <label for="quiz-input-1">정답 입력 : </label>
+    <textarea id="quiz-input-1" name="quiz-input-1" class="quiz-input" placeholder="최적의 방법과 그 이유를 자유롭게 작성해주세요."></textarea>
+</div>
 
-<br>
+<details>
+<summary>정답 확인하기</summary>
 
-## 결론
-
-useCallback 훅은 React 앱의 성능을 높이는 강력한 도구입니다. 함수를 안정적으로 유지해 불필요한 리렌더링을 막고, 특히 React.memo로 최적화한 자식 컴포넌트와 함께 쓸 때 효과가 가장 좋습니다.
-
-가장 효과적으로 사용하려면 이벤트 핸들러, API 호출 함수, 자식 컴포넌트에 전달하는 콜백 함수에 useCallback을 집중적으로 활용하세요. 이런 방법을 잘 활용하면 앱이 복잡해져도 빠른 반응성과 성능을 유지할 수 있습니다.
-
-여러분의 프로젝트에서 useCallback으로 어떤 성능 문제를 해결하셨나요? 특별한 패턴이나 최적화 기법을 발견하셨다면 댓글로 경험을 공유해 주세요!
+정답: 방법 3
 
 <br>
+
+이 문제는 useCallback을 올바르게 사용하고 의존성 배열을 효과적으로 관리하는 방법을 이해하고 있는지 확인하는 문제입니다.
+
+* **방법 1: 빈 의존성 배열 사용**  
+<span class="txt">
+빈 의존성 배열 `[]`을 사용하면 함수는 컴포넌트가 처음 마운트될 때 한 번만 생성됩니다. 하지만 함수 내부에서 참조하는 `count` 값이 업데이트되지 않는 문제가 있습니다. 이로 인해 버튼을 여러 번 클릭해도 카운터가 항상 1만 증가하는 버그가 발생합니다.
+</span>
+
+* **방법 2: count를 의존성 배열에 포함**  
+<span class="txt">
+`count`를 의존성 배열에 포함시키면 최신 `count` 값을 항상 참조할 수 있어 정확하게 작동합니다. 하지만 `count`가 변경될 때마다 함수가 새로 생성되기 때문에, `Button` 컴포넌트가 불필요하게 다시 렌더링됩니다. 이는 useCallback을 사용하는 성능 최적화 효과를 반감시킵니다.
+</span>
+
+* **방법 3: 함수형 업데이트 사용**  
+<span class="txt">
+함수형 업데이트 방식(`prevCount => prevCount + 1`)을 사용하면 함수 내부에서 `count` 값을 직접 참조하지 않고도 항상 최신 상태값을 기반으로 업데이트할 수 있습니다. 따라서 의존성 배열을 비워도 안전하게 작동하며, 컴포넌트가 리렌더링되어도 함수의 참조가 유지되어 `Button` 컴포넌트의 불필요한 리렌더링을 방지할 수 있습니다.
+</span>
+
+이처럼 useCallback과 함수형 업데이트를 함께 사용하면, 불필요한 리렌더링을 방지하면서도 항상 최신 상태를 기반으로 정확하게 동작하는 최적의 방법을 구현할 수 있습니다.
+</details>
+
