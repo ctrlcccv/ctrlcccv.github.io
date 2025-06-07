@@ -11,6 +11,17 @@ lastmod: 2025-06-23 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-23-javascript-scope-en.webp
 
+alternates:
+  - title: "전역/함수/블록 스코프: JavaScript 변수의 사용 범위"
+    href: "https://ctrlcccv.github.io/code/2025-06-16-javascript-scope/"
+    hreflang: "ko"
+  - title: "JavaScript Scope: How Variables Work Behind the Scenes" 
+    href: "https://ctrlcccv.github.io/code-en/2025-06-23-javascript-scope/"
+    hreflang: "en"
+  - title: "전역/함수/블록 스코프: JavaScript 변수의 사용 범위"
+    href: "https://ctrlcccv.github.io/code/2025-06-16-javascript-scope/"
+    hreflang: "x-default"
+
 categories:
     - JavaScript
 tags:
