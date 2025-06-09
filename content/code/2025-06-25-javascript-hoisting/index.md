@@ -19,9 +19,12 @@ tags:
     - TDZ
 ---
 
+
+> 💡 [스코프](/code/2025-06-16-javascript-scope/)에 대해 미리 알고 계시면 이 글의 내용을 더 쉽게 이해하실 수 있습니다.
+
 변수를 선언하기 전에 사용했는데 에러가 나지 않거나, 예상과 다른 결과가 나와서 당황한 적이 있으신가요?
 
-자바스크립트의 호이스팅과 TDZ(Temporal Dead Zone)는 많은 개발자들이 어려워하는 개념입니다. 이 두 개념을 정확히 이해하지 못하면 예상치 못한 버그가 발생하거나 코드의 동작을 예측하기 어려워집니다. 이번 글에서는 호이스팅의 동작 원리부터 `var`, `let`, `const`의 차이점, TDZ의 개념과 활용까지 자바스크립트 변수 관리의 모든 것을 정리해보겠습니다.  
+자바스크립트의 호이스팅과 TDZ(Temporal Dead Zone)는 많은 개발자들이 어려워하는 개념입니다. 이 두 개념을 정확히 이해하지 못하면 예상치 못한 버그가 발생하거나 코드의 동작을 예측하기 어려워집니다. 이번 글에서는 호이스팅의 동작 원리부터 `var`, `let`, `const`의 차이점, TDZ의 개념과 활용까지 자바스크립트 변수 관리의 모든 것을 정리해 보겠습니다.  
 
 <br>
 
@@ -63,7 +66,7 @@ console.log(myVar); // "안녕하세요"
 
 ## var의 호이스팅
 
-`var`로 선언한 변수는 호이스팅되어 `undefined`로 초기화됩니다.
+`var`로 선언한 변수는 호이스팅 되어 `undefined`로 초기화됩니다.
 
 ```javascript
 function example() {
@@ -93,7 +96,7 @@ function example() {
 
 ## let과 const의 호이스팅
 
-`let`과 `const`도 호이스팅되지만, TDZ(Temporal Dead Zone) 때문에 선언 전에는 접근할 수 없습니다.
+`let`과 `const`도 호이스팅 되지만, TDZ(Temporal Dead Zone) 때문에 선언 전에는 접근할 수 없습니다.
 
 ```javascript
 console.log(myLet); // ReferenceError!
@@ -103,11 +106,11 @@ console.log(myConst); // ReferenceError!
 const myConst = "값";
 ```
 
-* **선언은 되지만 초기화는 안됨**  
-<span class="txt">`let`과 `const`는 호이스팅되어 메모리에 변수명이 등록되지만, 초기화는 선언문에 도달할 때 이루어집니다.</span>
+* **선언은 되지만 초기화는 안 됨**  
+<span class="txt">`let`과 `const`는 호이스팅 되어 메모리에 변수명이 등록되지만, 초기화는 선언문에 도달할 때 이루어집니다.</span>
 
 * **블록 스코프**  
-<span class="txt">`let`과 `const`는 블록 스코프를 가지므로, 선언된 블록 내에서만 접근 가능합니다.</span>
+<span class="txt">`let`과 `const`는 블록 스코프를 가지므로, 선언된 블록 내에서만 접근할 수 있습니다.</span>
 
 <br>
 
@@ -155,7 +158,7 @@ function test() {
 
 ## 함수 호이스팅
 
-함수 선언문은 완전히 호이스팅되어 선언 전에도 호출할 수 있습니다.
+함수 선언문은 완전히 호이스팅 되어 선언 전에도 호출할 수 있습니다.
 
 ```javascript
 sayHello(); // "안녕하세요!" - 정상 작동!
@@ -178,7 +181,7 @@ var myFunc = function() {
 
 ## 블록 스코프와 호이스팅
 
-`let`과 `const`는 자신이 선언된 블록 스코프에서만 호이스팅됩니다.
+`let`과 `const`는 자신이 선언된 블록 스코프에서만 호이스팅 됩니다.
 
 ```javascript
 let count = 100;
@@ -197,7 +200,7 @@ function test() {
 ```
 
 * **블록별 독립적 호이스팅**  
-<span class="txt">각 블록에서 선언된 `let`/`const`는 해당 블록에서만 호이스팅됩니다.</span>
+<span class="txt">각 블록에서 선언된 `let`/`const`는 해당 블록에서만 호이스팅 됩니다.</span>
 
 * **섀도잉 현상**  
 <span class="txt">블록 내 변수가 바깥 변수를 가리는 현상이 발생할 수 있습니다.</span>
@@ -210,7 +213,7 @@ function test() {
 ```javascript
 console.log("시작");
 console.log(undefinedVariable); // ReferenceError!
-console.log("실행 안됨"); // 이 줄은 절대 실행되지 않음
+console.log("실행 안 됨"); // 이 줄은 절대 실행되지 않음
 ```
 
 `ReferenceError`가 발생하면 그 지점에서 실행이 완전히 중단됩니다.
@@ -250,7 +253,7 @@ console.log(message); // "var는 블록을 무시합니다" (접근 가능!)
 
 ## 📝 퀴즈: 블록 스코프와 에러 전파 마스터하기
 
-다음 코드를 보고 각 `console.log`의 실행 결과를 예측해보세요. 호이스팅과 블록 스코프의 동작을 정확히 이해했는지 확인할 수 있습니다.
+다음 코드를 보고 각 `console.log`의 실행 결과를 예측해 보세요. 호이스팅과 블록 스코프의 동작을 정확히 이해했는지 확인할 수 있습니다.
 
 ```javascript
 let message = "전역";
@@ -275,10 +278,10 @@ example();
 console.log("끝");
 ```
 
-문제: 위 코드에서 각 `console.log`가 출력하는 내용과 실행 순서를 정확히 작성해주세요. 에러 발생 지점과 그 이후 코드의 실행 여부도 함께 설명해주세요.
+문제: 위 코드에서 각 `console.log`가 출력하는 내용과 실행 순서를 정확히 작성해 주세요. 에러 발생 지점과 그 이후 코드의 실행 여부도 함께 설명해 주세요.
 
 <div class="quiz-wrap2">
-    <textarea class="quiz-input" placeholder="각 console.log의 출력 결과와 실행 순서, 에러 발생 지점과 이유를 상세히 작성해주세요."></textarea>
+    <textarea class="quiz-input" placeholder="각 console.log의 출력 결과와 실행 순서, 에러 발생 지점과 이유를 상세히 작성해 주세요."></textarea>
 </div>
 
 <details>
@@ -291,7 +294,7 @@ console.log("끝");
 1. `console.log("시작")` → "시작"
 2. `console.log("1:", message)` → "1: 전역"
 3. `console.log("2:", message)` → **ReferenceError!** (실행 중단)
-4. 나머지 모든 코드 실행 안됨
+4. 나머지 모든 코드 실행 안 됨
 
 **해설:**
 
@@ -326,6 +329,6 @@ console.log("끝");
 
 <br>
 
-이 글이 자바스크립트 호이스팅을 이해하는 데 도움이 되셨나요? 복잡해 보이지만 원리를 이해하면 예측 가능한 동작입니다. 더 궁금한 점이 있다면 댓글로 남겨주세요!
+이 글이 자바스크립트 호이스팅을 이해하는 데 도움이 되셨나요? 복잡해 보이지만 원리를 이해하면 예측할 수 있는 동작입니다. 더 궁금한 점이 있다면 댓글로 남겨주세요!
 
 <br>
