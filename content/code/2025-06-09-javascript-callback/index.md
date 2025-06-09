@@ -19,7 +19,7 @@ tags:
     - 함수형 프로그래밍
 ---
 
-웹 개발을 하다가 콜백 함수라는 용어를 자주 듣지만 정확히 무엇인지 헷갈리신 적이 있으신가요?
+웹 개발을 하다 보면 콜백 함수라는 용어를 자주 들어보셨을 텐데요. 정확히 무엇인지 헷갈리신 적이 있으신가요?
 
 콜백 함수는 자바스크립트에서 가장 기본적이면서도 강력한 개념 중 하나입니다. 특히 비동기 작업을 처리할 때 필수적인 요소이며, 웹 개발에서 매우 중요한 기술입니다. 이번 글에서는 콜백 함수가 무엇인지, 어떻게 활용하는지 쉽게 풀어서 설명해드리겠습니다.
 
@@ -143,8 +143,7 @@ greet("김철수", function() {
 또 만나요!
 ```
 
-이 예제에서는 `sayGoodbye` 함수를 미리 정의하지 않고, 직접 익명 함수를 `greet` 함수의 인수로 전달했습니다. 이렇게 하면 코드가 
-더 간결해지고, 함수를 한 번만 사용할 때 매우 편리합니다.
+이 예제에서는 `sayGoodbye` 함수를 미리 정의하지 않고, 직접 익명 함수를 `greet` 함수의 인수로 전달했습니다. 이렇게 하면 코드가 더 간결해지고, 함수를 한 번만 사용할 때 매우 편리합니다.
 
 <br>
 
@@ -161,7 +160,7 @@ numbers.forEach(function(number) {
 });
 ```
 
-이 예제에서 `function(number) { console.log(number); }`는 콜백 함수입니다. 배열의 각 요소마다 이 콜백 함수가 호출됩니다.
+이 예제에서 `function(number) { console.log(number); }`가 콜백 함수입니다. 배열의 각 요소마다 이 콜백 함수가 호출됩니다.
 
 <br>
 
@@ -223,7 +222,7 @@ setInterval(function() {
 }, 3000);
 ```
 
-여기서 `setTimeout`과 `setInterval`에 전달된 함수들이 콜백 함수입니다. 지정된 시간이 지나면 이 함수들이 호출됩니다.
+여기서 `setTimeout`과 `setInterval`에 전달된 함수들은 콜백 함수입니다. 지정된 시간이 지나면 이 함수들이 호출됩니다.
 
 <br>
 
@@ -253,13 +252,13 @@ setTimeout(function() {
     console.log("커피가 준비되었습니다.");
 }, 3000);
 
-console.log("다른 일을 먼저 처리합니다.");
+console.log("다음 작업을 먼저 진행합니다.");
 ```
 
 **결과:**
 ```
 작업을 시작합니다.
-다른 일을 먼저 처리합니다.
+다음 작업을 먼저 진행합니다.
 (3초 후)
 커피가 준비되었습니다.
 ```
@@ -277,77 +276,84 @@ console.log("다른 일을 먼저 처리합니다.");
 fetchUserData(userId, function(userData) {
     fetchUserPosts(userData.id, function(posts) {
         fetchPostComments(posts[0].id, function(comments) {
-            fetchCommentAuthor(comments[0].authorId, function(author) {
-                console.log(author.name);
-                // 더 많은 중첩된 콜백...
-            });
+            console.log(comments);
+            // 더 많은 중첩된 콜백...
         });
     });
 });
 ```
 
-### 해결 방법
+이런 문제는 Promise나 async/await를 사용하여 해결할 수 있습니다.
 
-1. **함수 분리하기**:
 ```javascript
-function handleAuthor(author) {
-    console.log(author.name);
-}
-
-function handleComments(comments) {
-    fetchCommentAuthor(comments[0].authorId, handleAuthor);
-}
-
-function handlePosts(posts) {
-    fetchPostComments(posts[0].id, handleComments);
-}
-
-function handleUserData(userData) {
-    fetchUserPosts(userData.id, handlePosts);
-}
-
-fetchUserData(userId, handleUserData);
-```
-
-2. **Promise 사용하기**:
-```javascript
+// Promise 사용
 fetchUserData(userId)
     .then(userData => fetchUserPosts(userData.id))
     .then(posts => fetchPostComments(posts[0].id))
-    .then(comments => fetchCommentAuthor(comments[0].authorId))
-    .then(author => {
-        console.log(author.name);
-    })
-    .catch(error => {
-        console.error("오류 발생:", error);
-    });
-```
+    .then(comments => console.log(comments));
 
-3. **async/await 사용하기**:
-```javascript
-async function getUserAuthor(userId) {
-    try {
-        const userData = await fetchUserData(userId);
-        const posts = await fetchUserPosts(userData.id);
-        const comments = await fetchPostComments(posts[0].id);
-        const author = await fetchCommentAuthor(comments[0].authorId);
-        console.log(author.name);
-    } catch (error) {
-        console.error("오류 발생:", error);
-    }
+// async/await 사용
+async function getUserComments(userId) {
+    const userData = await fetchUserData(userId);
+    const posts = await fetchUserPosts(userData.id);
+    const comments = await fetchPostComments(posts[0].id);
+    console.log(comments);
 }
-
-getUserAuthor(userId);
 ```
 
 <br>
 
-## 결론
+## 퀴즈: 콜백 함수 이해하기
 
-콜백 함수는 자바스크립트에서 함수를 다른 함수에 인수로 전달하여 특정 작업이 완료된 후 실행하는 강력한 기능입니다. 비동기 프로그래밍의 기본이 되는 개념이며, 이벤트 처리, 타이머 설정, API 호출 등 다양한 상황에서 활용됩니다.
+다음 코드를 보고 문제를 풀어보세요.
 
-기본적인 콜백 함수부터 시작해서 복잡한 비동기 처리까지, 콜백 함수는 자바스크립트 개발에서 필수적인 개념입니다. 하지만 중첩된 콜백으로 인한 가독성 문제를 해결하기 위해 Promise나 async/await와 같은 현대적인 비동기 처리 방식을 함께 사용하는 것이 좋습니다.
+```javascript
+function processOrder(orderType, callback) {
+    console.log(orderType + " 주문을 처리합니다.");
+    
+    setTimeout(function() {
+        console.log("주문 처리 완료!");
+        callback();
+    }, 2000);
+    
+    console.log("다음 작업을 진행합니다.");
+}
 
-여러분은 어떤 상황에서 콜백 함수를 가장 많이 사용하시나요? 특별히 어려웠던 경험이나 유용했던 패턴이 있다면 댓글로 공유해주세요!
+function sendNotification() {
+    console.log("알림을 전송했습니다.");
+}
+
+processOrder("아메리카노", sendNotification);
+console.log("프로그램 종료");
+```
+
+**Q. 위 코드를 실행했을 때 콘솔에 출력되는 메시지들을 순서대로 작성해보세요.**
+
+<div class="quiz-wrap2">
+    <textarea class="quiz-input" placeholder="콘솔에 출력되는 메시지들을 순서대로 작성해주세요.&#10;예시: &#10;1. 첫 번째 메시지&#10;2. 두 번째 메시지&#10;..."></textarea>
+</div>
+
+<details>
+<summary>정답 확인하기</summary>
+
+**정답:**
+1. 아메리카노 주문을 처리합니다.
+2. 다음 작업을 진행합니다.
+3. 프로그램 종료
+4. (2초 후) 주문 처리 완료!
+5. 알림을 전송했습니다.
+
+JavaScript는 비동기 처리를 지원하는 언어입니다. 이 코드에서 `setTimeout`은 비동기 함수로, 2초 후에 콜백 함수를 실행하도록 예약만 하고 바로 다음 코드로 넘어갑니다.
+
+**실행 순서 해설:**
+1. "아메리카노 주문을 처리합니다." - processOrder 함수의 첫 번째 console.log 실행
+2. setTimeout이 콜백을 2초 후 실행하도록 예약 (바로 넘어감)
+3. "다음 작업을 진행합니다." - processOrder 함수의 마지막 console.log 실행
+4. "프로그램 종료" - 메인 코드의 마지막 console.log 실행
+5. (2초 후) "주문 처리 완료!" - setTimeout의 콜백 함수 내부 실행
+6. "알림을 전송했습니다." - sendNotification 콜백 함수 실행
+
+이것이 바로 콜백 함수와 비동기 프로그래밍의 핵심입니다. 콜백 함수는 특정 작업이 완료된 후에 실행되며, 다른 코드의 실행을 막지 않습니다.
+</details>
 
 <br>
