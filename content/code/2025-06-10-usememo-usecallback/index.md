@@ -19,7 +19,7 @@ tags:
     - 상태 관리
 ---
 
-useMemo와 useCallback을 사용해보셨지만 정확한 차이점을 이해하기 어려우셨나요?
+useMemo와 useCallback을 사용해보셨지만, 정확한 차이점을 이해하기 어려우셨나요?
 
 React에서 제공하는 이 두 가지 훅은 이름과 사용법이 매우 비슷해서 많은 개발자들이 혼동하곤 합니다. 하지만 실제로는 사용 목적과 동작 방식에 분명한 차이가 있습니다. 이번 글에서는 useMemo와 useCallback의 핵심 차이점을 실제 예제를 통해 쉽게 알아보겠습니다.
 
@@ -98,8 +98,8 @@ function ExampleComponent({ data }) {
 ```
 
 위 예제에서:
-- `useMemo`는 컴포넌트가 렌더링될 때 `data`가 변경되었는지 확인하고, 변경되지 않았다면 이전에 계산해둔 결과를 그대로 사용합니다.
-- `useCallback`은 함수 자체를 기억해두므로, 버튼을 클릭할 때마다 함수가 실행되어 매번 새롭게 계산을 수행합니다.
+- `useMemo`는 컴포넌트가 렌더링될 때 `data`가 변경되었는지 확인하고, 변경되지 않았다면 이전에 계산해 둔 결과를 그대로 사용합니다.
+- `useCallback`은 함수 자체를 기억해 두므로, 버튼을 클릭할 때마다 함수가 실행되어 매번 새롭게 계산을 수행합니다.
 
 <br>
 
@@ -156,7 +156,7 @@ function ParentComponent() {
 이 예제에서:
 - `useMemo`는 `items`가 변경될 때만 새로운 배열을 생성합니다.
 - `useCallback`은 함수의 참조가 계속 유지되어, `count`가 변경되어도 함수는 다시 생성되지 않습니다.
-- 두 경우 모두 `React.memo`로 감싼 자식 컴포넌트가 불필요하게 다시 렌더링되는 것을 방지합니다.
+- 두 경우 모두 `React.memo`로 감싼 자식 컴포넌트가 불필요하게 다시 렌더링 되는 것을 방지합니다.
 
 <br>
 
@@ -179,7 +179,7 @@ function ParentComponent() {
 
 1. **계산 비용이 큰 작업의 결과가 필요할 때**
    ```javascript
-   // 큰 데이터셋을 필터링하고 정렬하는 경우
+   // 큰 데이터 세트를 필터링하고 정렬하는 경우
    const processedData = useMemo(() => {
      return largeDataset
        .filter(item => item.category === selectedCategory)
@@ -258,7 +258,7 @@ const handleSubmit = useCallback(() => {
 ### 3. 중첩된 객체와 함수 처리
 
 ```javascript
-// 문제: 매 렌더링마다 새로운 options 객체 생성
+// 문제: 렌더링마다 새로운 options 객체 생성
 const options = { theme: theme, language: language };
 const memoizedValue = useMemo(() => {
   return expensiveCalculation(data, options);
@@ -270,7 +270,7 @@ const options = useMemo(() => {
 }, [theme, language]);
 ```
 
-객체나 배열은 매번 새로운 참조가 생성되므로, 이러한 값들도 useMemo로 메모이제이션해야 합니다.
+객체나 배열은 매번 새로운 참조가 생성되므로, 이러한 값들도 useMemo로 메모이제이션 해야 합니다.
 
 <br>
 
@@ -292,7 +292,7 @@ const options = useMemo(() => {
 ### 최적화 전:
 ```javascript
 function ProductList({ products, category }) {
-  // 매 렌더링마다 필터링 및 정렬 수행
+  // 렌더링마다 필터링 및 정렬 수행
   const filteredProducts = products
     .filter(product => product.category === category)
     .sort((a, b) => a.price - b.price);
