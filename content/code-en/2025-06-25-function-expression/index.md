@@ -30,7 +30,7 @@ tags:
     - Code Organization
 ---
 
-> 💡 Having some background knowledge about JavaScript [Scope](/code-en/2025-06-17-javascript-scope) and [Hoisting](/code-en/2025-06-23-javascript-hoisting) will make this article much easier to follow and understand.
+> 💡 If you’re familiar with JavaScript [Scope](/code-en/2025-06-17-javascript-scope) and [Hoisting](/code-en/2025-06-23-javascript-hoisting), you’ll find this article much easier to follow.
 
 If you've ever wondered why sometimes you see `const myFunc = function() {}` instead of `function myFunc() {}`, you're about to discover one of JavaScript's most powerful yet misunderstood features. Function expressions aren't just another way to write functions—they're a fundamental tool that can make your code more flexible, safer, and more predictable.
 

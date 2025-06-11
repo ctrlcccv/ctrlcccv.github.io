@@ -5,11 +5,11 @@ title: >
 description: >  
     var 때문에 발생하는 버그 사례부터 let과 const의 차이점, 객체 내부 변경까지 현대 자바스크립트 변수 선언법을 초보자도 쉽게 이해할 수 있도록 상세히 알려드립니다.
 
-slug: 2025-06-27-let-const
-date: 2025-06-27 00:00:00+0000
-lastmod: 2025-06-27 00:00:00+0000
+slug: 2025-06-26-let-const
+date: 2025-06-26 00:00:00+0000
+lastmod: 2025-06-26 00:00:00+0000
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-01-27-2025-01-27-let-const.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-26-let-const.webp
 
 categories:
     - JavaScript

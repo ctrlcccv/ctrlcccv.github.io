@@ -30,7 +30,7 @@ tags:
     - Performance Optimization
 ---
 
-> 💡 Having some background knowledge about [JavaScript Scope](/code-en/2025-06-17-javascript-scope) will make this article much easier to follow and understand.
+> 💡 If you're familiar with JavaScript [Scope](/code-en/2025-06-17-javascript-scope/), you'll find this article much easier to follow.
 
 Have you ever run JavaScript code that worked completely differently than you expected? You know the feeling—variables appearing before they're defined, mysterious `undefined` values popping up, or sudden reference errors that crash your application out of nowhere.
 
