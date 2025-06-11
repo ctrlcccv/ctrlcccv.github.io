@@ -11,6 +11,17 @@ lastmod: 2025-06-06 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp
 
+alternates:
+  - title: "React useCallback으로 불필요한 리렌더링 방지하기"
+    href: "https://ctrlcccv.github.io/code/2025-06-06-react-usecallback/"
+    hreflang: "ko"
+  - title: "Stop React Re-renders with useCallback Hook" 
+    href: "https://ctrlcccv.github.io/code-en/2025-06-11-react-usecallback/"
+    hreflang: "en"
+  - title: "React useCallback으로 불필요한 리렌더링 방지하기"
+    href: "https://ctrlcccv.github.io/code/2025-06-06-react-usecallback/"
+    hreflang: "x-default"
+
 categories:
     - React
 tags:
