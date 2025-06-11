@@ -11,6 +11,17 @@ lastmod: 2025-06-27 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-27-let-const-en.webp
 
+alternates:
+  - title: "JS 변수 선언법: var 대신 let과 const를 써야 하는 이유"
+    href: "https://ctrlcccv.github.io/code/2025-06-26-let-const/"
+    hreflang: "ko"
+  - title: "JavaScript var vs let vs const: Why Avoid var?" 
+    href: "https://ctrlcccv.github.io/code-en/2025-06-27-let-const/"
+    hreflang: "en"
+  - title: "JS 변수 선언법: var 대신 let과 const를 써야 하는 이유"
+    href: "https://ctrlcccv.github.io/code/2025-06-26-let-const/"
+    hreflang: "x-default"
+
 categories:
     - JavaScript
 tags:
