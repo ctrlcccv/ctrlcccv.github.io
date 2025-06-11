@@ -337,6 +337,8 @@ What values will be logged to the console when this code runs?
 <details>
 <summary>🔍 Reveal Answer</summary>
 
+<br>
+
 **Output:**  
 
 1: inner  

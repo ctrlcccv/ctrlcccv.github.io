@@ -5,11 +5,11 @@ title: >
 description: >  
     자바스크립트 함수 표현식의 모든 것을 쉽게 설명합니다. 함수 선언문과의 차이점, 호이스팅, 콜백 함수 사용법까지 실제 코드 예제로 완벽하게 마스터하세요.
 
-slug: 2025-06-26-function-expression
-date: 2025-06-26 00:00:00+0000
-lastmod: 2025-06-26 00:00:00+0000
+slug: 2025-06-24-function-expression
+date: 2025-06-24 00:00:00+0000
+lastmod: 2025-06-24 00:00:00+0000
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-26-function-expression.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-24-function-expression.webp
 
 categories:
     - JavaScript
@@ -232,22 +232,18 @@ const result = calculate(5, 3);
 다음 코드를 보고 실행 결과를 예측해 보세요.  
 
 ```javascript
-console.log("1. 시작");
+console.log("시작");
+console.log("결과 1:", getGreeting());
+console.log("결과 2:", createMessage);
+console.log("끝");
 
-setTimeout(executeA(), 1000);
-setTimeout(executeB, 2000);
-
-console.log("2. 중간");
-
-function executeA() {
-    console.log("3. A 실행됨");
+function getGreeting() {
+    return "안녕하세요!";
 }
 
-const executeB = function() {
-    console.log("4. B 실행됨");
+const createMessage = function() {
+    return "환영합니다!";
 };
-
-console.log("5. 끝");
 ```
 
 문제: 위 코드에서 콘솔에 출력되는 내용과 순서를 정확히 작성하고, 에러가 발생한다면 어느 지점에서 왜 발생하는지 설명해 주세요.
@@ -263,39 +259,34 @@ console.log("5. 끝");
 
 **정답:**
 
-1. `console.log("1. 시작")` → "1. 시작"
-2. `console.log("3. A 실행됨")` → "3. A 실행됨" 
+1. `console.log("시작")` → "시작"
+2. `console.log("결과 1:", getGreeting())` → "결과 1: 안녕하세요!"
 3. **ReferenceError 발생** - 실행 중단
 
 **해설:**
 
-이 문제는 **함수 표현식의 호이스팅**과 **괄호의 의미**를 동시에 다루는 복합 문제입니다.
+이 문제는 **함수 표현식의 호이스팅**을 다루는 핵심 문제입니다.
 
-1. **`executeA()` 호출이 성공하는 이유**  
+1. **`getGreeting()` 호출이 성공하는 이유**  
 <span class="txt">
-함수 선언문 `executeA`는 호이스팅 되어 코드 실행 전에 메모리에 등록되므로, 선언 전에도 호출할 수 있습니다.
+함수 선언문 `getGreeting`은 호이스팅 되어 코드 실행 전에 메모리에 등록되므로, 선언 전에도 호출할 수 있습니다.
 </span>
 
 2. **에러 발생 지점과 이유**  
 <span class="txt">
-`setTimeout(executeB, 2000)`에서 `executeB`에 접근하려고 하지만, 함수 표현식은 TDZ(Temporal Dead Zone) 상태이므로 `ReferenceError: Cannot access 'executeB' before initialization`가 발생합니다.
+`createMessage`에 접근하려고 하지만, 함수 표현식은 TDZ(Temporal Dead Zone) 상태이므로 `ReferenceError: Cannot access 'createMessage' before initialization`가 발생합니다.
 </span>
 
-3. **괄호의 차이점**  
-<span class="txt"> 
-`executeA()`는 함수를 즉시 실행하여 결과를 반환하는 반면, `executeB`는 함수 자체를 참조하지만 TDZ로 인해 에러가 발생합니다.
-</span>
-
-4. **실행 중단**  
+3. **실행 중단**  
 <span class="txt">
-`ReferenceError`가 발생하면 전체 스크립트 실행이 중단되므로, `console.log("2. 중간")` 이후의 모든 코드는 실행되지 않습니다.
+`ReferenceError`가 발생하면 전체 스크립트 실행이 중단되므로, `console.log("끝")` 및 이후의 모든 코드는 실행되지 않습니다.
 </span>
 
 **핵심 포인트:**
 - 함수 선언문은 호이스팅 되어 선언 전에 호출할 수 있지만, 함수 표현식은 변수 호이스팅 규칙을 따릅니다.
-- `const`/`let`으로 선언한 함수 표현식은 TDZ 적용됩니다.
-- 괄호 `()`의 유무가 함수 실행 시점을 결정합니다.
+- `const`/`let`으로 선언한 함수 표현식은 TDZ가 적용됩니다.
 - `ReferenceError`는 전체 실행을 중단시킵니다.
+- 함수 표현식은 "정의 후 사용" 원칙을 강제합니다.
 </details>
 
 <br>

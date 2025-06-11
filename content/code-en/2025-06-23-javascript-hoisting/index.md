@@ -276,6 +276,8 @@ D. Prints `1`, then throws an error
 <details>
 <summary>Check Answer</summary>
 
+<br>
+
 **Answer: C**
 
 The first `console.log(x)` throws a ReferenceError because the local `x` declaration creates a dead zone. The second one would print `2`, but we never get there because of the error.
