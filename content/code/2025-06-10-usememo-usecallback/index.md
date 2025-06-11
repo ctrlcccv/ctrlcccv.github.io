@@ -178,44 +178,48 @@ function ParentComponent() {
 ### useMemo를 선택해야 하는 경우:
 
 1. **계산 비용이 큰 작업의 결과가 필요할 때**
-   ```javascript
-   // 큰 데이터 세트를 필터링하고 정렬하는 경우
-   const processedData = useMemo(() => {
-     return largeDataset
-       .filter(item => item.category === selectedCategory)
-       .sort((a, b) => a.value - b.value);
-   }, [largeDataset, selectedCategory]);
-   ```
+
+```javascript
+// 큰 데이터 세트를 필터링하고 정렬하는 경우
+const processedData = useMemo(() => {
+  return largeDataset
+    .filter(item => item.category === selectedCategory)
+    .sort((a, b) => a.value - b.value);
+}, [largeDataset, selectedCategory]);
+```
 
 2. **객체나 배열을 새로 생성하여 자식 컴포넌트에 전달할 때**
-   ```javascript
-   // 새로운 객체를 생성하는 경우 (React.memo와 함께 사용 시 효과적)
-   const userConfig = useMemo(() => {
-     return { name: user.name, permissions: user.permissions };
-   }, [user.name, user.permissions]);
-   ```
+
+```javascript
+// 새로운 객체를 생성하는 경우 (React.memo와 함께 사용 시 효과적)
+const userConfig = useMemo(() => {
+  return { name: user.name, permissions: user.permissions };
+}, [user.name, user.permissions]);
+```
+
+<br>
 
 ### useCallback을 선택해야 하는 경우:
 
 1. **이벤트 핸들러를 자식 컴포넌트에 props로 전달할 때**
-   ```javascript
-   // 자식 컴포넌트에 전달되는 이벤트 핸들러
-   const handleClick = useCallback(() => {
-     setIsOpen(!isOpen);
-   }, [isOpen, setIsOpen]);
-   ```
+```javascript
+// 자식 컴포넌트에 전달되는 이벤트 핸들러
+const handleClick = useCallback(() => {
+  setIsOpen(!isOpen);
+}, [isOpen, setIsOpen]);
+```
 
 2. **useEffect의 의존성 배열에 함수를 포함시켜야 할 때**
-   ```javascript
-   // useEffect 의존성으로 사용되는 함수
-   const fetchData = useCallback(() => {
-     api.getData(userId).then(setData);
-   }, [userId]);
+```javascript
+// useEffect 의존성으로 사용되는 함수
+const fetchData = useCallback(() => {
+  api.getData(userId).then(setData);
+}, [userId]);
 
-   useEffect(() => {
-     fetchData();
-   }, [fetchData]);
-   ```
+useEffect(() => {
+  fetchData();
+}, [fetchData]);
+```
 
 <br>
 

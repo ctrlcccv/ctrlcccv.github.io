@@ -5,11 +5,11 @@ title: >
 description: >  
     자바스크립트 초보자도 쉽게 이해할 수 있는 블록과 함수의 핵심 차이점을 실제 코드 예제와 함께 알아보세요. 호출과 재사용의 차이부터 실무에서 언제 사용해야 하는지까지 정리했습니다.
 
-slug: 2025-06-24-block-function
-date: 2025-06-24 00:00:00+0000
-lastmod: 2025-06-24 00:00:00+0000
+slug: 2025-06-18-block-function
+date: 2025-06-18 00:00:00+0000
+lastmod: 2025-06-18 00:00:00+0000
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-24-block-function.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-18-block-function.webp
 
 categories:
     - JavaScript
