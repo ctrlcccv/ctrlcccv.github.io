@@ -45,7 +45,7 @@ anchor-name 속성은 요소를 앵커로 지정하고 이름을 부여합니다
 ### 암시적 앵커 요소
 특정 조건 한에, 일부 요소는 다른 요소에 대해 암시적 앵커로 기능할 수 있습니다.
 ```html
-<div id="popover" data-anchor="button">...
+<div id="popover" data-anchor="button">...</div>
 ```
 이 예제에서 #popover는 data-anchor 속성을 통해 #button에 암시적으로 고정됩니다. 이는 특정 API 또는 자바스크립트 라이브러리에서 사용되는 방식으로, 팝오버가 버튼에 연관되어 표시되어야 할 때 유용합니다.  
 
