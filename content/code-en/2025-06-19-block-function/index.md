@@ -11,6 +11,17 @@ lastmod: 2025-06-19 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-19-block-function-en.webp
 
+alternates:
+  - title: "자바스크립트 블록 vs 함수 차이점 비교 가이드"
+    href: "https://ctrlcccv.github.io/code/2025-06-18-block-function/"
+    hreflang: "ko"
+  - title: "JavaScript Blocks vs Functions: Complete Guide" 
+    href: "https://ctrlcccv.github.io/code-en/2025-06-19-block-function/"
+    hreflang: "en"
+  - title: "자바스크립트 블록 vs 함수 차이점 비교 가이드"
+    href: "https://ctrlcccv.github.io/code/2025-06-18-block-function/"
+    hreflang: "x-default"
+
 categories:
     - JavaScript
 tags:

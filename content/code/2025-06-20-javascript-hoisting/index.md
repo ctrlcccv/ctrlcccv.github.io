@@ -5,11 +5,11 @@ title: >
 description: >  
     자바스크립트 호이스팅의 모든 것을 쉽게 설명합니다. var와 let/const의 호이스팅 차이점, TDZ(Temporal Dead Zone) 개념, 블록 스코프까지 실제 코드 예제로 완벽하게 마스터하세요.
 
-slug: 2025-06-25-javascript-hoisting
-date: 2025-06-25 00:00:00+0000
-lastmod: 2025-06-25 00:00:00+0000
+slug: 2025-06-20-javascript-hoisting
+date: 2025-06-20 00:00:00+0000
+lastmod: 2025-06-20 00:00:00+0000
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-25-javascript-hoisting.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-20-javascript-hoisting.webp
 
 categories:
     - JavaScript
