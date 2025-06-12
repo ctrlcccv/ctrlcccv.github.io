@@ -6,7 +6,7 @@ description: >
     React의 성능 최적화를 위한 useMemo와 useCallback 훅의 차이점과 활용법을 실제 예제와 함께 비교 분석합니다.
 
 slug: 2025-06-10-usememo-usecallback
-date: 2025-06-12 00:00:00+0000
+date: 2025-06-10 00:00:00+0000
 lastmod: 2025-06-12 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp
