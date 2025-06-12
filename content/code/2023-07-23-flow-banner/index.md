@@ -376,6 +376,79 @@ const displayTime = 4; // 4초
 
 <br>
 
+### displayTime 계산 방식의 이해
+
+처음에 이 배너를 만들면서 가장 헷갈렸던 게 바로 displayTime 계산 방식이었어요. "각 텍스트가 얼마나 보여야 할까?"라는 고민에서 시작된 이 값의 정확한 의미를 설명해드릴게요.
+
+<br>
+
+<p style="margin-top:0;"><strong>displayTime의 실제 의미</strong></p>
+
+현재 코드에서 사용되는 `displayTime`은 각 항목(li 요소)이 보여지는 **평균 시간(초 단위)**을 의미합니다. 
+
+```javascript
+// 실제 계산 과정
+const speed = listWidth / ($list.find('li').length * displayTime);
+const duration = listWidth / speed; // 전체 애니메이션 시간
+```
+
+<br>
+
+<p style="margin-top:0;"><strong>계산 방식</strong></p>
+
+> **전체 리스트의 너비(listWidth) ÷ (li 개수 × displayTime)**  
+> → 이 결과가 배너가 한 사이클을 도는 데 걸리는 `animation-duration`이 됩니다.
+
+실무에서 자주 마주치는 상황으로 예를 들어보면
+
+```javascript
+// 예시: 5개 항목, displayTime 2초인 경우
+// 리스트 전체 너비가 1000px이라면
+const totalItems = 5;
+const displayTime = 2;
+const listWidth = 1000;
+
+// 속도 계산: 1000px ÷ (5개 × 2초) = 100px/s
+const speed = listWidth / (totalItems * displayTime);
+
+// 전체 애니메이션 시간: 1000px ÷ 100px/s = 10초
+const animationDuration = listWidth / speed;
+```
+
+<br>
+
+<p style="margin-top:0;"><strong>실무에서의 유의점</strong></p>
+
+하지만 실제 상황에서는 li 요소마다 너비가 다를 수 있어요. 저도 처음엔 이 부분 때문에 고민이 많았거든요.
+
+```html
+<!-- 이런 경우 각 항목의 너비가 다름 -->
+<ul class="list">
+    <li>할인</li>
+    <li>봄맞이 특가 세일 진행중입니다</li>
+    <li>무료배송</li>
+    <li>신규 가입 시 적립금 5,000원 혜택</li>
+</ul>
+```
+
+이때 위 공식은 **ul 전체 너비의 평균값**을 기준으로 적용됩니다. 즉, 각 항목의 길이가 달라도 전체 배너는 자연스럽게 흘러가며, 다양한 텍스트 조합에도 **자동 보정**되어 UX를 해치지 않아요.
+
+<br>
+
+<p style="margin-top:0;"><strong>실무 팁</strong></p>
+
+```javascript
+// ❌ 모든 항목이 같은 시간에 보인다고 생각하면 안 돼요
+// 실제로는 짧은 텍스트는 빨리, 긴 텍스트는 느리게 지나감
+
+// ✅ 전체적인 흐름 속도를 조절하는 개념으로 접근
+const displayTime = 2; // 평균적으로 각 항목이 2초간 노출
+```
+
+이런 특성 때문에 실제 프로젝트에서는 텍스트 길이를 어느 정도 맞춰주는 게 좋아요. 너무 길거나 짧은 항목이 섞여있으면 사용자가 읽기 어려울 수 있거든요.
+
+<br>
+
 ### 다양한 콘텐츠 타입 지원
 
 ```html
