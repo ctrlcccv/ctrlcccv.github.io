@@ -57,7 +57,7 @@ tags:
 
 ## overscroll-behavior 속성 완벽 이해하기
 
-`overscroll-behavior`는 CSS에서 스크롤 체이닝(scroll chaining)을 제어하는 속성이에요. 쉽게 말해서, 한 요소에서 스크롤이 끝났을 때 부모 요소로 스크롤 이벤트가 전달되는 걸 막거나 허용할지를 결정하는 거죠.
+`overscroll-behavior`는 CSS에서 스크롤 체이닝(scroll chaining)을 제어하는 속성이에요. 쉽게 말해서, 한 요소에서 스크롤이 끝났을 때 부모 요소로 스크롤 이벤트가 전달되는 걸 막거나 허용할지를 결정해요.
 
 <br>
 
