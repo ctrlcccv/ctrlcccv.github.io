@@ -394,7 +394,7 @@ const duration = listWidth / speed; // 전체 애니메이션 시간
 
 <br>
 
-<p style="margin-top:0;"><strong>계산 방식</strong></p>
+<p><strong>계산 방식</strong></p>
 
 > **전체 리스트의 너비(listWidth) ÷ (li 개수 × displayTime)**  
 > → 이 결과가 배너가 한 사이클을 도는 데 걸리는 `animation-duration`이 됩니다.
@@ -417,7 +417,7 @@ const animationDuration = listWidth / speed;
 
 <br>
 
-<p style="margin-top:0;"><strong>실무에서의 유의점</strong></p>
+<p><strong>실무에서의 유의점</strong></p>
 
 하지만 실제 상황에서는 li 요소마다 너비가 다를 수 있어요. 저도 처음엔 이 부분 때문에 고민이 많았거든요.
 
