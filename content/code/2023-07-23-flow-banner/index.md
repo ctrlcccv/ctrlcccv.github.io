@@ -384,7 +384,7 @@ const displayTime = 4; // 4초
 
 <p style="margin-top:0;"><strong>displayTime의 실제 의미</strong></p>
 
-현재 코드에서 사용되는 `displayTime`은 각 항목(li 요소)이 보여지는 **평균 시간(초 단위)**을 의미합니다. 
+현재 코드에서 사용되는 `displayTime`은 각 항목(li 요소)이 보여지는 <strong>평균 시간(초 단위)</strong>을 의미합니다.
 
 ```javascript
 // 실제 계산 과정
