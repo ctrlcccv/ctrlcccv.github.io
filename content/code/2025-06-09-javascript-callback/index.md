@@ -11,6 +11,17 @@ lastmod: 2025-06-09 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-09-javascript-callback.webp
 
+alternates:
+  - title: "JavaScript 콜백 함수(Callback function) 쉽게 이해하기"
+    href: "https://ctrlcccv.github.io/code/2025-06-09-javascript-callback/"
+    hreflang: "ko"
+  - title: "What is a Callback in JS: Functions That Wait" 
+    href: "https://ctrlcccv.github.io/code-en/2025-06-12-javascript-callback/"
+    hreflang: "en"
+  - title: "JavaScript 콜백 함수(Callback function) 쉽게 이해하기"
+    href: "https://ctrlcccv.github.io/code/2025-06-09-javascript-callback/"
+    hreflang: "x-default"
+
 categories:
     - JavaScript
 tags:
