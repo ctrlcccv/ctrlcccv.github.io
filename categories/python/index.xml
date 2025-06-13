@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on 컨트롤 + CCCV</title><link>https://ctrlcccv.github.io/categories/python/</link><description>Recent content in Python on 컨트롤 + CCCV</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 06 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ctrlcccv.github.io/categories/python/index.xml" rel="self" type="application/rss+xml"/><item><title>부동 소수점 연산의 정확도 문제와 해결 방안</title><link>https://ctrlcccv.github.io/code/2023-12-06-float/</link><pubDate>Wed, 06 Dec 2023 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2023-12-06-float/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-06-float.webp" alt="Featured image of post 부동 소수점 연산의 정확도 문제와 해결 방안" />&lt;p>컴퓨터 프로그래밍에서 부동 소수점 연산의 정확도 문제는 오래된 도전 과제입니다. 특히, 1.1 + 0.1 == 1.2가 False로 평가되는 현상과 같은 예는 이 문제를 잘 보여줍니다. 이 글에서는 이 현상의 원인과 가능한 해결 방법을 탐구하겠습니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="부동-소수점-연산의-정확도-문제의-원인">부동 소수점 연산의 정확도 문제의 원인
+&lt;/h2>&lt;p>부동 소수점 연산의 정확도 문제를 이해하기 위해서는 먼저 컴퓨터가 실수를 어떻게 표현하고 계산하는지 이해해야 합니다.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>이진수로의 변환&lt;/strong>&lt;br>
+컴퓨터는 모든 데이터를 이진수(0과 1)로 처리합니다. 이 때문에, 컴퓨터에서는 10진수 실수를 정확하게 표현하기 어렵습니다. 예를 들어, 10진수 1.1과 0.1은 이진수로 완벽하게 변환되지 않습니다. 10진수 1.1은 이진수로 변환하면 무한한 이진 소수가 됩니다. 컴퓨터는 이를 저장하기 위해 이진 소수를 끊어야 하는데, 이 과정에서 오차가 발생합니다. 예를 들어, 1.1은 이진수로 대략 1.00011001100110011001101과 같이 근사됩니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>부동 소수점 표현&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>컴퓨터는 부동 소수점 표준인 IEEE 754를 사용해 실수를 표현합니다. 이 표준에 따라, 실수는 다음과 같이 세 부분으로 나뉩니다.&lt;/li>
+&lt;li>부호 비트(Sign bit) : 숫자가 양수인지 음수인지 나타냅니다.&lt;/li>
+&lt;li>지수(Exponent) : 소수점의 위치를 조정합니다.&lt;/li>
+&lt;li>가수(Mantissa 또는 Fraction): 실제 숫자 데이터를 나타냅니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>정밀도 한계&lt;/strong>&lt;br>
+이 표현 방식은 메모리 공간의 제한 때문에 가수 부분에 숫자를 저장할 때 일정한 비트만 사용할 수 있습니다. 예를 들어, 64비트 부동 소수점 표현(더블 프리시전)에서 가수 부분은 52비트로 제한됩니다. 이로 인해 숫자를 정확하게 표현하는 데 한계가 생깁니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>연산 과정의 오차&lt;/strong>&lt;br>
+부동 소수점 연산에서는 이러한 근삿값을 사용합니다. 예를 들어, 1.1 + 0.1을 계산할 때, 각 숫자의 이진수 근삿값을 더합니다. 이 과정에서 미세한 오차가 누적되어, 최종 결과가 1.2와 정확히 일치하지 않을 수 있습니다. 이러한 오차는 특히 숫자가 많거나 복잡한 연산에서 더욱 눈에 띄게 됩니다.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="해결-방법">해결 방법
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>정수 연산 사용&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>원리 : 실수 대신 정수를 사용하여 연산을 수행합니다. 예를 들어, 소수점 이하 값을 필요한 자릿수만큼 확대하여 정수로 변환한 후 연산을 수행합니다.&lt;/li>
+&lt;li>장점 : 정수 연산은 부동 소수점 연산보다 오차가 없고 더 예측 가능합니다.&lt;/li>
+&lt;li>적용 사례 : 금융 계산에서 소수점 이하의 금액을 정확히 계산해야 할 때 자주 사용됩니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>고정 소수점 사용&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>원리 : 소수점의 위치를 고정시켜, 모든 연산에서 동일한 자릿수를 유지합니다.&lt;/li>
+&lt;li>장점 : 부동 소수점보다 연산 결과의 예측 가능성이 높아집니다. 또한, 특정 범위의 값에 대해 더 정확한 연산을 보장합니다.&lt;/li>
+&lt;li>주의점 : 사용 가능한 숫자의 범위가 제한됩니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>높은 정밀도 라이브러리 사용&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>원리 : 표준 부동 소수점 연산보다 더 많은 비트를 사용하여 실수를 표현하고 연산하는 라이브러리를 사용합니다.&lt;/li>
+&lt;li>장점 : 매우 높은 정밀도의 연산이 가능합니다.&lt;/li>
+&lt;li>적용 사례 : 과학적 계산, 큰 수의 정밀한 연산, 복잡한 수학적 모델링 등에 사용됩니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>에러 보정 기술&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>원리 : 연산 과정에서 발생할 수 있는 오차를 최소화하기 위한 알고리즘을 사용합니다.&lt;/li>
+&lt;li>예시 : Kahan summation 알고리즘은 누적되는 오차를 추적하고 보정하여 더 정확한 합계를 제공합니다.&lt;/li>
+&lt;li>적용 사례 : 다수의 작은 값들을 더할 때 유용합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>상황에 맞는 데이터 타입 선택&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>원리 : 특정 언어나 환경에서 제공하는 다양한 데이터 타입 중에서, 상황에 가장 적합한 것을 선택합니다.&lt;/li>
+&lt;li>장점 : 언어나 환경이 제공하는 최적화된 연산 방법을 활용할 수 있습니다.&lt;/li>
+&lt;li>주의점 : 모든 언어나 환경이 다양한 데이터 타입을 지원하지는 않습니다.&lt;br>
+&lt;br>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>부동 소수점 연산의 정확도 문제는 복잡하지만, 상황과 요구사항에 맞는 여러 해결 방안을 통해 대응할 수 있습니다. 정확한 연산이 필요한 경우, 고정 소수점 사용, 높은 정밀도 라이브러리의 사용, 에러 보정 기술 등을 고려해야 합니다. 이러한 방법들은 각각의 장단점을 가지고 있으며, 특정 상황에 가장 적합한 방법을 선택하는 것이 중요합니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;div class="btn_wrap">
+&lt;a href="https://docs.python.org/ko/3/tutorial/floatingpoint.html">[참고문서] 부동 소수점 산술 : 문제점 및 한계&lt;/a>
+&lt;/div></description></item><item><title>파이썬 단축키 만들기 (pynput 활용)</title><link>https://ctrlcccv.github.io/code/2023-09-20-shortcuts/</link><pubDate>Wed, 20 Sep 2023 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2023-09-20-shortcuts/</guid><description>&lt;p>파이썬 라이브러리인 pynput을 활용하여 키보드 이벤트를 감지하고, 특정 단축키를 눌렀을 때와 놓았을 때 실행되는 함수를 만드는 방법입니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="pynput-라이브러리-소개">pynput 라이브러리 소개
+&lt;/h2>&lt;p>pynput은 파이썬으로 키보드와 마우스 이벤트를 감지하고 제어할 수 있는 라이브러리입니다.&lt;br>
+이 글에서는 주로 키보드 이벤트를 다룰 것입니다.&lt;br>
+pynput을 활용하면 사용자가 특정 키를 누를 때나 놓을 때 원하는 동작을 수행하는 프로그램을 만들 수 있습니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;h2 id="코드-설명">코드 설명
+&lt;/h2>&lt;p>아래는 pynput을 사용한 키보드 리스너 코드의 설명입니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">pynput&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">keyboard&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 단축키를 눌렀을 때 실행될 함수&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_press&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Key&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ctrl_l&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 왼쪽 Ctrl 키를 눌렀을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Ctrl 키가 눌렸습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Key&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">alt_l&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 왼쪽 Alt 키를 눌렀을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Alt 키가 눌렸습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">KeyCode&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_char&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">):&lt;/span> &lt;span class="c1"># &amp;#39;a&amp;#39; 키를 눌렀을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&amp;#39;a&amp;#39; 키가 눌렸습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="ne">AttributeError&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 단축키를 놓았을 때 실행될 함수&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_release&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Key&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ctrl_l&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 왼쪽 Ctrl 키를 놓았을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Ctrl 키가 놓아졌습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Key&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">alt_l&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 왼쪽 Alt 키를 놓았을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Alt 키가 놓아졌습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">KeyCode&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_char&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">):&lt;/span> &lt;span class="c1"># &amp;#39;a&amp;#39; 키를 놓았을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&amp;#39;a&amp;#39; 키가 놓아졌습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>on_press 함수는 사용자가 특정 키를 눌렀을 때 실행되며, on_release 함수는 사용자가 특정 키를 놓았을 때 실행됩니다.&lt;/p>
+&lt;ul>
+&lt;li>keyboard.Key.ctrl_l : 왼쪽 Ctrl 키를 나타내는 상수입니다.&lt;/li>
+&lt;li>keyboard.Key.alt_l : 왼쪽 Alt 키를 나타내는 상수입니다.&lt;/li>
+&lt;li>keyboard.KeyCode.from_char(&amp;lsquo;a&amp;rsquo;) : &amp;lsquo;a&amp;rsquo; 키를 나타내는 상수입니다.&lt;br>
+&lt;br>&lt;/li>
+&lt;/ul>
+&lt;h2 id="키보드-리스너-생성">키보드 리스너 생성
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 키보드 리스너 생성&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Listener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">on_press&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">on_press&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">on_release&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">on_release&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">listener&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Listener 클래스는 on_press와 on_release 함수를 사용하여 키보드 이벤트를 감지하고, 사용자가 정의한 동작을 실행합니다. listener.join()은 리스너를 시작하고 계속해서 키보드 입력을 감지하는 역할을 합니다.&lt;/p>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="전체-코드">전체 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">pynput&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">keyboard&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 단축키를 눌렀을 때 실행될 함수&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_press&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Key&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ctrl_l&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 왼쪽 Ctrl 키를 눌렀을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Ctrl 키가 눌렸습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Key&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">alt_l&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 왼쪽 Alt 키를 눌렀을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Alt 키가 눌렸습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">KeyCode&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_char&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">):&lt;/span> &lt;span class="c1"># &amp;#39;a&amp;#39; 키를 눌렀을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&amp;#39;a&amp;#39; 키가 눌렸습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="ne">AttributeError&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 단축키를 놓았을 때 실행될 함수&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_release&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Key&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ctrl_l&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 왼쪽 Ctrl 키를 놓았을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Ctrl 키가 놓아졌습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Key&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">alt_l&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 왼쪽 Alt 키를 놓았을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Alt 키가 놓아졌습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">KeyCode&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_char&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">):&lt;/span> &lt;span class="c1"># &amp;#39;a&amp;#39; 키를 놓았을 때&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&amp;#39;a&amp;#39; 키가 놓아졌습니다.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 키보드 리스너 생성&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Listener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">on_press&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">on_press&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">on_release&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">on_release&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">listener&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="다양한-키보드-이벤트-리스너">다양한 키보드 이벤트 리스너
+&lt;/h2>&lt;p>pynput에서 제공하는 다양한 키보드 이벤트 리스너에 대한 설명과 예제입니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;h3 id="keyboardlistener">keyboard.Listener
+&lt;/h3>&lt;p>키보드 이벤트를 감지하는 가장 기본적인 리스너입니다. on_press와 on_release 두 가지 콜백 함수를 설정하여 사용자가 키를 누를 때와 놓을 때 원하는 동작을 실행할 수 있습니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">pynput&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">keyboard&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_press&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Key &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> pressed&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_release&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Key &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> released&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Listener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">on_press&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">on_press&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">on_release&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">on_release&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">listener&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="keyboardgloballistener">keyboard.GlobalListener
+&lt;/h3>&lt;p>모든 키보드 이벤트를 감지하는 리스너로, 현재 포커스된 윈도우나 애플리케이션과 관계없이 모든 키보드 이벤트를 감지할 수 있습니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">pynput&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">keyboard&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_key&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Key &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> pressed&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">GlobalListener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">on_key&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">on_key&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">listener&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="keyboardlistenerfor_eventsevents">keyboard.Listener.for_events(events)
+&lt;/h3>&lt;p>이 메서드를 사용하여 특정 키보드 이벤트를 필터링하여 원하는 이벤트만 처리할 수 있습니다. events 매개변수에 필터링할 이벤트를 지정합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">pynput&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">keyboard&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_event&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">event&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">event&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Key&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">space&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Space key pressed&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">for_events&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Key&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">space&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">on_event&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">on_event&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">listener&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="keyboardlistenerfor_hookhook_manager">keyboard.Listener.for_hook(hook_manager)
+&lt;/h3>&lt;p>키보드 이벤트 후킹(hooking)을 활용하여 모든 키보드 이벤트를 감지합니다. 이 방법은 다른 응용 프로그램의 입력을 가로채기 위해 사용될 수 있습니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">pynput&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">keyboard&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_key&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Key &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> pressed&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">for_hook&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">on_key&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">on_key&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">listener&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="keyboardlistenerfor_canonical">keyboard.Listener.for_canonical()
+&lt;/h3>&lt;p>키보드 이벤트를 &amp;ldquo;canonical&amp;rdquo; 형식으로 감지하며, 키보드 레이아웃에 관계없이 키를 식별할 수 있습니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">pynput&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">keyboard&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_key&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Canonical Key &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> pressed&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">for_canonical&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">on_key&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">on_key&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">listener&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="keyboardlistenerfor_mac">keyboard.Listener.for_mac()
+&lt;/h3>&lt;p>macOS에서 특정 이벤트를 처리하기 위한 메서드로, macOS의 특정 기능과 관련된 이벤트를 처리할 수 있습니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">pynput&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">keyboard&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">on_event&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">event&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">event&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">key&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Key&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ctrl_r&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Right Control key pressed on macOS&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="n">keyboard&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">for_mac&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">on_event&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">on_event&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">listener&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">listener&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>pynput 라이브러리를 사용하면 파이썬으로 키보드 이벤트를 쉽게 감지하고 처리할 수 있습니다.&lt;br>
+단축키를 감지하여 사용자 지정 동작을 수행하는 예제를 통해 구체적으로 살펴보았습니다.&lt;br>
+이를 응용하여 다양한 키보드 이벤트를 감지하고 활용할 수 있으며, 자동화 및 사용자 경험 개선과 같은 다양한 목적을 달성할 수 있습니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://pynput.readthedocs.io/en/latest/keyboard.html" target="_blank" rel="noopener"
+>pynput 라이브러리의 공식 문서&lt;/a>&lt;/p>&lt;/blockquote></description></item><item><title>파이썬 - Selenium을 사용하여 검색 결과 가져오기</title><link>https://ctrlcccv.github.io/code/2023-09-06-scraping/</link><pubDate>Wed, 06 Sep 2023 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2023-09-06-scraping/</guid><description>&lt;p>Selenium은 웹 애플리케이션 테스트를 자동화하고 웹 스크래핑을 수행하는 데 사용되는 강력한 Python 라이브러리입니다.&lt;br>
+Python과 Selenium을 사용하여 Google에서 검색 결과를 가져오는 방법을 예제와 함께 설명하겠습니다.&lt;br>
+웹 스크래핑은 웹 사이트에서 정보를 추출하고 분석하는 데 매우 유용하며, Python과 Selenium을 통해 자동화할 수 있습니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="selenium-라이브러리-설치">Selenium 라이브러리 설치
+&lt;/h2>&lt;p>Selenium 라이브러리를 설치해야 합니다.&lt;br>
+터미널 또는 명령 프롬프트에서 다음 명령을 실행하여 Selenium을 설치하세요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">pip&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">selenium&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="필요한-라이브러리-및-드라이버-설정">필요한 라이브러리 및 드라이버 설정
+&lt;/h2>&lt;p>필요한 라이브러리를 가져오고 Chrome 브라우저를 사용하기 위한 설정을 합니다.&lt;br>
+webdriver 모듈은 Selenium의 핵심 모듈입니다. 이를 사용하여 브라우저를 제어합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">webdriver&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.chrome.options&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Options&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.common.by&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">By&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.common.keys&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Keys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.support.ui&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">WebDriverWait&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.support&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">expected_conditions&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">EC&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chrome_options&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Options&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chrome_options&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_experimental_option&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;detach&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">webdriver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Chrome&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">options&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">chrome_options&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="google-웹페이지로-이동">Google 웹페이지로 이동
+&lt;/h2>&lt;p>Chrome 브라우저를 열고 Google 웹페이지로 이동합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;https://www.google.com&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;h2 id="검색어-입력">검색어 입력
+&lt;/h2>&lt;p>Google 검색창을 찾아 검색어를 입력하고 검색을 실행합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CLASS_NAME&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;gLFyf&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Python Selenium 예제&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Keys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">RETURN&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>find_element 메서드를 사용하여 검색창을 찾습니다.&lt;/li>
+&lt;li>send_keys 메서드를 사용하여 검색어를 입력합니다.&lt;/li>
+&lt;li>Keys.RETURN을 사용하여 Enter 키를 눌러 검색을 실행합니다.&lt;/li>
+&lt;/ul>
+&lt;h2 id="검색-결과-대기">검색 결과 대기
+&lt;/h2>&lt;p>검색 결과가 나타날 때까지 기다립니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">wait&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">WebDriverWait&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">results&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">wait&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">until&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">EC&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">presence_of_all_elements_located&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;.tF2Cxc&amp;#39;&lt;/span>&lt;span class="p">)))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>WebDriverWait를 사용하여 특정 조건이 충족될 때까지 대기합니다. (최대 10초)&lt;br>
+여기서는 CSS 선택자 .tF2Cxc를 사용하여 검색 결과가 로드될 때까지 대기합니다.&lt;/p>
+&lt;h2 id="검색-결과-출력">검색 결과 출력
+&lt;/h2>&lt;p>검색 결과를 가져와서 제목과 링크를 출력합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">results&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">result&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;.LC20lb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">link&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">result&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_attribute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;href&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;제목: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;링크: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">link&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>검색 결과는 여러 요소로 구성되어 있으며, 각 요소에서 제목과 링크를 추출합니다.&lt;/p>
+&lt;h2 id="브라우저-종료">브라우저 종료
+&lt;/h2>&lt;p>작업이 완료되면 Chrome 브라우저를 종료합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="전체-코드">전체 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">webdriver&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.chrome.options&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Options&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.common.by&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">By&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.common.keys&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Keys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.support.ui&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">WebDriverWait&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.support&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">expected_conditions&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">EC&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 브라우저 꺼짐 방지 옵션&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chrome_options&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Options&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chrome_options&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_experimental_option&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;detach&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">webdriver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Chrome&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">options&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">chrome_options&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 웹페이지 해당 주소 이동&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;https://www.google.com&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 검색 입력란 찾기&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CLASS_NAME&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;gLFyf&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 검색어 입력&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Python Selenium 예제&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 검색 실행 (Enter 키 누르기)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Keys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">RETURN&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 검색 결과가 나타날 때까지 기다림&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">wait&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">WebDriverWait&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">results&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">wait&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">until&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">EC&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">presence_of_all_elements_located&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;.tF2Cxc&amp;#39;&lt;/span>&lt;span class="p">)))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 검색 결과 출력&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">results&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">result&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;.LC20lb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">link&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">result&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_attribute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;href&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;제목: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;링크: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">link&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 브라우저 종료&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Python과 Selenium을 사용하여 Google 검색 결과를 가져오는 방법을 예제를 통해 자세히 설명했습니다.&lt;/p>
+&lt;p>Selenium은 웹 스크래핑과 웹 테스트를 자동화하는 데 강력한 도구입니다.&lt;br>
+이 예제를 기반으로 스크래핑 프로젝트나 웹 테스트 자동화를 시작할 수 있습니다.&lt;br>
+필요한 경우 코드를 수정하여 다른 웹사이트에서 데이터를 수집하거나 웹 애플리케이션을 테스트할 수 있습니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;blockquote>
+&lt;p>참고 자료&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.selenium.dev/documentation/" target="_blank" rel="noopener"
+>Selenium 공식 문서&lt;/a>&lt;/li>
+&lt;/ul>&lt;/blockquote></description></item><item><title>파이썬 - 마우스 좌표 출력 프로그램 만들기 (Tkinter 활용)</title><link>https://ctrlcccv.github.io/code/2023-09-05-mouse-position/</link><pubDate>Tue, 05 Sep 2023 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2023-09-05-mouse-position/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/mouse-position.webp" alt="Featured image of post 파이썬 - 마우스 좌표 출력 프로그램 만들기 (Tkinter 활용)" />&lt;p>Tkinter를 사용하여 간단한 마우스 좌표 출력 프로그램을 만드는 방법입니다.&lt;br>
+이 프로그램은 현재 마우스의 x와 y 좌표를 100ms마다 업데이트하여 화면에 표시합니다.&lt;br>
+이 프로젝트를 통해 Tkinter의 기본적인 사용법과 간단한 GUI 애플리케이션 개발 방법을 익힐 수 있습니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="필요한-라이브러리-가져오기">필요한 라이브러리 가져오기
+&lt;/h2>&lt;p>먼저, Tkinter 라이브러리를 가져와 프로그램을 개발할 준비를 합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">tkinter&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tk&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="마우스-좌표-업데이트-함수-만들기">마우스 좌표 업데이트 함수 만들기
+&lt;/h2>&lt;p>마우스 좌표를 업데이트하는 함수를 정의합니다.&lt;br>
+winfo_pointerx()와 winfo_pointery() 함수를 사용하여 현재 마우스의 x와 y 좌표를 가져올 수 있습니다.&lt;br>
+이 함수는 100ms마다 호출되도록 설정하여 마우스의 움직임을 지속해서 감지하고 화면에 좌표를 업데이트합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">update_mouse_position_label&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">root&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">winfo_pointerx&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">root&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">winfo_pointery&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">position_label&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;현재 좌표: x=&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">, y=&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">root&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">after&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">update_mouse_position_label&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="tkinter-윈도우-생성하기">Tkinter 윈도우 생성하기
+&lt;/h2>&lt;p>Tkinter 윈도우를 생성하고 제목을 설정합니다. 또한 좌표를 표시할 레이블(Label) 위젯을 생성하고 배치합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">root&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tk&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Tk&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">root&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;마우스 좌표 출력 프로그램&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">position_label&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tk&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Label&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">root&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">text&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;마우스 좌표:&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">position_label&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pack&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="마우스-좌표-업데이트-시작하기">마우스 좌표 업데이트 시작하기
+&lt;/h2>&lt;p>이제 앞에서 정의한 함수를 호출하여 마우스 좌표 업데이트를 시작합니다.&lt;br>
+이를 위해 update_mouse_position_label() 함수를 호출합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">update_mouse_position_label&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;h2 id="tkinter-이벤트-루프-실행하기">Tkinter 이벤트 루프 실행하기
+&lt;/h2>&lt;p>마지막으로, Tkinter의 이벤트 루프를 실행하여 프로그램이 화면에 나타나게 합니다.&lt;br>
+이 루프는 사용자의 동작을 감지하고 GUI를 업데이트합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">root&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mainloop&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="전체-코드">전체 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">update_mouse_position_label&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">root&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">winfo_pointerx&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">root&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">winfo_pointery&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">position_label&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;현재 좌표: x=&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">, y=&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">root&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">after&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">update_mouse_position_label&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 100ms마다 업데이트&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">root&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tk&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Tk&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">root&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;마우스 좌표 출력 프로그램&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">position_label&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tk&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Label&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">root&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">text&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;마우스 좌표:&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">position_label&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pack&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">update_mouse_position_label&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1"># 좌표 업데이트 시작&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">root&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mainloop&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>이렇게 간단한 코드로 마우스 좌표를 실시간으로 출력하는 프로그램을 만들어보았습니다.&lt;br>
+Tkinter를 활용하여 GUI 애플리케이션을 개발하는 기초를 익히는 좋은 예제입니다. &lt;br>
+다양한 방식으로 이 코드를 확장하거나 변형하여 여러분만의 프로그램을 개발해보세요!&lt;/p></description></item></channel></rss>
