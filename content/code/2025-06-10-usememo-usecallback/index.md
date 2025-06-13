@@ -11,6 +11,17 @@ lastmod: 2025-06-12 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp
 
+alternates:
+  - title: "React useMemo vs useCallback 차이점 쉽게 이해하기"
+    href: "https://ctrlcccv.github.io/code/2025-06-10-usememo-usecallback/"
+    hreflang: "ko"
+  - title: "React useMemo vs useCallback: 5 Key Differences Every Developer Must Know" 
+    href: "https://ctrlcccv.github.io/code-en/2025-06-13-usememo-usecallback/"
+    hreflang: "en"
+  - title: "React useMemo vs useCallback 차이점 쉽게 이해하기"
+    href: "https://ctrlcccv.github.io/code/2025-06-10-usememo-usecallback/"
+    hreflang: "x-default"
+    
 categories:
     - React
 tags:
