@@ -6,7 +6,7 @@ description: >
     자바스크립트 불변성의 모든 것을 실무 경험으로 쉽게 설명합니다. 원시타입과 참조타입의 차이점, 불변성이 중요한 이유, React에서 왜 필수인지, 그리고 불변성을 지키는 실전 방법까지 코드 예제로 완벽 마스터하세요.
 
 slug: 2025-07-02-javascript-immutability
-date: 2025-06-02 00:00:00+0000
+date: 2025-07-02 00:00:00+0000
 lastmod: 2025-07-02 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp
