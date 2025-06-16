@@ -134,3 +134,84 @@ const practice = () => {
 궁금한 점이나 추가로 알고 싶은 개념이 있다면 댓글로 남겨주세요! 🚀
 
 <br>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 존재하지 않는 링크들을 저장할 Set
+    const brokenLinks = new Set();
+    
+    // 페이지 내 모든 내부 링크 찾기 (code 관련 링크들)
+    const internalLinks = document.querySelectorAll('a[href^="/code/"]');
+    
+    // 링크 상태 확인 함수
+    async function checkLinkStatus(link) {
+        const href = link.getAttribute('href');
+        
+        try {
+            // HEAD 요청으로 페이지 존재 여부 확인
+            const response = await fetch(href, { 
+                method: 'HEAD',
+                cache: 'no-cache'
+            });
+            
+            if (!response.ok) {
+                // 404 등 에러 응답인 경우
+                brokenLinks.add(href);
+                markAsComingSoon(link, href);
+            }
+        } catch (error) {
+            // 네트워크 에러 등으로 접근 불가한 경우
+            brokenLinks.add(href);
+            markAsComingSoon(link, href);
+        }
+    }
+    
+    // 준비중 링크로 표시하는 함수
+    function markAsComingSoon(link, href) {
+        // 클릭 이벤트 추가
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('🚧 준비중입니다!\n곧 업데이트 예정이니 조금만 기다려주세요 😊');
+            return false;
+        });
+        
+        // 시각적 표시
+        link.style.color = '#999';
+        link.style.textDecoration = 'line-through';
+        link.title = '준비중입니다';
+        
+        // 링크 텍스트에 준비중 표시 추가
+        if (!link.textContent.includes('🚧')) {
+            link.textContent += ' 🚧';
+        }
+        
+        console.log(`🚧 준비중 페이지 감지: ${href}`);
+    }
+    
+    // 모든 내부 링크 검사 (비동기 병렬 처리)
+    async function checkAllLinks() {
+        console.log(`🔍 ${internalLinks.length}개의 내부 링크를 검사중...`);
+        
+        // 모든 링크를 병렬로 검사
+        const checkPromises = Array.from(internalLinks).map(link => checkLinkStatus(link));
+        
+        try {
+            await Promise.allSettled(checkPromises);
+            
+            if (brokenLinks.size > 0) {
+                console.log(`✅ 검사 완료: ${brokenLinks.size}개의 준비중 페이지를 발견했습니다.`);
+                console.log('준비중 페이지 목록:', Array.from(brokenLinks));
+            } else {
+                console.log('✅ 검사 완료: 모든 링크가 정상입니다!');
+            }
+        } catch (error) {
+            console.error('링크 검사 중 오류 발생:', error);
+        }
+    }
+    
+    // 페이지 로드 완료 후 링크 검사 시작
+    setTimeout(checkAllLinks, 500); // 0.5초 후 시작 (페이지 완전 로드 대기)
+});
+</script>
+
+<br>
