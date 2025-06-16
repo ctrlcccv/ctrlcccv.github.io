@@ -1,7 +1,7 @@
 ---
 title: 스크롤 하면 유튜브 자동재생, Intersection Observer로 구현하는 4단계 완성 가이드
 description: >  
-    Intersection Observer API와 클래스 기반 구조로 구현하는 스크롤 기반 유튜브 자동재생 기능입니다. 성능 최적화와 사용자 경험을 고려한 웹 개발 방법을 실무 경험을 바탕으로 자세히 설명합니다.
+    Intersection Observer API와 클래스 기반 구조를 활용하여 스크롤에 따라 유튜브 영상이 자동 재생되도록 구현하는 방법을 소개합니다. 성능 최적화와 사용자 경험을 모두 고려한 웹 개발 기법을 실무 경험을 바탕으로 자세히 설명합니다.
 
 slug: 2025-06-16-youtube-autoplay
 date: 2025-06-16 00:00:00+0000
