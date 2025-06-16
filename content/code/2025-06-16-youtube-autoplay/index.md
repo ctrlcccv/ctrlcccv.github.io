@@ -232,7 +232,6 @@ margin: 50px auto;
 
 <br>
 
-
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
@@ -647,6 +646,18 @@ async initializePlayers() {
 
 <br>
 
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 실무에서 자주 묻는 질문들
 
 ### Q1. Intersection Observer API를 지원하지 않는 브라우저는 어떻게 처리하나요?
@@ -721,18 +732,6 @@ getPlayingVideoIds() {
     return playingIds;
 }
 ```
-
-<br>
-
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
 <br>
 
