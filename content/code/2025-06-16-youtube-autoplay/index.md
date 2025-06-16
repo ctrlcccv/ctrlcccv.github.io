@@ -41,6 +41,10 @@ tags:
 
 **Intersection Observer 기반 유튜브 자동재생**은 현대적인 웹 API인 Intersection Observer를 사용하여 사용자가 웹 페이지를 스크롤 하면서 특정 동영상 영역에 도달했을 때 자동으로 해당 유튜브 영상을 재생하고, 영역을 벗어나면 일시 중지하는 기능입니다. 기존의 스크롤 이벤트 방식보다 **성능이 우수하고 배터리 소모가 적으며**, 클래스 기반 구조로 **유지보수가 쉽습니다**.
 
+<div class="btn_wrap">
+    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-06-16-youtube-autoplay/">예제결과 미리보기</a>
+</div>
+
 <br>
 
 ## 왜 Intersection Observer API를 사용해야 할까요?
@@ -82,18 +86,6 @@ tags:
 3. **`.player` 요소**: YouTube Iframe API가 플레이어를 생성할 자리입니다.
 
 실무 팁: `data-video-id`를 사용하면 여러 동영상을 쉽게 관리할 수 있어요. CMS에서 동영상 ID만 바꿔주면 되거든요.
-
-<br>
-
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
 <br>
 
@@ -642,6 +634,18 @@ async initializePlayers() {
 
 <br>
 
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 실무에서 자주 묻는 질문들
 
 ### Q1. Intersection Observer API를 지원하지 않는 브라우저는 어떻게 처리하나요?
@@ -719,6 +723,18 @@ getPlayingVideoIds() {
 
 <br>
 
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 마무리 및 핵심 정리
 
 **Intersection Observer API**와 **클래스 기반 구조**를 활용한 스크롤 기반 유튜브 자동재생 기능 구현의 핵심를 정리해 보겠습니다.
@@ -735,8 +751,3 @@ getPlayingVideoIds() {
 여러분의 Intersection Observer 기반 동영상 재생 구현 경험은 어떠셨나요? 성능 개선 효과나 겪으셨던 문제점이 있다면 댓글로 공유해주세요!
 
 <br>
-
-<div class="btn_wrap">
-    <a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-06-16-youtube-autoplay/">예제결과 미리보기</a>
-</div>
-
