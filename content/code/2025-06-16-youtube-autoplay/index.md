@@ -232,6 +232,19 @@ margin: 50px auto;
 
 <br>
 
+
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## Intersection Observer와 클래스 기반 구조 구현하기
 
 이제 가장 핵심적인 JavaScript 코드를 구현해 보겠습니다. 먼저 전체 코드를 보여드린 후, 단계별로 자세히 설명해 드릴게요.
@@ -631,18 +644,6 @@ async initializePlayers() {
 3. **병렬 실행**: `Promise.all`로 모든 플레이어가 동시에 초기화되도록 합니다. 하나라도 실패하면 전체가 실패하는 구조입니다.
 
 4. **완료 대기**: `await`로 모든 플레이어 초기화가 완료될 때까지 기다립니다.
-
-<br>
-
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
 <br>
 
