@@ -18,9 +18,6 @@ alternates:
   - title: "YouTube Auto-Play on Scroll: JavaScript Code Guide" 
     href: "https://ctrlcccv.github.io/code-en/2025-06-17-youtube-autoplay/"
     hreflang: "en"
-  - title: "JavaScript - 스크롤하면 유튜브 자동재생하는 Intersection Observer 코드"
-    href: "https://ctrlcccv.github.io/code/2025-06-16-youtube-autoplay/"
-    hreflang: "x-default"
     
 categories:
     - JavaScript
