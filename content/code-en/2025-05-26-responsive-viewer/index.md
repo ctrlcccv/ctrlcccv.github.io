@@ -11,6 +11,7 @@ lastmod: 2025-05-26 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-26-responsive-viewer-en.webp
 
+canonical: "https://ctrlcccv.github.io/code/2025-05-23-responsive-viewer/"
 alternates:
   - title: "jQuery - iframe 기반 반응형 웹사이트 미리보기 툴 만들기"
     href: "https://ctrlcccv.github.io/code/2025-05-23-responsive-viewer/"
@@ -18,9 +19,6 @@ alternates:
   - title: "How to Build a Responsive Device Preview with jQuery"
     href: "https://ctrlcccv.github.io/code-en/2025-05-26-responsive-viewer/"
     hreflang: "en"
-  - title: "jQuery - iframe 기반 반응형 웹사이트 미리보기 툴 만들기"
-    href: "https://ctrlcccv.github.io/code/2025-05-23-responsive-viewer/"
-    hreflang: "x-default"
 
 categories:
     - jQuery
