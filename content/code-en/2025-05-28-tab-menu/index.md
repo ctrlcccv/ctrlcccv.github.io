@@ -11,6 +11,7 @@ lastmod: 2025-05-28 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-28-tab-menu-en.webp
 
+canonical: "https://ctrlcccv.github.io/code/2025-05-27-tab-menu/"
 alternates:
   - title: "jQuery - 클래스 하나로 탭메뉴 여러개 구현하기"
     href: "https://ctrlcccv.github.io/code/2025-05-27-tab-menu/"
