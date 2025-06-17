@@ -11,6 +11,7 @@ lastmod: 2025-05-20 00:00:00+0000
     
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-20-auto-format-en.webp
 
+canonical: "https://ctrlcccv.github.io/code/2025-05-17-auto-format/"
 alternates:
   - title: "jQuery - 전화번호/카드번호 자동 하이픈 및 커스텀 패턴 설정법"
     href: "https://ctrlcccv.github.io/code/2025-05-17-auto-format/"
@@ -18,9 +19,6 @@ alternates:
   - title: "How to Build Custom Input Auto Format with jQuery"
     href: "https://ctrlcccv.github.io/code-en/2025-05-20-auto-format/"
     hreflang: "en"
-  - title: "jQuery - 전화번호/카드번호 자동 하이픈 및 커스텀 패턴 설정법"
-    href: "https://ctrlcccv.github.io/code/2025-05-17-auto-format/"
-    hreflang: "x-default"
 
 categories:
     - jQuery
