@@ -11,6 +11,7 @@ lastmod: 2025-06-17 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-17-javascript-scope-en.webp
 
+canonical: "https://ctrlcccv.github.io/code/2025-06-16-youtube-autoplay/"
 alternates:
   - title: "JavaScript 스코프 완벽 가이드: 변수 관리의 핵심 3가지 규칙"
     href: "https://ctrlcccv.github.io/code/2025-06-16-javascript-scope/"
