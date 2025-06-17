@@ -5,7 +5,6 @@ title: >
 description: >  
     Swiper.js 11 이상 버전에서 발생할 수 있는 centeredSlides 슬라이드 전환 오류를 해결하기 위해 복제 슬라이드를 활용한 최적화 방법을 소개합니다.
 
-canonical: "https://ctrlcccv.github.io/code/2025-04-15-swiper-center3/"
 alternates:
   - title: "Swiper.js 11+ centeredSlides 슬라이드 전환 오류 해결"
     href: "https://ctrlcccv.github.io/code/2025-04-15-swiper-center3/"

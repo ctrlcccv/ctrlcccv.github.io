@@ -8,7 +8,6 @@ slug: 2025-05-08-parallax-effect
 date: 2025-05-08 00:00:00+0000
 lastmod: 2025-05-08 00:00:00+0000
 
-canonical: "https://ctrlcccv.github.io/code/2025-05-08-parallax-effect/"
 alternates:
   - title: "jQuery - 마우스 따라 움직이는 패럴랙스 효과 구현하기"
     href: "https://ctrlcccv.github.io/code/2025-05-08-parallax-effect/"

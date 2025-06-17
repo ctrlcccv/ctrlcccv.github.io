@@ -9,7 +9,6 @@ slug: 2025-04-30-accordion-menu
 date: 2025-04-30 00:00:00+0000
 lastmod: 2025-04-30 00:00:00+0000
 
-canonical: "https://ctrlcccv.github.io/code/2024-01-17-accordion-menu/"
 alternates:
   - title: "<details> 태그로 쉽게 구현하는 아코디언 메뉴 (CSS/jQuery)"
     href: "https://ctrlcccv.github.io/code/2024-01-17-accordion-menu/"

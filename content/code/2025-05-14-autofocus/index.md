@@ -11,7 +11,6 @@ lastmod: 2025-05-14 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-14-autofocus.webp
 
-canonical: "https://ctrlcccv.github.io/code/2025-05-14-autofocus/"
 alternates:
   - title: "jQuery - 전화번호 입력 폼 자동 포커스 이동"
     href: "https://ctrlcccv.github.io/code/2025-05-14-autofocus/"

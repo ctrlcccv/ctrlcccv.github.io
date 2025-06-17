@@ -5,7 +5,6 @@ title: >
 description: >  
     jQuery와 Swiper.js를 활용하여 단계별 프로그레스바 페이지네이션을 연동하는 방법을 소개합니다.
 
-canonical: "https://ctrlcccv.github.io/code/2025-04-18-swiper-progress2/"
 alternates:
   - title: "jQuery - Swiper 단계별 프로그레스바 페이지네이션 연동"
     href: "https://ctrlcccv.github.io/code/2025-04-18-swiper-progress2/"

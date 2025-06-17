@@ -5,7 +5,6 @@ title: >
 description: >  
     Build a responsive, infinite marquee banner with jQuery—great for news tickers, promos, and updates. Full HTML/CSS/JS guide.
 
-canonical: "https://ctrlcccv.github.io/code/2023-07-23-flow-banner/"
 alternates:
   - title: "jQuery - 흐르는 롤링 배너 (+ 반응형 타입 추가)"
     href: "https://ctrlcccv.github.io/code/2023-07-23-flow-banner/"

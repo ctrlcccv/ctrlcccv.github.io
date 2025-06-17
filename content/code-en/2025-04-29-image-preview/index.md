@@ -9,7 +9,6 @@ slug: 2025-04-29-image-preview
 date: 2025-04-29 00:00:00+0000
 lastmod: 2025-04-29 00:00:00+0000
 
-canonical: "https://ctrlcccv.github.io/code/2025-04-28-image-preview/"
 alternates:
   - title: "jQuery - 이미지 파일 업로드 및 미리보기 기능 구현하기"
     href: "https://ctrlcccv.github.io/code/2025-04-28-image-preview/"

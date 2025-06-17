@@ -11,7 +11,6 @@ lastmod: 2025-05-30 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp
 
-canonical: "https://ctrlcccv.github.io/code/2024-03-25-useeffect/"
 alternates:
   - title: "React - useEffect 가이드 및 실전 예제"
     href: "https://ctrlcccv.github.io/code/2024-03-25-useeffect/"

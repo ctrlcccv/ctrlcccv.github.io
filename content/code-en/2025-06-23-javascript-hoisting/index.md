@@ -11,7 +11,6 @@ lastmod: 2025-06-23 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-23-javascript-hoisting-en.webp
 
-canonical: "https://ctrlcccv.github.io/code/2025-06-20-javascript-hoisting/"
 alternates:
   - title: "자바스크립트 호이스팅, 변수 선언 전 사용 가능한 이유"
     href: "https://ctrlcccv.github.io/code/2025-06-20-javascript-hoisting/"

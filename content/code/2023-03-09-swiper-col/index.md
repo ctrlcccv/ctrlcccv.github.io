@@ -10,7 +10,6 @@ date: 2023-03-09 00:00:00+0000
 lastmod: 2025-05-09 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/swiper-col.webp
 
-canonical: "https://ctrlcccv.github.io/code/2023-03-09-swiper-col/"
 alternates:
   - title: "jQuery - Swiper로 구현하는 Grid Loop Slider"
     href: "https://ctrlcccv.github.io/code/2023-03-09-swiper-col/"

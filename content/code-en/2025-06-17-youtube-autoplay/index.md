@@ -10,7 +10,6 @@ lastmod: 2025-06-17 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-17-youtube-autoplay-en.webp
 
-canonical: "https://ctrlcccv.github.io/code/2025-06-16-youtube-autoplay/"
 alternates:
   - title: "JavaScript - 스크롤하면 유튜브 자동재생하는 Intersection Observer 코드"
     href: "https://ctrlcccv.github.io/code/2025-06-16-youtube-autoplay/"

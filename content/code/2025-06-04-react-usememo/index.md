@@ -11,7 +11,6 @@ lastmod: 2025-06-04 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-04-react-usememo.webp
 
-canonical: "https://ctrlcccv.github.io/code/2025-06-04-react-usememo/"
 alternates:
   - title: "useMemo 활용한 React 객체 안정화 & 리렌더링 최적화 기법"
     href: "https://ctrlcccv.github.io/code/2025-06-04-react-usememo/"

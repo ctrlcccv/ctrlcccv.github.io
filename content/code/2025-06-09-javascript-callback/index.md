@@ -11,7 +11,6 @@ lastmod: 2025-06-09 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-09-javascript-callback.webp
 
-canonical: "https://ctrlcccv.github.io/code/2025-06-09-javascript-callback/"
 alternates:
   - title: "JavaScript 콜백 함수(Callback function) 쉽게 이해하기"
     href: "https://ctrlcccv.github.io/code/2025-06-09-javascript-callback/"

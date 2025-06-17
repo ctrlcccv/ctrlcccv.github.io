@@ -5,7 +5,6 @@ slug: 2023-03-13-popup-scroll
 date: 2023-03-13 00:00:00+0000
 lastmod: 2025-06-12 00:00:00+0000
 
-canonical: "https://ctrlcccv.github.io/code/2023-03-13-popup-scroll/"
 alternates:
   - title: "overscroll-behavior로 팝업 내부 스크롤과 body 스크롤 제어하기"
     href: "https://ctrlcccv.github.io/code/2023-03-13-popup-scroll/"

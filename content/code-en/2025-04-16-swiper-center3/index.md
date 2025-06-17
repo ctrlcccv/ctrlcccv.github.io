@@ -5,7 +5,6 @@ title: >
 description: >  
     Learn how to fix Swiper.js centeredSlides transition issues using duplicate slides for smoother, seamless looping.
 
-canonical: "https://ctrlcccv.github.io/code/2025-04-15-swiper-center3/"
 alternates:
   - title: "Swiper.js 11+ centeredSlides 슬라이드 전환 오류 해결"
     href: "https://ctrlcccv.github.io/code/2025-04-15-swiper-center3/"

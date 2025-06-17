@@ -11,7 +11,6 @@ lastmod: 2025-06-11 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp
 
-canonical: "https://ctrlcccv.github.io/code/2025-06-06-react-usecallback/"
 alternates:
   - title: "React useCallback으로 불필요한 리렌더링 방지하기"
     href: "https://ctrlcccv.github.io/code/2025-06-06-react-usecallback/"
