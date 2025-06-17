@@ -9,6 +9,7 @@ slug: 2025-05-06-mouse-scroll
 date: 2025-05-06 00:00:00+0000
 lastmod: 2025-05-06 00:00:00+0000
 
+canonical: "https://ctrlcccv.github.io/code/2023-12-04-mouse-scroll/"
 alternates:
   - title: "CSS로 마우스 스크롤 유도 애니메이션 만들기"
     href: "https://ctrlcccv.github.io/code/2023-12-04-mouse-scroll/"
@@ -16,9 +17,6 @@ alternates:
   - title: "Create a Scrolling Mouse Animation with CSS"
     href: "https://ctrlcccv.github.io/code-en/2025-05-06-mouse-scroll/"
     hreflang: "en"
-  - title: "CSS로 마우스 스크롤 유도 애니메이션 만들기"
-    href: "https://ctrlcccv.github.io/code/2023-12-04-mouse-scroll/"
-    hreflang: "x-default"
 
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-06-mouse-scroll-en.webp
