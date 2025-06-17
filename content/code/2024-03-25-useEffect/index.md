@@ -10,6 +10,15 @@ date: 2024-03-25 00:00:00+0000
 lastmod: 2025-05-23 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp
 
+canonical: "https://ctrlcccv.github.io/code/2024-03-25-useeffect/"
+alternates:
+  - title: "React - useEffect 가이드 및 실전 예제"
+    href: "https://ctrlcccv.github.io/code/2024-03-25-useeffect/"
+    hreflang: "ko"
+  - title: "React useEffect Tutorial: From Basic to Advanced"
+    href: "https://ctrlcccv.github.io/code-en/2025-05-30-useeffect/"
+    hreflang: "en"
+    
 categories:
     - React
 tags:

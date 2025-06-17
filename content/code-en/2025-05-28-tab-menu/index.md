@@ -19,9 +19,6 @@ alternates:
   - title: "How to Build Multiple Tab Menus Using One jQuery Function"
     href: "https://ctrlcccv.github.io/code-en/2025-05-28-tab-menu/"
     hreflang: "en"
-  - title: "jQuery - 클래스 하나로 탭메뉴 여러개 구현하기"
-    href: "https://ctrlcccv.github.io/code/2025-05-27-tab-menu/"
-    hreflang: "x-default"
 
 categories:
     - jQuery
