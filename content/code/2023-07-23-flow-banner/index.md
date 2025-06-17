@@ -3,6 +3,7 @@ title: jQuery - 흐르는 롤링 배너 (+ 반응형 타입 추가)
 description: >  
     jQuery와 CSS를 활용해 반응형 흐르는 롤링 배너를 구현하는 방법을 단계별로 소개합니다.
 
+canonical: "https://ctrlcccv.github.io/code/2023-07-23-flow-banner/"
 alternates:
   - title: "jQuery - 흐르는 롤링 배너 (+ 반응형 타입 추가)"
     href: "https://ctrlcccv.github.io/code/2023-07-23-flow-banner/"
@@ -10,9 +11,6 @@ alternates:
   - title: "Responsive jQuery Marquee Banner Tutorial (Infinite Loop)"
     href: "https://ctrlcccv.github.io/code-en/2025-04-24-flow-banner/"
     hreflang: "en"
-  - title: "jQuery - 흐르는 롤링 배너 (+ 반응형 타입 추가)"
-    href: "https://ctrlcccv.github.io/code/2023-07-23-flow-banner/"
-    hreflang: "x-default"
 
 slug: 2023-07-23-flow-banner
 date: 2023-07-23 00:00:00+0000
