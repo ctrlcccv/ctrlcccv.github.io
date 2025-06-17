@@ -11,6 +11,7 @@ lastmod: 2025-06-02 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-02-react-useref.webp
 
+canonical: "https://ctrlcccv.github.io/code/2025-06-02-react-useref/"
 alternates:
   - title: "React - useRef 훅으로 DOM 직접 제어하고 값 유지하기"
     href: "https://ctrlcccv.github.io/code/2025-06-02-react-useref/"
@@ -18,9 +19,6 @@ alternates:
   - title: "React useRef: How to Access DOM Elements Directly" 
     href: "https://ctrlcccv.github.io/code-en/2025-06-03-react-useref/"
     hreflang: "en"
-  - title: "React - useRef 훅으로 DOM 직접 제어하고 값 유지하기"
-    href: "https://ctrlcccv.github.io/code/2025-06-02-react-useref/"
-    hreflang: "x-default"
 
   
 categories:
