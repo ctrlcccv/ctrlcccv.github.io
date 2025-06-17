@@ -290,7 +290,7 @@ class YouTubeAutoPlayer {
             this.setupIntersectionObserver(); // Intersection Observer 설정
             await this.initializePlayers(); // 플레이어들 초기화 
             
-            console.log('🚀 YouTube Auto Player 초기화 완료! (다중 재생 모드)');
+            console.log('🚀 YouTube Auto Player 초기화 완료!');
         } catch (error) {
             console.error('❌ 초기화 실패:', error);
         }
@@ -540,7 +540,7 @@ class YouTubeAutoPlayer {
             this.setupIntersectionObserver(); // Intersection Observer 설정
             await this.initializePlayers(); // 플레이어들 초기화 
             
-            console.log('🚀 YouTube Auto Player 초기화 완료! (다중 재생 모드)');
+            console.log('🚀 YouTube Auto Player 초기화 완료!');
         } catch (error) {
             console.error('❌ 초기화 실패:', error);
         }

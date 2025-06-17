@@ -161,18 +161,6 @@ for (let i = 0; i < 3; i++) {
 
 <br>
 
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<br>
-
 ## const: 상수 선언의 올바른 이해
 
 `const`는 한 번 값을 할당하면 바꿀 수 없는 상수를 만들 때 써요. 하지만 객체와 배열의 경우 조금 다르게 동작합니다.
@@ -213,7 +201,7 @@ const score = 100;
 
 ### const와 객체/배열의 특별한 관계
 
-여기서 많은 분이 헷갈리는 부분이에요. `const`로 선언한 객체나 배열은 **내부 값을 변경할 수 있어요**.
+`const`는 변수가 가리키는 메모리 주소를 고정해요. 객체나 배열의 경우 그 주소는 그대로 두고 안의 내용만 바뀌기 때문에 변경이 가능한 거예요.
 
 ```javascript
 const student = {
@@ -245,6 +233,18 @@ console.log(fruits); // ["포도", "바나나", "오렌지"]
 **왜 이런 일이 생길까요?**
 
 `const`는 변수가 가리키는 메모리 주소를 고정해요. 객체나 배열의 경우 그 주소는 그대로 두고 안의 내용만 바뀌기 때문에 변경이 가능한 거예요.
+
+<br>
+
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 
@@ -330,6 +330,18 @@ const name = "김철수";
 let age = 25; // 나이는 변할 수 있으니 let
 const hobbies = ["독서", "영화"];
 ```
+
+<br>
+
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 

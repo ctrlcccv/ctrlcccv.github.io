@@ -12,13 +12,13 @@ lastmod: 2025-06-17 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-17-javascript-scope-en.webp
 
 alternates:
-  - title: "전역/함수/블록 스코프: JavaScript 변수의 사용 범위"
+  - title: "JavaScript 스코프 완벽 가이드: 변수 관리의 핵심 3가지 규칙"
     href: "https://ctrlcccv.github.io/code/2025-06-16-javascript-scope/"
     hreflang: "ko"
-  - title: "JavaScript Scope: Complete Guide with Examples" 
+  - title: "JavaScript Scope: 3 Essential Types Every Beginner Must Know (With Examples)" 
     href: "https://ctrlcccv.github.io/code-en/2025-06-17-javascript-scope/"
     hreflang: "en"
-  - title: "전역/함수/블록 스코프: JavaScript 변수의 사용 범위"
+  - title: "JavaScript 스코프 완벽 가이드: 변수 관리의 핵심 3가지 규칙"
     href: "https://ctrlcccv.github.io/code/2025-06-16-javascript-scope/"
     hreflang: "x-default"
 
@@ -543,9 +543,9 @@ Here are the most important points to remember about JavaScript scope:
 
 ## What's Next?
 
-Now that you've mastered JavaScript scope, try building a simple project that uses these concepts. I recommend creating a todo list app with private state management.
+Now that you've mastered JavaScript scope, try building a simple project that uses these concepts. I recommend creating a todo list app with private state management - it's perfect for practicing function scope and the module pattern!
 
-In our next article, we'll dive deeper into JavaScript hoisting and how it interacts with scope. You'll learn why some variables are `undefined` while others throw `ReferenceError`.
+In our next article, we'll dive deeper into **JavaScript Blocks vs Functions: 5 Must-Know Use Cases**. You'll discover the crucial differences between code blocks `{}` and functions, when to use each approach, and why understanding their execution patterns is essential for writing clean, predictable code. We'll explore how blocks execute immediately while functions wait for your command - a concept that builds perfectly on what you've learned about scope today.
 
 What are your experiences with JavaScript scope? Have you run into any tricky bugs related to variable visibility? Share them in the comments below - I'd love to hear your stories and help troubleshoot any issues! 👍
 
