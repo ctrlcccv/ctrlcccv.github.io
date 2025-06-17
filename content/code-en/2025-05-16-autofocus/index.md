@@ -11,6 +11,7 @@ lastmod: 2025-05-16 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-16-autofocus-en.webp
 
+canonical: "https://ctrlcccv.github.io/code/2025-05-14-autofocus/"
 alternates:
   - title: "jQuery - 전화번호 입력 폼 자동 포커스 이동"
     href: "https://ctrlcccv.github.io/code/2025-05-14-autofocus/"
@@ -18,9 +19,6 @@ alternates:
   - title: "How to Auto Tab Phone Number Input with jQuery"
     href: "https://ctrlcccv.github.io/code-en/2025-05-16-autofocus/"
     hreflang: "en"
-  - title: "jQuery - 전화번호 입력 폼 자동 포커스 이동"
-    href: "https://ctrlcccv.github.io/code/2025-05-14-autofocus/"
-    hreflang: "x-default"
 
 categories:
     - jQuery
