@@ -1,6 +1,6 @@
 ---
 title: >  
-    자바스크립트 블록 vs 함수 차이점 비교 가이드
+    JavaScript 블록 vs 함수 차이점 비교 가이드
 
 description: >  
     자바스크립트 초보자를 위한 블록과 함수의 핵심 차이점을 실무 경험과 함께 정리했습니다. 언제 블록을 쓰고 언제 함수를 써야 하는지, 실제 코드 예제로 명확하게 알아보세요.
@@ -382,3 +382,9 @@ function processUserData(userData) {
 여러분의 자바스크립트 학습 경험은 어떠셨나요? 블록과 함수를 사용하면서 어려웠던 점이나 궁금한 점이 있다면 댓글로 공유해주세요! 
 
 <br>
+
+
+<div class="btn_wrap">
+    <a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/function">JavaScript 함수 선언 - MDN 문서</a>
+    <a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/block">JavaScript 블록 문 - MDN 문서</a>
+</div>

@@ -12,7 +12,7 @@ lastmod: 2025-06-19 00:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-19-block-function-en.webp
 
 alternates:
-  - title: "자바스크립트 블록 vs 함수 차이점 비교 가이드"
+  - title: "JavaScript 블록 vs 함수 차이점 비교 가이드"
     href: "https://ctrlcccv.github.io/code/2025-06-18-block-function/"
     hreflang: "ko"
   - title: "JavaScript Blocks vs Functions: 5 Must-Know Use Cases" 
@@ -468,5 +468,12 @@ No, blocks cannot return values. If you need to return a result, you must use a 
 Start practicing with simple examples today! Try building a small project that uses both blocks for setup and functions for the main logic.
 
 What challenges have you faced when deciding between blocks and functions? The more you practice recognizing these patterns, the more natural your JavaScript code organization will become!
+
+<br>
+
+<div class="btn_wrap">
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">JavaScript Functions - MDN Documentation</a>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block">JavaScript Block Statement - MDN Documentation</a>
+</div>
 
 <br>

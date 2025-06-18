@@ -6,10 +6,10 @@ description: >
     Learn how to create a lightweight CSS-only scrolling mouse animation to guide users down your webpage and improve user engagement.
 
 slug: 2025-05-06-mouse-scroll
-date: 2025-05-06 00:00:00+0000
-lastmod: 2025-05-06 00:00:00+0000
+date: 2025-05-06T00:00:00Z
+lastmod: 2025-05-06T00:00:00Z
 
- "https://ctrlcccv.github.io/code/2023-12-04-mouse-scroll/"
+canonical: "https://ctrlcccv.github.io/code/2023-12-04-mouse-scroll/"
 alternates:
   - title: "CSS로 마우스 스크롤 유도 애니메이션 만들기"
     href: "https://ctrlcccv.github.io/code/2023-12-04-mouse-scroll/"
@@ -190,7 +190,7 @@ Below is the CSS that brings the scroll animation to life using only CSS propert
 - Product hero sections
 - Editorial or storytelling websites
 
-If your layout includes meaningful content below the fold, a scroll prompt is an excellent way to direct the user’s attention.
+If your layout includes meaningful content below the fold, a scroll prompt is an excellent way to direct the user's attention.
 
 <br>
 
@@ -198,16 +198,16 @@ If your layout includes meaningful content below the fold, a scroll prompt is an
 
 - Make sure your scroll indicator has good contrast against the background for visibility.
 - Use `aria-label` or `title` attributes for accessibility.
-- Don’t use scroll prompts if there's no content immediately below, to avoid confusing users.
+- Don't use scroll prompts if there's no content immediately below, to avoid confusing users.
 - Place the animation in a fixed position to ensure it's always visible upon page load.
 
 <br>
 
 ## Conclusion
 
-A CSS-based scrolling mouse animation is a simple, effective way to guide users through your content. It’s lightweight, accessible, and easy to customize—perfect for landing pages, portfolios, and more. ✨
+A CSS-based scrolling mouse animation is a simple, effective way to guide users through your content. It's lightweight, accessible, and easy to customize—perfect for landing pages, portfolios, and more. ✨
 
-Have a question or want to share your own variation? Leave a comment below—we’d love to hear from you! 💬
+Have a question or want to share your own variation? Leave a comment below—we'd love to hear from you! 💬
 
 <br>
 
