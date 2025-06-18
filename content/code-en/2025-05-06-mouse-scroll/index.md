@@ -6,8 +6,8 @@ description: >
     Learn how to create a lightweight CSS-only scrolling mouse animation to guide users down your webpage and improve user engagement.
 
 slug: 2025-05-06-mouse-scroll
-date: 2025-05-06T00:00:00Z
-lastmod: 2025-05-06T00:00:00Z
+date: 2025-05-06 00:00:00+0000
+lastmod: 2025-05-06 00:00:00+0000
 
 canonical: "https://ctrlcccv.github.io/code/2023-12-04-mouse-scroll/"
 alternates:
