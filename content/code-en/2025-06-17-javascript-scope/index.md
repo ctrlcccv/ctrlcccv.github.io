@@ -542,7 +542,7 @@ Here are the most important points to remember about JavaScript scope:
 
 Now that you've mastered JavaScript scope, try building a simple project that uses these concepts. I recommend creating a todo list app with private state management - it's perfect for practicing function scope and the module pattern!
 
-In our next article, we'll dive deeper into **JavaScript Blocks vs Functions: 5 Must-Know Use Cases**. You'll discover the crucial differences between code blocks `{}` and functions, when to use each approach, and why understanding their execution patterns is essential for writing clean, predictable code. We'll explore how blocks execute immediately while functions wait for your command - a concept that builds perfectly on what you've learned about scope today.
+In our next article, we'll dive deeper into [**JavaScript Blocks vs Functions: 5 Must-Know Use Cases**](/code-en/2025-06-19-block-function/). You'll discover the crucial differences between code blocks `{}` and functions, when to use each approach, and why understanding their execution patterns is essential for writing clean, predictable code. We'll explore how blocks execute immediately while functions wait for your command - a concept that builds perfectly on what you've learned about scope today.
 
 What are your experiences with JavaScript scope? Have you run into any tricky bugs related to variable visibility? Share them in the comments below - I'd love to hear your stories and help troubleshoot any issues! 👍
 
