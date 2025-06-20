@@ -7,7 +7,7 @@ description: >
 
 slug: 2025-06-18-block-function
 date: 2025-06-18 00:00:00+0000
-lastmod: 2025-06-18 00:00:00+0000
+lastmod: 2025-06-20 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-18-block-function.webp
 
