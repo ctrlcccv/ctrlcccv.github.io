@@ -472,4 +472,8 @@ function UserProfile() {
 
 <br>
 
+<div class="btn_wrap">
+    <a target="_blank" href="https://developer.mozilla.org/ko/docs/Glossary/Hoisting">JavaScript 호이스팅 - MDN 문서</a>
+</div>
+
 
