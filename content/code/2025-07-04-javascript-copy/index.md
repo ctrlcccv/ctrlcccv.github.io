@@ -170,6 +170,18 @@ console.log(completeClone.hobbies);           // ["독서", "영화감상", "게
 
 <br>
 
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 깊은 복사 방법 비교 완전 가이드
 
 ### 1. structuredClone() - 2025년 표준 방법
@@ -306,23 +318,11 @@ console.log(processedData.settings.theme);  // "라이트"
 
 <br>
 
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-8535540836842352"
-     data-ad-slot="2974559225"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-<br>
-
 ## 자주 묻는 질문 (FAQ)
 
 ### Q1. 얕은 복사와 깊은 복사 중 어떤 걸 써야 하나요?
 
-객체의 구조를 살펴보세요. 중첩된 객체나 배열이 있다면 깊은 복사, 단순한 구조라면 얕은 복사를 사용하세요. 확실하지 않다면 `structuredClone()`을 사용하는 것이 안전합니다. 저는 실무에서 "일단 `structuredClone()` 쓰고 성능 문제가 생기면 그때 최적화하자"는 방식으로 접근해요.
+객체의 구조를 살펴보세요. 중첩된 객체나 배열이 있다면 깊은 복사, 단순한 구조라면 얕은 복사를 사용하세요. 확실하지 않다면 `structuredClone()`을 사용하는 것이 안전합니다.
 
 <br>
 
@@ -359,6 +359,18 @@ console.log(processedData.settings.theme);  // "라이트"
 
 <br>
 
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 마무리
 
 JavaScript의 복사 개념을 정리해 보면
@@ -370,7 +382,7 @@ JavaScript의 복사 개념을 정리해 보면
 
 오늘 배운 내용으로 간단한 사용자 정보 관리 시스템을 만들어보세요. 사용자 목록을 복사해서 수정하고, 원본이 변경되지 않는지 확인해 보면 개념이 더 명확해질 거예요.
 
-다음 글에서는 JavaScript의 클로저(Closure) 개념과 실무 활용법에 대해 다뤄보겠습니다.
+다음 글에서는 JavaScript의 **렉시컬 환경(Lexical Environment)** 개념을 도서관 비유로 쉽게 알아보겠습니다. 변수가 어떻게 찾아지는지, 스코프 체인이 무엇인지 궁금하셨다면 놓치지 마세요!
 
 여러분의 복사 관련 경험은 어떠셨나요? 특히 어려웠던 부분이나 헷갈렸던 점이 있다면 댓글로 공유해 주세요! 함께 배워나가요. 😊
 

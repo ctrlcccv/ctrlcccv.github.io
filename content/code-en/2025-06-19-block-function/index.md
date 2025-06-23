@@ -467,6 +467,12 @@ No, blocks cannot return values. If you need to return a result, you must use a 
 
 Start practicing with simple examples today! Try building a small project that uses both blocks for setup and functions for the main logic.
 
+## Next Up: JavaScript Hoisting and the Temporal Dead Zone
+
+Now that you've mastered the difference between blocks and functions, you're ready for the next crucial JavaScript concept that often confuses beginners: **hoisting**. Understanding how JavaScript handles variable and function declarations behind the scenes will make you a much more confident developer.
+
+In our next article, we'll explore [JavaScript Hoisting: Master TDZ and Function Behavior](/code-en/2025-06-23-javascript-hoisting/), where you'll learn why variables can sometimes be used before they're declared, what the mysterious "Temporal Dead Zone" means, and how this knowledge will prepare you for advanced React development. This is essential knowledge that will prevent countless debugging headaches as you progress in your JavaScript journey!
+
 What challenges have you faced when deciding between blocks and functions? The more you practice recognizing these patterns, the more natural your JavaScript code organization will become!
 
 <br>
