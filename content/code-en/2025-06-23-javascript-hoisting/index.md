@@ -567,3 +567,7 @@ Next up, we'll dive into **JavaScript Closures** – another fundamental concept
 What's your experience with hoisting been like? Have you encountered any tricky bugs that this article helped clarify? I'd love to hear about your "aha!" moments or any additional questions in the comments below. Your experience could help fellow developers avoid the same pitfalls! 🚀
 
 <br>
+
+<div class="btn_wrap">
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Glossary/Hoisting">JavaScript Hoisting - MDN Documentation</a>
+</div>
