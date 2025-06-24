@@ -7,7 +7,7 @@ description: >
 
 slug: 2025-06-20-javascript-hoisting
 date: 2025-06-20 00:00:00+0000
-lastmod: 2025-06-20 00:00:00+0000
+lastmod: 2025-06-24 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-20-javascript-hoisting.webp
 
