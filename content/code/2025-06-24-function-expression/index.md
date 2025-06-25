@@ -11,6 +11,14 @@ lastmod: 2025-06-24 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-24-function-expression.webp
 
+alternates:
+  - title: "자바스크립트 함수 표현식 가이드 - 실무에서 바로 쓰는 핵심 정리"
+    href: "https://ctrlcccv.github.io/code/2025-06-24-function-expression/"
+    hreflang: "ko"
+  - title: "JavaScript Function Expression: 3 Essential Patterns Every Developer Must Know" 
+    href: "https://ctrlcccv.github.io/code-en/2025-06-25-function-expression/"
+    hreflang: "en"
+
 categories:
     - JavaScript
 tags:
