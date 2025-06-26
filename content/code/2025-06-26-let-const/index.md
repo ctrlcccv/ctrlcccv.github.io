@@ -445,3 +445,9 @@ let과 const를 올바르게 사용하는 것만으로도 자바스크립트 코
 여러분의 변수 선언 경험은 어떠셨나요? 특히 `var`로 인해 겪었던 버그나 `const` 사용하면서 헷갈렸던 점이 있다면 댓글로 공유해주세요! 🚀
 
 <br>
+
+
+<div class="btn_wrap">
+    <a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/let">MDN Web Docs - let</a>
+    <a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/const">MDN Web Docs - const</a>
+</div>

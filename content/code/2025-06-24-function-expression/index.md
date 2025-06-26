@@ -7,7 +7,7 @@ description: >
 
 slug: 2025-06-24-function-expression
 date: 2025-06-24 00:00:00+0000
-lastmod: 2025-06-24 00:00:00+0000
+lastmod: 2025-06-26 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-24-function-expression.webp
 
@@ -458,8 +458,12 @@ const renderButton = isLoggedIn
 
 오늘 배운 내용으로 간단한 계산기나 할 일 목록 앱을 만들어보세요. 특히 버튼 클릭 이벤트를 처리할 때 함수 표현식을 활용해 보시면 개념이 더 확실해질 거예요.
 
-다음 글에서는 자바스크립트 변수 선언법에 대해 다뤄보겠습니다. 함수 표현식을 `const`로 선언하는 이유와 `var`, `let`, `const`의 차이점을 알아보면서 더 안전한 코드 작성법을 배워보세요!
+다음 글에서는 [var 대신 let과 const를 써야 하는 이유](/code/2025-06-26-let-const/)에 대해 다뤄보겠습니다. 함수 표현식을 `const`로 선언하는 이유와 `var`, `let`, `const`의 차이점을 알아보면서 더 안전한 변수 관리법을 배워보세요!
 
 여러분의 함수 표현식 학습 경험은 어떠셨나요? 헷갈렸던 부분이나 궁금한 점이 있다면 댓글로 공유해주세요! 함께 이야기 해보면서 더 깊이 이해해 봐요. 😊
 
 <br>
+
+<div class="btn_wrap">
+    <a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/function">MDN Web Docs - 함수 표현식</a>
+</div>

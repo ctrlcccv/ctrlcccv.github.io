@@ -3,10 +3,10 @@ title: >
     JavaScript 클로저, 메모리를 기억하는 함수의 비밀
 
 description: >  
-    자바스크립트 클로저가 무엇인지, 왜 중요한지 실무 경험을 바탕으로 쉽게 설명합니다. 메모리 관리부터 실제 활용 사례까지, 단계별 예제와 함께 완벽하게 이해해보세요.
+    자바스크립트 클로저가 무엇인지, 왜 중요한지 실무 경험을 바탕으로 쉽게 설명합니다. 메모리 관리부터 실제 활용 사례까지, 단계별 예제와 함께 완벽하게 이해해 보세요.
 
 slug: 2025-07-09-javascript-closure
-date: 2025-07-25 00:00:00+0000
+date: 2025-07-09 00:00:00+0000
 lastmod: 2025-07-09 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-09-javascript-closure.webp
@@ -42,6 +42,18 @@ tags:
 
 <br>
 
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ### 가장 간단한 클로저 예제
 
 먼저 가장 기본적인 예제로 클로저의 동작을 살펴볼게요.
@@ -68,7 +80,8 @@ const sayHello = outerFunction("김철수");
 sayHello(); // "안녕하세요, 김철수님!"
 ```
 
-**왜 이런 일이 가능할까요?**
+**왜 이런 일이 가능할까요?**  
+
 일반적으로 함수가 실행을 마치면 그 함수의 <strong>실행 컨텍스트(Execution Context, 함수가 실행되는 환경과 메모리 공간)</strong>가 사라지고, 지역 변수들도 메모리에서 제거됩니다. 하지만 클로저가 있으면 이야기가 달라져요.
 
 1. `innerFunction`이 `greeting`과 `name`을 참조하고 있어요.
@@ -77,9 +90,9 @@ sayHello(); // "안녕하세요, 김철수님!"
 
 <br>
 
-### 왜 이런 일이 가능할까요?
+### 클로저 동작의 3가지 핵심 원리
 
-일반적으로 함수가 실행을 마치면 그 함수의 지역 변수들은 메모리에서 사라져야 합니다. 하지만 클로저가 있으면 다릅니다.
+클로저가 어떻게 작동하는지 더 자세히 살펴보겠습니다.
 
 1. **렉시컬 스코프**: 함수는 선언된 위치에서의 스코프를 '기억'합니다.
 2. **참조 유지**: 내부 함수가 외부 변수를 참조하면, 그 변수는 메모리에 유지됩니다.
@@ -219,7 +232,7 @@ function createBigDataProcessor() {
     
     return function(index) {
         // 문제: bigData 전체가 메모리에 계속 남아있음
-        // 클로저가 bigData를 참조하므로 가비지 컬렉션되지 않음
+        // 클로저가 bigData를 참조하므로 가비지 컬렉션(사용하지 않는 메모리 자동 정리)되지 않음
         return bigData[index];
     };
 }
@@ -262,6 +275,18 @@ function createOptimizedProcessor(indices) {
 - 클로저에서 **꼭 필요한 데이터만 참조**하기
 - **불필요한 참조는 `null`로 해제**하기
 - **큰 객체보다는 필요한 값만 추출**해서 사용하기
+
+<br>
+
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <br>
 
@@ -363,7 +388,7 @@ console.log(config.get('apiUrl')); // 여전히 'https://api.example.com'
 1. **원본 데이터 보호**: `settings` 객체는 클로저 안에서만 접근 가능
 2. **복사본 반환**: `getAll()`에서 `{ ...settings }`로 복사본 반환하여 원본 보호
 3. **검증된 접근**: `set()` 메서드를 통해서만 값 변경 가능
-4. **읽기 전용 접근**: `get()` 메서드로만 개별 값 조회 가능
+4. **읽기 전용 접근**: `get()` 메서드로만 개별값 조회 가능
 
 <br>
 
@@ -501,17 +526,35 @@ function createHandler() {
 
 <br>
 
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 마무리
 
-클로저는 자바스크립트의 핵심 개념 중 하나로, 다음과 같은 핵심 포인트를 기억해주세요.
+클로저는 자바스크립트의 핵심 개념 중 하나로, 다음과 같은 핵심 포인트를 기억해 주세요.
 
 - **클로저는 함수가 생성된 환경을 '기억'하는 메커니즘**입니다.
 - **데이터 은닉과 상태 유지**에 매우 유용한 패턴이에요.
 - **메모리 관리**에 주의하여 사용해야 합니다.
 - **React Hook의 기반**이 되는 중요한 개념입니다.
 
-오늘 배운 내용으로 간단한 할 일 관리 앱을 만들어보세요. 클로저를 활용해 할 일 목록을 관리하고, 외부에서 직접 접근할 수 없도록 데이터를 보호해보는 연습을 해보시길 추천드려요.
+오늘 배운 내용으로 간단한 할 일 관리 앱을 만들어보세요. 클로저를 활용하여 할 일 목록을 관리하고, 외부에서 직접 접근할 수 없도록 데이터를 보호해보는 연습을 해보시길 추천드려요.
 
 다음 글에서는 자바스크립트의 또 다른 핵심 개념인 **프로토타입과 상속**에 대해 다뤄보겠습니다.
 
-여러분의 클로저 관련 경험은 어떠셨나요? 처음 클로저를 이해했을 때의 느낌이나, 실제 프로젝트에서 활용한 사례가 있다면 댓글로 공유해주세요! 🚀
+여러분의 클로저 관련 경험은 어떠셨나요? 처음 클로저를 이해했을 때의 느낌이나, 실제 프로젝트에서 활용한 사례가 있다면 댓글로 공유해 주세요! 🚀
+
+<br>
+
+<div class="btn_wrap">
+    <a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures">MDN Web Docs - 클로저</a>
+</div>

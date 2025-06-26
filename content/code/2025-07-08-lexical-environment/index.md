@@ -474,5 +474,5 @@ function createEfficient() {
 <br>
 
 <div class="btn_wrap">
-    <a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures">MDN Web Docs - Closures</a>
+    <a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures">MDN Web Docs - 클로저</a>
 </div>
