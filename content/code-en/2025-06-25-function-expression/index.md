@@ -549,7 +549,7 @@ Let's summarize the essential concepts about function expressions:
 
 Start practicing by converting some of your existing function declarations to function expressions. Try building a simple calculator or form validator using only function expressions - you'll quickly see how they improve code organization and readability.
 
-Next, we'll explore JavaScript variable declarations in depth. Understanding why we use `const` for function expressions and the differences between `var`, `let`, and `const` will help you write more secure and maintainable code!
+**What's Next**: In our next article, we'll dive into JavaScript variable declarations - specifically why modern developers avoid `var` and when to choose `let` vs `const`. Understanding these declarations will help you write more predictable code and avoid common variable scoping pitfalls that can break your applications. [Check out our comprehensive guide to JavaScript var vs let vs const](/code-en/2025-06-27-let-const/)!
 
 How has your experience been learning function expressions? Share any challenges you've faced or creative ways you've used them in the comments below! Let's learn together and build a stronger foundation for your JavaScript journey. 🚀
 

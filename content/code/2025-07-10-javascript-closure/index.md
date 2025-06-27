@@ -5,11 +5,11 @@ title: >
 description: >  
     자바스크립트 클로저가 무엇인지, 왜 중요한지 실무 경험을 바탕으로 쉽게 설명합니다. 메모리 관리부터 실제 활용 사례까지, 단계별 예제와 함께 완벽하게 이해해 보세요.
 
-slug: 2025-07-09-javascript-closure
-date: 2025-07-09 00:00:00+0000
-lastmod: 2025-07-09 00:00:00+0000
+slug: 2025-07-10-javascript-closure
+date: 2025-07-10 00:00:00+0000
+lastmod: 2025-07-10 00:00:00+0000
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-09-javascript-closure.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-10-javascript-closure.webp
 
 categories:
     - JavaScript 
