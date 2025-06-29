@@ -8,7 +8,7 @@ date: 2025-06-29 01:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-29-aniimo.webp
 
 categories:
-    - Post
+    - Game
 tags:
     - 애니모
     - 팰월드
