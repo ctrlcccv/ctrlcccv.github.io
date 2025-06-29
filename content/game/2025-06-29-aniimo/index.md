@@ -2,7 +2,7 @@
 title: > 
     애니모 클로즈 베타 신청 방법 및 정보 - 팰월드 스타일 신작
 description: > 
-    팰월드를 좋아하신다면 놓치면 안 될 애니모! 클로즈 베타 신청 방법부터 게임 정보, 시스템 요구사양까지 한 번에 정리했습니다. 6월 30일 마감!
+    팰월드를 좋아하신다면 놓치면 안 될 애니모! 클로즈 베타 신청 방법부터 게임 정보, 시스템 요구사양까지 한 번에 정리했습니다.
 slug: 2025-06-29-aniimo
 date: 2025-06-29 01:00:00+0000
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-29-aniimo.webp
