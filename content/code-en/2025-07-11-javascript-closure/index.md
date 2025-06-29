@@ -11,6 +11,14 @@ lastmod: 2025-07-11 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-11-javascript-closure-en.webp
 
+alternates:
+  - title: "JavaScript 클로저, 메모리를 기억하는 함수의 비밀"
+    href: "https://ctrlcccv.github.io/code/2025-07-10-javascript-closure/"
+    hreflang: "ko"
+  - title: "Memory Leaks Ruining Your App? Master JavaScript Closures" 
+    href: "https://ctrlcccv.github.io/code-en/2025-07-11-javascript-closure/"
+    hreflang: "en"
+
 categories:
     - JavaScript 
 tags:

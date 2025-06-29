@@ -11,6 +11,14 @@ lastmod: 2025-07-09 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-09-lexical-environment-en.webp
 
+alternates:
+  - title: "JavaScript 렉시컬 환경이란? 도서관 비유로 쉽게 이해하기"
+    href: "https://ctrlcccv.github.io/code/2025-07-08-lexical-environment/"
+    hreflang: "ko"
+  - title: "JavaScript Lexical Environment: Why Variables Act Weird" 
+    href: "https://ctrlcccv.github.io/code-en/025-07-09-lexical-environment/"
+    hreflang: "en"
+
 categories:
     - JavaScript 
 tags:
