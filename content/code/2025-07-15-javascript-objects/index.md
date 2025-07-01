@@ -37,6 +37,18 @@ JavaScript를 배우다 보면 객체(Object)라는 개념에서 "이게 뭐지?
 
 <br>
 
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 객체가 왜 중요할까요?
 
 실제 프로젝트에서는 사용자 정보, 상품 데이터, 설정값 등 모든 것이 객체 형태로 다뤄져요. 제가 쇼핑몰 프로젝트를 진행할 때, 상품 하나만 해도 이름, 가격, 재고, 카테고리 등 여러 정보가 필요했는데, 이를 각각 변수로 관리하려니 너무 복잡했거든요. 객체를 사용하니 관련 정보를 깔끔하게 정리할 수 있었어요.
@@ -237,6 +249,18 @@ console.log(shoppingCart.total); // 1550000
 
 <br>
 
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 ## 실무에서 자주 쓰이는 객체 패턴
 
 ### 1. 중첩 객체 다루기
@@ -379,6 +403,19 @@ myCar.start(); // "현대 아반떼의 시동을 겁니다."
 ```
 
 <br>
+
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-8535540836842352"
+     data-ad-slot="2974559225"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<br>
+
 
 ## 자주 묻는 질문 (FAQ)
 
