@@ -7,7 +7,7 @@ description: >
 
 slug: 2025-06-27-let-const
 date: 2025-06-27 00:00:00+0000
-lastmod: 2025-06-27 00:00:00+0000
+lastmod: 2025-07-01 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-27-let-const-en.webp
 
@@ -483,7 +483,7 @@ Making the switch from `var` to `let` and `const` isn't just about following mod
 
 By defaulting to `const` and reaching for `let` when you need mutability, you'll write cleaner code that's easier to debug and maintain. Your future self will thank you when you're not hunting down mysterious bugs caused by variable scope issues.
 
-**What's Next**: In our next article, we'll explore the differences between JavaScript's primitive and reference types, and how each type handles copying and assignment. Understanding these concepts will deepen your knowledge of how variables actually work under the hood.
+**What's Next**: Now that you understand how to properly declare variables with `let` and `const`, it's time to dive deeper into how JavaScript actually stores and handles different types of data. In our next article, we'll explore [JavaScript Primitive vs Reference Types](/code-en/2025-07-01-primitive-reference/) - a fundamental concept that explains why copying an array sometimes changes the original, and why identical objects compare as false. Understanding these memory management concepts will transform how you think about variable assignment and help you avoid some of the most confusing bugs in JavaScript development.
 
 Ready to modernize your variable declarations? Try building a small project using only `let` and `const`—you'll be surprised how much clearer your code becomes! What's your experience with JavaScript variable declarations? Have you encountered any tricky bugs with `var` that `let` or `const` would have prevented?
 

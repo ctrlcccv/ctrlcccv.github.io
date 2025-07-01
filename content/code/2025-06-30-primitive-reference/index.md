@@ -11,6 +11,14 @@ lastmod: 2025-06-30 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-30-primitive-reference.webp
 
+alternates:
+  - title: "자바스크립트 원시타입 vs 참조타입: 차이점과 복사 방식 총정리"
+    href: "https://ctrlcccv.github.io/code/2025-06-30-primitive-reference/"
+    hreflang: "ko"
+  - title: "JavaScript Primitive vs Reference: The Bug You Didn't Expect" 
+    href: "https://ctrlcccv.github.io/code-en/2025-07-01-primitive-reference/"
+    hreflang: "en"
+
 categories:
     - JavaScript
 tags:
