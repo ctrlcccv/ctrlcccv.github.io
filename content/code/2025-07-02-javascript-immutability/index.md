@@ -624,3 +624,7 @@ function sortTodos(todos) {
 **다음 글에서는 더 깊이 있는 복사 기술들을 다룰 예정이니**, 중첩된 객체나 배열로 고생하신 분들은 꼭 기대해 주세요! 실무에서 바로 적용할 수 있는 구체적인 패턴들과 함께 돌아오겠습니다. 함께 성장하는 개발자 커뮤니티를 만들어가요! 🚀
 
 <br>
+
+<div class="btn_wrap">
+    <a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze">MDN - Object.freeze()와 불변성</a>
+</div>
