@@ -5,11 +5,11 @@ title: >
 description: >  
     JavaScript 객체의 모든 것을 실무 예제와 함께 배워보세요. 객체 리터럴부터 this 키워드, 메서드 활용, 얕은 복사 vs 깊은 복사까지 초보자도 쉽게 이해할 수 있는 완전 가이드입니다.
 
-slug: 2025-07-15-javascript-objects
-date: 2025-07-15 00:00:00+0000
-lastmod: 2025-07-15 00:00:00+0000
+slug: 2025-07-16-javascript-objects
+date: 2025-07-16 00:00:00+0000
+lastmod: 2025-07-16 00:00:00+0000
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-15-javascript-objects.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-16-javascript-objects.webp
 
 categories:
     - JavaScript 

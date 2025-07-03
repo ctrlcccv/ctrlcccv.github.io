@@ -11,6 +11,14 @@ lastmod: 2025-07-02 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp
 
+alternates:
+  - title: "JavaScript 불변성, 왜 중요할까? 쉽게 이해하는 React 준비 완벽 가이드"
+    href: "https://ctrlcccv.github.io/code/2025-07-02-javascript-immutability/"
+    hreflang: "ko"
+  - title: "Why Your Code Breaks: JavaScript Immutability Rules" 
+    href: "https://ctrlcccv.github.io/code-en/2025-07-03-javascript-immutability/"
+    hreflang: "en"
+
 categories:
     - JavaScript
 tags:

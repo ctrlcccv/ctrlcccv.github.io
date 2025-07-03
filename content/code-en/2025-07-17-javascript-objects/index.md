@@ -5,18 +5,18 @@ title: >
 description: >  
     Learn JavaScript objects from scratch with practical examples. Master this keyword, object destructuring, shallow vs deep copying, and clean code practices perfect for beginners starting their coding journey.
 
-slug: 2025-07-16-javascript-objects
-date: 2025-07-16 00:00:00+0000
-lastmod: 2025-07-16 00:00:00+0000
+slug: 2025-07-17-javascript-objects
+date: 2025-07-17 00:00:00+0000
+lastmod: 2025-07-17 00:00:00+0000
 
-image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-16-javascript-objects-en.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-17-javascript-objects-en.webp
 
 alternates:
   - title: "JavaScript 객체란 무엇인가? 초보자도 이해하는 쉬운 설명"
-    href: "https://ctrlcccv.github.io/code/2025-07-15-javascript-objects/"
+    href: "https://ctrlcccv.github.io/code/2025-07-16-javascript-objects/"
     hreflang: "ko"
   - title: "How to Build Sticky Bottom Banner with jQuery (No Footer Overlap)" 
-    href: "https://ctrlcccv.github.io/code-en/2025-07-16-bottom-sticky/"
+    href: "https://ctrlcccv.github.io/code-en/2025-07-17-bottom-sticky/"
     hreflang: "en"
 
 categories:
