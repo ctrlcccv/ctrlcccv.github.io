@@ -86,8 +86,8 @@ label 안에 있는 span 요소가 업로드 버튼처럼 작동하며, 클릭 �
     <div class="preview">
         <span class="img_box"><img class="preview_img" src="#" alt="선택한 이미지"></span>
         <button type="button" class="delect"><img src="images/image_file_delect.png" alt="삭제"></button>
-    
-
+    </div>
+</div>
 
 <!-- 두 번째 이미지 업로드 필드 -->
 <div class="image_file">
@@ -98,8 +98,8 @@ label 안에 있는 span 요소가 업로드 버튼처럼 작동하며, 클릭 �
     <div class="preview">
         <span class="img_box"><img class="preview_img" src="#" alt="선택한 이미지"></span>
         <button type="button" class="delect"><img src="images/image_file_delect.png" alt="삭제"></button>
-    
-
+    </div>
+</div>
 ```
 
 이처럼 구조만 반복해서 작성하면, 자바스크립트가 각 .image_file 요소를 기준으로 동작하므로 서로 간섭 없이 각각 이미지 업로드와 삭제 기능을 사용할 수 있습니다.
