@@ -1,0 +1,235 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="jQuery를 활용하여 새로고침해도 사용자가 마지막으로 선택한 탭이 그대로 유지되는 탭메뉴를 구현하는 방법을 소개합니다. URL 파라미터를 활용한 상태 관리 기법을 배워보세요."><title>jQuery - 탭메뉴 새로고침 후 현재 탭 유지</title><link rel=canonical href=https://ctrlcccv.github.io/code/2023-07-05-tab-refresh/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="jQuery - 탭메뉴 새로고침 후 현재 탭 유지"><meta property='og:description' content="jQuery를 활용하여 새로고침해도 사용자가 마지막으로 선택한 탭이 그대로 유지되는 탭메뉴를 구현하는 방법을 소개합니다. URL 파라미터를 활용한 상태 관리 기법을 배워보세요."><meta property='og:url' content='https://ctrlcccv.github.io/code/2023-07-05-tab-refresh/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='탭 메뉴'><meta property='article:published_time' content='2023-07-05T00:00:00+00:00'><meta property='article:modified_time' content='2025-05-15T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/tab-refresh.webp'><meta name=twitter:title content="jQuery - 탭메뉴 새로고침 후 현재 탭 유지"><meta name=twitter:description content="jQuery를 활용하여 새로고침해도 사용자가 마지막으로 선택한 탭이 그대로 유지되는 탭메뉴를 구현하는 방법을 소개합니다. URL 파라미터를 활용한 상태 관리 기법을 배워보세요."><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/tab-refresh.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"jQuery - 탭메뉴 새로고침 후 현재 탭 유지","datePublished":"2023-07-05T00:00:00Z","dateModified":"2025-05-15T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#html-구조>HTML 구조</a></li><li><a href=#css-스타일>CSS 스타일</a></li><li><a href=#jquery-코드>jQuery 코드</a></li><li><a href=#결론>결론</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2023-07-05-tab-refresh/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/tab-refresh.webp loading=lazy alt="Featured image of post jQuery - 탭메뉴 새로고침 후 현재 탭 유지"></a></div><div class=article-details><header class=article-category><a href=/categories/jquery/>JQuery</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2023-07-05-tab-refresh/>jQuery - 탭메뉴 새로고침 후 현재 탭 유지</a></h2><h3 class=article-subtitle>jQuery를 활용하여 새로고침해도 사용자가 마지막으로 선택한 탭이 그대로 유지되는 탭메뉴를 구현하는 방법을 소개합니다. URL 파라미터를 활용한 상태 관리 기법을 배워보세요.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2023-07-05T00:00:00Z>7월 05, 2023</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>5 분 정도</time></div></footer></div></header><section class=article-content><p>웹사이트에서 탭메뉴를 이용하다가 새로고침을 했을 때 첫 번째 탭으로 돌아가 버려서 불편했던 적 있으신가요?</p><p>탭메뉴는 좁은 공간에 많은 내용을 담을 수 있어 웹사이트에서 자주 사용하는 UI 요소입니다. 하지만 기본 탭메뉴는 페이지를 새로고침하면 항상 첫 번째 탭으로 돌아가는 문제점이 있죠. 특히 내용이 많은 탭을 보다가 새로고침이 되면, 사용자는 다시 원하는 탭을 찾아 클릭해야 하는 번거로움을 겪게 됩니다. 이 글에서는 URL 파라미터를 활용해 새로고침 후에도 사용자가 마지막으로 봤던 탭을 그대로 유지하는 방법을 알아보겠습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=html-구조>HTML 구조</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;tab_wrap&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=c>&lt;!-- 탭메뉴 제목 --&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;tit_list&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#con01&#34;</span><span class=p>&gt;</span>1번째 탭<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#con02&#34;</span><span class=p>&gt;</span>2번째 탭<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#con03&#34;</span><span class=p>&gt;</span>3번째 탭<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=c>&lt;!-- 탭메뉴 컨텐츠 --&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;tab_con&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;con01&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;tab_list&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            1번째 컨텐츠
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;con02&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;tab_list&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            2번째 컨텐츠
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;con03&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;tab_list&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            3번째 컨텐츠
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>탭메뉴 제목 영역</strong><br><span class=txt>탭 제목을 담은 ul 요소로, 각 탭은 li 안에 a 태그로 구성했습니다.
+각 a 태그의 href는 연결된 콘텐츠의 id를 가리키는 앵커 링크로 작성했습니다.</span></p></li><li><p><strong>탭메뉴 콘텐츠 영역</strong><br><span class=txt>각 탭에 해당하는 내용을 담고 있는 영역입니다.
+각 콘텐츠는 고유한 id를 가지고 있어 탭 제목의 href와 연결됩니다.</span></p></li></ul><br><h2 id=css-스타일>CSS 스타일</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=o>*</span> <span class=p>{</span><span class=k>margin</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span><span class=k>padding</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span><span class=k>font-family</span><span class=p>:</span> <span class=s1>&#39;Noto Sans KR&#39;</span><span class=p>,</span> <span class=kc>sans-serif</span><span class=p>;</span><span class=k>box-sizing</span><span class=p>:</span> <span class=kc>border-box</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=nt>ul</span><span class=o>,</span> <span class=nt>li</span> <span class=p>{</span><span class=k>list-style</span><span class=p>:</span> <span class=kc>none</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>tab_wrap</span> <span class=p>{</span><span class=k>max-width</span><span class=p>:</span> <span class=mi>800</span><span class=kt>px</span><span class=p>;</span><span class=k>margin</span><span class=p>:</span> <span class=mi>50</span><span class=kt>px</span> <span class=kc>auto</span><span class=p>;</span><span class=k>padding</span><span class=p>:</span> <span class=mi>0</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>tab_wrap</span> <span class=p>.</span><span class=nc>tit_list</span> <span class=p>{</span><span class=k>position</span><span class=p>:</span> <span class=kc>relative</span><span class=p>;</span><span class=k>font-size</span><span class=p>:</span> <span class=mi>0</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>tab_wrap</span> <span class=p>.</span><span class=nc>tit_list</span><span class=p>:</span><span class=nd>before</span> <span class=p>{</span><span class=k>content</span><span class=p>:</span><span class=s1>&#39;&#39;</span><span class=p>;</span><span class=k>position</span><span class=p>:</span> <span class=kc>absolute</span><span class=p>;</span><span class=k>bottom</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span><span class=k>left</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span><span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span><span class=k>height</span><span class=p>:</span> <span class=mi>1</span><span class=kt>px</span><span class=p>;</span><span class=k>background</span><span class=p>:</span> <span class=mh>#ddd</span><span class=p>;</span><span class=k>z-index</span><span class=p>:</span> <span class=mi>1</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>tab_wrap</span> <span class=p>.</span><span class=nc>tit_list</span> <span class=o>&gt;</span> <span class=nt>li</span> <span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>inline-block</span><span class=p>;</span><span class=k>vertical-align</span><span class=p>:</span> <span class=kc>top</span><span class=p>;</span><span class=k>margin-right</span><span class=p>:</span> <span class=mi>3</span><span class=kt>px</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>tab_wrap</span> <span class=p>.</span><span class=nc>tit_list</span> <span class=o>&gt;</span> <span class=nt>li</span> <span class=nt>a</span> <span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>inline-block</span><span class=p>;</span><span class=k>padding</span><span class=p>:</span> <span class=mi>10</span><span class=kt>px</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;</span><span class=k>border</span><span class=p>:</span> <span class=mi>1</span><span class=kt>px</span> <span class=kc>solid</span> <span class=mh>#fff</span><span class=p>;</span><span class=k>border-radius</span><span class=p>:</span><span class=mi>4</span><span class=kt>px</span> <span class=mi>4</span><span class=kt>px</span> <span class=mi>0</span> <span class=mi>0</span><span class=p>;</span><span class=k>font-size</span><span class=p>:</span> <span class=mi>14</span><span class=kt>px</span><span class=p>;</span><span class=k>color</span><span class=p>:</span> <span class=mh>#000</span><span class=p>;</span><span class=k>text-decoration</span><span class=p>:</span> <span class=kc>none</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>tab_wrap</span> <span class=p>.</span><span class=nc>tit_list</span> <span class=o>&gt;</span> <span class=nt>li</span> <span class=nt>a</span><span class=p>:</span><span class=nd>hover</span> <span class=p>{</span><span class=k>background</span><span class=p>:</span> <span class=mh>#efefef</span><span class=p>;</span><span class=k>border-color</span><span class=p>:</span> <span class=mh>#efefef</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>tab_wrap</span> <span class=p>.</span><span class=nc>tit_list</span> <span class=o>&gt;</span> <span class=nt>li</span><span class=p>.</span><span class=nc>active</span> <span class=nt>a</span> <span class=p>{</span><span class=k>position</span><span class=p>:</span> <span class=kc>relative</span><span class=p>;</span><span class=k>border-color</span><span class=p>:</span> <span class=mh>#ddd</span><span class=p>;</span><span class=k>border-bottom</span><span class=p>:</span> <span class=mi>1</span><span class=kt>px</span> <span class=kc>solid</span> <span class=mh>#fff</span><span class=p>;</span><span class=k>background</span><span class=p>:</span> <span class=mh>#fff</span><span class=p>;</span><span class=k>color</span><span class=p>:</span> <span class=mh>#8ab4f8</span><span class=p>;</span><span class=k>z-index</span><span class=p>:</span> <span class=mi>2</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>tab_wrap</span> <span class=p>.</span><span class=nc>tab_con</span> <span class=p>{</span><span class=k>border</span><span class=p>:</span> <span class=mi>1</span><span class=kt>px</span> <span class=kc>solid</span> <span class=mh>#ddd</span><span class=p>;</span><span class=k>border-top</span><span class=p>:</span> <span class=kc>none</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>tab_wrap</span> <span class=p>.</span><span class=nc>tab_con</span> <span class=p>.</span><span class=nc>tab_list</span> <span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span><span class=k>height</span><span class=p>:</span> <span class=mi>200</span><span class=kt>px</span><span class=p>;</span><span class=k>padding</span><span class=p>:</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>기본 초기화 및 레이아웃</strong><br><span class=txt>기본 마진과 패딩을 초기화하고, 폰트와 박스 사이징을 설정했습니다.
+탭 전체를 감싸는 .tab_wrap은 중앙 정렬과 최대 너비를 지정해 반응형으로 동작합니다.</span></p></li><li><p><strong>탭 제목 스타일링</strong><br><span class=txt>탭 제목 목록은 상대 위치로 설정하고, 하단에 구분선을 넣었습니다.
+각 탭 제목은 인라인 블록으로 배치해 가로로 나열되도록 했습니다.</span></p></li><li><p><strong>활성화된 탭 스타일</strong><br><span class=txt>활성화된 탭(.active)은 하단 테두리가 흰색이 되어 콘텐츠 영역과 자연스럽게 이어지고, 글자색은 파란색으로 바뀝니다.
+z-index를 사용해 활성화된 탭이 하단 구분선 위에 표시되도록 했습니다.</span></p></li><li><p><strong>탭 콘텐츠 영역</strong><br><span class=txt>탭 콘텐츠는 기본적으로 숨겨두고(display: none), 활성화될 때만 보이게 했습니다.
+고정된 높이와 내부 여백으로 콘텐츠를 보기 좋게 배치했습니다.</span></p></li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=jquery-코드>jQuery 코드</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=nx>$</span><span class=p>(</span><span class=nb>window</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;load&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tab</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>tab</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>//탭 구분 파라미터 이름
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>paramName</span> <span class=o>=</span> <span class=s1>&#39;tabName&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>//탭메뉴 실행 함수
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>function</span> <span class=nx>activateTab</span><span class=p>(</span><span class=nx>tabId</span><span class=p>,</span> <span class=nx>updateUrlParam</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>//tabId 값이 first 일 때 첫번째 탭 선택
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>tabId</span> <span class=o>=</span> <span class=nx>tabId</span> <span class=o>===</span> <span class=s1>&#39;first&#39;</span> <span class=o>?</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.tab_wrap .tit_list &gt; li:first-child a&#39;</span><span class=p>).</span><span class=nx>attr</span><span class=p>(</span><span class=s1>&#39;href&#39;</span><span class=p>)</span> <span class=o>:</span> <span class=nx>tabId</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>//초기화
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;.tab_wrap .tit_list &gt; li&#34;</span><span class=p>).</span><span class=nx>removeClass</span><span class=p>(</span><span class=s2>&#34;active&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;.tab_wrap .tab_list&#34;</span><span class=p>).</span><span class=nx>hide</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>//실행
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>$</span><span class=p>(</span><span class=sb>`.tab_wrap .tit_list &gt; li a[href*=&#34;</span><span class=si>${</span><span class=nx>tabId</span><span class=si>}</span><span class=sb>&#34;]`</span><span class=p>).</span><span class=nx>parent</span><span class=p>().</span><span class=nx>addClass</span><span class=p>(</span><span class=s2>&#34;active&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$</span><span class=p>(</span><span class=nx>tabId</span><span class=p>).</span><span class=nx>show</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>//탭메뉴 클릭할 때 url 파라미터 변경
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=nx>updateUrlParam</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>setUrlParam</span><span class=p>(</span><span class=nx>tabId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>//파라미터 값 변경 함수
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>function</span> <span class=nx>setUrlParam</span><span class=p>(</span><span class=nx>tabId</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>params</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>URLSearchParams</span><span class=p>(</span><span class=nx>location</span><span class=p>.</span><span class=nx>search</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>params</span><span class=p>.</span><span class=nx>set</span><span class=p>(</span><span class=nx>paramName</span><span class=p>,</span> <span class=nx>tabId</span><span class=p>.</span><span class=nx>slice</span><span class=p>(</span><span class=mi>1</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>        <span class=nx>history</span><span class=p>.</span><span class=nx>pushState</span><span class=p>(</span><span class=kc>null</span><span class=p>,</span> <span class=kc>null</span><span class=p>,</span> <span class=sb>`</span><span class=si>${</span><span class=nx>location</span><span class=p>.</span><span class=nx>origin</span><span class=si>}${</span><span class=nx>location</span><span class=p>.</span><span class=nx>pathname</span><span class=si>}</span><span class=sb>?</span><span class=si>${</span><span class=nx>params</span><span class=p>.</span><span class=nx>toString</span><span class=p>()</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>//파라미터 확인 함수
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>function</span> <span class=nx>getUrlParam</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>urlParams</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>URLSearchParams</span><span class=p>(</span><span class=nx>location</span><span class=p>.</span><span class=nx>search</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>urlParams</span><span class=p>.</span><span class=nx>get</span><span class=p>(</span><span class=nx>paramName</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>//파라미터 값 확인
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>tabName</span> <span class=o>=</span> <span class=nx>getUrlParam</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>//탭메뉴 클릭할 때 실행
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;.tab_wrap .tit_list &gt; li a&#34;</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s2>&#34;click&#34;</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=kd>let</span> <span class=nx>tabId</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>attr</span><span class=p>(</span><span class=s2>&#34;href&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>activateTab</span><span class=p>(</span><span class=nx>tabId</span><span class=p>,</span> <span class=kc>true</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>//페이지 로드 했을 때 탭메뉴 선택
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=nx>tabName</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>tabTop</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.tab_wrap&#39;</span><span class=p>).</span><span class=nx>offset</span><span class=p>().</span><span class=nx>top</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>requestAnimationFrame</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;html, body&#39;</span><span class=p>).</span><span class=nx>scrollTop</span><span class=p>(</span><span class=nx>tabTop</span> <span class=o>-</span> <span class=mi>100</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>        <span class=nx>activateTab</span><span class=p>(</span><span class=sb>`#</span><span class=si>${</span><span class=nx>tabName</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>activateTab</span><span class=p>(</span><span class=s1>&#39;first&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>//뒤로가기, 앞으로가기 버튼 눌렀을 때 탭메뉴 활성화 복원
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>$</span><span class=p>(</span><span class=nb>window</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;popstate&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>newTabName</span> <span class=o>=</span> <span class=nx>getUrlParam</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=nx>activateTab</span><span class=p>(</span><span class=nx>newTabName</span> <span class=o>?</span> <span class=sb>`#</span><span class=si>${</span><span class=nx>newTabName</span><span class=si>}</span><span class=sb>`</span> <span class=o>:</span> <span class=s1>&#39;first&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>초기 설정</strong><br><span class=txt>페이지 로딩이 끝나면 tab() 함수를 실행해 탭메뉴를 초기화합니다.
+URL 파라미터 이름으로는 &rsquo;tabName&rsquo;을 사용합니다.</span></p></li><li><p><strong>탭 활성화 함수</strong><br><span class=txt>activateTab() 함수는 선택한 탭을 활성화하는 핵심 기능을 담당합니다.
+tabId가 &lsquo;first&rsquo;면 첫 번째 탭을 자동 선택합니다.
+기존에 활성화된 탭을 초기화하고 새로 선택된 탭과 콘텐츠를 보여줍니다.
+updateUrlParam이 true면 URL 주소도 함께 업데이트합니다.</span></p></li><li><p><strong>URL 파라미터 관리 함수</strong><br><span class=txt>setUrlParam() 함수는 현재 선택된 탭 ID를 URL 주소에 기록합니다.
+getUrlParam() 함수는 URL에서 탭 파라미터 값을 가져옵니다.
+URLSearchParams API로 파라미터를 간편하게 관리합니다.</span></p></li><li><p><strong>이벤트 처리</strong><br><span class=txt>탭 클릭 시 기본 앵커 동작을 막고(e.preventDefault()), 대신 activateTab() 함수를 호출합니다.
+페이지 로드 시 URL 파라미터를 확인해서 해당 탭을 활성화합니다.
+파라미터가 없으면 첫 번째 탭을 기본값으로 보여줍니다.</span></p></li><li><p><strong>브라우저 네비게이션 지원</strong><br><span class=txt>popstate 이벤트를 감지하여 브라우저의 뒤로가기, 앞으로가기 버튼을 눌렀을 때도 올바른 탭이 표시되도록 합니다.
+이 기능 덕분에 사용자가 브라우저의 이동 버튼을 눌러도 이전에 보던 탭이 그대로 유지됩니다. 페이지 이동 후에도 정보를 다시 찾는 번거로움 없이 일관된 화면을 볼 수 있어 훨씬 편리합니다.</span></p></li><li><p><strong>스크롤 위치 조정</strong><br><span class=txt>파라미터로 특정 탭을 열 때는 requestAnimationFrame을 사용해 해당 탭메뉴 위치로 화면을 자동 스크롤합니다.
+이렇게 하면 긴 페이지에서도 탭메뉴를 바로 볼 수 있습니다.</span></p></li></ul><br><h2 id=결론>결론</h2><p>이번 글에서는 jQuery로 새로고침 후에도 선택한 탭이 유지되는 탭메뉴를 만드는 방법을 알아보았습니다. URL 파라미터를 활용하면 페이지를 새로고침하거나 브라우저의 뒤로가기/앞으로가기 버튼을 눌러도 선택한 탭이 그대로 유지됩니다. 덕분에 사용자는 페이지를 오가며 탐색할 때도 원하는 정보를 쉽게 다시 찾을 수 있고, 일관된 화면을 경험할 수 있습니다.</p><p>이 글이 도움이 되셨나요? 탭메뉴를 구현하면서 겪은 다른 문제나 개선 아이디어가 있으시면 댓글로 공유해주세요!</p><br><div class=btn_wrap><a target=_blank href=https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-05-tab-refresh/tab-menu/>예제결과 미리보기</a></div></section><footer class=article-footer><section class=article-tags><a href=/tags/%ED%83%AD-%EB%A9%94%EB%89%B4/>탭 메뉴</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section><section class=article-lastmod><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time datetime=2025-05-15T00:00:00Z>마지막 수정: 5월 15, 2025 00:00 UTC</time></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2025-05-27-tab-menu/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-27-tab-menu.webp loading=lazy data-key=2025-05-27-tab-menu data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-27-tab-menu.webp></div><div class=article-details><h2 class=article-title>jQuery - 클래스 하나로 탭메뉴 여러개 구현하기</h2></div></a></article><article class=has-image><a href=/code/2023-12-12-nested-tab/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-12-nested-tab.webp loading=lazy data-key=2023-12-12-nested-tab data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-12-nested-tab.webp></div><div class=article-details><h2 class=article-title>jQuery - 2단 탭메뉴 만들기 (탭 안에 탭)</h2></div></a></article><article class=has-image><a href=/code/2023-07-19-swiper-tab/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-07-19-swiper-tab.webp loading=lazy data-key=2023-07-19-swiper-tab data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-07-19-swiper-tab.webp></div><div class=article-details><h2 class=article-title>jQuery - 탭메뉴 안에 Swiper 슬라이드 넣기</h2></div></a></article><article class=has-image><a href=/code-en/2025-05-28-tab-menu/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-28-tab-menu-en.webp loading=lazy data-key=2025-05-28-tab-menu data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-28-tab-menu-en.webp></div><div class=article-details><h2 class=article-title>How to Build Multiple Tab Menus Using One jQuery Function</h2></div></a></article><article class=has-image><a href=/code-en/2025-05-26-responsive-viewer/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-26-responsive-viewer-en.webp loading=lazy data-key=2025-05-26-responsive-viewer data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-26-responsive-viewer-en.webp></div><div class=article-details><h2 class=article-title>How to Build a Responsive Device Preview with jQuery</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

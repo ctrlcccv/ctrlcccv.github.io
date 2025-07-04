@@ -1,0 +1,225 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="jQuery를 활용하여 스크롤에 따라 텍스트 스타일이 변하는 웹 기능을 설명합니다. 스크롤에 반응하는 불투명도, 크기, 위치 변화 구현 방법과 사용자 경험에 미치는 영향을 다룹니다. "><title>jQuery - 스크롤 내리면 나타나는 텍스트</title><link rel=canonical href=https://ctrlcccv.github.io/code/2023-11-22-scroll-text/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="jQuery - 스크롤 내리면 나타나는 텍스트"><meta property='og:description' content="jQuery를 활용하여 스크롤에 따라 텍스트 스타일이 변하는 웹 기능을 설명합니다. 스크롤에 반응하는 불투명도, 크기, 위치 변화 구현 방법과 사용자 경험에 미치는 영향을 다룹니다. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2023-11-22-scroll-text/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='스크롤 이벤트'><meta property='article:published_time' content='2023-11-22T00:00:00+00:00'><meta property='article:modified_time' content='2023-11-22T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-22-scroll-text.webp'><meta name=twitter:title content="jQuery - 스크롤 내리면 나타나는 텍스트"><meta name=twitter:description content="jQuery를 활용하여 스크롤에 따라 텍스트 스타일이 변하는 웹 기능을 설명합니다. 스크롤에 반응하는 불투명도, 크기, 위치 변화 구현 방법과 사용자 경험에 미치는 영향을 다룹니다. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-22-scroll-text.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"jQuery - 스크롤 내리면 나타나는 텍스트","datePublished":"2023-11-22T00:00:00Z","dateModified":"2023-11-22T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#html-구조>HTML 구조</a></li><li><a href=#css-스타일>CSS 스타일</a></li><li><a href=#jquery-코드>jQuery 코드</a><ol><li><a href=#요소-배열-정의>요소 배열 정의</a></li></ol></li><li><a href=#결론>결론</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2023-11-22-scroll-text/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-22-scroll-text.webp loading=lazy alt="Featured image of post jQuery - 스크롤 내리면 나타나는 텍스트"></a></div><div class=article-details><header class=article-category><a href=/categories/jquery/>JQuery</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2023-11-22-scroll-text/>jQuery - 스크롤 내리면 나타나는 텍스트</a></h2><h3 class=article-subtitle>jQuery를 활용하여 스크롤에 따라 텍스트 스타일이 변하는 웹 기능을 설명합니다. 스크롤에 반응하는 불투명도, 크기, 위치 변화 구현 방법과 사용자 경험에 미치는 영향을 다룹니다.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2023-11-22T00:00:00Z>11월 22, 2023</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>5 분 정도</time></div></footer></div></header><section class=article-content><p>이 글에서는 jQuery를 활용하여 특정한 스크롤 동작에 반응하여 텍스트의 스타일이 변화하는 웹 페이지 기능을 소개합니다. 사용자가 페이지를 스크롤 할 때마다 텍스트의 불투명도, 크기, 그리고 위치가 동적으로 변하도록 구현되었습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=html-구조>HTML 구조</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;content&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;scroll_txt type_fade&#34;</span><span class=p>&gt;</span>스크롤을 내리면 텍스트가 나타납니다.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;scroll_txt type_size&#34;</span><span class=p>&gt;</span>스크롤을 내리면 텍스트의 크기가 변경됩니다.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;scroll_txt type_right&#34;</span><span class=p>&gt;</span>스크롤을 내리면 텍스트가 오른쪽에서 왼쪽으로 이동합니다.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;content2&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;scroll_txt type_bottom&#34;</span><span class=p>&gt;</span>스크롤을 내리면 텍스트가 아래에서 위로 이동합니다.<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>div 태그는 .content와 .content2 클래스를 가지며, 각각 여러 p 태그를 포함합니다.</li><li>각 p 태그는 scroll_txt 클래스와 추가적인 클래스 (type_fade, type_size, type_right, type_bottom)를 가지고 있습니다.</li><li>이 추가적인 클래스들은 jQuery를 통해 스타일이 변경될 특정 텍스트 요소들을 구별하는 데 사용됩니다.<br><br></li></ul><h2 id=css-스타일>CSS 스타일</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=p>.</span><span class=nc>content</span> <span class=p>{</span><span class=k>overflow</span><span class=p>:</span> <span class=kc>hidden</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>content2</span> <span class=p>{</span><span class=k>overflow</span><span class=p>:</span> <span class=kc>hidden</span><span class=p>;</span><span class=k>padding-bottom</span><span class=p>:</span> <span class=mi>140</span><span class=kt>px</span><span class=p>;</span><span class=k>margin-bottom</span><span class=p>:</span> <span class=mi>-140</span><span class=kt>px</span><span class=p>;}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>scroll_txt</span> <span class=p>{</span><span class=k>text-align</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span><span class=k>font-size</span><span class=p>:</span> <span class=mi>24</span><span class=kt>px</span><span class=p>;</span><span class=k>font-weight</span><span class=p>:</span> <span class=mi>700</span><span class=p>;</span><span class=k>padding</span><span class=p>:</span><span class=mi>50</span><span class=kt>px</span> <span class=mi>0</span><span class=p>;</span> <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>.content와 .content2 클래스는 요소가 화면 밖으로 벗어난 부분을 숨기는 속성을 가지고 있습니다.</li><li>.scroll_txt 클래스는 텍스트에 대한 기본 스타일을 설정합니다.</li></ul><br><h2 id=jquery-코드>jQuery 코드</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=c1>// elements 배열을 정의합니다.
+</span></span></span><span class=line><span class=cl><span class=c1>// 이 배열에는 여러 HTML 요소와 그에 대한 스타일 변화의 정보가 담겨 있습니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>elements</span> <span class=o>=</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 첫 번째 요소: 페이드 효과가 있는 스크롤 텍스트
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$element</span><span class=o>:</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.scroll_txt.type_fade&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=nx>opacity</span><span class=o>:</span> <span class=mi>60</span><span class=p>,</span> <span class=c1>// 불투명도 전환 위치 설정 (%) =&gt; 요소가 화면의 60% 이상 올라가면 opacity 속성의 값이 1로 설정되어 완전히 보이게 됩니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 두 번째 요소: 크기 변화가 있는 스크롤 텍스트
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$element</span><span class=o>:</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.scroll_txt.type_size&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=nx>initScale</span><span class=o>:</span> <span class=mi>200</span><span class=p>,</span> <span class=c1>// 초기 크기 비율 (%)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>finalScale</span><span class=o>:</span> <span class=mi>100</span><span class=p>,</span> <span class=c1>// 최종 크기 비율 (%)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 세 번째 요소: 오른쪽에서 왼쪽으로 이동하는 스크롤 텍스트
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$element</span><span class=o>:</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.scroll_txt.type_right&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=nx>initTranslateX</span><span class=o>:</span> <span class=mi>100</span><span class=p>,</span> <span class=c1>// 초기 X축 이동 거리 (px)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>finalTranslateX</span><span class=o>:</span> <span class=mi>0</span><span class=p>,</span> <span class=c1>// 최종 X축 이동 거리 (px)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 네 번째 요소: 아래에서 위로 이동하는 스크롤 텍스트
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$element</span><span class=o>:</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.scroll_txt.type_bottom&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=nx>initTranslateY</span><span class=o>:</span> <span class=mi>140</span><span class=p>,</span> <span class=c1>// 초기 Y축 이동 거리 (px)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>finalTranslateY</span><span class=o>:</span> <span class=mi>0</span><span class=p>,</span> <span class=c1>// 최종 Y축 이동 거리 (px)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>},</span>
+</span></span><span class=line><span class=cl><span class=p>];</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 기본값 설정: 속성이 정의되지 않은 경우 기본값을 할당합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>elements</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>element</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>element</span><span class=p>.</span><span class=nx>opacity</span> <span class=o>=</span> <span class=nx>element</span><span class=p>.</span><span class=nx>opacity</span> <span class=o>||</span> <span class=mi>40</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>element</span><span class=p>.</span><span class=nx>initScale</span> <span class=o>=</span> <span class=nx>element</span><span class=p>.</span><span class=nx>initScale</span> <span class=o>||</span> <span class=mi>100</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>element</span><span class=p>.</span><span class=nx>finalScale</span> <span class=o>=</span> <span class=nx>element</span><span class=p>.</span><span class=nx>finalScale</span> <span class=o>||</span> <span class=mi>100</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>element</span><span class=p>.</span><span class=nx>initTranslateX</span> <span class=o>=</span> <span class=nx>element</span><span class=p>.</span><span class=nx>initTranslateX</span> <span class=o>||</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>element</span><span class=p>.</span><span class=nx>finalTranslateX</span> <span class=o>=</span> <span class=nx>element</span><span class=p>.</span><span class=nx>finalTranslateX</span> <span class=o>||</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>element</span><span class=p>.</span><span class=nx>initTranslateY</span> <span class=o>=</span> <span class=nx>element</span><span class=p>.</span><span class=nx>initTranslateY</span> <span class=o>||</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>element</span><span class=p>.</span><span class=nx>finalTranslateY</span> <span class=o>=</span> <span class=nx>element</span><span class=p>.</span><span class=nx>finalTranslateY</span> <span class=o>||</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>$</span><span class=p>(</span><span class=nb>window</span><span class=p>).</span><span class=nx>scroll</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>windowHeight</span> <span class=o>=</span> <span class=nb>window</span><span class=p>.</span><span class=nx>innerHeight</span><span class=p>;</span> <span class=c1>// 브라우저 창의 높이
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>scrollHeight</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>documentElement</span><span class=p>.</span><span class=nx>scrollHeight</span><span class=p>;</span> <span class=c1>// 문서 전체의 높이
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>scrollTop</span> <span class=o>=</span> <span class=nb>window</span><span class=p>.</span><span class=nx>pageYOffset</span> <span class=o>||</span> <span class=nb>document</span><span class=p>.</span><span class=nx>documentElement</span><span class=p>.</span><span class=nx>scrollTop</span><span class=p>;</span> <span class=c1>// 현재 스크롤 위치
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=c1>// elements 배열의 각 요소에 대해 스크롤에 따른 스타일 변화를 적용합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>elements</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(({</span> <span class=nx>$element</span><span class=p>,</span> <span class=nx>opacity</span><span class=p>,</span> <span class=nx>finalScale</span><span class=p>,</span> <span class=nx>initScale</span><span class=p>,</span> <span class=nx>initTranslateX</span><span class=p>,</span> <span class=nx>finalTranslateX</span><span class=p>,</span> <span class=nx>initTranslateY</span><span class=p>,</span> <span class=nx>finalTranslateY</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>opacityThreshold</span> <span class=o>=</span> <span class=nx>windowHeight</span> <span class=o>*</span> <span class=nx>opacity</span> <span class=o>/</span> <span class=mi>100</span><span class=p>;</span> <span class=c1>// 불투명도 적용 임곗값 계산
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>        <span class=nx>$element</span><span class=p>.</span><span class=nx>each</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>elemTop</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>getBoundingClientRect</span><span class=p>().</span><span class=nx>top</span><span class=p>;</span> <span class=c1>// 요소의 상단 위치
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=kr>const</span> <span class=nx>distance</span> <span class=o>=</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>max</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=nx>windowHeight</span> <span class=o>-</span> <span class=nx>elemTop</span><span class=p>);</span> <span class=c1>// 요소와 창 하단 사이의 거리
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=kd>let</span> <span class=nx>opacity</span><span class=p>,</span> <span class=nx>scale</span><span class=p>,</span> <span class=nx>translateX</span><span class=p>,</span> <span class=nx>translateY</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1>// 스크롤 위치에 따라 스타일을 조정합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=k>if</span> <span class=p>(</span><span class=nx>distance</span> <span class=o>&gt;=</span> <span class=nx>opacityThreshold</span> <span class=o>||</span> <span class=nx>scrollTop</span> <span class=o>+</span> <span class=nx>windowHeight</span> <span class=o>&gt;=</span> <span class=nx>scrollHeight</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=c1>// 불투명도와 변환을 최종값으로 설정
+</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=nx>opacity</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=nx>scale</span> <span class=o>=</span> <span class=nx>finalScale</span> <span class=o>/</span> <span class=mi>100</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=nx>translateX</span> <span class=o>=</span> <span class=nx>finalTranslateX</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=nx>translateY</span> <span class=o>=</span> <span class=nx>finalTranslateY</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=nx>distance</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=c1>// 거리에 따라 불투명도와 변환을 점진적으로 조정
+</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=kr>const</span> <span class=nx>distanceRatio</span> <span class=o>=</span> <span class=nx>distance</span> <span class=o>/</span> <span class=nx>opacityThreshold</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=nx>opacity</span> <span class=o>=</span> <span class=nx>distanceRatio</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=nx>scale</span> <span class=o>=</span> <span class=p>(</span><span class=nx>distanceRatio</span> <span class=o>*</span> <span class=p>(</span><span class=nx>finalScale</span> <span class=o>-</span> <span class=nx>initScale</span><span class=p>)</span> <span class=o>+</span> <span class=nx>initScale</span><span class=p>)</span> <span class=o>/</span> <span class=mi>100</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=nx>translateX</span> <span class=o>=</span> <span class=nx>distanceRatio</span> <span class=o>*</span> <span class=p>(</span><span class=nx>finalTranslateX</span> <span class=o>-</span> <span class=nx>initTranslateX</span><span class=p>)</span> <span class=o>+</span> <span class=nx>initTranslateX</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=nx>translateY</span> <span class=o>=</span> <span class=nx>distanceRatio</span> <span class=o>*</span> <span class=p>(</span><span class=nx>finalTranslateY</span> <span class=o>-</span> <span class=nx>initTranslateY</span><span class=p>)</span> <span class=o>+</span> <span class=nx>initTranslateY</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1>// 계산된 스타일을 적용합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>css</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>                <span class=nx>opacity</span><span class=o>:</span> <span class=nx>opacity</span><span class=p>.</span><span class=nx>toFixed</span><span class=p>(</span><span class=mi>2</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>                <span class=nx>transform</span><span class=o>:</span> <span class=sb>`translateX(</span><span class=si>${</span><span class=nx>translateX</span><span class=si>}</span><span class=sb>px) translateY(</span><span class=si>${</span><span class=nx>translateY</span><span class=si>}</span><span class=sb>px) scale(</span><span class=si>${</span><span class=nx>scale</span><span class=p>.</span><span class=nx>toFixed</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=si>}</span><span class=sb>)`</span>
+</span></span><span class=line><span class=cl>            <span class=p>});</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p>jQuery 코드의 주요 구성 요소와 기능은 다음과 같습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h3 id=요소-배열-정의>요소 배열 정의</h3><p>elements 배열은 특정 HTML 요소들과 그들에 적용할 스타일 변화 정보를 담고 있습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>elements</span> <span class=o>=</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$element</span><span class=o>:</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.element&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=nx>opacity</span><span class=o>:</span> <span class=mi>40</span><span class=p>,</span> <span class=c1>// 불투명도 전환 위치 설정 (%)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>initScale</span><span class=o>:</span> <span class=mi>100</span><span class=p>,</span> <span class=c1>// 초기 크기 비율 (%)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>finalScale</span><span class=o>:</span> <span class=mi>100</span><span class=p>,</span> <span class=c1>// 최종 크기 비율 (%)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>initTranslateX</span><span class=o>:</span> <span class=mi>0</span><span class=p>,</span> <span class=c1>// 초기 X축 이동 거리 (px)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>finalTranslateX</span><span class=o>:</span> <span class=mi>0</span><span class=p>,</span> <span class=c1>// 최종 X축 이동 거리 (px)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>initTranslateY</span><span class=o>:</span> <span class=mi>0</span><span class=p>,</span> <span class=c1>// 초기 Y축 이동 거리 (px)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>finalTranslateY</span><span class=o>:</span> <span class=mi>0</span><span class=p>,</span> <span class=c1>// 최종 Y축 이동 거리 (px)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>},</span>
+</span></span><span class=line><span class=cl><span class=p>];</span>
+</span></span></code></pre></td></tr></table></div></div><p>이 배열에는 jQuery 선택자를 이용하여 특정한 HTML 요소들을 선택하고, 이들에 적용할 스타일 변화 정보를 설정합니다. 각 요소는 불투명도, 크기, 위치 등의 변화를 위한 속성을 가지며, 이러한 속성들은 스크롤에 따라 동적으로 적용됩니다. initTranslateX 속성과 initTranslateY 속성을 음수로 설정하면 이동 시작 방향을 변경할 수 있습니다.</p><p>이 방식으로 여러 속성을 조합하여 다양한 스크롤 효과를 구현할 수 있습니다. 예를 들어, 텍스트의 불투명도를 변경하거나, 크기를 조절하거나, 위치를 이동시키는 등의 효과를 결합할 수 있습니다.</p><ul><li><p><strong>스크롤 이벤트 처리</strong></p><ul><li>$(window).scroll() 함수는 사용자가 스크롤 할 때 실행됩니다.</li><li>이 함수 내에서, 브라우저 창의 높이, 문서의 전체 높이, 현재 스크롤 위치 등이 계산됩니다.</li></ul></li><li><p><strong>스타일 적용 로직</strong></p><ul><li>forEach 메서드를 사용해 elements 배열의 각 요소에 대한 스타일 변화를 처리합니다.</li><li>각 요소의 상단 위치는 getBoundingClientRect().top을 통해 계산되고, 이를 바탕으로 불투명도, 크기, 위치 변화가 계산됩니다.</li><li>스크롤 위치에 따라 요소의 불투명도, 크기, 위치가 점진적으로 변화합니다.</li><li>계산된 스타일은 jQuery의 css() 메서드를 사용해 적용됩니다.<br><br></li></ul></li></ul><h2 id=결론>결론</h2><p>스크롤에 따라 변화하는 텍스트는 사용자의 주의를 끌고 페이지와의 상호작용을 증가시키는 매우 효과적인 방법입니다. 이는 웹사이트에 생동감을 불어넣고, 사용자들에게 기억에 남는 경험을 제공합니다. 하지만, 이러한 동적 요소가 과도하게 사용될 경우, 사용자에게 혼란을 줄 수 있으며, 가독성에 부정적인 영향을 미칠 수 있습니다. 따라서, 이러한 효과는 콘텐츠의 가독성을 해치지 않도록 신중하게 적용해야 합니다.<br><br></p><div class=btn_wrap><a target=_blank href=https://ctrlcccv.github.io//ctrlcccv-demo/2023-11-22-scroll-text/>예제결과 미리보기</a>
+<a href=https://ctrlcccv.github.io/code/2023-10-30-scroll-show/>[관련글] jQuery - 스크롤 내리면 나타나는 애니메이션</a></div></section><footer class=article-footer><section class=article-tags><a href=/tags/%EC%8A%A4%ED%81%AC%EB%A1%A4-%EC%9D%B4%EB%B2%A4%ED%8A%B8/>스크롤 이벤트</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2023-12-04-fullpage/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-04-fullpage.webp loading=lazy data-key=2023-12-04-fullpage data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-04-fullpage.webp></div><div class=article-details><h2 class=article-title>jQuery - 풀페이지 스크롤 반응형 예제 (fullpage.js 대체)</h2></div></a></article><article class=has-image><a href=/code/2023-12-02-fixed-scroll/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-02-fixed-scroll.webp loading=lazy data-key=2023-12-02-fixed-scroll data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-02-fixed-scroll.webp></div><div class=article-details><h2 class=article-title>jQuery - 가로 스크롤에 따라 fixed 요소 위치 조정</h2></div></a></article><article class=has-image><a href=/code/2023-11-01-ajax-infinite/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-01-ajax-Infinite.webp loading=lazy data-key=2023-11-01-ajax-Infinite data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-01-ajax-Infinite.webp></div><div class=article-details><h2 class=article-title>jQuery - Ajax 무한 스크롤 예제 (Intersection Observer API 활용)</h2></div></a></article><article class=has-image><a href=/code/2023-10-30-scroll-show/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-30-scroll-show.webp loading=lazy data-key=2023-10-30-scroll-show data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-30-scroll-show.webp></div><div class=article-details><h2 class=article-title>jQuery - 스크롤 내리면 나타나는 애니메이션</h2></div></a></article><article class=has-image><a href=/code/2023-10-22-swiper-menu/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-22-swiper-menu.webp loading=lazy data-key=2023-10-22-swiper-menu data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-10-22-swiper-menu.webp></div><div class=article-details><h2 class=article-title>jQuery - Swiper 메뉴 클릭 시 스크롤 이동, 활성화 메뉴 표시하기</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

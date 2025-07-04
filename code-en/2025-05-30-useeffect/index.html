@@ -1,0 +1,482 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="Master React's useEffect hook with practical examples. Learn to control component lifecycles and implement cleanup functions for better React apps. "><title>React useEffect Tutorial: From Basic to Advanced</title><link rel=canonical href=https://ctrlcccv.github.io/code-en/2025-05-30-useeffect/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="React useEffect Tutorial: From Basic to Advanced\n"><meta property='og:description' content="Master React's useEffect hook with practical examples. Learn to control component lifecycles and implement cleanup functions for better React apps. "><meta property='og:url' content='https://ctrlcccv.github.io/code-en/2025-05-30-useeffect/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code-En'><meta property='article:tag' content='React Hooks'><meta property='article:tag' content='useEffect'><meta property='article:tag' content='Side Effects'><meta property='article:tag' content='Cleanup Functions'><meta property='article:published_time' content='2025-05-30T00:00:00+00:00'><meta property='article:modified_time' content='2025-05-30T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp'><meta name=twitter:title content="React useEffect Tutorial: From Basic to Advanced\n"><meta name=twitter:description content="Master React's useEffect hook with practical examples. Learn to control component lifecycles and implement cleanup functions for better React apps. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"React useEffect Tutorial: From Basic to Advanced\n","datePublished":"2025-05-30T00:00:00Z","dateModified":"2025-05-30T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="React - useEffect 가이드 및 실전 예제" href=https://ctrlcccv.github.io/code/2024-03-25-useeffect/ hreflang=ko><link rel=alternate title="React useEffect Tutorial: From Basic to Advanced" href=https://ctrlcccv.github.io/code-en/2025-05-30-useeffect/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#what-is-useeffect>What is useEffect?</a></li><li><a href=#controlling-when-effects-run>Controlling When Effects Run</a></li><li><a href=#cleaning-up-effects>Cleaning Up Effects</a></li><li><a href=#handling-api-requests-with-useeffect>Handling API Requests with useEffect</a></li><li><a href=#managing-component-lifecycles>Managing Component Lifecycles</a></li><li><a href=#common-useeffect-pitfalls-and-solutions>Common useEffect Pitfalls and Solutions</a><ol><li><a href=#avoiding-infinite-loops>Avoiding Infinite Loops</a></li><li><a href=#including-all-dependencies>Including All Dependencies</a></li><li><a href=#separating-effects-by-concern>Separating Effects by Concern</a></li></ol></li><li><a href=#key-takeaways>Key Takeaways</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code-en/2025-05-30-useeffect/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp loading=lazy alt="Featured image of post React useEffect Tutorial: From Basic to Advanced
+"></a></div><div class=article-details><header class=article-category><a href=/categories/react/>React</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code-en/2025-05-30-useeffect/>React useEffect Tutorial: From Basic to Advanced</a></h2><h3 class=article-subtitle>Master React's useEffect hook with practical examples. Learn to control component lifecycles and implement cleanup functions for better React apps.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-05-30T00:00:00Z>5월 30, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>7 분 정도</time></div></footer></div></header><section class=article-content><p>Have you ever needed to run code right after your React component renders on screen?</p><p>That&rsquo;s exactly what useEffect is for. Whether you need to fetch data, set up event listeners, or update the DOM, useEffect helps you perform these actions at the right time. This guide breaks down this essential React hook with practical examples you can start using today.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=what-is-useeffect>What is useEffect?</h2><p>Think of useEffect as React&rsquo;s way to handle &ldquo;side effects&rdquo; – anything that happens outside your component&rsquo;s rendering process. It lets you run code after React has updated the DOM.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useEffect</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>WelcomeMessage</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// This runs after component renders
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Welcome message is now visible!&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// This runs when component is removed
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Welcome message is being removed&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// The empty array means &#34;run once after first render&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=o>&lt;</span><span class=nx>h2</span><span class=o>&gt;</span><span class=nx>Welcome</span> <span class=nx>to</span> <span class=nx>our</span> <span class=nx>app</span><span class=o>!&lt;</span><span class=err>/h2&gt;;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>How It Works</strong><br><span class=txt>useEffect takes two arguments: a function to run and a dependency array.<br>The empty array <code>[]</code> tells React to run your effect only once when the component mounts.</span></p></li><li><p><strong>Real-World Analogy</strong><br><span class=txt>It&rsquo;s like a smart home system: when you enter a room (component renders), the lights turn on automatically (useEffect runs). When you leave (component unmounts), the lights turn off (cleanup function runs).</span></p></li></ul><br><h2 id=controlling-when-effects-run>Controlling When Effects Run</h2><p>One of useEffect&rsquo;s most powerful features is the ability to control exactly when your effects run:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>UserProfile</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>userId</span><span class=p>,</span> <span class=nx>setUserId</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>darkMode</span><span class=p>,</span> <span class=nx>setDarkMode</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// Runs only once when the component first appears
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>document</span><span class=p>.</span><span class=nx>title</span> <span class=o>=</span> <span class=s1>&#39;User Profile Page&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// Runs whenever userId changes
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`Fetching data for user #</span><span class=si>${</span><span class=nx>userId</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>userId</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// Runs after every render
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`Mode: </span><span class=si>${</span><span class=nx>darkMode</span> <span class=o>?</span> <span class=s1>&#39;Dark&#39;</span> <span class=o>:</span> <span class=s1>&#39;Light&#39;</span><span class=si>}</span><span class=sb>, User: #</span><span class=si>${</span><span class=nx>userId</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>});</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=nx>div</span> <span class=nx>className</span><span class=o>=</span><span class=p>{</span><span class=nx>darkMode</span> <span class=o>?</span> <span class=s1>&#39;dark&#39;</span> <span class=o>:</span> <span class=s1>&#39;light&#39;</span><span class=p>}</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>h1</span><span class=o>&gt;</span><span class=nx>User</span> <span class=nx>Profile</span><span class=o>:</span> <span class=err>#</span><span class=p>{</span><span class=nx>userId</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/h1&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>button</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setUserId</span><span class=p>(</span><span class=nx>userId</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)}</span><span class=o>&gt;</span><span class=nx>Next</span> <span class=nx>User</span><span class=o>&lt;</span><span class=err>/button&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>button</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setDarkMode</span><span class=p>(</span><span class=o>!</span><span class=nx>darkMode</span><span class=p>)}</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Toggle</span> <span class=p>{</span><span class=nx>darkMode</span> <span class=o>?</span> <span class=s1>&#39;Light&#39;</span> <span class=o>:</span> <span class=s1>&#39;Dark&#39;</span><span class=p>}</span> <span class=nx>Mode</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=err>/button&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>Empty Array (<code>[]</code>)</strong><br><span class=txt>Your effect runs exactly once after the first render – perfect for initialization tasks like setting page titles or initial data fetching.</span></p></li><li><p><strong>With Dependencies (<code>[userId]</code>)</strong><br><span class=txt>Your effect runs whenever any value in the dependency array changes – great for keeping operations in sync with specific state changes.</span></p></li><li><p><strong>No Dependency Array</strong><br><span class=txt>Your effect runs after every render – useful in rare cases but can cause performance issues if overused.</span></p></li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=cleaning-up-effects>Cleaning Up Effects</h2><p>Proper cleanup is crucial for preventing memory leaks and unexpected behavior:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>WindowSizeTracker</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>windowWidth</span><span class=p>,</span> <span class=nx>setWindowWidth</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=nb>window</span><span class=p>.</span><span class=nx>innerWidth</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Define handler
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>function</span> <span class=nx>handleResize</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>setWindowWidth</span><span class=p>(</span><span class=nb>window</span><span class=p>.</span><span class=nx>innerWidth</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// Set up listener
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nb>window</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;resize&#39;</span><span class=p>,</span> <span class=nx>handleResize</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// Return cleanup function
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nb>window</span><span class=p>.</span><span class=nx>removeEventListener</span><span class=p>(</span><span class=s1>&#39;resize&#39;</span><span class=p>,</span> <span class=nx>handleResize</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>p</span><span class=o>&gt;</span><span class=nx>Current</span> <span class=nb>window</span> <span class=nx>width</span><span class=o>:</span> <span class=p>{</span><span class=nx>windowWidth</span><span class=p>}</span><span class=nx>px</span><span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>p</span><span class=o>&gt;</span><span class=p>{</span><span class=nx>windowWidth</span> <span class=o>&lt;</span> <span class=mi>768</span> <span class=o>?</span> <span class=s1>&#39;Mobile view&#39;</span> <span class=o>:</span> <span class=s1>&#39;Desktop view&#39;</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>When Cleanup Happens</strong><br><span class=txt>Cleanup functions run before the component unmounts or before the effect runs again due to dependency changes – ensuring resources are properly released.</span></p></li><li><p><strong>What Requires Cleanup</strong><br><span class=txt>Always clean up event listeners, timers (setTimeout/setInterval), subscriptions, WebSockets, and other ongoing processes to prevent memory leaks.</span></p></li></ul><br><h2 id=handling-api-requests-with-useeffect>Handling API Requests with useEffect</h2><p>Data fetching is perhaps the most common useEffect use case:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>WeatherDisplay</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>weather</span><span class=p>,</span> <span class=nx>setWeather</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>loading</span><span class=p>,</span> <span class=nx>setLoading</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>true</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>error</span><span class=p>,</span> <span class=nx>setError</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Track if component is still mounted
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>let</span> <span class=nx>isMounted</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kr>async</span> <span class=kd>function</span> <span class=nx>fetchWeather</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>try</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>setLoading</span><span class=p>(</span><span class=kc>true</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>response</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetch</span><span class=p>(</span><span class=s1>&#39;https://api.example.com/weather/current&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>response</span><span class=p>.</span><span class=nx>ok</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=k>throw</span> <span class=k>new</span> <span class=nb>Error</span><span class=p>(</span><span class=sb>`API error: </span><span class=si>${</span><span class=nx>response</span><span class=p>.</span><span class=nx>status</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>data</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>response</span><span class=p>.</span><span class=nx>json</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1>// Only update state if component is still mounted
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=nx>isMounted</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=nx>setWeather</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>          <span class=nx>setError</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>isMounted</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=nx>setError</span><span class=p>(</span><span class=sb>`Failed to load weather: </span><span class=si>${</span><span class=nx>err</span><span class=p>.</span><span class=nx>message</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span> <span class=k>finally</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>isMounted</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>          <span class=nx>setLoading</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>fetchWeather</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// Cleanup: prevent state updates after unmount
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>isMounted</span> <span class=o>=</span> <span class=kc>false</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span><span class=nx>loading</span><span class=p>)</span> <span class=k>return</span> <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span><span class=nx>Loading</span> <span class=nx>weather</span> <span class=nx>data</span><span class=p>...</span><span class=o>&lt;</span><span class=err>/div&gt;;</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=k>return</span> <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span><span class=p>{</span><span class=nx>error</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/div&gt;;</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>weather</span><span class=p>)</span> <span class=k>return</span> <span class=kc>null</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>h1</span><span class=o>&gt;</span><span class=nx>Current</span> <span class=nx>Weather</span><span class=o>&lt;</span><span class=err>/h1&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span><span class=nx>Temperature</span><span class=o>:</span> <span class=p>{</span><span class=nx>weather</span><span class=p>.</span><span class=nx>temperature</span><span class=p>}</span><span class=err>°</span><span class=nx>F</span><span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span><span class=nx>Condition</span><span class=o>:</span> <span class=p>{</span><span class=nx>weather</span><span class=p>.</span><span class=nx>condition</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><strong>Best Practices</strong><br><span class=txt>Use an &ldquo;isMounted&rdquo; flag to prevent state updates after component unmounting – avoiding React warnings and memory leaks.<br>Always include loading and error states to create a better user experience.</span></li></ul><br><h2 id=managing-component-lifecycles>Managing Component Lifecycles</h2><p>useEffect is perfect for handling different stages of your component&rsquo;s lifecycle:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>Modal</span><span class=p>({</span> <span class=nx>isOpen</span><span class=p>,</span> <span class=nx>onClose</span><span class=p>,</span> <span class=nx>message</span> <span class=p>})</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// &#34;When component mounts&#34; effect
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Modal component created&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Modal component destroyed&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// &#34;When prop changes&#34; effect
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>isOpen</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=c1>// Disable scrolling when modal opens
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>overflow</span> <span class=o>=</span> <span class=s1>&#39;hidden&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span><span class=nx>isOpen</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// Re-enable scrolling when modal closes
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>overflow</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>isOpen</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>isOpen</span><span class=p>)</span> <span class=k>return</span> <span class=kc>null</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=nx>div</span> <span class=nx>className</span><span class=o>=</span><span class=s2>&#34;modal-backdrop&#34;</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>onClose</span><span class=p>}</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>div</span> <span class=nx>className</span><span class=o>=</span><span class=s2>&#34;modal-content&#34;</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>e</span> <span class=p>=&gt;</span> <span class=nx>e</span><span class=p>.</span><span class=nx>stopPropagation</span><span class=p>()}</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>button</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>onClose</span><span class=p>}</span><span class=o>&gt;</span><span class=nx>Close</span><span class=o>&lt;</span><span class=err>/button&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span><span class=p>{</span><span class=nx>message</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><strong>Understanding Lifecycles</strong><br><span class=txt>&ldquo;Mounting&rdquo; is when a component first appears on screen, and &ldquo;unmounting&rdquo; is when it&rsquo;s removed.<br>With useEffect, you can target specific lifecycle events by using appropriate dependency arrays.</span></li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=common-useeffect-pitfalls-and-solutions>Common useEffect Pitfalls and Solutions</h2><h3 id=avoiding-infinite-loops>Avoiding Infinite Loops</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ Problem: Creates an infinite loop
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>BadCounter</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>setCount</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setCount</span><span class=p>(</span><span class=nx>count</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span> <span class=c1>// Updates state, triggering re-render and another effect run
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>},</span> <span class=p>[</span><span class=nx>count</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span><span class=p>{</span><span class=nx>count</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/div&gt;;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ Solution: Use functional updates
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>GoodCounter</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>setCount</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>shouldCount</span><span class=p>,</span> <span class=nx>setShouldCount</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>shouldCount</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=c1>// This approach doesn&#39;t need count in dependencies
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nx>setCount</span><span class=p>(</span><span class=nx>prev</span> <span class=p>=&gt;</span> <span class=p>(</span><span class=nx>prev</span> <span class=o>&lt;</span> <span class=mi>5</span> <span class=o>?</span> <span class=nx>prev</span> <span class=o>+</span> <span class=mi>1</span> <span class=o>:</span> <span class=nx>prev</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>shouldCount</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>p</span><span class=o>&gt;</span><span class=nx>Count</span><span class=o>:</span> <span class=p>{</span><span class=nx>count</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>button</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setShouldCount</span><span class=p>(</span><span class=o>!</span><span class=nx>shouldCount</span><span class=p>)}</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span><span class=nx>shouldCount</span> <span class=o>?</span> <span class=s1>&#39;Stop&#39;</span> <span class=o>:</span> <span class=s1>&#39;Start&#39;</span><span class=p>}</span> <span class=nx>Counting</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=err>/button&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=including-all-dependencies>Including All Dependencies</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ Properly handling dependencies
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>SearchComponent</span><span class=p>({</span> <span class=nx>searchTerm</span> <span class=p>})</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>results</span><span class=p>,</span> <span class=nx>setResults</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Skip empty searches
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>searchTerm</span><span class=p>.</span><span class=nx>trim</span><span class=p>())</span> <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// Debounce searches while typing
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>timer</span> <span class=o>=</span> <span class=nx>setTimeout</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>fetch</span><span class=p>(</span><span class=sb>`https://api.example.com/search?q=</span><span class=si>${</span><span class=nx>searchTerm</span><span class=si>}</span><span class=sb>`</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>r</span> <span class=p>=&gt;</span> <span class=nx>r</span><span class=p>.</span><span class=nx>json</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>        <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>setResults</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=mi>300</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// Clean up timer if searchTerm changes before timeout
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>clearTimeout</span><span class=p>(</span><span class=nx>timer</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>searchTerm</span><span class=p>]);</span> <span class=c1>// searchTerm correctly included in dependencies
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=o>&lt;</span><span class=nx>ResultsList</span> <span class=nx>items</span><span class=o>=</span><span class=p>{</span><span class=nx>results</span><span class=p>}</span> <span class=o>/&gt;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=separating-effects-by-concern>Separating Effects by Concern</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ Separate effects for separate concerns
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>ProfilePage</span><span class=p>({</span> <span class=nx>userId</span> <span class=p>})</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// Data fetching effect
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fetchUserData</span><span class=p>(</span><span class=nx>userId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>userId</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// DOM event handling effect
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>handleResize</span><span class=p>()</span> <span class=p>{</span><span class=cm>/* resize logic */</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nb>window</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;resize&#39;</span><span class=p>,</span> <span class=nx>handleResize</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nb>window</span><span class=p>.</span><span class=nx>removeEventListener</span><span class=p>(</span><span class=s1>&#39;resize&#39;</span><span class=p>,</span> <span class=nx>handleResize</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// Analytics effect
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>logPageView</span><span class=p>(</span><span class=s1>&#39;profile&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h2 id=key-takeaways>Key Takeaways</h2><p>useEffect is a powerful tool for synchronizing your React components with external systems. Remember these core principles:</p><ul><li>Use dependency arrays strategically to control when your effects run</li><li>Always clean up resources you create in your effects</li><li>Keep each effect focused on a single responsibility</li><li>Be careful with state updates in effects to avoid infinite loops</li></ul><p>Mastering useEffect will help you build more responsive, efficient React applications that handle complex interactions smoothly while maintaining great performance.</p><p>Have a question about useEffect or a tricky use case? Drop a comment below!</p><br></section><footer class=article-footer><section class=article-tags><a href=/tags/react-hooks/>React Hooks</a>
+<a href=/tags/useeffect/>UseEffect</a>
+<a href=/tags/side-effects/>Side Effects</a>
+<a href=/tags/cleanup-functions/>Cleanup Functions</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2024-03-25-useeffect/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp loading=lazy data-key=2024-03-25-useEffect data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp></div><div class=article-details><h2 class=article-title>React - useEffect 가이드 및 실전 예제</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-13-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-13-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback: 5 Key Differences Every Developer Must Know</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-11-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp loading=lazy data-key=2025-06-11-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp></div><div class=article-details><h2 class=article-title>Stop React Re-renders with useCallback Hook</h2></div></a></article><article class=has-image><a href=/code/2025-06-10-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-10-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback 차이점 쉽게 이해하기</h2></div></a></article><article class=has-image><a href=/code/2025-06-06-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp loading=lazy data-key=2025-06-06-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp></div><div class=article-details><h2 class=article-title>React useCallback으로 불필요한 리렌더링 방지하기</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

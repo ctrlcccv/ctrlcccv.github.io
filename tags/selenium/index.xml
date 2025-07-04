@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Selenium on 컨트롤 + CCCV</title><link>https://ctrlcccv.github.io/tags/selenium/</link><description>Recent content in Selenium on 컨트롤 + CCCV</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 06 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ctrlcccv.github.io/tags/selenium/index.xml" rel="self" type="application/rss+xml"/><item><title>파이썬 - Selenium을 사용하여 검색 결과 가져오기</title><link>https://ctrlcccv.github.io/code/2023-09-06-scraping/</link><pubDate>Wed, 06 Sep 2023 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2023-09-06-scraping/</guid><description>&lt;p>Selenium은 웹 애플리케이션 테스트를 자동화하고 웹 스크래핑을 수행하는 데 사용되는 강력한 Python 라이브러리입니다.&lt;br>
+Python과 Selenium을 사용하여 Google에서 검색 결과를 가져오는 방법을 예제와 함께 설명하겠습니다.&lt;br>
+웹 스크래핑은 웹 사이트에서 정보를 추출하고 분석하는 데 매우 유용하며, Python과 Selenium을 통해 자동화할 수 있습니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="selenium-라이브러리-설치">Selenium 라이브러리 설치
+&lt;/h2>&lt;p>Selenium 라이브러리를 설치해야 합니다.&lt;br>
+터미널 또는 명령 프롬프트에서 다음 명령을 실행하여 Selenium을 설치하세요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">pip&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="n">selenium&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="필요한-라이브러리-및-드라이버-설정">필요한 라이브러리 및 드라이버 설정
+&lt;/h2>&lt;p>필요한 라이브러리를 가져오고 Chrome 브라우저를 사용하기 위한 설정을 합니다.&lt;br>
+webdriver 모듈은 Selenium의 핵심 모듈입니다. 이를 사용하여 브라우저를 제어합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">webdriver&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.chrome.options&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Options&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.common.by&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">By&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.common.keys&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Keys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.support.ui&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">WebDriverWait&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.support&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">expected_conditions&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">EC&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chrome_options&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Options&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chrome_options&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_experimental_option&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;detach&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">webdriver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Chrome&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">options&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">chrome_options&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="google-웹페이지로-이동">Google 웹페이지로 이동
+&lt;/h2>&lt;p>Chrome 브라우저를 열고 Google 웹페이지로 이동합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;https://www.google.com&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;h2 id="검색어-입력">검색어 입력
+&lt;/h2>&lt;p>Google 검색창을 찾아 검색어를 입력하고 검색을 실행합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CLASS_NAME&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;gLFyf&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Python Selenium 예제&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Keys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">RETURN&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>find_element 메서드를 사용하여 검색창을 찾습니다.&lt;/li>
+&lt;li>send_keys 메서드를 사용하여 검색어를 입력합니다.&lt;/li>
+&lt;li>Keys.RETURN을 사용하여 Enter 키를 눌러 검색을 실행합니다.&lt;/li>
+&lt;/ul>
+&lt;h2 id="검색-결과-대기">검색 결과 대기
+&lt;/h2>&lt;p>검색 결과가 나타날 때까지 기다립니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">wait&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">WebDriverWait&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">results&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">wait&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">until&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">EC&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">presence_of_all_elements_located&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;.tF2Cxc&amp;#39;&lt;/span>&lt;span class="p">)))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>WebDriverWait를 사용하여 특정 조건이 충족될 때까지 대기합니다. (최대 10초)&lt;br>
+여기서는 CSS 선택자 .tF2Cxc를 사용하여 검색 결과가 로드될 때까지 대기합니다.&lt;/p>
+&lt;h2 id="검색-결과-출력">검색 결과 출력
+&lt;/h2>&lt;p>검색 결과를 가져와서 제목과 링크를 출력합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">results&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">result&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;.LC20lb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">link&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">result&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_attribute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;href&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;제목: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;링크: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">link&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>검색 결과는 여러 요소로 구성되어 있으며, 각 요소에서 제목과 링크를 추출합니다.&lt;/p>
+&lt;h2 id="브라우저-종료">브라우저 종료
+&lt;/h2>&lt;p>작업이 완료되면 Chrome 브라우저를 종료합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="전체-코드">전체 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">webdriver&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.chrome.options&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Options&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.common.by&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">By&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.common.keys&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Keys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.support.ui&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">WebDriverWait&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.support&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">expected_conditions&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">EC&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 브라우저 꺼짐 방지 옵션&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chrome_options&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Options&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chrome_options&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_experimental_option&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;detach&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">webdriver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Chrome&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">options&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">chrome_options&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 웹페이지 해당 주소 이동&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;https://www.google.com&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 검색 입력란 찾기&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CLASS_NAME&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;gLFyf&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 검색어 입력&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Python Selenium 예제&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 검색 실행 (Enter 키 누르기)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">search_box&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Keys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">RETURN&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 검색 결과가 나타날 때까지 기다림&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">wait&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">WebDriverWait&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">results&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">wait&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">until&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">EC&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">presence_of_all_elements_located&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;.tF2Cxc&amp;#39;&lt;/span>&lt;span class="p">)))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 검색 결과 출력&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">results&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">result&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;.LC20lb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">link&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">result&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CSS_SELECTOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_attribute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;href&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;제목: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;링크: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">link&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 브라우저 종료&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Python과 Selenium을 사용하여 Google 검색 결과를 가져오는 방법을 예제를 통해 자세히 설명했습니다.&lt;/p>
+&lt;p>Selenium은 웹 스크래핑과 웹 테스트를 자동화하는 데 강력한 도구입니다.&lt;br>
+이 예제를 기반으로 스크래핑 프로젝트나 웹 테스트 자동화를 시작할 수 있습니다.&lt;br>
+필요한 경우 코드를 수정하여 다른 웹사이트에서 데이터를 수집하거나 웹 애플리케이션을 테스트할 수 있습니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;blockquote>
+&lt;p>참고 자료&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.selenium.dev/documentation/" target="_blank" rel="noopener"
+>Selenium 공식 문서&lt;/a>&lt;/li>
+&lt;/ul>&lt;/blockquote></description></item></channel></rss>

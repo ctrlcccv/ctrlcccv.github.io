@@ -1,0 +1,281 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="Learn how to prevent background scrolling behind popups using CSS overscroll-behavior and jQuery. This guide covers scroll chaining control, mobile touch handling, and fully disabling page scroll for a seamless user experience. "><title>Disable Body Scroll Behind Popups (overscroll-behavior)</title><link rel=canonical href=https://ctrlcccv.github.io/code-en/2025-05-09-popup-scroll/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="Disable Body Scroll Behind Popups (overscroll-behavior)\n"><meta property='og:description' content="Learn how to prevent background scrolling behind popups using CSS overscroll-behavior and jQuery. This guide covers scroll chaining control, mobile touch handling, and fully disabling page scroll for a seamless user experience. "><meta property='og:url' content='https://ctrlcccv.github.io/code-en/2025-05-09-popup-scroll/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code-En'><meta property='article:published_time' content='2025-05-09T00:00:00+00:00'><meta property='article:modified_time' content='2025-05-09T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-09-popup-scroll-en.webp'><meta name=twitter:title content="Disable Body Scroll Behind Popups (overscroll-behavior)\n"><meta name=twitter:description content="Learn how to prevent background scrolling behind popups using CSS overscroll-behavior and jQuery. This guide covers scroll chaining control, mobile touch handling, and fully disabling page scroll for a seamless user experience. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-09-popup-scroll-en.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Disable Body Scroll Behind Popups (overscroll-behavior)\n","datePublished":"2025-05-09T00:00:00Z","dateModified":"2025-05-09T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="overscroll-behavior로 팝업 내부 스크롤과 body 스크롤 제어하기" href=https://ctrlcccv.github.io/code/2023-03-13-popup-scroll/ hreflang=ko><link rel=alternate title="Disable Body Scroll Behind Popups (overscroll-behavior)" href=https://ctrlcccv.github.io/code-en/2025-05-09-popup-scroll/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#html-structure>HTML Structure</a></li><li><a href=#css-styling>CSS Styling</a><ol><li><a href=#whats-happening-here>What’s happening here?</a></li></ol></li><li><a href=#jquery-for-interaction>jQuery for Interaction</a></li><li><a href=#why-use-disable_scroll>Why Use <code>.disable_scroll</code>?</a></li><li><a href=#compare-overscroll-behavior-vs-disable_scroll>Compare: <code>overscroll-behavior</code> vs <code>.disable_scroll</code></a></li><li><a href=#conclusion>Conclusion</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code-en/2025-05-09-popup-scroll/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-09-popup-scroll-en.webp loading=lazy alt="Featured image of post Disable Body Scroll Behind Popups (overscroll-behavior)
+"></a></div><div class=article-details><header class=article-category><a href=/categories/jquery/>JQuery</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code-en/2025-05-09-popup-scroll/>Disable Body Scroll Behind Popups (overscroll-behavior)</a></h2><h3 class=article-subtitle>Learn how to prevent background scrolling behind popups using CSS overscroll-behavior and jQuery. This guide covers scroll chaining control, mobile touch handling, and fully disabling page scroll for a seamless user experience.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-05-09T00:00:00Z>5월 09, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>4 분 정도</time></div></footer></div></header><section class=article-content><p>You’ve probably seen this: you open a popup on your phone, try to scroll inside it, and suddenly the background page starts moving too. It’s distracting and frustrating. Fortunately, there are reliable ways to keep scrolling limited to the popup itself—or to disable background scroll entirely. In this guide, you’ll learn how to do both using CSS (<code>overscroll-behavior</code>) and a bit of jQuery. Let’s make sure your modals feel solid and user-friendly on any device.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=html-structure>HTML Structure</h2><p>Here’s the basic markup we’ll be working with:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;wrap&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;btn&#34;</span><span class=p>&gt;</span>Enable body scroll<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>(using only overscroll-behavior: none)<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;btn type_disable&#34;</span><span class=p>&gt;</span>Disable body scroll<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;pop_wrap&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;bg&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;popup&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;close&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;images/close.png&#34;</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;닫기&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;popup_con&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>Content
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><code>.btn</code> triggers the popup.</li><li><code>.type_disable</code> disables background scrolling.</li><li><code>.pop_wrap</code> is the modal wrapper.</li><li><code>.popup</code> contains the content you want scrollable.</li></ul><br><h2 id=css-styling>CSS Styling</h2><p>Next, we’ll set up the layout and scroll behavior. Here&rsquo;s the CSS:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span><span class=lnt>90
+</span><span class=lnt>91
+</span><span class=lnt>92
+</span><span class=lnt>93
+</span><span class=lnt>94
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=p>.</span><span class=nc>wrap</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>min-height</span><span class=p>:</span> <span class=mi>200</span><span class=kt>vh</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>30</span><span class=kt>px</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>display</span><span class=p>:</span> <span class=kc>flex</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>align-items</span><span class=p>:</span> <span class=kc>flex-start</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>justify-content</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>gap</span><span class=p>:</span> <span class=mi>30</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* Prevent background scroll */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>disable_scroll</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>overflow</span><span class=p>:</span> <span class=kc>hidden</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>touch-action</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* Button styles */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>btn</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>display</span><span class=p>:</span> <span class=kc>inline-flex</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>justify-content</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>align-items</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>text-align</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>400</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>200</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=mh>#8ab4f8</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=mh>#000</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>text-decoration</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>word-break</span><span class=p>:</span> <span class=n>keep-all</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* Popup container */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>pop_wrap</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>fixed</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>left</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>z-index</span><span class=p>:</span> <span class=mi>3</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* Popup background overlay */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>pop_wrap</span> <span class=p>.</span><span class=nc>bg</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>fixed</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>left</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=nb>rgba</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mf>0.8</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>z-index</span><span class=p>:</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* Popup box */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>popup</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>absolute</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>50</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>left</span><span class=p>:</span> <span class=mi>50</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>280</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>280</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>max-width</span><span class=p>:</span> <span class=mi>90</span><span class=kt>vw</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>max-height</span><span class=p>:</span> <span class=mi>90</span><span class=kt>vh</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=mh>#fff</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>z-index</span><span class=p>:</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>translate</span><span class=p>(</span><span class=mi>-50</span><span class=kt>%</span><span class=p>,</span> <span class=mi>-50</span><span class=kt>%</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* Close button */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>popup</span> <span class=p>.</span><span class=nc>close</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>absolute</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>right</span><span class=p>:</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>17</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>17</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* Close button image */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>popup</span> <span class=p>.</span><span class=nc>close</span> <span class=nt>img</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* Scrollable popup content */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>popup</span> <span class=p>.</span><span class=nc>popup_con</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>overflow</span><span class=p>:</span> <span class=kc>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>line-height</span><span class=p>:</span> <span class=mi>24</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=mh>#000</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>overscroll-behavior</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=whats-happening-here>What’s happening here?</h3><ul><li><code>.popup_con</code> scrolls on its own without affecting the page behind it.</li><li><code>.disable_scroll</code> locks the background by removing all scroll and touch interaction.</li><li><code>overscroll-behavior: none</code> stops scroll chaining to parent elements.</li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=jquery-for-interaction>jQuery for Interaction</h2><p>Here’s the jQuery to control opening and closing the popup:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>$</span><span class=p>(</span><span class=nb>document</span><span class=p>).</span><span class=nx>ready</span><span class=p>(</span><span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>popup</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>popup</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Open popup when a button is clicked
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.btn&#39;</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.pop_wrap&#39;</span><span class=p>).</span><span class=nx>fadeIn</span><span class=p>(</span><span class=mi>300</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>hasClass</span><span class=p>(</span><span class=s1>&#39;type_disable&#39;</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// Optional: Disable background scroll when popup opens
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;body&#34;</span><span class=p>).</span><span class=nx>addClass</span><span class=p>(</span><span class=s1>&#39;disable_scroll&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// Close popup when clicking on background or close button
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.pop_wrap .bg, .pop_wrap .close&#39;</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.pop_wrap&#39;</span><span class=p>).</span><span class=nx>fadeOut</span><span class=p>(</span><span class=mi>100</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// Optional: Re-enable background scroll when popup closes
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;body&#34;</span><span class=p>).</span><span class=nx>removeClass</span><span class=p>(</span><span class=s1>&#39;disable_scroll&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>Clicking the button fades in the popup.</li><li>If it’s the <code>.type_disable</code> button, the body scroll is locked.</li><li>Clicking the background or close button fades the popup out and restores scrolling.</li></ul><br><h2 id=why-use-disable_scroll>Why Use <code>.disable_scroll</code>?</h2><p>Applying the <code>.disable_scroll</code> class to the <code>&lt;body></code> has a few key benefits:</p><ul><li><strong>Completely locks the page</strong> while the popup is open.</li><li><strong>Disables touch gestures</strong> on mobile (thanks to <code>touch-action: none</code>).</li><li><strong>Keeps the viewport steady</strong>, avoiding jumps or unintended scrolls.</li></ul><br><h2 id=compare-overscroll-behavior-vs-disable_scroll>Compare: <code>overscroll-behavior</code> vs <code>.disable_scroll</code></h2><div class=table-wrapper><table><thead><tr><th><strong>Feature</strong></th><th><strong><code>overscroll-behavior: none</code></strong></th><th><strong><code>.disable_scroll</code></strong></th></tr></thead><tbody><tr><td>Stops scroll chaining to background</td><td>✅ Yes — background won’t scroll when reaching popup limits</td><td>✅ Yes — completely prevents scroll from bubbling to body</td></tr><tr><td>Blocks all interaction with background</td><td>❌ No — user can still tap or scroll outside the popup</td><td>✅ Yes — background is locked, no interaction is possible</td></tr><tr><td>Optimized for touch gestures</td><td>✅ Yes — allows smooth, native-like scroll inside popup</td><td>❌ No — disables all touch input for background (including scroll)</td></tr></tbody></table></div><br><h2 id=conclusion>Conclusion</h2><p>If your goal is to keep scrolling limited to a popup area while allowing the page underneath to stay intact, <code>overscroll-behavior</code> is a clean solution. But if you want to fully lock down the background—especially on mobile—then applying <code>.disable_scroll</code> to the body is the way to go.</p><p>Think of them as two levels of control:</p><ul><li><strong>Light touch?</strong> Use <code>overscroll-behavior</code>.</li><li><strong>Full lock?</strong> Use <code>.disable_scroll</code>.</li></ul><p>Choose based on the kind of user experience you’re designing for. And if you’ve got tips or use cases of your own, feel free to share!</p><br><div class=btn_wrap><a target=_blank href=https://ctrlcccv.github.io/ctrlcccv-demo/2023-03-13-popup-scroll/>Live Example Preview</a></div></section><footer class=article-footer><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code-en/2025-05-28-tab-menu/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-28-tab-menu-en.webp loading=lazy data-key=2025-05-28-tab-menu data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-28-tab-menu-en.webp></div><div class=article-details><h2 class=article-title>How to Build Multiple Tab Menus Using One jQuery Function</h2></div></a></article><article class=has-image><a href=/code/2025-05-27-tab-menu/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-27-tab-menu.webp loading=lazy data-key=2025-05-27-tab-menu data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-27-tab-menu.webp></div><div class=article-details><h2 class=article-title>jQuery - 클래스 하나로 탭메뉴 여러개 구현하기</h2></div></a></article><article class=has-image><a href=/code-en/2025-05-26-responsive-viewer/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-26-responsive-viewer-en.webp loading=lazy data-key=2025-05-26-responsive-viewer data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-26-responsive-viewer-en.webp></div><div class=article-details><h2 class=article-title>How to Build a Responsive Device Preview with jQuery</h2></div></a></article><article class=has-image><a href=/code/2025-05-23-responsive-viewer/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-23-responsive-viewer.webp loading=lazy data-key=2025-05-23-responsive-viewer data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-23-responsive-viewer.webp></div><div class=article-details><h2 class=article-title>jQuery - iframe 기반 반응형 웹사이트 미리보기 툴 만들기</h2></div></a></article><article class=has-image><a href=/code-en/2025-05-22-auto-format/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-20-auto-format-en.webp loading=lazy data-key=2025-05-22-auto-format data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-20-auto-format-en.webp></div><div class=article-details><h2 class=article-title>How to Build Custom Input Auto Format with jQuery</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Variable Behavior on 컨트롤 + CCCV</title><link>https://ctrlcccv.github.io/tags/variable-behavior/</link><description>Recent content in Variable Behavior on 컨트롤 + CCCV</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 01 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ctrlcccv.github.io/tags/variable-behavior/index.xml" rel="self" type="application/rss+xml"/><item><title>JavaScript var vs let vs const: Why Avoid var?</title><link>https://ctrlcccv.github.io/code-en/2025-06-27-let-const/</link><pubDate>Fri, 27 Jun 2025 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code-en/2025-06-27-let-const/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-27-let-const-en.webp" alt="Featured image of post JavaScript var vs let vs const: Why Avoid var?
+" />&lt;blockquote>
+&lt;p>💡 If you&amp;rsquo;re familiar with JavaScript &lt;a class="link" href="https://ctrlcccv.github.io/code-en/2025-06-17-javascript-scope/" >Scope&lt;/a>, you&amp;rsquo;ll find this article much easier to follow.&lt;/p>&lt;/blockquote>
+&lt;p>When you&amp;rsquo;re starting with JavaScript, you quickly discover there are three different ways to declare variables: &lt;code>var&lt;/code>, &lt;code>let&lt;/code>, and &lt;code>const&lt;/code>. Confusing, right?&lt;/p>
+&lt;p>I remember my early days as a JavaScript developer, wondering why we even need three different keywords for something as simple as creating a variable. I used &lt;code>var&lt;/code> for everything because it seemed to work just fine. But then I ran into weird bugs where variables had unexpected values, loops behaved strangely, and my code became harder to debug. Everything changed when I realized that &lt;code>var&lt;/code> has some quirky behaviors that can trip up even experienced developers.&lt;/p>
+&lt;p>In this article, I&amp;rsquo;ll show you exactly why modern JavaScript developers avoid &lt;code>var&lt;/code> and when to choose &lt;code>let&lt;/code> vs &lt;code>const&lt;/code> instead. We&amp;rsquo;ll cover everything from the fundamental differences between these declarations to practical strategies for writing cleaner, more predictable code.&lt;/p>
+&lt;br>
+&lt;h2 id="whats-the-difference-between-var-let-and-const">What&amp;rsquo;s the difference between var, let, and const?
+&lt;/h2>&lt;blockquote>
+&lt;p>&lt;strong>The TL;DR: JavaScript Variable Declarations&lt;/strong>&lt;/p>
+&lt;p>&lt;code>var&lt;/code> creates function-scoped variables with unpredictable behavior, while &lt;code>let&lt;/code> and &lt;code>const&lt;/code> create block-scoped variables that are safer and more predictable. &lt;code>let&lt;/code> allows reassignment, &lt;code>const&lt;/code> prevents it. Modern JavaScript developers use &lt;code>const&lt;/code> by default and &lt;code>let&lt;/code> when reassignment is needed, avoiding &lt;code>var&lt;/code> entirely.&lt;/p>&lt;/blockquote>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="why-var-creates-unexpected-problems">Why var Creates Unexpected Problems
+&lt;/h2>&lt;h3 id="the-function-scope-problem">The Function Scope Problem
+&lt;/h3>&lt;p>&lt;code>var&lt;/code> creates function-scoped variables, not block-scoped ones. This means the variable exists throughout the entire function, not just within the block where it&amp;rsquo;s declared.&lt;/p>
+&lt;p>Here&amp;rsquo;s where this gets confusing:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">demonstrateVarScope&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">message&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hello from inside the if block&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">message&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// This works! But it shouldn&amp;#39;t feel right.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">demonstrateVarScope&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// Logs: &amp;#34;Hello from inside the if block&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>In most programming languages, you&amp;rsquo;d expect &lt;code>message&lt;/code> to only exist inside the &lt;code>if&lt;/code> block. But with &lt;code>var&lt;/code>, it&amp;rsquo;s accessible throughout the entire function. This behavior makes code harder to understand and debug.&lt;/p>
+&lt;p>&lt;strong>In a production environment&lt;/strong>, this can lead to accidentally overwriting variables or accessing data from the wrong scope.&lt;/p>
+&lt;br>
+&lt;h3 id="the-loop-nightmare">The Loop Nightmare
+&lt;/h3>&lt;p>Here&amp;rsquo;s a classic example that breaks many developers&amp;rsquo; expectations:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">createButtons&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Button&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;clicked&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Always logs &amp;#34;Button 3 clicked&amp;#34;!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">createButtons&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You&amp;rsquo;d expect this to log &amp;ldquo;Button 0 clicked&amp;rdquo;, &amp;ldquo;Button 1 clicked&amp;rdquo;, &amp;ldquo;Button 2 clicked&amp;rdquo;. Instead, it logs &amp;ldquo;Button 3 clicked&amp;rdquo; three times!&lt;/p>
+&lt;p>&lt;strong>Why does this happen?&lt;/strong> The &lt;code>var i&lt;/code> variable is shared across all iterations because it&amp;rsquo;s function-scoped. By the time the setTimeout callbacks run, the loop has finished and &lt;code>i&lt;/code> equals 3.&lt;/p>
+&lt;br>
+&lt;h3 id="the-hoisting-confusion">The Hoisting Confusion
+&lt;/h3>&lt;p>Hoisting is JavaScript&amp;rsquo;s behavior of moving variable declarations to the top of their scope during compilation. With &lt;code>var&lt;/code>, this creates confusing situations:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined (not an error!)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Alice&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;Alice&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The JavaScript engine treats this code as if you wrote:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">userName&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Hoisted to the top
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Alice&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;Alice&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>While this doesn&amp;rsquo;t crash your program, it can mask logic errors. You might think a variable isn&amp;rsquo;t declared when it actually is—it just doesn&amp;rsquo;t have a value yet.&lt;/p>
+&lt;p>For a deeper dive into how hoisting works, check out our &lt;a class="link" href="https://ctrlcccv.github.io/code-en/2025-06-23-javascript-hoisting" >detailed guide on JavaScript hoisting&lt;/a>.&lt;/p>
+&lt;br>
+&lt;h2 id="let-block-scoped-and-predictable">let: Block-Scoped and Predictable
+&lt;/h2>&lt;p>&lt;code>let&lt;/code> was introduced in ES6 to solve the problems with &lt;code>var&lt;/code>. It creates block-scoped variables that behave more predictably.&lt;/p>
+&lt;br>
+&lt;h3 id="how-let-fixes-the-scope-problem">How let Fixes the Scope Problem
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">demonstrateLetScope&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">message&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hello from inside the if block&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">message&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// This works fine
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// console.log(message); // ReferenceError: message is not defined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>With &lt;code>let&lt;/code>, the variable only exists within the block where it&amp;rsquo;s declared. This makes your code more predictable and prevents accidental access to variables outside their intended scope.&lt;/p>
+&lt;br>
+&lt;h3 id="solving-the-loop-problem">Solving the Loop Problem
+&lt;/h3>&lt;p>Remember our broken loop example? Here&amp;rsquo;s how &lt;code>let&lt;/code> fixes it:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">createButtons&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">// Changed var to let
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Button&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;clicked&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Now logs 0, 1, 2 correctly!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">createButtons&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>Why this works&lt;/strong>: &lt;code>let&lt;/code> creates a new binding for each iteration of the loop. Each iteration gets its own copy of &lt;code>i&lt;/code>, so the callbacks capture the correct value.&lt;/p>
+&lt;br>
+&lt;h3 id="preventing-redeclaration-mistakes">Preventing Redeclaration Mistakes
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">apiKey&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;abc123&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">apiKey&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;xyz789&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// SyntaxError: Identifier &amp;#39;apiKey&amp;#39; has already been declared
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>This immediate feedback during development helps catch typos and prevents accidentally creating duplicate variables.&lt;/p>
+&lt;br>
+&lt;h3 id="let-and-hoisting">let and Hoisting
+&lt;/h3>&lt;p>Unlike &lt;code>var&lt;/code>, variables declared with &lt;code>let&lt;/code> are hoisted but not initialized. This creates a &amp;ldquo;temporal dead zone&amp;rdquo;:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">score&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError: Cannot access &amp;#39;score&amp;#39; before initialization
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">score&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>This behavior is actually helpful—it forces you to declare variables before using them, preventing many common bugs.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="const-for-values-that-dont-change">const: For Values That Don&amp;rsquo;t Change
+&lt;/h2>&lt;p>&lt;code>const&lt;/code> creates variables that cannot be reassigned after declaration. It&amp;rsquo;s perfect for values that should remain constant throughout your program.&lt;/p>
+&lt;br>
+&lt;h3 id="basic-const-usage">Basic const Usage
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">PI&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">3.14159&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">companyName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;TechCorp&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">maxRetries&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// PI = 3.14; // TypeError: Assignment to constant variable.
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="the-important-rule-immediate-assignment-required">The Important Rule: Immediate Assignment Required
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">userName&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// SyntaxError: Missing initializer in const declaration
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Alice&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Too late!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Alice&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// ✅ Correct approach
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You must assign a value to &lt;code>const&lt;/code> variables when you declare them. This requirement helps prevent bugs where variables might be used before they&amp;rsquo;re properly initialized.&lt;/p>
+&lt;br>
+&lt;h3 id="const-with-objects-and-arrays">const with Objects and Arrays
+&lt;/h3>&lt;p>Here&amp;rsquo;s where &lt;code>const&lt;/code> gets interesting—it prevents reassignment of the variable, but not modification of the object&amp;rsquo;s contents:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">userProfile&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Alice&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">age&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">preferences&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ These all work - we&amp;#39;re modifying the object&amp;#39;s contents
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">userProfile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">age&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">26&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">userProfile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">preferences&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;dark mode&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">userProfile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">email&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;alice@example.com&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userProfile&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// { name: &amp;#34;Alice&amp;#34;, age: 26, preferences: [&amp;#34;dark mode&amp;#34;], email: &amp;#34;alice@example.com&amp;#34; }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ This doesn&amp;#39;t work - we&amp;#39;re trying to reassign the variable
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// userProfile = { name: &amp;#34;Bob&amp;#34; }; // TypeError: Assignment to constant variable.
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Think of &lt;code>const&lt;/code> as creating a permanent pointer to a container. You can change what&amp;rsquo;s inside the container, but you can&amp;rsquo;t point to a different container.&lt;/p>
+&lt;br>
+&lt;h3 id="const-with-arrays">const with Arrays
+&lt;/h3>&lt;p>The same principle applies to arrays:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">shoppingCart&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ These operations work fine
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">shoppingCart&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;apples&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">shoppingCart&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;bananas&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">shoppingCart&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;oranges&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Replace &amp;#34;apples&amp;#34; with &amp;#34;oranges&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">shoppingCart&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [&amp;#34;oranges&amp;#34;, &amp;#34;bananas&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ This doesn&amp;#39;t work
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// shoppingCart = [&amp;#34;completely new array&amp;#34;]; // TypeError
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h2 id="when-to-use-each-declaration-type">When to Use Each Declaration Type
+&lt;/h2>&lt;h3 id="step-by-step-decision-guide">Step-by-Step Decision Guide
+&lt;/h3>&lt;p>Follow this decision process every time you declare a variable:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Start with &lt;code>const&lt;/code>&lt;/strong> - Ask yourself: &amp;ldquo;Will this variable need to be reassigned?&amp;rdquo;&lt;/li>
+&lt;li>&lt;strong>If no reassignment needed&lt;/strong> - Use &lt;code>const&lt;/code> (most common case)&lt;/li>
+&lt;li>&lt;strong>If reassignment is needed&lt;/strong> - Use &lt;code>let&lt;/code>&lt;/li>
+&lt;li>&lt;strong>Never use &lt;code>var&lt;/code>&lt;/strong> - It has no advantages over &lt;code>let&lt;/code> and &lt;code>const&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;br>
+&lt;h3 id="practical-examples-const-vs-let">Practical Examples: const vs let
+&lt;/h3>&lt;p>&lt;strong>Use &lt;code>const&lt;/code> for:&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Configuration values
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">API_BASE_URL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;https://api.example.com&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">MAX_FILE_SIZE&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">5&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">1024&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">1024&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 5MB
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// DOM elements (the reference won&amp;#39;t change)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">submitButton&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;submit&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">userForm&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;#user-form&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Objects and arrays that will be modified but not reassigned
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">gameState&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">score&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">level&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">lives&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">todoList&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>Use &lt;code>let&lt;/code> for:&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Loop counters
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Process items
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Variables that will be reassigned
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">currentUser&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">isLoggedIn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">attempts&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Conditional assignments
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">message&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">isSuccess&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">message&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Operation completed successfully&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">message&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Something went wrong&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="common-mistake-using-let-when-const-would-work">Common Mistake: Using let When const Would Work
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ Unnecessary use of let
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">items&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;item1&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;item2&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ Better - use const since we&amp;#39;re not reassigning
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">items&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;item1&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;item2&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Remember: You&amp;rsquo;re not reassigning the &lt;code>items&lt;/code> variable—you&amp;rsquo;re modifying its contents. &lt;code>const&lt;/code> is the right choice here.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="comparison-var-vs-let-vs-const">Comparison: var vs let vs const
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Feature&lt;/th>
+&lt;th>var&lt;/th>
+&lt;th>let&lt;/th>
+&lt;th>const&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Scope&lt;/strong>&lt;/td>
+&lt;td>Function-scoped&lt;/td>
+&lt;td>Block-scoped&lt;/td>
+&lt;td>Block-scoped&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Reassignment&lt;/strong>&lt;/td>
+&lt;td>✅ Allowed&lt;/td>
+&lt;td>✅ Allowed&lt;/td>
+&lt;td>❌ Not allowed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Redeclaration&lt;/strong>&lt;/td>
+&lt;td>✅ Allowed (problematic)&lt;/td>
+&lt;td>❌ Not allowed&lt;/td>
+&lt;td>❌ Not allowed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Hoisting behavior&lt;/strong>&lt;/td>
+&lt;td>Hoisted and initialized with &lt;code>undefined&lt;/code>&lt;/td>
+&lt;td>Hoisted but not initialized (temporal dead zone)&lt;/td>
+&lt;td>Hoisted but not initialized (temporal dead zone)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Initialization&lt;/strong>&lt;/td>
+&lt;td>Optional at declaration&lt;/td>
+&lt;td>Optional at declaration&lt;/td>
+&lt;td>Required at declaration&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Best practice&lt;/strong>&lt;/td>
+&lt;td>❌ Avoid completely&lt;/td>
+&lt;td>✅ Use when reassignment needed&lt;/td>
+&lt;td>✅ Use by default&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;br>
+&lt;h2 id="migrating-from-var-to-modern-declarations">Migrating from var to Modern Declarations
+&lt;/h2>&lt;h3 id="step-by-step-migration-process">Step-by-Step Migration Process
+&lt;/h3>&lt;p>If you&amp;rsquo;re working with legacy code that uses &lt;code>var&lt;/code>, here&amp;rsquo;s how to safely migrate:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Replace &lt;code>var&lt;/code> with &lt;code>const&lt;/code> first&lt;/strong> - Start by changing all &lt;code>var&lt;/code> declarations to &lt;code>const&lt;/code>&lt;/li>
+&lt;li>&lt;strong>Fix assignment errors&lt;/strong> - If you get &amp;ldquo;Assignment to constant variable&amp;rdquo; errors, change those specific cases to &lt;code>let&lt;/code>&lt;/li>
+&lt;li>&lt;strong>Check for scope issues&lt;/strong> - Test thoroughly to ensure no functionality breaks due to scope changes&lt;/li>
+&lt;li>&lt;strong>Update loop variables&lt;/strong> - Pay special attention to loop counters and variables used in callbacks&lt;/li>
+&lt;/ol>
+&lt;br>
+&lt;h3 id="migration-example">Migration Example
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ Original code with var
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Alice&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">isLoggedIn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">config&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">theme&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;dark&amp;#34;&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">items&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Later in the code...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Bob&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Reassignment happens
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">isLoggedIn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Reassignment happens
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">config&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">language&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;en&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Object modification, no reassignment
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;item1&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Array modification, no reassignment
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ Step 1: Replace all var with const
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Alice&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">isLoggedIn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">config&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">theme&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;dark&amp;#34;&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">items&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ Step 2: Change to let where reassignment occurs
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Alice&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// ← Changed to let (reassignment needed)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">isLoggedIn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// ← Changed to let (reassignment needed)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">config&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">theme&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;dark&amp;#34;&lt;/span> &lt;span class="p">};&lt;/span> &lt;span class="c1">// ← Stays const (only modified, not reassigned)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">items&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[];&lt;/span> &lt;span class="c1">// ← Stays const (only modified, not reassigned)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Now the reassignments work properly
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Bob&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// ✅ Works with let
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">isLoggedIn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// ✅ Works with let
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">config&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">language&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;en&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// ✅ Works with const (modifying contents)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;item1&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ✅ Works with const (modifying contents)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h2 id="frequently-asked-questions">Frequently Asked Questions
+&lt;/h2>&lt;h3 id="should-i-ever-use-var-in-modern-javascript">Should I ever use var in modern JavaScript?
+&lt;/h3>&lt;p>No, there&amp;rsquo;s no reason to use &lt;code>var&lt;/code> in modern JavaScript. &lt;code>let&lt;/code> and &lt;code>const&lt;/code> provide all the functionality of &lt;code>var&lt;/code> with better, more predictable behavior. Even when maintaining legacy code, it&amp;rsquo;s worth updating &lt;code>var&lt;/code> declarations to improve code reliability.&lt;/p>
+&lt;br>
+&lt;h3 id="when-should-i-choose-let-over-const">When should I choose let over const?
+&lt;/h3>&lt;p>Use &lt;code>let&lt;/code> when you need to reassign the variable after its initial declaration. Common cases include loop counters, variables that get different values based on conditions, and accumulator variables. If you find yourself using &lt;code>let&lt;/code> everywhere, step back and see if some of those variables could be &lt;code>const&lt;/code> instead.&lt;/p>
+&lt;br>
+&lt;h3 id="can-i-modify-arrays-and-objects-declared-with-const">Can I modify arrays and objects declared with const?
+&lt;/h3>&lt;p>Yes! &lt;code>const&lt;/code> prevents reassignment of the variable itself, not modification of its contents. You can push to arrays, change object properties, and call any methods that modify the data structure. You just can&amp;rsquo;t assign a completely new array or object to the variable.&lt;/p>
+&lt;br>
+&lt;h3 id="what-happens-if-i-try-to-use-a-let-or-const-variable-before-declaring-it">What happens if I try to use a let or const variable before declaring it?
+&lt;/h3>&lt;p>You&amp;rsquo;ll get a &lt;code>ReferenceError&lt;/code>. Unlike &lt;code>var&lt;/code>, which gets hoisted and initialized with &lt;code>undefined&lt;/code>, &lt;code>let&lt;/code> and &lt;code>const&lt;/code> are in a &amp;ldquo;temporal dead zone&amp;rdquo; until their declaration is reached. This actually helps catch bugs early in development.&lt;/p>
+&lt;br>
+&lt;h3 id="is-there-a-performance-difference-between-var-let-and-const">Is there a performance difference between var, let, and const?
+&lt;/h3>&lt;p>The performance difference is negligible in modern JavaScript engines. Any micro-optimizations are far outweighed by the benefits of cleaner, more maintainable code. Focus on writing predictable code rather than worrying about tiny performance differences.&lt;/p>
+&lt;br>
+&lt;h2 id="key-takeaways">Key Takeaways
+&lt;/h2>&lt;p>Here are the most important points to remember about JavaScript variable declarations:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Default to &lt;code>const&lt;/code>&lt;/strong> - Start with &lt;code>const&lt;/code> for every variable and only change to &lt;code>let&lt;/code> if you need reassignment&lt;/li>
+&lt;li>&lt;strong>Use &lt;code>let&lt;/code> for reassignment&lt;/strong> - When a variable&amp;rsquo;s value needs to change, &lt;code>let&lt;/code> provides block scope without &lt;code>var&lt;/code>&amp;rsquo;s problems&lt;/li>
+&lt;li>&lt;strong>Avoid &lt;code>var&lt;/code> entirely&lt;/strong> - It has unpredictable scoping behavior and no advantages over modern alternatives&lt;/li>
+&lt;li>&lt;strong>Think about scope&lt;/strong> - Block-scoped variables (&lt;code>let&lt;/code> and &lt;code>const&lt;/code>) are easier to reason about than function-scoped ones (&lt;code>var&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="conclusion">Conclusion
+&lt;/h2>&lt;p>Making the switch from &lt;code>var&lt;/code> to &lt;code>let&lt;/code> and &lt;code>const&lt;/code> isn&amp;rsquo;t just about following modern JavaScript trends—it&amp;rsquo;s about writing code that behaves predictably and fails fast when something goes wrong.&lt;/p>
+&lt;p>By defaulting to &lt;code>const&lt;/code> and reaching for &lt;code>let&lt;/code> when you need mutability, you&amp;rsquo;ll write cleaner code that&amp;rsquo;s easier to debug and maintain. Your future self will thank you when you&amp;rsquo;re not hunting down mysterious bugs caused by variable scope issues.&lt;/p>
+&lt;p>&lt;strong>What&amp;rsquo;s Next&lt;/strong>: Now that you understand how to properly declare variables with &lt;code>let&lt;/code> and &lt;code>const&lt;/code>, it&amp;rsquo;s time to dive deeper into how JavaScript actually stores and handles different types of data. In our next article, we&amp;rsquo;ll explore &lt;a class="link" href="https://ctrlcccv.github.io/code-en/2025-07-01-primitive-reference/" >JavaScript Primitive vs Reference Types&lt;/a> - a fundamental concept that explains why copying an array sometimes changes the original, and why identical objects compare as false. Understanding these memory management concepts will transform how you think about variable assignment and help you avoid some of the most confusing bugs in JavaScript development.&lt;/p>
+&lt;p>Ready to modernize your variable declarations? Try building a small project using only &lt;code>let&lt;/code> and &lt;code>const&lt;/code>—you&amp;rsquo;ll be surprised how much clearer your code becomes! What&amp;rsquo;s your experience with JavaScript variable declarations? Have you encountered any tricky bugs with &lt;code>var&lt;/code> that &lt;code>let&lt;/code> or &lt;code>const&lt;/code> would have prevented?&lt;/p>
+&lt;br></description></item></channel></rss>

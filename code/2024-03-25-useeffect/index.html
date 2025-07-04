@@ -1,0 +1,393 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="React useEffect 가이드 및 실전 예제입니다. 의존성 배열을 통한 실행 시점 제어와 클린업 함수의 활용법까지, 실제 개발에 바로 적용 가능한 예제와 함께 알아봅니다. "><title>React - useEffect 가이드 및 실전 예제</title><link rel=canonical href=https://ctrlcccv.github.io/code/2024-03-25-useeffect/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="React - useEffect 가이드 및 실전 예제\n"><meta property='og:description' content="React useEffect 가이드 및 실전 예제입니다. 의존성 배열을 통한 실행 시점 제어와 클린업 함수의 활용법까지, 실제 개발에 바로 적용 가능한 예제와 함께 알아봅니다. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2024-03-25-useeffect/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='React Hooks'><meta property='article:tag' content='useEffect'><meta property='article:tag' content='사이드 이펙트'><meta property='article:tag' content='클린업 함수'><meta property='article:published_time' content='2024-03-25T00:00:00+00:00'><meta property='article:modified_time' content='2025-05-23T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp'><meta name=twitter:title content="React - useEffect 가이드 및 실전 예제\n"><meta name=twitter:description content="React useEffect 가이드 및 실전 예제입니다. 의존성 배열을 통한 실행 시점 제어와 클린업 함수의 활용법까지, 실제 개발에 바로 적용 가능한 예제와 함께 알아봅니다. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"React - useEffect 가이드 및 실전 예제\n","datePublished":"2024-03-25T00:00:00Z","dateModified":"2025-05-23T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="React - useEffect 가이드 및 실전 예제" href=https://ctrlcccv.github.io/code/2024-03-25-useeffect/ hreflang=ko><link rel=alternate title="React useEffect Tutorial: From Basic to Advanced" href=https://ctrlcccv.github.io/code-en/2025-05-30-useeffect/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#useeffect-기본-개념>useEffect 기본 개념</a><ol><li><a href=#일상-속-예시로-이해하기>일상 속 예시로 이해하기</a></li></ol></li><li><a href=#의존성-배열-사용하기>의존성 배열 사용하기</a></li><li><a href=#클린업-함수-정리-함수>클린업 함수 (정리 함수)</a></li><li><a href=#실제-활용-예시>실제 활용 예시</a><ol><li><a href=#데이터-가져오기>데이터 가져오기</a></li></ol></li><li><a href=#마운트와-언마운트-이해하기>마운트와 언마운트 이해하기</a></li><li><a href=#주의사항-및-팁>주의사항 및 팁</a><ol><li><a href=#1-무한-루프-방지하기>1. 무한 루프 방지하기</a></li><li><a href=#2-의존성-배열-올바르게-설정하기>2. 의존성 배열 올바르게 설정하기</a></li><li><a href=#3-여러-개의-useeffect-분리하기>3. 여러 개의 useEffect 분리하기</a></li></ol></li><li><a href=#결론>결론</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2024-03-25-useeffect/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp loading=lazy alt="Featured image of post React - useEffect 가이드 및 실전 예제
+"></a></div><div class=article-details><header class=article-category><a href=/categories/react/>React</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2024-03-25-useeffect/>React - useEffect 가이드 및 실전 예제</a></h2><h3 class=article-subtitle>React useEffect 가이드 및 실전 예제입니다. 의존성 배열을 통한 실행 시점 제어와 클린업 함수의 활용법까지, 실제 개발에 바로 적용 가능한 예제와 함께 알아봅니다.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2024-03-25T00:00:00Z>3월 25, 2024</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>7 분 정도</time></div></footer></div></header><section class=article-content><p>웹 개발을 하다 보면 페이지가 처음 로드된 후에 특정 작업을 실행해야 할 때가 있지 않나요?</p><p>React로 컴포넌트를 개발할 때 화면이 그려진 후에 추가 작업을 실행해야 하는 경우가 자주 있습니다. 예를 들어 서버에서 데이터를 가져오거나, 이벤트 리스너를 등록하거나, 타이머를 설정하는 등의 작업을 페이지 로드 이후에 실행해야 할 때가 많습니다. 이런 작업들을 처리할 수 있게 해주는 것이 바로 React의 useEffect 훅입니다. 이번 글에서는 누구나 쉽게 이해할 수 있도록 useEffect의 기본 개념부터 실제 활용법까지 자세히 알아보겠습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=useeffect-기본-개념>useEffect 기본 개념</h2><p>useEffect는 React 컴포넌트에서 &ldquo;부수 효과"를 처리하기 위한 훅입니다. 일상생활에 비유하자면, 방에 들어간 후에 불을 켜거나, 카페에 도착한 후 음료를 주문하는 것과 같습니다. 즉, 어떤 행동(렌더링)이 완료된 후에 수행하는 추가 작업이라고 생각하면 됩니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useEffect</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>MyComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 화면이 그려진 후에 실행될 코드
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;컴포넌트가 화면에 나타났습니다!&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// 의존성 배열
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span><span class=nx>Hello</span> <span class=nx>World</span><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>기본 구조</strong><br><span class=txt>useEffect는 두 가지 인자를 받습니다. 첫 번째는 실행할 함수, 두 번째는 의존성 배열입니다.<br>위 예제에서는 빈 배열([])을 전달했기 때문에 컴포넌트가 처음 나타날 때만 실행됩니다.</span></p></li><li><p><strong>실행 시점</strong><br><span class=txt>useEffect 내부의 코드는 화면 렌더링이 완료된 후에 실행됩니다.<br>이는 자바스크립트의 이벤트 리스너와 비슷한 역할을 합니다.</span></p></li></ul><br><h3 id=일상-속-예시로-이해하기>일상 속 예시로 이해하기</h3><ul><li><strong>방 입장</strong>: 방에 들어간 후(컴포넌트 렌더링)에 불을 켜고(useEffect), 나갈 때(언마운트) 불을 끕니다(클린업 함수).</li><li><strong>식당</strong>: 식당에 자리 잡은 후(렌더링)에 음식을 주문합니다(useEffect). 식사를 마치고 떠날 때(언마운트) 계산을 합니다(클린업 함수).</li><li><strong>여행</strong>: 여행지에 도착한 후(렌더링)에 관광을 시작합니다(useEffect). 떠나기 전에(언마운트) 짐을 챙깁니다(클린업 함수).</li></ul><p>실제 사용 예를 생각해보면, 페이지가 로드된 후 서버에서 데이터를 가져오거나, 화면 크기가 변경될 때 레이아웃을 조정하거나, 타이머를 설정하는 등 다양한 상황에서 useEffect를 활용할 수 있습니다.</p><br><h2 id=의존성-배열-사용하기>의존성 배열 사용하기</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useEffect</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>Counter</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>setCount</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 1. 빈 배열: 컴포넌트가 처음 나타날 때만 실행
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;컴포넌트가 마운트되었습니다.&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 2. 의존성 배열에 값 포함: 해당 값이 변경될 때마다 실행
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`카운트가 </span><span class=si>${</span><span class=nx>count</span><span class=si>}</span><span class=sb>로 변경되었습니다.`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nb>document</span><span class=p>.</span><span class=nx>title</span> <span class=o>=</span> <span class=sb>`현재 카운트: </span><span class=si>${</span><span class=nx>count</span><span class=si>}</span><span class=sb>`</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>count</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 3. 의존성 배열 생략: 모든 상태 변화마다 실행 (거의 사용하지 않음)
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;매번 렌더링될 때마다 실행됩니다.&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>});</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>현재</span> <span class=nx>카운트</span><span class=o>:</span> <span class=p>{</span><span class=nx>count</span><span class=p>}&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setCount</span><span class=p>(</span><span class=nx>count</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)}&gt;</span><span class=nx>증가</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>빈 배열 ([])의 의미</strong><br><span class=txt>컴포넌트가 처음 화면에 나타날 때(마운트될 때) 딱 한 번만 실행됩니다.<br>페이지를 처음 로드할 때 한 번만 실행해야 하는 초기화 코드에 적합합니다.</span></p></li><li><p><strong>의존성 배열에 값 넣기 ([count])</strong><br><span class=txt>배열 안에 넣은 값(count)이 변경될 때마다 useEffect가 다시 실행됩니다.<br>특정 값의 변화를 감지하여 작업을 수행할 때 사용합니다.</span></p></li><li><p><strong>의존성 배열 생략</strong><br><span class=txt>의존성 배열을 생략하면 컴포넌트가 리렌더링될 때마다 useEffect가 실행됩니다.<br>이 방식은 성능 문제를 일으킬 수 있어 꼭 필요한 경우가 아니면 사용하지 않는 게 좋습니다.</span></p></li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=클린업-함수-정리-함수>클린업 함수 (정리 함수)</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useEffect</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>WindowResizeTracker</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>windowWidth</span><span class=p>,</span> <span class=nx>setWindowWidth</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=nb>window</span><span class=p>.</span><span class=nx>innerWidth</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 이벤트 핸들러 함수
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>function</span> <span class=nx>handleResize</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>setWindowWidth</span><span class=p>(</span><span class=nb>window</span><span class=p>.</span><span class=nx>innerWidth</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 이벤트 리스너 등록
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nb>window</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;resize&#39;</span><span class=p>,</span> <span class=nx>handleResize</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 클린업 함수: 컴포넌트가 언마운트될 때 실행
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nb>window</span><span class=p>.</span><span class=nx>removeEventListener</span><span class=p>(</span><span class=s1>&#39;resize&#39;</span><span class=p>,</span> <span class=nx>handleResize</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>현재</span> <span class=nx>창</span> <span class=nx>너비</span><span class=o>:</span> <span class=p>{</span><span class=nx>windowWidth</span><span class=p>}</span><span class=nx>px</span><span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>{</span><span class=nx>windowWidth</span> <span class=o>&lt;</span> <span class=mi>768</span> <span class=o>?</span> <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>모바일</span> <span class=nx>화면입니다</span><span class=p>.&lt;/</span><span class=nt>p</span><span class=p>&gt;</span> <span class=o>:</span> <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>데스크톱</span> <span class=nx>화면입니다</span><span class=p>.&lt;/</span><span class=nt>p</span><span class=p>&gt;}</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>클린업 함수란?</strong><br><span class=txt>useEffect 내에서 return 함수는 컴포넌트가 사라지거나(언마운트) 다음 useEffect가 실행되기 전에 호출됩니다.<br>이 함수는 &ldquo;정리"를 담당하며, 메모리 누수를 방지하고 리소스를 효율적으로 관리합니다.</span></p></li><li><p><strong>언제 필요한가요?</strong><br><span class=txt>이벤트 리스너, 타이머(setInterval, setTimeout), 외부 구독(웹소켓 등), 애니메이션 등 지속적으로 실행되는 작업을 등록했을 때 필요합니다.<br>컴포넌트가 사라져도 이런 작업들은 계속 실행될 수 있어 반드시 정리해줘야 합니다.</span></p></li></ul><br><h2 id=실제-활용-예시>실제 활용 예시</h2><h3 id=데이터-가져오기>데이터 가져오기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useEffect</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>ProductList</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>products</span><span class=p>,</span> <span class=nx>setProducts</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([]);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>loading</span><span class=p>,</span> <span class=nx>setLoading</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>true</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 데이터 가져오기
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>fetch</span><span class=p>(</span><span class=s1>&#39;https://api.example.com/products&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>response</span> <span class=p>=&gt;</span> <span class=nx>response</span><span class=p>.</span><span class=nx>json</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>      <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>data</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>setProducts</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>setLoading</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=p>})</span>
+</span></span><span class=line><span class=cl>      <span class=p>.</span><span class=k>catch</span><span class=p>(</span><span class=nx>error</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=s1>&#39;데이터를 가져오는 중 오류 발생:&#39;</span><span class=p>,</span> <span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>setLoading</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=p>});</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// 빈 배열: 컴포넌트가 처음 마운트될 때만 실행
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>h2</span><span class=p>&gt;</span><span class=nx>상품</span> <span class=nx>목록</span><span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>{</span><span class=nx>loading</span> <span class=o>?</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>로딩</span> <span class=nx>중</span><span class=p>...&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>)</span> <span class=o>:</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>{</span><span class=nx>products</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>product</span> <span class=p>=&gt;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>li</span> <span class=na>key</span><span class=o>=</span><span class=p>{</span><span class=nx>product</span><span class=p>.</span><span class=nx>id</span><span class=p>}&gt;{</span><span class=nx>product</span><span class=p>.</span><span class=nx>name</span><span class=p>}</span> <span class=o>-</span> <span class=p>{</span><span class=nx>product</span><span class=p>.</span><span class=nx>price</span><span class=p>}</span><span class=nx>원</span><span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>))}</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>)}</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>데이터 로딩 관리</strong><br><span class=txt>컴포넌트가 처음 나타날 때 API 요청을 보내고, 데이터가 로드될 때까지 로딩 상태를 표시합니다.<br>데이터를 한 번만 가져오기 위해 의존성 배열을 빈 배열([])로 설정했습니다.</span></p></li><li><p><strong>사용자 경험 개선</strong><br><span class=txt>로딩 상태를 통해 사용자에게 데이터를 가져오는 중임을 알려주고, 데이터가 준비되면 목록을 표시합니다.<br>이는 사용자가 빈 화면을 보는 시간을 줄여 더 나은 경험을 제공합니다.</span></p></li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=마운트와-언마운트-이해하기>마운트와 언마운트 이해하기</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useEffect</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 자식 컴포넌트
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>ModalPopup</span><span class=p>({</span> <span class=nx>onClose</span> <span class=p>})</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 🔵 마운트 시: 모달이 열리면 스크롤 막기
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>overflow</span> <span class=o>=</span> <span class=s1>&#39;hidden&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;모달이 열렸습니다!&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 🔴 언마운트 시: 모달이 닫히면 스크롤 다시 허용
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>overflow</span> <span class=o>=</span> <span class=s1>&#39;auto&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;모달이 닫혔습니다!&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>className</span><span class=o>=</span><span class=s>&#34;modal-overlay&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>div</span> <span class=na>className</span><span class=o>=</span><span class=s>&#34;modal-content&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>h2</span><span class=p>&gt;</span><span class=nx>환영합니다</span><span class=o>!</span><span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>이것은</span> <span class=nx>모달</span> <span class=nx>팝업입니다</span><span class=p>.&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>onClose</span><span class=p>}&gt;</span><span class=nx>닫기</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 부모 컴포넌트
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>App</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>showModal</span><span class=p>,</span> <span class=nx>setShowModal</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>className</span><span class=o>=</span><span class=s>&#34;app&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;</span><span class=nx>useEffect</span> <span class=nx>예제</span><span class=o>:</span> <span class=nx>마운트와</span> <span class=nx>언마운트</span><span class=p>&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setShowModal</span><span class=p>(</span><span class=kc>true</span><span class=p>)}&gt;</span><span class=nx>모달</span> <span class=nx>열기</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      
+</span></span><span class=line><span class=cl>      <span class=p>{</span><span class=cm>/* showModal이 true일 때만 ModalPopup 컴포넌트가 화면에 나타남 */</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>      <span class=p>{</span><span class=nx>showModal</span> <span class=o>&amp;&amp;</span> <span class=p>&lt;</span><span class=nt>ModalPopup</span> <span class=na>onClose</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setShowModal</span><span class=p>(</span><span class=kc>false</span><span class=p>)}</span> <span class=p>/&gt;}</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>마운트란?</strong><br><span class=txt>컴포넌트가 화면에 처음 나타나는 것을 의미합니다.<br>위 예제에서는 &lsquo;모달 열기&rsquo; 버튼을 클릭하여 ModalPopup 컴포넌트를 마운트합니다.</span></p></li><li><p><strong>언마운트란?</strong><br><span class=txt>컴포넌트가 화면에서 사라지는 것을 의미합니다.<br>모달의 &lsquo;닫기&rsquo; 버튼을 클릭하면 ModalPopup 컴포넌트가 언마운트됩니다.</span></p></li><li><p><strong>클린업 함수의 역할</strong><br><span class=txt>모달이 열릴 때(마운트) 페이지 스크롤을 막고, 닫힐 때(언마운트) 스크롤을 다시 허용합니다.<br>이렇게 하면 모달이 열려 있는 동안 배경 콘텐츠가 스크롤되는 것을 방지할 수 있습니다.</span></p></li></ul><br><h2 id=주의사항-및-팁>주의사항 및 팁</h2><h3 id=1-무한-루프-방지하기>1. 무한 루프 방지하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=c1>// ❌ 잘못된 방법: 무한 루프 발생
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>setCount</span><span class=p>(</span><span class=nx>count</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span> <span class=c1>// count 변경 → 리렌더링 → 다시 useEffect 실행 → count 변경 ...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>},</span> <span class=p>[</span><span class=nx>count</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 올바른 방법: 특정 조건에서만 상태 업데이트
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span><span class=nx>someCondition</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setCount</span><span class=p>(</span><span class=nx>count</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>someCondition</span><span class=p>]);</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=2-의존성-배열-올바르게-설정하기>2. 의존성 배열 올바르게 설정하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=c1>// ❌ 잘못된 방법: 의존성 배열에 필요한 값이 누락됨
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>name</span><span class=p>);</span> <span class=c1>// name을 사용하지만 의존성 배열에 포함되지 않음
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>},</span> <span class=p>[]);</span> <span class=c1>// 의존성 배열이 비어 있어 name이 변경되어도 effect가 실행되지 않음
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 올바른 방법: 사용하는 모든 변수를 의존성 배열에 포함
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>name</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=p>[</span><span class=nx>name</span><span class=p>]);</span> <span class=c1>// name이 변경될 때마다 effect가 실행됨
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=3-여러-개의-useeffect-분리하기>3. 여러 개의 useEffect 분리하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=c1>// ❌ 잘못된 방법: 하나의 useEffect에서 여러 작업 처리
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// 데이터 가져오기
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>fetchData</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 이벤트 리스너 등록
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nb>window</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;resize&#39;</span><span class=p>,</span> <span class=nx>handleResize</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>window</span><span class=p>.</span><span class=nx>removeEventListener</span><span class=p>(</span><span class=s1>&#39;resize&#39;</span><span class=p>,</span> <span class=nx>handleResize</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=p>[</span><span class=nx>fetchData</span><span class=p>]);</span> <span class=c1>// fetchData가 변경될 때마다 이벤트 리스너도 다시 등록됨
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 올바른 방법: 관련 있는 작업끼리 분리
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>fetchData</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=p>[</span><span class=nx>fetchData</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nb>window</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;resize&#39;</span><span class=p>,</span> <span class=nx>handleResize</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>window</span><span class=p>.</span><span class=nx>removeEventListener</span><span class=p>(</span><span class=s1>&#39;resize&#39;</span><span class=p>,</span> <span class=nx>handleResize</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=p>[]);</span> <span class=c1>// 컴포넌트가 마운트될 때만 등록, 언마운트될 때만 제거
+</span></span></span></code></pre></td></tr></table></div></div><br><h2 id=결론>결론</h2><p>이번 글에서는 React의 useEffect 훅에 대해 알아보았습니다. useEffect는 컴포넌트가 렌더링된 후에 부수 효과(side effects)를 실행할 수 있게 해주는 강력한 도구입니다. 의존성 배열을 활용하여 효과가 실행되는 시점을 제어하고, 클린업 함수를 통해 리소스를 효율적으로 관리할 수 있습니다.</p><p>useEffect를 활용하면 이벤트 리스너 등록, 애니메이션 효과, 외부 API 호출, 로컬 스토리지 활용 등 다양한 작업을 수행할 수 있습니다. 특히 기존 자바스크립트 라이브러리의 이벤트와 비슷하지만, 더 세밀하고 유연하게 각 UI 요소마다 다른 효과를 적용할 수 있다는 장점이 있습니다.</p><p>이 글이 React의 useEffect를 이해하는 데 도움이 되었길 바랍니다. 실제 프로젝트에 적용해보면서 더 깊이 이해해 보세요. 다른 궁금한 점이나 추가 예제가 필요하시면 댓글로 남겨주세요!</p><br></section><footer class=article-footer><section class=article-tags><a href=/tags/react-hooks/>React Hooks</a>
+<a href=/tags/useeffect/>UseEffect</a>
+<a href=/tags/%EC%82%AC%EC%9D%B4%EB%93%9C-%EC%9D%B4%ED%8E%99%ED%8A%B8/>사이드 이펙트</a>
+<a href=/tags/%ED%81%B4%EB%A6%B0%EC%97%85-%ED%95%A8%EC%88%98/>클린업 함수</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section><section class=article-lastmod><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time datetime=2025-05-23T00:00:00Z>마지막 수정: 5월 23, 2025 00:00 UTC</time></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code-en/2025-05-30-useeffect/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp loading=lazy data-key=2025-05-30-useeffect data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-25-useEffect.webp></div><div class=article-details><h2 class=article-title>React useEffect Tutorial: From Basic to Advanced</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-13-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-13-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback: 5 Key Differences Every Developer Must Know</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-11-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp loading=lazy data-key=2025-06-11-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp></div><div class=article-details><h2 class=article-title>Stop React Re-renders with useCallback Hook</h2></div></a></article><article class=has-image><a href=/code/2025-06-10-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-10-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback 차이점 쉽게 이해하기</h2></div></a></article><article class=has-image><a href=/code/2025-06-06-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp loading=lazy data-key=2025-06-06-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp></div><div class=article-details><h2 class=article-title>React useCallback으로 불필요한 리렌더링 방지하기</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

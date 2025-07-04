@@ -1,0 +1,417 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="React의 useRef 훅을 활용하여 DOM 요소에 직접 접근하고 렌더링과 무관하게 값을 유지하는 방법을 알아봅니다. 실무에서 자주 사용되는 예제와 함께 useRef의 모든 것을 정리했습니다. "><title>React - useRef 훅으로 DOM 직접 제어하고 값 유지하기</title><link rel=canonical href=https://ctrlcccv.github.io/code/2025-06-02-react-useref/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="React - useRef 훅으로 DOM 직접 제어하고 값 유지하기\n"><meta property='og:description' content="React의 useRef 훅을 활용하여 DOM 요소에 직접 접근하고 렌더링과 무관하게 값을 유지하는 방법을 알아봅니다. 실무에서 자주 사용되는 예제와 함께 useRef의 모든 것을 정리했습니다. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2025-06-02-react-useref/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='React Hooks'><meta property='article:tag' content='useRef'><meta property='article:tag' content='DOM 제어'><meta property='article:published_time' content='2025-06-02T00:00:00+00:00'><meta property='article:modified_time' content='2025-06-02T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-02-react-useref.webp'><meta name=twitter:title content="React - useRef 훅으로 DOM 직접 제어하고 값 유지하기\n"><meta name=twitter:description content="React의 useRef 훅을 활용하여 DOM 요소에 직접 접근하고 렌더링과 무관하게 값을 유지하는 방법을 알아봅니다. 실무에서 자주 사용되는 예제와 함께 useRef의 모든 것을 정리했습니다. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-02-react-useref.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"React - useRef 훅으로 DOM 직접 제어하고 값 유지하기\n","datePublished":"2025-06-02T00:00:00Z","dateModified":"2025-06-02T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="React - useRef 훅으로 DOM 직접 제어하고 값 유지하기" href=https://ctrlcccv.github.io/code/2025-06-02-react-useref/ hreflang=ko><link rel=alternate title="React useRef: How to Access DOM Elements Directly" href=https://ctrlcccv.github.io/code-en/2025-06-03-react-useref/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#useref의-기본-개념>useRef의 기본 개념</a><ol><li><a href=#useref는-무엇인가요>useRef는 무엇인가요?</a></li><li><a href=#어떻게-사용하나요>어떻게 사용하나요?</a></li><li><a href=#실제-사용-예시>실제 사용 예시</a></li></ol></li><li><a href=#useref의-특별한-점>useRef의 특별한 점</a></li><li><a href=#실무에서의-useref-활용-예시>실무에서의 useRef 활용 예시</a><ol><li><a href=#1-무한-스크롤-구현하기>1. 무한 스크롤 구현하기</a></li><li><a href=#2-비디오-플레이어-제어하기>2. 비디오 플레이어 제어하기</a></li></ol></li><li><a href=#usestate-vs-useref---언제-무엇을-써야-할까>useState vs useRef - 언제 무엇을 써야 할까?</a></li><li><a href=#useref-사용-시-주의사항>useRef 사용 시 주의사항</a></li><li><a href=#useref-핵심-개념-퀴즈>useRef 핵심 개념 퀴즈!</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2025-06-02-react-useref/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-02-react-useref.webp loading=lazy alt="Featured image of post React - useRef 훅으로 DOM 직접 제어하고 값 유지하기
+"></a></div><div class=article-details><header class=article-category><a href=/categories/react/>React</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2025-06-02-react-useref/>React - useRef 훅으로 DOM 직접 제어하고 값 유지하기</a></h2><h3 class=article-subtitle>React의 useRef 훅을 활용하여 DOM 요소에 직접 접근하고 렌더링과 무관하게 값을 유지하는 방법을 알아봅니다. 실무에서 자주 사용되는 예제와 함께 useRef의 모든 것을 정리했습니다.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-06-02T00:00:00Z>6월 02, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>6 분 정도</time></div></footer></div></header><section class=article-content><p>웹 앱에서 특정 요소에 포커스를 주거나 스크롤 위치를 조정할 때마다 복잡한 코드를 작성해야 해서 불편했던 적이 있으신가요?</p><p>React는 가상 DOM을 통해 UI를 효율적으로 관리하지만, 때로는 실제 DOM 요소에 직접 접근하거나 컴포넌트가 리렌더링되어도 값을 그대로 유지해야 할 때가 있습니다. 이런 상황에서 useRef 훅은 아주 유용한 해결책이 됩니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=useref의-기본-개념>useRef의 기본 개념</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useRef</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>입력폼</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// useRef 생성
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>입력칸Ref</span> <span class=o>=</span> <span class=nx>useRef</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>포커스하기</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// useRef로 DOM 요소에 직접 접근
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>입력칸Ref</span><span class=p>.</span><span class=nx>current</span><span class=p>.</span><span class=nx>focus</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>input</span> <span class=na>ref</span><span class=o>=</span><span class=p>{</span><span class=nx>입력칸Ref</span><span class=p>}</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;text&#34;</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>포커스하기</span><span class=p>}&gt;</span><span class=nx>입력칸</span> <span class=nx>포커스</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=useref는-무엇인가요>useRef는 무엇인가요?</h3><p>useRef는 DOM 요소를 직접 제어할 수 있게 해주는 도구입니다. 일상생활에 비유하자면, TV를 보면서 채널을 바꾸고 싶을 때 리모컨을 사용하는 것과 같습니다. React에서는 이 &lsquo;리모컨&rsquo;(useRef)을 사용해 원하는 요소를 찾아 제어할 수 있습니다.</p><br><h3 id=어떻게-사용하나요>어떻게 사용하나요?</h3><ol><li>먼저 <code>useRef()</code>로 리모컨을 만듭니다. (예: <code>const 입력칸Ref = useRef(null)</code>)</li><li>DOM 요소에 이 리모컨을 연결합니다. (예: <code>&lt;input ref={입력칸Ref} /></code>)</li><li>이제 <code>입력칸Ref.current</code>로 언제든지 그 요소를 제어할 수 있습니다.</li></ol><br><h3 id=실제-사용-예시>실제 사용 예시</h3><p>위 예제에서는 버튼을 클릭하면 입력칸에 자동으로 커서가 위치하도록 만들었습니다. 마치 리모컨의 버튼을 눌러 TV의 특정 기능을 실행하는 것처럼, <code>입력칸Ref.current.focus()</code>는 입력칸에 커서를 위치시키라는 명령을 내리는 것입니다.</p><br><h2 id=useref의-특별한-점>useRef의 특별한 점</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useRef</span><span class=p>,</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useEffect</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>렌더링카운터</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// 일반 변수 - 리렌더링될 때마다 초기화됨
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kd>let</span> <span class=nx>일반변수</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// useState - 값 변경 시 리렌더링 발생
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=p>[</span><span class=nx>상태값</span><span class=p>,</span> <span class=nx>상태변경</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// useRef - 리렌더링 시에도 값 유지, 값 변경해도 리렌더링 하지 않음
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>렌더링횟수</span> <span class=o>=</span> <span class=nx>useRef</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>일반변수</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>렌더링횟수</span><span class=p>.</span><span class=nx>current</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`일반변수: </span><span class=si>${</span><span class=nx>일반변수</span><span class=si>}</span><span class=sb>, 렌더링횟수: </span><span class=si>${</span><span class=nx>렌더링횟수</span><span class=p>.</span><span class=nx>current</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>});</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>렌더링</span> <span class=nx>횟수</span><span class=o>:</span> <span class=p>{</span><span class=nx>렌더링횟수</span><span class=p>.</span><span class=nx>current</span><span class=p>}&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>상태값</span><span class=o>:</span> <span class=p>{</span><span class=nx>상태값</span><span class=p>}&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>상태변경</span><span class=p>(</span><span class=nx>상태값</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)}&gt;</span><span class=nx>상태</span> <span class=nx>증가</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>값 유지하기</strong><br><span class=txt>일반 변수와 달리, useRef로 생성한 객체의 .current 값은 컴포넌트가 리렌더링되어도 초기화되지 않습니다.
+위 예제에서 버튼을 클릭하면 컴포넌트가 리렌더링되고, 일반변수는 다시 0이 되지만 렌더링횟수.current는 계속 증가합니다.</span></p></li><li><p><strong>화면 업데이트 없음</strong><br><span class=txt>useState와 달리 useRef의 .current 값이 변경되어도 컴포넌트가 리렌더링되지 않습니다.
+이는 성능 최적화에 도움이 되지만, 값이 바뀌어도 화면에 바로 반영되지 않는다는 점을 주의해야 합니다.</span></p></li><li><p><strong>가상 DOM과의 관계</strong><br><span class=txt>useRef를 통한 DOM 제어는 React의 가상 DOM 시스템을 우회합니다.
+이것이 바로 useRef 값이 변경되어도 리렌더링이 발생하지 않는 이유입니다.</span></p></li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=실무에서의-useref-활용-예시>실무에서의 useRef 활용 예시</h2><h3 id=1-무한-스크롤-구현하기>1. 무한 스크롤 구현하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>ProductList</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>lastItemRef</span> <span class=o>=</span> <span class=nx>useRef</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>products</span><span class=p>,</span> <span class=nx>setProducts</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([]);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>page</span><span class=p>,</span> <span class=nx>setPage</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// IntersectionObserver로 마지막 아이템 감지
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>observer</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>IntersectionObserver</span><span class=p>((</span><span class=nx>entries</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span><span class=nx>entries</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>isIntersecting</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 마지막 아이템이 화면에 보이면 다음 페이지 로드
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>setPage</span><span class=p>(</span><span class=nx>prevPage</span> <span class=p>=&gt;</span> <span class=nx>prevPage</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>lastItemRef</span><span class=p>.</span><span class=nx>current</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>observer</span><span class=p>.</span><span class=nx>observe</span><span class=p>(</span><span class=nx>lastItemRef</span><span class=p>.</span><span class=nx>current</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>observer</span><span class=p>.</span><span class=nx>disconnect</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>products</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>{</span><span class=nx>products</span><span class=p>.</span><span class=nx>map</span><span class=p>((</span><span class=nx>product</span><span class=p>,</span> <span class=nx>index</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span> <span class=na>key</span><span class=o>=</span><span class=p>{</span><span class=nx>product</span><span class=p>.</span><span class=nx>id</span><span class=p>}&gt;</span>
+</span></span><span class=line><span class=cl>          <span class=p>{</span><span class=cm>/* 마지막 아이템에 ref 연결 */</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>ref</span><span class=o>=</span><span class=p>{</span><span class=nx>index</span> <span class=o>===</span> <span class=nx>products</span><span class=p>.</span><span class=nx>length</span> <span class=o>-</span> <span class=mi>1</span> <span class=o>?</span> <span class=nx>lastItemRef</span> <span class=o>:</span> <span class=kc>null</span><span class=p>}&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span><span class=nx>product</span><span class=p>.</span><span class=nx>name</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>))}</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><strong>무한 스크롤 효과적으로 구현하기</strong><br><span class=txt>useRef와 IntersectionObserver를 함께 사용하면 무한 스크롤을 쉽게 구현할 수 있습니다.
+마지막 상품이 화면에 보이면 자동으로 다음 페이지를 불러옵니다.</span></li></ul><br><h3 id=2-비디오-플레이어-제어하기>2. 비디오 플레이어 제어하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>VideoPlayer</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>videoRef</span> <span class=o>=</span> <span class=nx>useRef</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>isPlaying</span><span class=p>,</span> <span class=nx>setIsPlaying</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>togglePlay</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>videoRef</span><span class=p>.</span><span class=nx>current</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=c1>// 비디오 요소의 내장 메서드로 재생/정지 제어
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=k>if</span> <span class=p>(</span><span class=nx>isPlaying</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>videoRef</span><span class=p>.</span><span class=nx>current</span><span class=p>.</span><span class=nx>pause</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>videoRef</span><span class=p>.</span><span class=nx>current</span><span class=p>.</span><span class=nx>play</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>      <span class=nx>setIsPlaying</span><span class=p>(</span><span class=o>!</span><span class=nx>isPlaying</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>className</span><span class=o>=</span><span class=s>&#34;video-container&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>video</span> 
+</span></span><span class=line><span class=cl>        <span class=na>ref</span><span class=o>=</span><span class=p>{</span><span class=nx>videoRef</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>        <span class=na>src</span><span class=o>=</span><span class=s>&#34;/video-path.mp4&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>onEnded</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setIsPlaying</span><span class=p>(</span><span class=kc>false</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl>      <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>togglePlay</span><span class=p>}&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span><span class=nx>isPlaying</span> <span class=o>?</span> <span class=s1>&#39;일시정지&#39;</span> <span class=o>:</span> <span class=s1>&#39;재생&#39;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><strong>미디어 요소 직접 제어하기</strong><br><span class=txt>비디오나 오디오 같은 미디어 요소를 useRef로 참조하면 play(), pause() 같은 내장 메서드를 직접 호출할 수 있습니다.</span></li></ul><br><h2 id=usestate-vs-useref---언제-무엇을-써야-할까>useState vs useRef - 언제 무엇을 써야 할까?</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>StateComparisonComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// 화면에 보이는 값 - useState 사용
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=p>[</span><span class=nx>inputValue</span><span class=p>,</span> <span class=nx>setInputValue</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=s2>&#34;&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>isSubmitted</span><span class=p>,</span> <span class=nx>setIsSubmitted</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 화면에 보이지 않는 내부 값 - useRef 사용
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>submitCountRef</span> <span class=o>=</span> <span class=nx>useRef</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>timerRef</span> <span class=o>=</span> <span class=nx>useRef</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>handleSubmit</span> <span class=o>=</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setIsSubmitted</span><span class=p>(</span><span class=kc>true</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>submitCountRef</span><span class=p>.</span><span class=nx>current</span> <span class=o>+=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 3초 후 알림 숨기기
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>clearTimeout</span><span class=p>(</span><span class=nx>timerRef</span><span class=p>.</span><span class=nx>current</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>timerRef</span><span class=p>.</span><span class=nx>current</span> <span class=o>=</span> <span class=nx>setTimeout</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>setIsSubmitted</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=mi>3000</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>form</span> <span class=na>onSubmit</span><span class=o>=</span><span class=p>{</span><span class=nx>handleSubmit</span><span class=p>}&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>input</span> 
+</span></span><span class=line><span class=cl>        <span class=na>value</span><span class=o>=</span><span class=p>{</span><span class=nx>inputValue</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=na>onChange</span><span class=o>=</span><span class=p>{(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setInputValue</span><span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>value</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl>      <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>button</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;submit&#34;</span><span class=p>&gt;</span><span class=nx>제출</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>{</span><span class=nx>isSubmitted</span> <span class=o>&amp;&amp;</span> <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>제출되었습니다</span><span class=o>!</span><span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;}</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>form</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>선택 기준</strong><br><span class=txt>가장 중요한 질문은 &ldquo;이 값이 바뀔 때 화면을 다시 그려야 하나요?&ldquo;입니다.
+화면에 직접 표시되는 값(inputValue, isSubmitted)은 useState를 씁니다.
+내부 로직에만 필요한 값(submitCount, timerID)은 useRef를 쓰는 것이 효율적입니다.</span></p></li><li><p><strong>렌더링 최적화</strong><br><span class=txt>불필요한 리렌더링을 줄이려면 화면에 바로 반영할 필요가 없는 값은 useRef로 관리하는 것이 좋습니다.
+특히 타이머ID나 이전 상태값 저장 같은 경우에는 useRef가 더 적합합니다.</span></p></li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=useref-사용-시-주의사항>useRef 사용 시 주의사항</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>CautionComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>refValue</span> <span class=o>=</span> <span class=nx>useRef</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>stateValue</span><span class=p>,</span> <span class=nx>setStateValue</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 잘못된 사용: 렌더링 중에 .current 값 변경
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>refValue</span><span class=p>.</span><span class=nx>current</span> <span class=o>+=</span> <span class=mi>1</span><span class=p>;</span> <span class=c1>// 이렇게 하면 안 됩니다!
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>handleIncrement</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 올바른 사용: 이벤트 핸들러 안에서 .current 값 변경
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>refValue</span><span class=p>.</span><span class=nx>current</span> <span class=o>+=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>refValue</span><span class=p>.</span><span class=nx>current</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 값을 화면에 표시하려면 상태를 업데이트해야 함
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>setStateValue</span><span class=p>(</span><span class=nx>refValue</span><span class=p>.</span><span class=nx>current</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>참조값</span><span class=o>:</span> <span class=p>{</span><span class=nx>refValue</span><span class=p>.</span><span class=nx>current</span><span class=p>}&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>상태값</span><span class=o>:</span> <span class=p>{</span><span class=nx>stateValue</span><span class=p>}&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>handleIncrement</span><span class=p>}&gt;</span><span class=nx>증가</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>렌더링 중 .current 값 바꾸지 않기</strong><br><span class=txt>컴포넌트가 렌더링되는 중에 직접 .current 값을 바꾸면 예상치 못한 문제가 생길 수 있습니다.
+.current 값은 이벤트 핸들러나 useEffect 안에서만 바꿔야 합니다.</span></p></li><li><p><strong>화면 업데이트 주의</strong><br><span class=txt>useRef 값이 변경되어도 화면이 자동으로 업데이트되지 않습니다.
+useRef 값을 화면에 반영하려면 useState와 함께 사용해야 합니다.</span></p></li><li><p><strong>DOM 요소 존재 확인하기</strong><br><span class=txt>DOM 요소에 접근하기 전에 그 요소가 실제로 있는지 확인해야 합니다.
+항상 if (refValue.current) { /* 로직 수행 */ } 형태로 안전하게 접근하세요.</span></p></li></ul><br><h2 id=useref-핵심-개념-퀴즈>useRef 핵심 개념 퀴즈!</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useRef</span><span class=p>,</span> <span class=nx>useEffect</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>CounterComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>setCount</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>refCount</span> <span class=o>=</span> <span class=nx>useRef</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>countButtonRef</span> <span class=o>=</span> <span class=nx>useRef</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>handleStateClick</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setCount</span><span class=p>(</span><span class=nx>count</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>handleRefClick</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>refCount</span><span class=p>.</span><span class=nx>current</span> <span class=o>+=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;refCount:&#34;</span><span class=p>,</span> <span class=nx>refCount</span><span class=p>.</span><span class=nx>current</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;컴포넌트 렌더링됨&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>});</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>p</span><span class=o>&gt;</span><span class=nx>State</span> <span class=nx>카운트</span><span class=o>:</span> <span class=p>{</span><span class=nx>count</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>p</span><span class=o>&gt;</span><span class=nx>Ref</span> <span class=nx>카운트</span><span class=o>:</span> <span class=p>{</span><span class=nx>refCount</span><span class=p>.</span><span class=nx>current</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/p&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>button</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>handleStateClick</span><span class=p>}</span><span class=o>&gt;</span><span class=nx>State</span> <span class=nx>증가</span><span class=o>&lt;</span><span class=err>/button&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=o>&lt;</span><span class=nx>button</span> <span class=nx>ref</span><span class=o>=</span><span class=p>{</span><span class=nx>countButtonRef</span><span class=p>}</span> <span class=nx>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>handleRefClick</span><span class=p>}</span><span class=o>&gt;</span><span class=nx>Ref</span> <span class=nx>증가</span><span class=o>&lt;</span><span class=err>/button&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=o>&lt;</span><span class=err>/div&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>위 코드를 살펴보고 아래 질문에 답해보세요.</p><p>&lsquo;Ref 증가&rsquo; 버튼을 5번 클릭했을 때, 화면에 보이는 &ldquo;Ref 카운트&rdquo; 값은 얼마일까요?</p><div class=quiz-wrap><span>정답 입력 : <input type=text class=quiz-input></span></div><details><summary>정답 확인하기</summary><p>정답: 0</p><br><p>이 문제는 useRef의 가장 중요한 특성을 이해하고 있는지 확인하는 문제입니다.</p><p>&lsquo;Ref 증가&rsquo; 버튼을 클릭하면 내부적으로 refCount.current 값은 5까지 증가하지만, 화면에는 여전히 초기값인 0이 표시됩니다. 이것이 useRef의 핵심 특성을 보여주는 부분입니다.</p><ol><li><p><strong>값이 변해도 화면이 갱신되지 않습니다.</strong>
+<span class=txt>useRef의 .current 값이 변경되어도 컴포넌트는 다시 렌더링되지 않습니다. 따라서 console.log에는 증가된 값이 출력되지만, 화면에는 반영되지 않습니다.</span></p></li><li><p><strong>DOM 업데이트와의 관계</strong>
+<span class=txt>React의 가상 DOM 시스템은 state가 변경될 때만 화면을 업데이트합니다. useRef는 이 메커니즘 밖에서 작동하므로, 값이 변경되어도 화면에 자동으로 반영되지 않습니다.</span></p></li></ol></details><br></section><footer class=article-footer><section class=article-tags><a href=/tags/react-hooks/>React Hooks</a>
+<a href=/tags/useref/>UseRef</a>
+<a href=/tags/dom-%EC%A0%9C%EC%96%B4/>DOM 제어</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code-en/2025-06-03-react-useref/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-02-react-useref.webp loading=lazy data-key=2025-06-03-react-useref data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-02-react-useref.webp></div><div class=article-details><h2 class=article-title>React useRef: How to Access DOM Elements Directly</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-13-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-13-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback: 5 Key Differences Every Developer Must Know</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-11-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp loading=lazy data-key=2025-06-11-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp></div><div class=article-details><h2 class=article-title>Stop React Re-renders with useCallback Hook</h2></div></a></article><article class=has-image><a href=/code/2025-06-10-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-10-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback 차이점 쉽게 이해하기</h2></div></a></article><article class=has-image><a href=/code/2025-06-06-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp loading=lazy data-key=2025-06-06-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp></div><div class=article-details><h2 class=article-title>React useCallback으로 불필요한 리렌더링 방지하기</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

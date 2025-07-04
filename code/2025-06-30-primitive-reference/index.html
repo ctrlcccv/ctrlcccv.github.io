@@ -1,0 +1,340 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="자바스크립트의 원시타입과 참조타입은 무엇이 다를까요? 메모리 저장 방식, 불변성과 가변성, 얕은 복사와 깊은 복사의 차이까지 핵심 개념을 코드 예제로 쉽게 정리해 드립니다. "><title>JavaScript 원시타입 vs 참조타입: 차이점과 복사 방식 총정리</title><link rel=canonical href=https://ctrlcccv.github.io/code/2025-06-30-primitive-reference/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="JavaScript 원시타입 vs 참조타입: 차이점과 복사 방식 총정리\n"><meta property='og:description' content="자바스크립트의 원시타입과 참조타입은 무엇이 다를까요? 메모리 저장 방식, 불변성과 가변성, 얕은 복사와 깊은 복사의 차이까지 핵심 개념을 코드 예제로 쉽게 정리해 드립니다. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2025-06-30-primitive-reference/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='자바스크립트 기초'><meta property='article:tag' content='원시타입'><meta property='article:tag' content='참조타입'><meta property='article:published_time' content='2025-06-30T00:00:00+00:00'><meta property='article:modified_time' content='2025-06-30T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-30-primitive-reference.webp'><meta name=twitter:title content="JavaScript 원시타입 vs 참조타입: 차이점과 복사 방식 총정리\n"><meta name=twitter:description content="자바스크립트의 원시타입과 참조타입은 무엇이 다를까요? 메모리 저장 방식, 불변성과 가변성, 얕은 복사와 깊은 복사의 차이까지 핵심 개념을 코드 예제로 쉽게 정리해 드립니다. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-30-primitive-reference.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"JavaScript 원시타입 vs 참조타입: 차이점과 복사 방식 총정리\n","datePublished":"2025-06-30T00:00:00Z","dateModified":"2025-06-30T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="자바스크립트 원시타입 vs 참조타입: 차이점과 복사 방식 총정리" href=https://ctrlcccv.github.io/code/2025-06-30-primitive-reference/ hreflang=ko><link rel=alternate title="JavaScript Primitive vs Reference: The Bug You Didn't Expect" href=https://ctrlcccv.github.io/code-en/2025-07-01-primitive-reference/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#자바스크립트-원시타입과-참조타입-핵심-요약>자바스크립트 원시타입과 참조타입 핵심 요약</a></li><li><a href=#원시타입primitive-type-완전-정리>원시타입(Primitive Type) 완전 정리</a><ol><li><a href=#원시타입의-7가지-종류>원시타입의 7가지 종류</a></li><li><a href=#원시타입의-핵심-특징>원시타입의 핵심 특징</a></li><li><a href=#원시타입의-불변성immutability>원시타입의 불변성(Immutability)</a></li></ol></li><li><a href=#참조타입reference-type-완전-정리>참조타입(Reference Type) 완전 정리</a><ol><li><a href=#참조타입의-3가지-종류>참조타입의 3가지 종류</a></li><li><a href=#참조타입의-핵심-특징>참조타입의 핵심 특징</a></li><li><a href=#배열에서도-마찬가지예요><strong>배열에서도 마찬가지예요</strong></a></li></ol></li><li><a href=#원시타입-vs-참조타입-주요-차이점>원시타입 vs 참조타입 주요 차이점</a><ol><li><a href=#실무에서-자주-실수하는-상황>실무에서 자주 실수하는 상황</a></li></ol></li><li><a href=#안전한-복사-방법-배우기>안전한 복사 방법 배우기</a><ol><li><a href=#얕은-복사-vs-깊은-복사란>얕은 복사 vs 깊은 복사란?</a></li><li><a href=#1단계-객체-얕은-복사>1단계: 객체 얕은 복사</a></li><li><a href=#2단계-배열-얕은-복사>2단계: 배열 얕은 복사</a></li><li><a href=#3단계-깊은-복사가-필요한-경우>3단계: 깊은 복사가 필요한 경우</a></li></ol></li><li><a href=#함수에서-매개변수-전달하기>함수에서 매개변수 전달하기</a><ol><li><a href=#원시타입을-함수에-전달하기>원시타입을 함수에 전달하기</a></li><li><a href=#참조타입을-함수에-전달하기>참조타입을 함수에 전달하기</a></li></ol></li><li><a href=#자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</a><ol><li><a href=#const로-선언한-객체도-변경할-수-있나요>const로 선언한 객체도 변경할 수 있나요?</a></li><li><a href=#배열과-객체를-비교할-때-왜-false가-나오나요>배열과 객체를 비교할 때 왜 false가 나오나요?</a></li><li><a href=#깊은-복사를-해야-하는-경우는-언제인가요>깊은 복사를 해야 하는 경우는 언제인가요?</a></li><li><a href=#함수도-참조타입인가요>함수도 참조타입인가요?</a></li></ol></li><li><a href=#마무리-원시타입과-참조타입-이제-마스터하셨나요>마무리: 원시타입과 참조타입, 이제 마스터하셨나요?</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2025-06-30-primitive-reference/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-30-primitive-reference.webp loading=lazy alt="Featured image of post JavaScript 원시타입 vs 참조타입: 차이점과 복사 방식 총정리
+"></a></div><div class=article-details><header class=article-category><a href=/categories/javascript/>JavaScript</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2025-06-30-primitive-reference/>JavaScript 원시타입 vs 참조타입: 차이점과 복사 방식 총정리</a></h2><h3 class=article-subtitle>자바스크립트의 원시타입과 참조타입은 무엇이 다를까요? 메모리 저장 방식, 불변성과 가변성, 얕은 복사와 깊은 복사의 차이까지 핵심 개념을 코드 예제로 쉽게 정리해 드립니다.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-06-30T00:00:00Z>6월 30, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>8 분 정도</time></div></footer></div></header><section class=article-content><p>자바스크립트를 배우다 보면 변수를 복사했는데 한쪽을 바꿨더니 다른 쪽도 같이 바뀌는 상황을 경험하게 되죠.</p><p>저도 처음 자바스크립트를 배울 때 이런 일로 몇 시간씩 헤맸던 기억이 생생해요. 분명 새로운 변수에 복사했는데 왜 원본까지 바뀌는 건지 도저히 이해할 수 없었거든요. 그런데 원시타입과 참조타입의 차이를 알고 나니 모든 게 명확해졌어요.</p><p>이 글에서는 자바스크립트의 핵심 개념인 원시타입과 참조타입의 차이점을 완전히 이해할 수 있도록 도와드릴게요.</p><p>초보자도 쉽게 이해할 수 있는 간단한 예제부터 실무에서 자주 마주치는 상황까지, 단계별로 차근차근 살펴보겠습니다.</p><br><h2 id=자바스크립트-원시타입과-참조타입-핵심-요약>자바스크립트 원시타입과 참조타입 핵심 요약</h2><p><strong>원시타입</strong>(Primitive Type)은 데이터 자체를 변수에 저장하는 타입이고, <strong>참조타입</strong>(Reference Type)은 데이터가 저장된 메모리 주소를 변수에 저장하는 타입입니다. 이 차이로 인해 복사 방식과 데이터 변경 시 동작이 완전히 달라집니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=원시타입primitive-type-완전-정리>원시타입(Primitive Type) 완전 정리</h2><p>원시타입은 자바스크립트에서 가장 기본이 되는 데이터 타입입니다.</p><p>실제 프로젝트에서는 변수 할당과 값 복사가 매 순간 일어나기 때문에, 원시타입의 동작 방식을 정확히 아는 것이 중요해요.</p><br><h3 id=원시타입의-7가지-종류>원시타입의 7가지 종류</h3><ol><li><strong>문자열</strong> (<code>string</code>) - 텍스트 데이터</li><li><strong>숫자</strong> (<code>number</code>) - 정수와 소수</li><li><strong>큰 정수</strong> (<code>bigint</code>) - 매우 큰 정수</li><li><strong>참/거짓</strong> (<code>boolean</code>) - true 또는 false</li><li><strong>정의되지 않음</strong> (<code>undefined</code>) - 값이 할당되지 않은 상태</li><li><strong>빈 값</strong> (<code>null</code>) - 의도적으로 비어 있음을 나타냄</li><li><strong>고유 식별자</strong> (<code>symbol</code>) - 유일한 식별자</li></ol><br><h3 id=원시타입의-핵심-특징>원시타입의 핵심 특징</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ 원시타입: 데이터 자체가 복사됨
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>studentName</span> <span class=o>=</span> <span class=s2>&#34;김철수&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>copyName</span> <span class=o>=</span> <span class=nx>studentName</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>studentName</span> <span class=o>=</span> <span class=s2>&#34;이영희&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>studentName</span><span class=p>);</span> <span class=c1>// &#34;이영희&#34;  
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>copyName</span><span class=p>);</span>    <span class=c1>// &#34;김철수&#34; (원본과 독립적)
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>왜 이렇게 동작할까요?</strong>
+원시타입은 변수에 실제 데이터를 직접 저장하기 때문입니다. <code>copyName = studentName</code>에서 &ldquo;김철수"라는 문자열 자체가 복사되어, 두 변수는 완전히 독립적인 데이터를 가지게 됩니다.</p><br><h3 id=원시타입의-불변성immutability>원시타입의 불변성(Immutability)</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ 원시타입은 변경할 수 없어요
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>greeting</span> <span class=o>=</span> <span class=s2>&#34;안녕하세요&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>greeting</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;A&#34;</span><span class=p>;</span>  <span class=c1>// 시도해봐도 변경되지 않음
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeting</span><span class=p>);</span> <span class=c1>// &#34;안녕하세요&#34; (그대로)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 새로운 값을 할당하는 방식으로만 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>greeting</span> <span class=o>=</span> <span class=s2>&#34;Hello&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeting</span><span class=p>);</span> <span class=c1>// &#34;Hello&#34;
+</span></span></span></code></pre></td></tr></table></div></div><p>원시타입은 한 번 생성되면 그 값을 바꿀 수 없어요. 새로운 값을 할당하면 기존 데이터를 수정하는 것이 아니라, 새로운 데이터를 만들어서 변수에 할당하는 거예요.</p><br><h2 id=참조타입reference-type-완전-정리>참조타입(Reference Type) 완전 정리</h2><p>참조타입을 이해하려면 먼저 <strong>메모리 주소</strong> 개념을 알아야 해요.</p><p><strong>메모리 주소란?</strong><br>컴퓨터의 메모리(RAM)에서 데이터가 저장된 위치를 나타내는 고유한 번호예요. 마치 우리가 집 주소를 통해 집을 찾는 것처럼, 컴퓨터도 메모리 주소를 통해 데이터를 찾습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 쉬운 비유로 이해하기
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>원시타입</span> <span class=o>=</span> <span class=s2>&#34;김철수&#34;</span><span class=p>;</span>        <span class=c1>// 직접 이름을 저장
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>참조타입</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;김철수&#34;</span> <span class=p>};</span> <span class=c1>// 객체가 있는 &#39;주소&#39;를 저장
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// 원시타입: 변수에 &#34;김철수&#34;라는 데이터 자체가 저장됨
+</span></span></span><span class=line><span class=cl><span class=c1>// 참조타입: 변수에 &#34;123번지&#34;같은 주소가 저장되고, 그 주소에 가면 객체가 있음
+</span></span></span></code></pre></td></tr></table></div></div><p>실제 프로젝트에서는 객체나 배열을 복사하고 수정하는 일이 정말 많은데, 참조타입의 특성을 모르면 예상치 못한 버그가 발생할 수 있어요.</p><br><h3 id=참조타입의-3가지-종류>참조타입의 3가지 종류</h3><ol><li><strong>객체</strong> (<code>{}</code>) - 키-값 쌍의 데이터 집합</li><li><strong>배열</strong> (<code>[]</code>) - 순서가 있는 데이터 목록</li><li><strong>함수</strong> (<code>function</code>) - 실행할 수 있는 코드 블록</li></ol><br><h3 id=참조타입의-핵심-특징>참조타입의 핵심 특징</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ 참조타입: 메모리 주소가 복사됨
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>student1</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;김철수&#34;</span><span class=p>,</span> <span class=nx>age</span><span class=o>:</span> <span class=mi>20</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>student2</span> <span class=o>=</span> <span class=nx>student1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>student1</span><span class=p>.</span><span class=nx>name</span> <span class=o>=</span> <span class=s2>&#34;이영희&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>student1</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span> <span class=c1>// &#34;이영희&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>student2</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span> <span class=c1>// &#34;이영희&#34; (같이 바뀜!)
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>왜 둘 다 바뀔까요?</strong><br>참조타입은 변수에 데이터가 저장된 메모리 주소를 저장합니다. <code>student2 = student1</code>에서 같은 주소가 복사되어, 두 변수는 동일한 객체를 가리키게 됩니다.</p><br><h3 id=배열에서도-마찬가지예요><strong>배열에서도 마찬가지예요</strong></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ 예상과 다른 결과
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>colors1</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;빨강&#34;</span><span class=p>,</span> <span class=s2>&#34;파랑&#34;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>colors2</span> <span class=o>=</span> <span class=nx>colors1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>colors2</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=s2>&#34;노랑&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>colors1</span><span class=p>);</span> <span class=c1>// [&#34;빨강&#34;, &#34;파랑&#34;, &#34;노랑&#34;] 
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>colors2</span><span class=p>);</span> <span class=c1>// [&#34;빨강&#34;, &#34;파랑&#34;, &#34;노랑&#34;]
+</span></span></span></code></pre></td></tr></table></div></div><p><code>colors2</code>에만 &ldquo;노랑"을 추가했는데 <code>colors1</code>도 바뀌었어요. 두 변수가 같은 배열을 가리키고 있기 때문입니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=원시타입-vs-참조타입-주요-차이점>원시타입 vs 참조타입 주요 차이점</h2><p>두 타입의 차이점을 표로 정리하면 다음과 같습니다.</p><div class=table-wrapper><table><thead><tr><th><strong>구분</strong></th><th><strong>원시타입</strong></th><th><strong>참조타입</strong></th></tr></thead><tbody><tr><td><strong>저장 방식</strong></td><td>데이터 자체를 저장</td><td>메모리 주소를 저장</td></tr><tr><td><strong>복사 방식</strong></td><td>데이터가 복사됨</td><td>주소가 복사됨</td></tr><tr><td><strong>독립성</strong></td><td>복사 후 완전히 독립적</td><td>같은 데이터를 공유</td></tr><tr><td><strong>변경 가능성</strong></td><td>불변(immutable)</td><td>가변(mutable)</td></tr><tr><td><strong>비교 방식</strong></td><td>값으로 비교</td><td>주소로 비교</td></tr></tbody></table></div><br><h3 id=실무에서-자주-실수하는-상황>실무에서 자주 실수하는 상황</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ 잘못된 객체 비교
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>person1</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;김철수&#34;</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>person2</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;김철수&#34;</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>person1</span> <span class=o>===</span> <span class=nx>person2</span><span class=p>);</span> <span class=c1>// false (다른 주소)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 같은 객체를 가리킬 때만 true
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>person3</span> <span class=o>=</span> <span class=nx>person1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>person1</span> <span class=o>===</span> <span class=nx>person3</span><span class=p>);</span> <span class=c1>// true (같은 주소)
+</span></span></span></code></pre></td></tr></table></div></div><p>내용이 같아도 다른 객체로 인식되는 것이 참조타입의 특징이에요.</p><br><h2 id=안전한-복사-방법-배우기>안전한 복사 방법 배우기</h2><p>참조타입을 안전하게 복사하는 방법을 알아보겠습니다.</p><p>실제 프로젝트에서는 데이터를 수정하기 전에 복사본을 만들어서 작업하는 경우가 많아요. 이때 올바른 복사 방법을 사용해야 원본 데이터를 보호할 수 있습니다.</p><br><h3 id=얕은-복사-vs-깊은-복사란>얕은 복사 vs 깊은 복사란?</h3><p>복사 방법에는 두 가지가 있어요.</p><ul><li><strong>얕은 복사(Shallow Copy)</strong>: 객체의 첫 번째 레벨만 복사하는 방법</li><li><strong>깊은 복사(Deep Copy)</strong>: 객체의 모든 중첩된 레벨까지 완전히 복사하는 방법</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 얕은 복사 예시
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>student</span> <span class=o>=</span> <span class=p>{</span> 
+</span></span><span class=line><span class=cl>  <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;김철수&#34;</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=nx>scores</span><span class=o>:</span> <span class=p>{</span> <span class=nx>math</span><span class=o>:</span> <span class=mi>90</span><span class=p>,</span> <span class=nx>english</span><span class=o>:</span> <span class=mi>85</span> <span class=p>}</span>  <span class=c1>// 중첩된 객체
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>shallowCopy</span> <span class=o>=</span> <span class=p>{</span> <span class=p>...</span><span class=nx>student</span> <span class=p>};</span>  <span class=c1>// 얕은 복사
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>shallowCopy</span><span class=p>.</span><span class=nx>scores</span><span class=p>.</span><span class=nx>math</span> <span class=o>=</span> <span class=mi>100</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>student</span><span class=p>.</span><span class=nx>scores</span><span class=p>.</span><span class=nx>math</span><span class=p>);</span>  <span class=c1>// 100 (원본도 바뀜!)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// 깊은 복사 예시  
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>deepCopy</span> <span class=o>=</span> <span class=nx>JSON</span><span class=p>.</span><span class=nx>parse</span><span class=p>(</span><span class=nx>JSON</span><span class=p>.</span><span class=nx>stringify</span><span class=p>(</span><span class=nx>student</span><span class=p>));</span>  <span class=c1>// 깊은 복사
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>deepCopy</span><span class=p>.</span><span class=nx>scores</span><span class=p>.</span><span class=nx>english</span> <span class=o>=</span> <span class=mi>95</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>student</span><span class=p>.</span><span class=nx>scores</span><span class=p>.</span><span class=nx>english</span><span class=p>);</span>  <span class=c1>// 85 (원본 보호됨)
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>언제 어떤 복사를 사용해야 할까요?</strong></p><ul><li>객체나 배열 안에 다른 객체나 배열이 없다면 → <strong>얕은 복사</strong>로 충분</li><li>중첩된 구조가 있다면 → <strong>깊은 복사</strong> 필요</li></ul><p>이제 각각의 방법을 자세히 알아보겠습니다.</p><br><h3 id=1단계-객체-얕은-복사>1단계: 객체 얕은 복사</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ 스프레드 연산자로 복사
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>originalStudent</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;김철수&#34;</span><span class=p>,</span> <span class=nx>age</span><span class=o>:</span> <span class=mi>20</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>copiedStudent</span> <span class=o>=</span> <span class=p>{</span> <span class=p>...</span><span class=nx>originalStudent</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>copiedStudent</span><span class=p>.</span><span class=nx>name</span> <span class=o>=</span> <span class=s2>&#34;이영희&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>originalStudent</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span> <span class=c1>// &#34;김철수&#34; (원본 보호됨)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>copiedStudent</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span>   <span class=c1>// &#34;이영희&#34;
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=2단계-배열-얕은-복사>2단계: 배열 얕은 복사</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ 배열도 스프레드 연산자로
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>originalColors</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;빨강&#34;</span><span class=p>,</span> <span class=s2>&#34;파랑&#34;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>copiedColors</span> <span class=o>=</span> <span class=p>[...</span><span class=nx>originalColors</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>copiedColors</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=s2>&#34;노랑&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>originalColors</span><span class=p>);</span> <span class=c1>// [&#34;빨강&#34;, &#34;파랑&#34;] (원본 보호됨)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>copiedColors</span><span class=p>);</span>   <span class=c1>// [&#34;빨강&#34;, &#34;파랑&#34;, &#34;노랑&#34;]
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=3단계-깊은-복사가-필요한-경우>3단계: 깊은 복사가 필요한 경우</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ 중첩된 객체는 얕은 복사로 해결되지 않아요
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>originalData</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;김철수&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>scores</span><span class=o>:</span> <span class=p>{</span> <span class=nx>math</span><span class=o>:</span> <span class=mi>90</span><span class=p>,</span> <span class=nx>english</span><span class=o>:</span> <span class=mi>85</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>copiedData</span> <span class=o>=</span> <span class=p>{</span> <span class=p>...</span><span class=nx>originalData</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=nx>copiedData</span><span class=p>.</span><span class=nx>scores</span><span class=p>.</span><span class=nx>math</span> <span class=o>=</span> <span class=mi>100</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>originalData</span><span class=p>.</span><span class=nx>scores</span><span class=p>.</span><span class=nx>math</span><span class=p>);</span> <span class=c1>// 100 (원본도 바뀜!)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 깊은 복사 방법
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>safecopiedData</span> <span class=o>=</span> <span class=nx>JSON</span><span class=p>.</span><span class=nx>parse</span><span class=p>(</span><span class=nx>JSON</span><span class=p>.</span><span class=nx>stringify</span><span class=p>(</span><span class=nx>originalData</span><span class=p>));</span>
+</span></span><span class=line><span class=cl><span class=nx>copiedData</span><span class=p>.</span><span class=nx>scores</span><span class=p>.</span><span class=nx>math</span> <span class=o>=</span> <span class=mi>95</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>originalData</span><span class=p>.</span><span class=nx>scores</span><span class=p>.</span><span class=nx>math</span><span class=p>);</span> <span class=c1>// 90 (원본 보호됨)
+</span></span></span></code></pre></td></tr></table></div></div><br><h2 id=함수에서-매개변수-전달하기>함수에서 매개변수 전달하기</h2><p>함수에 데이터를 전달할 때도 원시타입과 참조타입의 차이가 나타납니다.</p><p>실제 프로젝트에서는 함수를 통해 데이터를 처리하는 경우가 많은데, 이때 원본 데이터가 의도치 않게 변경되는 것을 방지해야 해요.</p><br><h3 id=원시타입을-함수에-전달하기>원시타입을 함수에 전달하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>changeScore</span><span class=p>(</span><span class=nx>score</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>score</span> <span class=o>=</span> <span class=mi>100</span><span class=p>;</span>  <span class=c1>// 지역 변수만 변경됨
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;함수 내부:&#34;</span><span class=p>,</span> <span class=nx>score</span><span class=p>);</span> <span class=c1>// 100
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>studentScore</span> <span class=o>=</span> <span class=mi>85</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>changeScore</span><span class=p>(</span><span class=nx>studentScore</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;원본 점수:&#34;</span><span class=p>,</span> <span class=nx>studentScore</span><span class=p>);</span> <span class=c1>// 85 (변경되지 않음)
+</span></span></span></code></pre></td></tr></table></div></div><p>원시타입은 데이터가 복사되어 전달되므로 원본이 안전해요.</p><br><h3 id=참조타입을-함수에-전달하기>참조타입을 함수에 전달하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ 위험한 방법: 원본이 변경됨
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>changeStudentInfo</span><span class=p>(</span><span class=nx>student</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>student</span><span class=p>.</span><span class=nx>name</span> <span class=o>=</span> <span class=s2>&#34;이영희&#34;</span><span class=p>;</span>  <span class=c1>// 원본 객체가 변경됨!
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>myStudent</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;김철수&#34;</span><span class=p>,</span> <span class=nx>age</span><span class=o>:</span> <span class=mi>20</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=nx>changeStudentInfo</span><span class=p>(</span><span class=nx>myStudent</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>myStudent</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span> <span class=c1>// &#34;이영희&#34; (원본이 바뀜)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 안전한 방법: 복사본을 만들어서 사용
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>safeChangeStudentInfo</span><span class=p>(</span><span class=nx>student</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kd>let</span> <span class=nx>copiedStudent</span> <span class=o>=</span> <span class=p>{</span> <span class=p>...</span><span class=nx>student</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=nx>copiedStudent</span><span class=p>.</span><span class=nx>name</span> <span class=o>=</span> <span class=s2>&#34;이영희&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=nx>copiedStudent</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>myStudent2</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;김철수&#34;</span><span class=p>,</span> <span class=nx>age</span><span class=o>:</span> <span class=mi>20</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>newStudent</span> <span class=o>=</span> <span class=nx>safeChangeStudentInfo</span><span class=p>(</span><span class=nx>myStudent2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>myStudent2</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span> <span class=c1>// &#34;김철수&#34; (원본 보호됨)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>newStudent</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span> <span class=c1>// &#34;이영희&#34;
+</span></span></span></code></pre></td></tr></table></div></div><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</h2><h3 id=const로-선언한-객체도-변경할-수-있나요>const로 선언한 객체도 변경할 수 있나요?</h3><p>네, 가능합니다. <code>const</code>는 변수 자체의 재할당을 막는 것이지, 객체의 내부 속성 변경은 막지 않아요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>student</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;김철수&#34;</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=nx>student</span><span class=p>.</span><span class=nx>name</span> <span class=o>=</span> <span class=s2>&#34;이영희&#34;</span><span class=p>;</span>  <span class=c1>// ✅ 가능 (속성 변경)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>student</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span> <span class=c1>// &#34;이영희&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// student = { name: &#34;박민수&#34; };  // ❌ 불가능 (변수 재할당)
+</span></span></span></code></pre></td></tr></table></div></div><p>실무에서는 객체의 속성은 자유롭게 변경하면서, 변수 자체가 다른 객체를 가리키는 것을 방지할 때 <code>const</code>를 사용해요.</p><br><h3 id=배열과-객체를-비교할-때-왜-false가-나오나요>배열과 객체를 비교할 때 왜 false가 나오나요?</h3><p>참조타입은 메모리 주소로 비교하기 때문입니다. 내용이 같아도 다른 주소에 저장되면 false가 나와요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>let</span> <span class=nx>arr1</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>arr2</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>arr1</span> <span class=o>===</span> <span class=nx>arr2</span><span class=p>);</span> <span class=c1>// false (다른 주소)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// 내용을 비교하려면 JSON.stringify 사용
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>JSON</span><span class=p>.</span><span class=nx>stringify</span><span class=p>(</span><span class=nx>arr1</span><span class=p>)</span> <span class=o>===</span> <span class=nx>JSON</span><span class=p>.</span><span class=nx>stringify</span><span class=p>(</span><span class=nx>arr2</span><span class=p>));</span> <span class=c1>// true
+</span></span></span></code></pre></td></tr></table></div></div><p>실제 프로젝트에서는 내용 비교가 필요할 때 별도의 함수를 만들어서 사용하는 경우가 많아요.</p><br><h3 id=깊은-복사를-해야-하는-경우는-언제인가요>깊은 복사를 해야 하는 경우는 언제인가요?</h3><p>객체나 배열 안에 또 다른 객체나 배열이 중첩되어 있을 때 깊은 복사가 필요해요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>let</span> <span class=nx>student</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;김철수&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>subjects</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>math</span><span class=o>:</span> <span class=mi>90</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>english</span><span class=o>:</span> <span class=mi>85</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 얕은 복사로는 부족해요
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>copy1</span> <span class=o>=</span> <span class=p>{</span> <span class=p>...</span><span class=nx>student</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=nx>copy1</span><span class=p>.</span><span class=nx>subjects</span><span class=p>.</span><span class=nx>math</span> <span class=o>=</span> <span class=mi>100</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>student</span><span class=p>.</span><span class=nx>subjects</span><span class=p>.</span><span class=nx>math</span><span class=p>);</span> <span class=c1>// 100 (원본도 바뀜!)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// 깊은 복사가 필요해요
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>copy2</span> <span class=o>=</span> <span class=nx>JSON</span><span class=p>.</span><span class=nx>parse</span><span class=p>(</span><span class=nx>JSON</span><span class=p>.</span><span class=nx>stringify</span><span class=p>(</span><span class=nx>student</span><span class=p>));</span>
+</span></span><span class=line><span class=cl><span class=nx>copy2</span><span class=p>.</span><span class=nx>subjects</span><span class=p>.</span><span class=nx>english</span> <span class=o>=</span> <span class=mi>95</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>student</span><span class=p>.</span><span class=nx>subjects</span><span class=p>.</span><span class=nx>english</span><span class=p>);</span> <span class=c1>// 85 (원본 보호됨)
+</span></span></span></code></pre></td></tr></table></div></div><br><h3 id=함수도-참조타입인가요>함수도 참조타입인가요?</h3><p>네, 맞습니다. 함수도 참조타입이기 때문에 변수에 할당하고 복사할 수 있어요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>greet</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;안녕하세요!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>myFunction</span> <span class=o>=</span> <span class=nx>greet</span><span class=p>;</span>  <span class=c1>// 함수를 변수에 할당
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>myFunction</span><span class=p>();</span>  <span class=c1>// &#34;안녕하세요!&#34; (같은 함수 실행)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greet</span> <span class=o>===</span> <span class=nx>myFunction</span><span class=p>);</span> <span class=c1>// true (같은 함수를 가리킴)
+</span></span></span></code></pre></td></tr></table></div></div><p>실무에서는 이런 특성을 활용해서 함수를 다른 함수의 매개변수로 전달하거나, 배열에 저장하는 등의 작업을 많이 해요.</p><br><h2 id=마무리-원시타입과-참조타입-이제-마스터하셨나요>마무리: 원시타입과 참조타입, 이제 마스터하셨나요?</h2><p>자바스크립트의 원시타입과 참조타입 차이를 이해하는 것은 단순한 이론 학습이 아니라, 앞으로 마주하게 될 모든 자바스크립트 코드를 제대로 이해하기 위한 필수 기초예요.</p><p>저도 처음엔 이 개념이 어려웠는데, 한 번 제대로 이해하고 나니 코드가 왜 그렇게 동작하는지 명확하게 보이더라고요. 특히 리액트 같은 라이브러리를 배울 때도 이 개념이 정말 중요하거든요.</p><p><strong>핵심 포인트 정리:</strong></p><ul><li>✅ <strong>원시타입</strong>: 데이터 자체를 저장, 복사하면 완전히 독립적</li><li>✅ <strong>참조타입</strong>: 메모리 주소를 저장, 복사하면 같은 데이터 공유</li><li>✅ <strong>안전한 복사</strong>: 스프레드 연산자나 깊은 복사 방법 활용</li><li>✅ <strong>실무 팁</strong>: 함수에서 원본 데이터 보호하기</li></ul><p>오늘 배운 내용으로 간단한 학생 정보 관리 프로그램을 만들어보세요. 학생 정보를 추가하고 수정하면서 원시타입과 참조타입의 차이를 직접 체험해보시면 더욱 확실하게 이해하실 거예요!</p><p>다음 글에서는 오늘 배운 원시타입과 참조타입의 개념을 바탕으로 **<a class=link href=/code/2025-07-02-javascript-immutability/>JavaScript 불변성(Immutability)</a>**에 대해 깊이 다뤄보겠습니다.</p><p>불변성이 왜 이렇게 중요한지, React에서 왜 필수 개념인지, 그리고 실무에서 불변성을 지키는 구체적인 패턴들을 코드 예제와 함께 완벽하게 마스터해보세요. 특히 원본 데이터를 안전하게 보호하면서도 효율적인 코드를 작성하는 방법들을 상세히 알려드릴 예정이에요!</p><p>궁금한 점이나 어려운 부분이 있다면 언제든 댓글로 질문해 주세요. 같이 공부하는 마음으로 성심껏 답변드릴게요! 😊</p><br><div class=btn_wrap><a target=_blank href=https://developer.mozilla.org/ko/docs/Web/JavaScript/Data_structures>MDN - JavaScript 데이터 타입과 자료구조</a></div></section><footer class=article-footer><section class=article-tags><a href=/tags/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B8%B0%EC%B4%88/>자바스크립트 기초</a>
+<a href=/tags/%EC%9B%90%EC%8B%9C%ED%83%80%EC%9E%85/>원시타입</a>
+<a href=/tags/%EC%B0%B8%EC%A1%B0%ED%83%80%EC%9E%85/>참조타입</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2025-07-04-javascript-copy/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp loading=lazy data-key=2025-07-04-javascript-copy data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp></div><div class=article-details><h2 class=article-title>JavaScript 얕은 복사 vs 깊은 복사: 2025년 최신 가이드 (feat. structuredClone)</h2></div></a></article><article class=has-image><a href=/code/2025-07-02-javascript-immutability/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp loading=lazy data-key=2025-07-02-javascript-immutability data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp></div><div class=article-details><h2 class=article-title>JavaScript 불변성, 왜 중요할까? 쉽게 이해하는 React 준비 완벽 가이드</h2></div></a></article><article class=has-image><a href=/code/2025-06-26-let-const/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-26-let-const.webp loading=lazy data-key=2025-06-26-let-const data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-26-let-const.webp></div><div class=article-details><h2 class=article-title>JS 변수 선언법: var 대신 let과 const를 써야 하는 이유</h2></div></a></article><article class=has-image><a href=/code/2025-06-24-function-expression/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-24-function-expression.webp loading=lazy data-key=2025-06-24-function-expression data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-24-function-expression.webp></div><div class=article-details><h2 class=article-title>자바스크립트 함수 표현식 가이드 - 실무에서 바로 쓰는 핵심 정리</h2></div></a></article><article class=has-image><a href=/code/2025-06-20-javascript-hoisting/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-20-javascript-hoisting.webp loading=lazy data-key=2025-06-20-javascript-hoisting data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-20-javascript-hoisting.webp></div><div class=article-details><h2 class=article-title>자바스크립트 호이스팅, 변수 선언 전 사용 가능한 이유</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

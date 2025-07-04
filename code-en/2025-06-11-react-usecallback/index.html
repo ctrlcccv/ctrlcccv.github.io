@@ -1,0 +1,285 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="Learn how React's useCallback hook eliminates unnecessary re-renders, boosting your app's performance with practical, easy-to-follow examples. "><title>Stop React Re-renders with useCallback Hook</title><link rel=canonical href=https://ctrlcccv.github.io/code-en/2025-06-11-react-usecallback/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="Stop React Re-renders with useCallback Hook\n"><meta property='og:description' content="Learn how React's useCallback hook eliminates unnecessary re-renders, boosting your app's performance with practical, easy-to-follow examples. "><meta property='og:url' content='https://ctrlcccv.github.io/code-en/2025-06-11-react-usecallback/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code-En'><meta property='article:tag' content='React Hooks'><meta property='article:tag' content='useCallback'><meta property='article:tag' content='Performance Optimization'><meta property='article:published_time' content='2025-06-11T00:00:00+00:00'><meta property='article:modified_time' content='2025-06-11T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp'><meta name=twitter:title content="Stop React Re-renders with useCallback Hook\n"><meta name=twitter:description content="Learn how React's useCallback hook eliminates unnecessary re-renders, boosting your app's performance with practical, easy-to-follow examples. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Stop React Re-renders with useCallback Hook\n","datePublished":"2025-06-11T00:00:00Z","dateModified":"2025-06-11T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="React useCallback으로 불필요한 리렌더링 방지하기" href=https://ctrlcccv.github.io/code/2025-06-06-react-usecallback/ hreflang=ko><link rel=alternate title="Stop React Re-renders with useCallback Hook" href=https://ctrlcccv.github.io/code-en/2025-06-11-react-usecallback/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#understanding-usecallback>Understanding useCallback</a><ol><li><a href=#how-usecallback-works>How useCallback Works</a></li><li><a href=#two-common-patterns>Two Common Patterns</a></li></ol></li><li><a href=#stopping-re-render-cascades>Stopping Re-render Cascades</a><ol><li><a href=#the-problem-explained>The Problem Explained</a></li><li><a href=#how-usecallback-solves-this>How useCallback Solves This</a></li></ol></li><li><a href=#perfect-use-cases-for-usecallback>Perfect Use Cases for useCallback</a></li><li><a href=#avoiding-common-mistakes>Avoiding Common Mistakes</a></li><li><a href=#conclusion>Conclusion</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code-en/2025-06-11-react-usecallback/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp loading=lazy alt="Featured image of post Stop React Re-renders with useCallback Hook
+"></a></div><div class=article-details><header class=article-category><a href=/categories/react/>React</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code-en/2025-06-11-react-usecallback/>Stop React Re-renders with useCallback Hook</a></h2><h3 class=article-subtitle>Learn how React's useCallback hook eliminates unnecessary re-renders, boosting your app's performance with practical, easy-to-follow examples.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-06-11T00:00:00Z>6월 11, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>6 분 정도</time></div></footer></div></header><section class=article-content><p>Noticing your React app getting sluggish? One of the most common culprits is unnecessary function recreation. Every time your component renders, React creates brand new function instances – even if they do exactly the same thing. This becomes particularly problematic when passing these functions to child components as props.</p><p>Luckily, React&rsquo;s <code>useCallback</code> hook offers an elegant solution to this performance bottleneck.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=understanding-usecallback>Understanding useCallback</h2><iframe src="https://codesandbox.io/embed/pzg786?view=preview" style=width:100%;height:250px;border:0;border-radius:4px;overflow:hidden title=useCallback-en allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe><br><br><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useCallback</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>TextEditor</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>textSize</span><span class=p>,</span> <span class=nx>setTextSize</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>16</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>textColor</span><span class=p>,</span> <span class=nx>setTextColor</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=s1>&#39;black&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>// Created once and persisted across renders
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>applyDefaultSettings</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setTextSize</span><span class=p>(</span><span class=mi>16</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setTextColor</span><span class=p>(</span><span class=s1>&#39;black&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// Empty array = never recreate this function
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=c1>// Recreated only when textSize changes
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>changeColor</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>((</span><span class=nx>newColor</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`Applying </span><span class=si>${</span><span class=nx>newColor</span><span class=si>}</span><span class=sb> to </span><span class=si>${</span><span class=nx>textSize</span><span class=si>}</span><span class=sb>px text`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setTextColor</span><span class=p>(</span><span class=nx>newColor</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>textSize</span><span class=p>]);</span> <span class=c1>// Dependency array lists values the function needs
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>style</span><span class=o>=</span><span class=p>{{</span> <span class=nx>padding</span><span class=o>:</span> <span class=s1>&#39;20px&#39;</span><span class=p>,</span> <span class=nx>border</span><span class=o>:</span> <span class=s1>&#39;1px solid gray&#39;</span> <span class=p>}}&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>p</span> <span class=na>style</span><span class=o>=</span><span class=p>{{</span> <span class=nx>fontSize</span><span class=o>:</span> <span class=sb>`</span><span class=si>${</span><span class=nx>textSize</span><span class=si>}</span><span class=sb>px`</span><span class=p>,</span> <span class=nx>color</span><span class=o>:</span> <span class=nx>textColor</span> <span class=p>}}&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>This</span> <span class=nx>text</span> <span class=nx>can</span> <span class=nx>change</span> <span class=nx>size</span> <span class=nx>and</span> <span class=nx>color</span><span class=p>.</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setTextSize</span><span class=p>(</span><span class=nx>textSize</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)}&gt;</span><span class=nx>Larger</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setTextSize</span><span class=p>(</span><span class=nx>textSize</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)}&gt;</span><span class=nx>Smaller</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>changeColor</span><span class=p>(</span><span class=s1>&#39;red&#39;</span><span class=p>)}&gt;</span><span class=nx>Red</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>changeColor</span><span class=p>(</span><span class=s1>&#39;blue&#39;</span><span class=p>)}&gt;</span><span class=nx>Blue</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>applyDefaultSettings</span><span class=p>}&gt;</span><span class=nx>Reset</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=how-usecallback-works>How useCallback Works</h3><p>Think of <code>useCallback</code> as a memory tool that tells React: &ldquo;Remember this function and don&rsquo;t recreate it unless something specific changes.&rdquo; It&rsquo;s like giving React a sticky note so it can recall the exact same function later.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>memoizedFunction</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Your function logic here
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>dependencies</span><span class=p>]</span> <span class=c1>// Only recreate when these values change
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=two-common-patterns>Two Common Patterns</h3><ol><li><p><strong>Stable Functions (Empty Dependency Array)</strong>: The <code>applyDefaultSettings</code> function is created just once when the component first mounts. Since it always does the same thing, there&rsquo;s no need to ever recreate it.</p></li><li><p><strong>Dependent Functions</strong>: The <code>changeColor</code> function depends on <code>textSize</code>, so we list that dependency. This way, the function updates only when the text size changes, ensuring it always has access to the current value.</p></li></ol><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=stopping-re-render-cascades>Stopping Re-render Cascades</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useCallback</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Child component optimized with React.memo
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>TodoItem</span> <span class=o>=</span> <span class=nx>React</span><span class=p>.</span><span class=nx>memo</span><span class=p>(({</span> <span class=nx>todo</span><span class=p>,</span> <span class=nx>onToggle</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`Rendering TodoItem: </span><span class=si>${</span><span class=nx>todo</span><span class=p>.</span><span class=nx>text</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span> <span class=c1>// Shows when component renders
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>input</span>
+</span></span><span class=line><span class=cl>        <span class=na>type</span><span class=o>=</span><span class=s>&#34;checkbox&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>checked</span><span class=o>=</span><span class=p>{</span><span class=nx>todo</span><span class=p>.</span><span class=nx>completed</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=na>onChange</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>onToggle</span><span class=p>(</span><span class=nx>todo</span><span class=p>.</span><span class=nx>id</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl>      <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>{</span><span class=nx>todo</span><span class=p>.</span><span class=nx>text</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Parent component
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>TodoList</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>todos</span><span class=p>,</span> <span class=nx>setTodos</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span> <span class=nx>id</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=s1>&#39;Learn React&#39;</span><span class=p>,</span> <span class=nx>completed</span><span class=o>:</span> <span class=kc>false</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span> <span class=nx>id</span><span class=o>:</span> <span class=mi>2</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=s1>&#39;Master useCallback&#39;</span><span class=p>,</span> <span class=nx>completed</span><span class=o>:</span> <span class=kc>false</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// Stabilized with useCallback
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>handleToggle</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>((</span><span class=nx>id</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setTodos</span><span class=p>(</span><span class=nx>prevTodos</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>prevTodos</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>todo</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>todo</span><span class=p>.</span><span class=nx>id</span> <span class=o>===</span> <span class=nx>id</span> <span class=o>?</span> <span class=p>{</span> <span class=p>...</span><span class=nx>todo</span><span class=p>,</span> <span class=nx>completed</span><span class=o>:</span> <span class=o>!</span><span class=nx>todo</span><span class=p>.</span><span class=nx>completed</span> <span class=p>}</span> <span class=o>:</span> <span class=nx>todo</span>
+</span></span><span class=line><span class=cl>      <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// No dependencies = stable reference
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span><span class=nx>todos</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>todo</span> <span class=p>=&gt;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>TodoItem</span> 
+</span></span><span class=line><span class=cl>            <span class=na>key</span><span class=o>=</span><span class=p>{</span><span class=nx>todo</span><span class=p>.</span><span class=nx>id</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>            <span class=na>todo</span><span class=o>=</span><span class=p>{</span><span class=nx>todo</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>            <span class=na>onToggle</span><span class=o>=</span><span class=p>{</span><span class=nx>handleToggle</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>          <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>))}</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=the-problem-explained>The Problem Explained</h3><p>Here&rsquo;s what happens without <code>useCallback</code>:</p><p>Every time a component renders, JavaScript creates entirely new function instances. Even functions that look identical are different objects in memory:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>sayHi1</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Hi&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>sayHi2</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Hi&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>sayHi1</span> <span class=o>===</span> <span class=nx>sayHi2</span><span class=p>);</span> <span class=c1>// false - completely different objects
+</span></span></span></code></pre></td></tr></table></div></div><p>This creates a sneaky performance issue: Even when you optimize a child component with <code>React.memo</code>, it will still re-render unnecessarily when it receives a new function reference from its parent – which happens on every parent render!</p><br><h3 id=how-usecallback-solves-this>How useCallback Solves This</h3><p>With <code>useCallback</code>, the function maintains its identity between renders:</p><ol><li><strong>First render</strong>: React creates the function and stores it in memory</li><li><strong>Later renders</strong>: Instead of creating a new function, React returns the same function instance</li><li><strong>Result</strong>: Child components receive the exact same function reference and skip re-rendering</li><li><strong>Updates</strong>: Only when a dependency changes does React create a fresh function</li></ol><p>This pattern is particularly valuable for optimizing lists, forms, and data-heavy interfaces where unnecessary re-renders can create noticeable performance issues.</p><br><h2 id=perfect-use-cases-for-usecallback>Perfect Use Cases for useCallback</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>ProductSearch</span><span class=p>({</span> <span class=nx>categoryId</span> <span class=p>})</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>products</span><span class=p>,</span> <span class=nx>setProducts</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([]);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>searchTerm</span><span class=p>,</span> <span class=nx>setSearchTerm</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// API fetch function stabilized with useCallback
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>fetchProducts</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(</span><span class=kr>async</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=kr>const</span> <span class=nx>response</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetch</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=sb>`/api/products?category=</span><span class=si>${</span><span class=nx>categoryId</span><span class=si>}</span><span class=sb>&amp;search=</span><span class=si>${</span><span class=nx>searchTerm</span><span class=si>}</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl>      <span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=kr>const</span> <span class=nx>data</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>response</span><span class=p>.</span><span class=nx>json</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>      <span class=nx>setProducts</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=s1>&#39;Failed to load products:&#39;</span><span class=p>,</span> <span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>categoryId</span><span class=p>,</span> <span class=nx>searchTerm</span><span class=p>]);</span> <span class=c1>// Only recreate when search parameters change
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=c1>// Safe to use in useEffect without causing infinite loops
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fetchProducts</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>fetchProducts</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;{</span><span class=cm>/* UI components */</span><span class=p>}&lt;/</span><span class=nt>div</span><span class=p>&gt;;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>When useCallback Shines:</strong></p><ul><li><strong>API Calls</strong>: Prevent duplicate network requests caused by function recreation</li><li><strong>Event Handlers</strong>: Keep handlers stable when passed to optimized child components</li><li><strong>useEffect Dependencies</strong>: Safely include functions in effect dependencies without triggering infinite loops</li><li><strong>Performance-Critical Areas</strong>: Optimize rendering in complex UI hierarchies and long lists</li></ul><br><h2 id=avoiding-common-mistakes>Avoiding Common Mistakes</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>ExampleComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>setCount</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// MISTAKE: Missing dependency
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>buggyFunction</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`Count: </span><span class=si>${</span><span class=nx>count</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// This will always show the initial count value!
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// Bug: Missing count in dependencies
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=c1>// CORRECT: All dependencies included
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>correctFunction</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`Count: </span><span class=si>${</span><span class=nx>count</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>count</span><span class=p>]);</span> <span class=c1>// Updates when count changes
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=c1>// SMART: Using functional updates to minimize dependencies
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>smartIncrement</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setCount</span><span class=p>(</span><span class=nx>prev</span> <span class=p>=&gt;</span> <span class=nx>prev</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span> <span class=c1>// No need for count in dependencies
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Best Practices:</strong></p><ul><li><strong>✓ Measure first</strong>: Use React DevTools Profiler to identify actual performance bottlenecks before optimization.</li><li><strong>✓ Be selective</strong>: Don&rsquo;t wrap every function in useCallback – only those passed to child components or used in effect dependencies.</li><li><strong>✓ Include all dependencies</strong>: List every external value your callback uses to avoid bugs with stale data.</li><li><strong>✓ Use functional updates</strong>: When updating state based on previous state, use the functional form to reduce dependencies.</li><li><strong>✗ Avoid premature optimization</strong>: useCallback has its own performance cost – use it where it matters.</li><li><strong>✗ Don&rsquo;t ignore dependency warnings</strong>: The ESLint react-hooks plugin catches missing dependencies for a reason.</li></ul><br><h2 id=conclusion>Conclusion</h2><p>The <code>useCallback</code> hook is a powerful tool for preventing unnecessary re-renders in React applications. Used strategically, it can significantly improve performance, especially in larger applications with complex component trees.</p><p>For maximum impact, focus on memoizing these three function types:</p><ol><li>Event handlers passed to optimized child components</li><li>Functions used in useEffect dependencies</li><li>Callbacks that trigger expensive operations</li></ol><p>Remember: measure performance first, then optimize where it matters most.</p><br></section><footer class=article-footer><section class=article-tags><a href=/tags/react-hooks/>React Hooks</a>
+<a href=/tags/usecallback/>UseCallback</a>
+<a href=/tags/performance-optimization/>Performance Optimization</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code-en/2025-06-13-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-13-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback: 5 Key Differences Every Developer Must Know</h2></div></a></article><article class=has-image><a href=/code/2025-06-06-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp loading=lazy data-key=2025-06-06-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp></div><div class=article-details><h2 class=article-title>React useCallback으로 불필요한 리렌더링 방지하기</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-05-react-usememo/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-05-react-usememo-en.webp loading=lazy data-key=2025-06-05-react-usememo data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-05-react-usememo-en.webp></div><div class=article-details><h2 class=article-title>React useMemo Tutorial: Optimize Render Performance</h2></div></a></article><article class=has-image><a href=/code/2025-06-10-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-10-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback 차이점 쉽게 이해하기</h2></div></a></article><article class=has-image><a href=/code/2025-06-04-react-usememo/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-04-react-usememo.webp loading=lazy data-key=2025-06-04-react-usememo data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-04-react-usememo.webp></div><div class=article-details><h2 class=article-title>useMemo 활용한 React 객체 안정화 & 리렌더링 최적화 기법</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
