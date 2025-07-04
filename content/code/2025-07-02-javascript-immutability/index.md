@@ -7,7 +7,7 @@ description: >
 
 slug: 2025-07-02-javascript-immutability
 date: 2025-07-02 00:00:00+0000
-lastmod: 2025-07-02 00:00:00+0000
+lastmod: 2025-07-04 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp
 
@@ -629,7 +629,9 @@ function sortTodos(todos) {
 
 특히 여러분이 코딩하면서 겪었던 비슷한 경험이나, 이 글을 읽고 해결된 문제가 있다면 댓글로 공유해주세요! 
 
-**다음 글에서는 더 깊이 있는 복사 기술들을 다룰 예정이니**, 중첩된 객체나 배열로 고생하신 분들은 꼭 기대해 주세요! 실무에서 바로 적용할 수 있는 구체적인 패턴들과 함께 돌아오겠습니다. 함께 성장하는 개발자 커뮤니티를 만들어가요! 🚀
+다음 글에서는 **[JavaScript 얕은 복사 vs 깊은 복사](/code/2025-07-04-javascript-copy/)**에 대해 다뤄보겠습니다. 불변성을 지키기 위해 꼭 알아야 하는 복사 방법들, 특히 2025년 최신 방법인 `structuredClone()`까지 실무 예제와 함께 완벽하게 정리해 드릴게요. 중첩된 객체나 배열로 고생하셨던 분들은 꼭 놓치지 마세요!
+
+함께 성장하는 개발자가 되어요! 🚀
 
 <br>
 
