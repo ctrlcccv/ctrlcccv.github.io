@@ -11,6 +11,14 @@ lastmod: 2025-07-04 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp
 
+alternates:
+  - title: "JavaScript 얕은 복사 vs 깊은 복사: 2025년 최신 가이드 (feat. structuredClone)"
+    href: "https://ctrlcccv.github.io/code/2025-07-04-javascript-copy/"
+    hreflang: "ko"
+  - title: "JavaScript Shallow Copy vs Deep Copy: 2025 Edition" 
+    href: "https://ctrlcccv.github.io/code-en/2025-07-07-javascript-copy/"
+    hreflang: "en"
+
 categories:
     - JavaScript 
 tags:

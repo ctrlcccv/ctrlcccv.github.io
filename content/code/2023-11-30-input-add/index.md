@@ -10,7 +10,7 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - jQuery
 tags:
-    - 입력 태그 커스텀
+    - 파일 업로드
 ---
 jQuery를 사용하여 버튼 클릭 시 입력 필드(input)를 동적으로 추가하고 삭제하는 기능을 구현한 코드를 상세히 분석합니다. 이 기능은 사용자 인터페이스에서 흔히 볼 수 있는 요소로, 사용자가 필요에 따라 여러 입력 필드를 추가하고, 더 이상 필요 없는 필드는 삭제할 수 있게 해 줍니다. 특히 양식이나 설문 조사와 같은 상황에서 유용하게 사용됩니다. 이 기능을 구현하기 위해 HTML, CSS, 그리고 jQuery를 사용하며, 각각의 역할에 대해 자세히 설명하겠습니다.    
 

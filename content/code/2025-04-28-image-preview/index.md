@@ -22,7 +22,7 @@ image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/mas
 categories:
     - jQuery
 tags:
-    - 입력 태그 커스텀
+    - 파일 업로드
 ---
 
 웹에서 이미지를 업로드할 때, 사용자가 실시간으로 이미지를 확인할 수 있다면 어떨까요?
