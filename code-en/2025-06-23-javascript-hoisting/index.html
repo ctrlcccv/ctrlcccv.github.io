@@ -1,0 +1,532 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="Master JavaScript hoisting, TDZ, and function behavior with practical examples. Understand why variables work before declaration and write bug-free code. "><title>JavaScript Hoisting: Master TDZ and Function Behavior</title><link rel=canonical href=https://ctrlcccv.github.io/code-en/2025-06-23-javascript-hoisting/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="JavaScript Hoisting: Master TDZ and Function Behavior\n"><meta property='og:description' content="Master JavaScript hoisting, TDZ, and function behavior with practical examples. Understand why variables work before declaration and write bug-free code. "><meta property='og:url' content='https://ctrlcccv.github.io/code-en/2025-06-23-javascript-hoisting/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code-En'><meta property='article:tag' content='JavaScript Fundamentals'><meta property='article:tag' content='Hoisting'><meta property='article:tag' content='TDZ'><meta property='article:published_time' content='2025-06-23T00:00:00+00:00'><meta property='article:modified_time' content='2025-06-25T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-23-javascript-hoisting-en.webp'><meta name=twitter:title content="JavaScript Hoisting: Master TDZ and Function Behavior\n"><meta name=twitter:description content="Master JavaScript hoisting, TDZ, and function behavior with practical examples. Understand why variables work before declaration and write bug-free code. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-23-javascript-hoisting-en.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"JavaScript Hoisting: Master TDZ and Function Behavior\n","datePublished":"2025-06-23T00:00:00Z","dateModified":"2025-06-25T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="자바스크립트 호이스팅, 변수 선언 전 사용 가능한 이유" href=https://ctrlcccv.github.io/code/2025-06-20-javascript-hoisting/ hreflang=ko><link rel=alternate title="JavaScript Hoisting: Master TDZ and Function Behavior" href=https://ctrlcccv.github.io/code-en/2025-06-23-javascript-hoisting hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#what-is-javascript-hoisting>What is JavaScript Hoisting?</a></li><li><a href=#why-hoisting-knowledge-is-critical-for-react-development>Why Hoisting Knowledge is Critical for React Development</a></li><li><a href=#understanding-var-hoisting-the-foundation>Understanding var Hoisting: The Foundation</a><ol><li><a href=#how-var-hoisting-actually-works>How var Hoisting Actually Works</a></li><li><a href=#function-scope-vs-block-scope-with-var>Function Scope vs Block Scope with var</a></li></ol></li><li><a href=#the-let-and-const-revolution-introducing-tdz>The let and const Revolution: Introducing TDZ</a><ol><li><a href=#understanding-the-temporal-dead-zone>Understanding the Temporal Dead Zone</a></li><li><a href=#block-scope-behavior-in-practice>Block Scope Behavior in Practice</a></li></ol></li><li><a href=#function-hoisting-the-complete-picture>Function Hoisting: The Complete Picture</a><ol><li><a href=#function-declarations-fully-hoisted>Function Declarations: Fully Hoisted</a></li><li><a href=#function-expressions-variable-hoisting-rules-apply>Function Expressions: Variable Hoisting Rules Apply</a></li><li><a href=#arrow-functions-and-modern-patterns>Arrow Functions and Modern Patterns</a></li></ol></li><li><a href=#common-hoisting-pitfalls-that-break-react-apps>Common Hoisting Pitfalls That Break React Apps</a><ol><li><a href=#the-classic-loop-variable-trap>The Classic Loop Variable Trap</a></li><li><a href=#variable-shadowing-in-nested-scopes>Variable Shadowing in Nested Scopes</a></li><li><a href=#react-component-gotchas>React Component Gotchas</a></li></ol></li><li><a href=#modern-javascript-best-practices-for-hoisting>Modern JavaScript Best Practices for Hoisting</a><ol><li><a href=#1-embrace-the-const-first-approach>1. Embrace the const-first Approach</a></li><li><a href=#2-declare-variables-at-point-of-use>2. Declare Variables at Point of Use</a></li><li><a href=#3-use-block-scope-strategically>3. Use Block Scope Strategically</a></li></ol></li><li><a href=#hoisting-behavior-comparison-table>Hoisting Behavior Comparison Table</a></li><li><a href=#frequently-asked-questions>Frequently Asked Questions</a><ol><li><a href=#q1-why-does-javascript-have-hoisting-in-the-first-place>Q1. Why does JavaScript have hoisting in the first place?</a></li><li><a href=#q2-how-does-the-temporal-dead-zone-actually-protect-my-code>Q2. How does the Temporal Dead Zone actually protect my code?</a></li><li><a href=#q3-should-i-ever-use-var-in-modern-javascript-development>Q3. Should I ever use var in modern JavaScript development?</a></li><li><a href=#q4-how-does-hoisting-affect-react-hooks>Q4. How does hoisting affect React hooks?</a></li><li><a href=#q5-what-tools-can-help-me-catch-hoisting-related-bugs>Q5. What tools can help me catch hoisting-related bugs?</a></li></ol></li><li><a href=#conclusion-master-hoisting-master-javascript>Conclusion: Master Hoisting, Master JavaScript</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code-en/2025-06-23-javascript-hoisting/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-23-javascript-hoisting-en.webp loading=lazy alt="Featured image of post JavaScript Hoisting: Master TDZ and Function Behavior
+"></a></div><div class=article-details><header class=article-category><a href=/categories/javascript/>JavaScript</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code-en/2025-06-23-javascript-hoisting/>JavaScript Hoisting: Master TDZ and Function Behavior</a></h2><h3 class=article-subtitle>Master JavaScript hoisting, TDZ, and function behavior with practical examples. Understand why variables work before declaration and write bug-free code.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-06-23T00:00:00Z>6월 23, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>12 분 정도</time></div></footer></div></header><section class=article-content><p>Have you ever wondered why this JavaScript code doesn&rsquo;t throw an error, even though we&rsquo;re using a variable before declaring it? When you&rsquo;re learning JavaScript as your first step toward React development, you&rsquo;ll inevitably encounter situations where variables seem to &ldquo;magically&rdquo; work before they&rsquo;re defined, leaving you scratching your head.</p><p>I remember my first week learning JavaScript – I was building a simple shopping cart calculator and kept getting unexpected <code>undefined</code> values instead of proper error messages. I thought my code editor was broken! But then I discovered hoisting, and suddenly everything clicked. Understanding this concept transformed how I write JavaScript and made me a much more confident developer when I eventually moved to React.</p><p>In this comprehensive guide, I&rsquo;ll walk you through everything you need to know about JavaScript hoisting – from the basic mechanics to advanced scenarios you&rsquo;ll encounter in real React projects. We&rsquo;ll cover why <code>var</code> behaves differently from <code>let</code> and <code>const</code>, what the mysterious &ldquo;Temporal Dead Zone&rdquo; actually means, and most importantly, how to write predictable, bug-free code.</p><p>We&rsquo;ll start with the fundamental concept and work our way up to complex scenarios with practical, runnable code examples. By the end of this article, you&rsquo;ll have the hoisting knowledge that will make your transition to React development much smoother and help you avoid the subtle bugs that often plague new JavaScript developers.</p><br><h2 id=what-is-javascript-hoisting>What is JavaScript Hoisting?</h2><blockquote><p>JavaScript hoisting is the engine&rsquo;s behavior of moving variable and function declarations to the top of their containing scope during the compilation phase. This means you can reference variables and functions before their actual declaration appears in your code, though the behavior varies significantly between <code>var</code>, <code>let</code>, and <code>const</code>.</p></blockquote><br><h2 id=why-hoisting-knowledge-is-critical-for-react-development>Why Hoisting Knowledge is Critical for React Development</h2><p>Before diving into React components and hooks, you need to understand how JavaScript manages variable declarations. In React applications, you&rsquo;ll often work with state variables, event handlers, and lifecycle methods where hoisting behavior can create unexpected bugs.</p><p>I learned this the hard way when building my first React todo app. I was declaring state updater functions using <code>var</code> inside event handlers, which led to some very confusing behavior due to hoisting. Understanding hoisting principles helped me write cleaner, more predictable React code and avoid the &ldquo;why is my state not updating?&rdquo; debugging sessions.</p><p>Modern React development relies heavily on ES6+ features like <code>const</code> and <code>let</code>, which have different hoisting behaviors than the older <code>var</code> keyword. Mastering these differences now will save you hours of debugging later.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=understanding-var-hoisting-the-foundation>Understanding var Hoisting: The Foundation</h2><p>The <code>var</code> keyword exhibits the most straightforward hoisting behavior – declarations are moved to the top of their function scope and automatically initialized with <code>undefined</code>.</p><br><h3 id=how-var-hoisting-actually-works>How var Hoisting Actually Works</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ This looks wrong but actually works
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>calculateOrderTotal</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>subtotal</span><span class=p>);</span> <span class=c1>// undefined (not an error!)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>tax</span><span class=p>);</span> <span class=c1>// undefined (not an error!)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=nx>subtotal</span> <span class=o>=</span> <span class=mf>99.99</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tax</span> <span class=o>=</span> <span class=nx>subtotal</span> <span class=o>*</span> <span class=mf>0.08</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>subtotal</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>tax</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>subtotal</span> <span class=o>+</span> <span class=nx>tax</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>calculateOrderTotal</span><span class=p>());</span> <span class=c1>// 107.99
+</span></span></span></code></pre></td></tr></table></div></div><p>Here&rsquo;s what JavaScript actually does behind the scenes:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ How the JavaScript engine interprets the code
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>calculateOrderTotal</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>subtotal</span><span class=p>;</span> <span class=c1>// Hoisted and initialized to undefined
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>var</span> <span class=nx>tax</span><span class=p>;</span>      <span class=c1>// Hoisted and initialized to undefined
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>subtotal</span><span class=p>);</span> <span class=c1>// undefined
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>tax</span><span class=p>);</span>      <span class=c1>// undefined
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=nx>subtotal</span> <span class=o>=</span> <span class=mf>99.99</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tax</span> <span class=o>=</span> <span class=nx>subtotal</span> <span class=o>*</span> <span class=mf>0.08</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>subtotal</span> <span class=o>+</span> <span class=nx>tax</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=function-scope-vs-block-scope-with-var>Function Scope vs Block Scope with var</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>processUserData</span><span class=p>(</span><span class=nx>users</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>userCount</span><span class=p>);</span> <span class=c1>// undefined (hoisted)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>users</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kd>var</span> <span class=nx>userCount</span> <span class=o>=</span> <span class=nx>users</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kd>var</span> <span class=nx>processedUsers</span> <span class=o>=</span> <span class=nx>users</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>user</span> <span class=p>=&gt;</span> <span class=p>({</span>
+</span></span><span class=line><span class=cl>            <span class=p>...</span><span class=nx>user</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>processed</span><span class=o>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>        <span class=p>}));</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// ❌ These variables are accessible outside the if block
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>userCount</span><span class=p>);</span> <span class=c1>// actual length value
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>processedUsers</span><span class=p>);</span> <span class=c1>// processed array
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>processedUsers</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Key var Characteristics:</strong></p><ol><li><strong>Hoisted and initialized</strong> – Always gets <code>undefined</code> value at the top of scope</li><li><strong>Function-scoped</strong> – Ignores block boundaries like <code>if</code>, <code>for</code>, <code>while</code></li><li><strong>Allows redeclaration</strong> – You can declare the same variable multiple times</li></ol><br><h2 id=the-let-and-const-revolution-introducing-tdz>The let and const Revolution: Introducing TDZ</h2><p>ES6 introduced <code>let</code> and <code>const</code> with a completely different hoisting behavior. While they are still hoisted, they remain uninitialized until their declaration is reached, creating what&rsquo;s known as the Temporal Dead Zone.</p><br><h3 id=understanding-the-temporal-dead-zone>Understanding the Temporal Dead Zone</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ This will throw a ReferenceError
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>createUserProfile</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>userName</span><span class=p>);</span> <span class=c1>// ReferenceError: Cannot access &#39;userName&#39; before initialization
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>userEmail</span><span class=p>);</span> <span class=c1>// ReferenceError: Cannot access &#39;userEmail&#39; before initialization
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;Sarah Johnson&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>userEmail</span> <span class=o>=</span> <span class=s2>&#34;sarah@example.com&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span> <span class=nx>userName</span><span class=p>,</span> <span class=nx>userEmail</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>The TDZ creates a &ldquo;dead zone&rdquo; where variables exist but cannot be accessed:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>demonstrateTDZ</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// TDZ starts here for both variables
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=k>typeof</span> <span class=nx>productName</span><span class=p>);</span> <span class=c1>// ReferenceError!
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=k>typeof</span> <span class=nx>productPrice</span><span class=p>);</span> <span class=c1>// ReferenceError!
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>productName</span> <span class=o>=</span> <span class=s2>&#34;Wireless Headphones&#34;</span><span class=p>;</span>  <span class=c1>// TDZ ends for productName
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>productPrice</span> <span class=o>=</span> <span class=mf>149.99</span><span class=p>;</span>              <span class=c1>// TDZ ends for productPrice
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>productName</span><span class=p>);</span> <span class=c1>// &#34;Wireless Headphones&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>productPrice</span><span class=p>);</span> <span class=c1>// 149.99
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=block-scope-behavior-in-practice>Block Scope Behavior in Practice</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>handleShoppingCart</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>cartTotal</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>cartTotal</span> <span class=o>===</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kd>let</span> <span class=nx>emptyMessage</span> <span class=o>=</span> <span class=s2>&#34;Your cart is empty&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>suggestionText</span> <span class=o>=</span> <span class=s2>&#34;Browse our featured products&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>emptyMessage</span><span class=p>);</span> <span class=c1>// &#34;Your cart is empty&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>suggestionText</span><span class=p>);</span> <span class=c1>// &#34;Browse our featured products&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// ❌ These would throw ReferenceError
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// console.log(emptyMessage);
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// console.log(suggestionText);
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>let and const Characteristics:</strong></p><ol><li><strong>Hoisted but not initialized</strong> – They exist but can&rsquo;t be accessed until declaration</li><li><strong>Block-scoped</strong> – Respect boundaries of <code>{}</code>, <code>if</code>, <code>for</code>, etc.</li><li><strong>No redeclaration</strong> – Cannot declare the same name twice in the same scope</li><li><strong>const requires initialization</strong> – Must be assigned a value when declared</li></ol><br><h2 id=function-hoisting-the-complete-picture>Function Hoisting: The Complete Picture</h2><p>Functions have the most complex hoisting behavior, with different rules for function declarations, function expressions, and arrow functions.</p><br><h3 id=function-declarations-fully-hoisted>Function Declarations: Fully Hoisted</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ This works perfectly - function declarations are completely hoisted
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>result</span> <span class=o>=</span> <span class=nx>calculateDiscount</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>);</span> <span class=c1>// 20
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>result</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>calculateDiscount</span><span class=p>(</span><span class=nx>price</span><span class=p>,</span> <span class=nx>discountRate</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>price</span> <span class=o>*</span> <span class=nx>discountRate</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=function-expressions-variable-hoisting-rules-apply>Function Expressions: Variable Hoisting Rules Apply</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ This throws TypeError: validateEmail is not a function
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>isValid</span> <span class=o>=</span> <span class=nx>validateEmail</span><span class=p>(</span><span class=s2>&#34;test@example.com&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>validateEmail</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>email</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>email</span><span class=p>.</span><span class=nx>includes</span><span class=p>(</span><span class=s2>&#34;@&#34;</span><span class=p>)</span> <span class=o>&amp;&amp;</span> <span class=nx>email</span><span class=p>.</span><span class=nx>includes</span><span class=p>(</span><span class=s2>&#34;.&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p>What&rsquo;s actually happening:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ How JavaScript interprets the above code
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>var</span> <span class=nx>validateEmail</span><span class=p>;</span> <span class=c1>// Hoisted as undefined
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>isValid</span> <span class=o>=</span> <span class=nx>validateEmail</span><span class=p>(</span><span class=s2>&#34;test@example.com&#34;</span><span class=p>);</span> <span class=c1>// TypeError!
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>validateEmail</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>email</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>email</span><span class=p>.</span><span class=nx>includes</span><span class=p>(</span><span class=s2>&#34;@&#34;</span><span class=p>)</span> <span class=o>&amp;&amp;</span> <span class=nx>email</span><span class=p>.</span><span class=nx>includes</span><span class=p>(</span><span class=s2>&#34;.&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=arrow-functions-and-modern-patterns>Arrow Functions and Modern Patterns</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ Cannot access before initialization
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>processOrder</span> <span class=o>=</span> <span class=p>(</span><span class=nx>order</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>shippingCost</span> <span class=o>=</span> <span class=nx>calculateShipping</span><span class=p>(</span><span class=nx>order</span><span class=p>.</span><span class=nx>weight</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>order</span><span class=p>.</span><span class=nx>total</span> <span class=o>+</span> <span class=nx>shippingCost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ReferenceError: Cannot access &#39;calculateShipping&#39; before initialization
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>calculateShipping</span> <span class=o>=</span> <span class=p>(</span><span class=nx>weight</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>weight</span> <span class=o>&gt;</span> <span class=mi>5</span> <span class=o>?</span> <span class=mi>15</span> <span class=o>:</span> <span class=mi>8</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>The solution for modern JavaScript development:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ Declare functions before using them
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>calculateShipping</span> <span class=o>=</span> <span class=p>(</span><span class=nx>weight</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>weight</span> <span class=o>&gt;</span> <span class=mi>5</span> <span class=o>?</span> <span class=mi>15</span> <span class=o>:</span> <span class=mi>8</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>processOrder</span> <span class=o>=</span> <span class=p>(</span><span class=nx>order</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>shippingCost</span> <span class=o>=</span> <span class=nx>calculateShipping</span><span class=p>(</span><span class=nx>order</span><span class=p>.</span><span class=nx>weight</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>order</span><span class=p>.</span><span class=nx>total</span> <span class=o>+</span> <span class=nx>shippingCost</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><br><h2 id=common-hoisting-pitfalls-that-break-react-apps>Common Hoisting Pitfalls That Break React Apps</h2><p>Based on my experience mentoring new React developers, here are the most common hoisting-related mistakes that can break your applications.</p><br><h3 id=the-classic-loop-variable-trap>The Classic Loop Variable Trap</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ This creates a common bug in event handlers
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>attachClickHandlers</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>buttons</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelectorAll</span><span class=p>(</span><span class=s1>&#39;.product-button&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kd>var</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>buttons</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>buttons</span><span class=p>[</span><span class=nx>i</span><span class=p>].</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Clicked button&#39;</span><span class=p>,</span> <span class=nx>i</span><span class=p>);</span> <span class=c1>// Always logs the final value!
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ Fix with let to create block scope
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>attachClickHandlersCorrectly</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>buttons</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelectorAll</span><span class=p>(</span><span class=s1>&#39;.product-button&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>buttons</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>buttons</span><span class=p>[</span><span class=nx>i</span><span class=p>].</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Clicked button&#39;</span><span class=p>,</span> <span class=nx>i</span><span class=p>);</span> <span class=c1>// Logs correct index
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=variable-shadowing-in-nested-scopes>Variable Shadowing in Nested Scopes</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>globalUserCount</span> <span class=o>=</span> <span class=mi>100</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>processUsers</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>globalUserCount</span><span class=p>);</span> <span class=c1>// ReferenceError! (not 100 as expected)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=kc>true</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kd>let</span> <span class=nx>globalUserCount</span> <span class=o>=</span> <span class=mi>50</span><span class=p>;</span> <span class=c1>// This shadows the global variable
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>globalUserCount</span><span class=p>);</span> <span class=c1>// 50
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=react-component-gotchas>React Component Gotchas</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ Problematic pattern that new React developers often use
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>UserProfile</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// This won&#39;t work as expected due to hoisting
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>userData</span><span class=p>);</span> <span class=c1>// ReferenceError!
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>[</span><span class=nx>users</span><span class=p>,</span> <span class=nx>setUsers</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([]);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>userData</span> <span class=o>=</span> <span class=nx>fetchUserData</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=nx>setUsers</span><span class=p>(</span><span class=nx>userData</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>userData</span><span class=p>;</span> <span class=c1>// Too late!
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ Proper pattern for React components  
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>UserProfile</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>[</span><span class=nx>users</span><span class=p>,</span> <span class=nx>setUsers</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([]);</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>[</span><span class=nx>userData</span><span class=p>,</span> <span class=nx>setUserData</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>fetchAndSetData</span> <span class=o>=</span> <span class=kr>async</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>data</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetchUserData</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            <span class=nx>setUserData</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=nx>setUsers</span><span class=p>(</span><span class=nx>data</span><span class=p>.</span><span class=nx>users</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>};</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nx>fetchAndSetData</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>userData</span> <span class=o>?</span> <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span><span class=p>{</span><span class=nx>userData</span><span class=p>.</span><span class=nx>name</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/div&gt; : &lt;div&gt;Loading...&lt;/div&gt;;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=modern-javascript-best-practices-for-hoisting>Modern JavaScript Best Practices for Hoisting</h2><p>Here&rsquo;s how to write hoisting-safe code that will serve you well in React development:</p><br><h3 id=1-embrace-the-const-first-approach>1. Embrace the const-first Approach</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ Start with const, move to let only when needed
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>API_URL</span> <span class=o>=</span> <span class=s1>&#39;https://api.example.com&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>MAX_RETRY_ATTEMPTS</span> <span class=o>=</span> <span class=mi>3</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>fetchUserData</span><span class=p>(</span><span class=nx>userId</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>retryCount</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>userData</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// Only use let when the value will change
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>while</span> <span class=p>(</span><span class=nx>retryCount</span> <span class=o>&lt;</span> <span class=nx>MAX_RETRY_ATTEMPTS</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=nx>userData</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>userData</span> <span class=o>=</span> <span class=nx>attemptFetch</span><span class=p>(</span><span class=nx>userId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>retryCount</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>userData</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=2-declare-variables-at-point-of-use>2. Declare Variables at Point of Use</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ Declare variables close to where they&#39;re used
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>calculateShippingCosts</span><span class=p>(</span><span class=nx>cart</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>baseShipping</span> <span class=o>=</span> <span class=mf>5.99</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>cart</span><span class=p>.</span><span class=nx>items</span><span class=p>.</span><span class=nx>length</span> <span class=o>===</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>totalWeight</span> <span class=o>=</span> <span class=nx>cart</span><span class=p>.</span><span class=nx>items</span><span class=p>.</span><span class=nx>reduce</span><span class=p>((</span><span class=nx>sum</span><span class=p>,</span> <span class=nx>item</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>itemWeight</span> <span class=o>=</span> <span class=nx>item</span><span class=p>.</span><span class=nx>weight</span> <span class=o>||</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>sum</span> <span class=o>+</span> <span class=nx>itemWeight</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>weightMultiplier</span> <span class=o>=</span> <span class=nx>totalWeight</span> <span class=o>&gt;</span> <span class=mi>10</span> <span class=o>?</span> <span class=mi>2</span> <span class=o>:</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>baseShipping</span> <span class=o>*</span> <span class=nx>weightMultiplier</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=3-use-block-scope-strategically>3. Use Block Scope Strategically</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ Use block scope to limit variable lifetime
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>processFormData</span><span class=p>(</span><span class=nx>formData</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>errors</span> <span class=o>=</span> <span class=p>[];</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// Email validation block
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>email</span> <span class=o>=</span> <span class=nx>formData</span><span class=p>.</span><span class=nx>email</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>emailRegex</span> <span class=o>=</span> <span class=sr>/^[^\s@]+@[^\s@]+\.[^\s@]+$/</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>emailRegex</span><span class=p>.</span><span class=nx>test</span><span class=p>(</span><span class=nx>email</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>errors</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=s1>&#39;Invalid email format&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// Password validation block  
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>password</span> <span class=o>=</span> <span class=nx>formData</span><span class=p>.</span><span class=nx>password</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>minLength</span> <span class=o>=</span> <span class=mi>8</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>password</span><span class=p>.</span><span class=nx>length</span> <span class=o>&lt;</span> <span class=nx>minLength</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>errors</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=s1>&#39;Password must be at least 8 characters&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>errors</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=hoisting-behavior-comparison-table>Hoisting Behavior Comparison Table</h2><div class=table-wrapper><table><thead><tr><th>Feature</th><th>var</th><th>let</th><th>const</th></tr></thead><tbody><tr><td><strong>Hoisting</strong></td><td>✅ Yes</td><td>✅ Yes</td><td>✅ Yes</td></tr><tr><td><strong>Initialization on Hoist</strong></td><td>✅ undefined</td><td>❌ Uninitialized</td><td>❌ Uninitialized</td></tr><tr><td><strong>Temporal Dead Zone</strong></td><td>❌ No</td><td>✅ Yes</td><td>✅ Yes</td></tr><tr><td><strong>Scope Type</strong></td><td>Function</td><td>Block</td><td>Block</td></tr><tr><td><strong>Redeclaration Allowed</strong></td><td>✅ Yes</td><td>❌ No</td><td>❌ No</td></tr><tr><td><strong>Reassignment Allowed</strong></td><td>✅ Yes</td><td>✅ Yes</td><td>❌ No</td></tr><tr><td><strong>Access Before Declaration</strong></td><td>Returns undefined</td><td>ReferenceError</td><td>ReferenceError</td></tr><tr><td><strong>React Compatibility</strong></td><td>⚠️ Problematic</td><td>✅ Good</td><td>✅ Best</td></tr></tbody></table></div><br><h2 id=frequently-asked-questions>Frequently Asked Questions</h2><h3 id=q1-why-does-javascript-have-hoisting-in-the-first-place>Q1. Why does JavaScript have hoisting in the first place?</h3><p>Hoisting exists because of how JavaScript&rsquo;s compilation phase works. When JavaScript code runs, the engine first scans through your code to identify all variable and function declarations, registering them in memory before any code execution begins. This happens during the creation of the execution context.</p><p>I initially thought this was a quirky design flaw, but it actually serves important purposes. Function hoisting allows you to organize your code with the main logic at the top and helper functions at the bottom, which often makes code more readable. It also enables recursive function calls and mutual recursion patterns that wouldn&rsquo;t otherwise work.</p><p>However, the different hoisting behaviors between <code>var</code>, <code>let</code>, and <code>const</code> reflect JavaScript&rsquo;s evolution toward safer, more predictable code patterns.</p><br><h3 id=q2-how-does-the-temporal-dead-zone-actually-protect-my-code>Q2. How does the Temporal Dead Zone actually protect my code?</h3><p>The TDZ prevents you from accidentally using variables before they&rsquo;re properly initialized, which was a common source of bugs with <code>var</code>. When you try to access a <code>let</code> or <code>const</code> variable before its declaration, you get an immediate, clear error instead of a mysterious <code>undefined</code> value.</p><p>In my React projects, this has saved me countless hours of debugging. Instead of wondering why a component is rendering with unexpected <code>undefined</code> values, I get a clear error message pointing me to exactly where I&rsquo;m trying to use a variable too early.</p><br><h3 id=q3-should-i-ever-use-var-in-modern-javascript-development>Q3. Should I ever use var in modern JavaScript development?</h3><p>In modern JavaScript and React development, I recommend avoiding <code>var</code> entirely. The combination of function scope and automatic <code>undefined</code> initialization creates too many opportunities for bugs. Every use case for <code>var</code> can be better handled with <code>let</code> or <code>const</code>.</p><p>The only exception might be when working with very old codebases or specific compatibility requirements, but even then, tools like Babel can transpile <code>let</code> and <code>const</code> to work in older environments.</p><br><h3 id=q4-how-does-hoisting-affect-react-hooks>Q4. How does hoisting affect React hooks?</h3><p>React hooks must be declared at the top level of your component function, and hoisting knowledge helps you understand why. Since hooks rely on consistent call order between renders, you need to be very careful about conditional declarations or variable scope issues.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>MyComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ✅ Hooks at the top level - predictable hoisting behavior
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>setCount</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>[</span><span class=nx>name</span><span class=p>,</span> <span class=nx>setName</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// ✅ Variables declared in proper scope
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kr>const</span> <span class=nx>timer</span> <span class=o>=</span> <span class=nx>setInterval</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>setCount</span><span class=p>(</span><span class=nx>prev</span> <span class=p>=&gt;</span> <span class=nx>prev</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span> <span class=mi>1000</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>clearInterval</span><span class=p>(</span><span class=nx>timer</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=o>&lt;</span><span class=nx>div</span><span class=o>&gt;</span><span class=p>{</span><span class=nx>count</span><span class=p>}</span> <span class=o>-</span> <span class=p>{</span><span class=nx>name</span><span class=p>}</span><span class=o>&lt;</span><span class=err>/div&gt;;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=q5-what-tools-can-help-me-catch-hoisting-related-bugs>Q5. What tools can help me catch hoisting-related bugs?</h3><p>ESLint is your best friend here. Rules like <code>no-var</code>, <code>prefer-const</code>, and <code>no-use-before-define</code> will catch most hoisting-related issues before they become bugs. TypeScript also provides excellent compile-time checking for variable usage patterns.</p><p>I also recommend using your browser&rsquo;s developer tools debugger to step through code execution and see exactly when variables are initialized versus when they&rsquo;re accessed.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=conclusion-master-hoisting-master-javascript>Conclusion: Master Hoisting, Master JavaScript</h2><p><strong>Key Takeaways:</strong></p><ul><li>Hoisting moves declarations to the top of scope, but initialization stays in place</li><li><code>var</code> initializes to <code>undefined</code> immediately, while <code>let</code>/<code>const</code> remain in TDZ until declaration</li><li>Function declarations are fully hoisted, but function expressions follow variable rules</li><li>Block scope with <code>let</code>/<code>const</code> prevents many common bugs that plague <code>var</code> usage</li><li>Modern best practice: prefer <code>const</code>, use <code>let</code> when needed, avoid <code>var</code> entirely</li></ul><p><strong>Practice Challenge:</strong> Build a simple user registration form validator that demonstrates proper variable scoping. Use <code>const</code> for validation rules, <code>let</code> for changing state, and implement proper error handling that showcases block scope benefits.</p><p>Next up, we&rsquo;ll explore <strong><a class=link href=/code-en/2025-06-25-function-expression/>JavaScript Function Expressions vs Function Declarations</a></strong> – understanding the critical differences that will make you a more confident developer. With your solid grasp of hoisting behavior, you&rsquo;ll now be able to predict exactly how different function definition patterns behave in your code!</p><p>What&rsquo;s your experience with hoisting been like? Have you encountered any tricky bugs that this article helped clarify? I&rsquo;d love to hear about your &ldquo;aha!&rdquo; moments or any additional questions in the comments below. Your experience could help fellow developers avoid the same pitfalls! 🚀</p><br><div class=btn_wrap><a target=_blank href=https://developer.mozilla.org/en-US/docs/Glossary/Hoisting>JavaScript Hoisting - MDN Documentation</a></div></section><footer class=article-footer><section class=article-tags><a href=/tags/javascript-fundamentals/>JavaScript Fundamentals</a>
+<a href=/tags/hoisting/>Hoisting</a>
+<a href=/tags/tdz/>TDZ</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section><section class=article-lastmod><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time datetime=2025-06-25T00:00:00Z>마지막 수정: 6월 25, 2025 00:00 UTC</time></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code-en/2025-07-03-javascript-immutability/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-03-javascript-immutability-en.webp loading=lazy data-key=2025-07-03-javascript-immutability data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-03-javascript-immutability-en.webp></div><div class=article-details><h2 class=article-title>Why Your Code Breaks: JavaScript Immutability Rules</h2></div></a></article><article class=has-image><a href=/code-en/2025-07-01-primitive-reference/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-01-primitive-reference-en.webp loading=lazy data-key=2025-07-01-primitive-reference data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-01-primitive-reference-en.webp></div><div class=article-details><h2 class=article-title>JavaScript Primitive vs Reference: The Bug You Didn't Expect</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-27-let-const/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-27-let-const-en.webp loading=lazy data-key=2025-06-27-let-const data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-27-let-const-en.webp></div><div class=article-details><h2 class=article-title>JavaScript var vs let vs const: Why Avoid var?</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-25-function-expression/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-25-function-expression-en.webp loading=lazy data-key=2025-06-25-function-expression data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-25-function-expression-en.webp></div><div class=article-details><h2 class=article-title>JavaScript Function Expression: 3 Essential Patterns Every Developer Must Know</h2></div></a></article><article class=has-image><a href=/code/2025-06-20-javascript-hoisting/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-20-javascript-hoisting.webp loading=lazy data-key=2025-06-20-javascript-hoisting data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-20-javascript-hoisting.webp></div><div class=article-details><h2 class=article-title>자바스크립트 호이스팅, 변수 선언 전 사용 가능한 이유</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

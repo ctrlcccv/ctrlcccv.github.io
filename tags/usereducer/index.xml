@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>UseReducer on 컨트롤 + CCCV</title><link>https://ctrlcccv.github.io/tags/usereducer/</link><description>Recent content in UseReducer on 컨트롤 + CCCV</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 03 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ctrlcccv.github.io/tags/usereducer/index.xml" rel="self" type="application/rss+xml"/><item><title>복잡한 로직도 쉽게! React useReducer 핵심 개념과 활용법</title><link>https://ctrlcccv.github.io/code/2024-04-03-usereducer/</link><pubDate>Wed, 03 Apr 2024 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2024-04-03-usereducer/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-04-03-useReducer.webp" alt="Featured image of post 복잡한 로직도 쉽게! React useReducer 핵심 개념과 활용법
+" />&lt;p>React 애플리케이션을 개발할 때, 상태 관리는 매우 중요한 요소입니다. React는 기본적으로 useState를 제공하지만, 더 복잡한 상황에서는 useReducer라는 든든한 조력자가 필요합니다. useReducer는 상태 로직을 명확하게 정의하고, 중앙 집중화하여 관리할 수 있도록 도와줍니다. 이 글에서는 useReducer의 작동 방식, 활용 방법, 그리고 다양한 상황에서의 사용 예시를 통해 애플리케이션의 유지 보수성과 확장성을 높이는 방법을 소개합니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="usereducer란">useReducer란?
+&lt;/h2>&lt;p>useReducer는 React의 핵심 훅 중 하나로, 상태 관리를 위한 강력한 도구입니다. useState와 유사하게 작동하지만, 더 복잡한 상태 로직을 다루고, 성능을 최적화하는 데 효과적입니다.&lt;/p>
+&lt;br>
+&lt;h2 id="usereducer의-구조">useReducer의 구조
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-jsx" data-lang="jsx">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">dispatch&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useReducer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">reducer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">initialState&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>useReducer는 다음과 같은 구성 요소로 이루어집니다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>state:&lt;/strong> 현재 상태를 나타내는 변수입니다.&lt;/li>
+&lt;li>&lt;strong>dispatch:&lt;/strong> 액션을 발생시키는 함수로, reducer에 액션을 전달하여 상태를 업데이트합니다.&lt;/li>
+&lt;li>&lt;strong>reducer:&lt;/strong> 상태 업데이트 로직을 담당하는 함수입니다.&lt;/li>
+&lt;li>&lt;strong>initialState:&lt;/strong> 상태의 초깃값을 설정합니다.&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="usereducer를-사용하는-이유">useReducer를 사용하는 이유
+&lt;/h2>&lt;ul>
+&lt;li>&lt;strong>복잡한 상태 로직 처리:&lt;/strong> 여러 개의 상태 변수와 업데이트 로직을 간결하고 명확하게 관리할 수 있습니다.&lt;/li>
+&lt;li>&lt;strong>중앙 집중화:&lt;/strong> 상태 업데이트 로직을 한곳에 모아 코드의 가독성과 유지 보수성을 향상시킵니다.&lt;/li>
+&lt;li>&lt;strong>성능 최적화:&lt;/strong> 불필요한 렌더링을 방지하고, 상태 업데이트를 효율적으로 처리합니다.&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="활용-예시">활용 예시
+&lt;/h2>&lt;h3 id="카운터-애플리케이션">카운터 애플리케이션
+&lt;/h3>&lt;p>카운터 애플리케이션은 useReducer의 기본적인 활용 예시입니다. 버튼 클릭에 따라 카운터 값을 증가 또는 감소시키는 간단한 로직을 구현할 수 있습니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-jsx" data-lang="jsx">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 초기 상태를 정의합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">initialState&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">count&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 상태를 업데이트하는 reducer 함수를 정의합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">reducer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">action&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">switch&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">action&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">type&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="s1">&amp;#39;increment&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">count&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">count&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="p">};&lt;/span> &lt;span class="c1">// count를 1 증가시킵니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">case&lt;/span> &lt;span class="s1">&amp;#39;decrement&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">count&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">count&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="p">};&lt;/span> &lt;span class="c1">// count를 1 감소시킵니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">default&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">throw&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Error&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 알 수 없는 액션 타입이면 에러를 발생시킵니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 카운터 컴포넌트를 정의합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">Counter&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// useReducer 훅을 사용하여 state와 dispatch 함수를 받습니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">dispatch&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useReducer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">reducer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">initialState&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 현재 count 상태를 출력하고, 버튼 클릭에 따라 액션을 dispatch 합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Count&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">count&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">onClick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">dispatch&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">type&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;increment&amp;#39;&lt;/span> &lt;span class="p">})}&amp;gt;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">onClick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">dispatch&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">type&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;decrement&amp;#39;&lt;/span> &lt;span class="p">})}&amp;gt;&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;ul>
+&lt;li>&lt;strong>상태 관리:&lt;/strong> 카운터 값을 &lt;code>state&lt;/code> 변수에 저장하고 &lt;code>dispatch&lt;/code> 함수로 업데이트합니다.&lt;/li>
+&lt;li>&lt;strong>액션 처리:&lt;/strong> &lt;code>reducer&lt;/code> 함수는 액션 타입에 따라 카운터 값을 증가/감소시킵니다.&lt;/li>
+&lt;li>&lt;strong>UI 업데이트:&lt;/strong> &lt;code>Counter&lt;/code> 컴포넌트는 &lt;code>state.count&lt;/code> 값을 출력하고 버튼 클릭 시 액션을 dispatch합니다.&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h3 id="todo-list-애플리케이션">Todo List 애플리케이션
+&lt;/h3>&lt;p>Todo List 애플리케이션은 useReducer의 다양한 기능을 활용하는 좋은 예시입니다. Todo 항목 추가, 삭제, 완료 등의 복잡한 상태 업데이트 로직을 useReducer를 통해 간결하고 효율적으로 관리할 수 있습니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-jsx" data-lang="jsx">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">initialState&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">todos&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[]&lt;/span> &lt;span class="p">};&lt;/span> &lt;span class="c1">// 초기 상태를 설정합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">reducer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">action&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">switch&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">action&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">type&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="s1">&amp;#39;addTodo&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">todos&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">action&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">payload&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">};&lt;/span> &lt;span class="c1">// 새로운 할 일을 추가합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">case&lt;/span> &lt;span class="s1">&amp;#39;removeTodo&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">todos&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">filter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todo&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">todo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="nx">action&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">payload&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">};&lt;/span> &lt;span class="c1">// 할 일을 삭제합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">case&lt;/span> &lt;span class="s1">&amp;#39;toggleTodo&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">todos&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todo&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">todo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="nx">action&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">payload&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">todo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">completed&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="o">!&lt;/span>&lt;span class="nx">todo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">completed&lt;/span> &lt;span class="p">};&lt;/span> &lt;span class="c1">// 할 일의 완료 상태를 변경합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">todo&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">default&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">throw&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Error&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 액션에 대한 처리가 없으면 에러를 발생시킵니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">TodoList&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">dispatch&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useReducer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">reducer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">initialState&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 리듀서를 사용하여 상태를 관리합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">addTodo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">text&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">dispatch&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">type&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;addTodo&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">payload&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">text&lt;/span> &lt;span class="p">});&lt;/span> &lt;span class="c1">// 새로운 할 일을 추가합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">removeTodo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">id&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">dispatch&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">type&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;removeTodo&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">payload&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">id&lt;/span> &lt;span class="p">});&lt;/span> &lt;span class="c1">// 할 일을 삭제합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">toggleTodo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">id&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">dispatch&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">type&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;toggleTodo&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">payload&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">id&lt;/span> &lt;span class="p">});&lt;/span> &lt;span class="c1">// 할 일의 완료 상태를 변경합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;새로운 할 일 입력...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="na">onKeyPress&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">key&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s1">&amp;#39;Enter&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nx">addTodo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 엔터 키를 눌러 새로운 할 일을 추가합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ul&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todo&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span> &lt;span class="na">key&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">todo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">}&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;checkbox&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="na">checked&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">todo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">completed&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="na">onChange&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">toggleTodo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">)}&lt;/span> &lt;span class="err">//&lt;/span> &lt;span class="na">체크박스를&lt;/span> &lt;span class="na">토글하여&lt;/span> &lt;span class="na">할&lt;/span> &lt;span class="na">일의&lt;/span> &lt;span class="na">완료&lt;/span> &lt;span class="na">상태를&lt;/span> &lt;span class="na">변경합니다.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>&lt;span class="nx">todo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">onClick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">removeTodo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">)}&amp;gt;&lt;/span>&lt;span class="nx">X&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="c1">// 할 일을 삭제하는 버튼입니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">))}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">ul&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;strong>상태 관리:&lt;/strong> Todo 항목 목록을 &lt;code>state.todos&lt;/code> 변수에 저장하고 &lt;code>dispatch&lt;/code> 함수로 업데이트합니다.&lt;/li>
+&lt;li>&lt;strong>액션 처리:&lt;/strong> &lt;code>reducer&lt;/code> 함수는 액션 타입에 따라 Todo 항목 목록을 추가/삭제/완료 상태 변경합니다.&lt;/li>
+&lt;li>&lt;strong>UI 업데이트:&lt;/strong> &lt;code>TodoList&lt;/code> 컴포넌트는 &lt;code>state.todos&lt;/code> 목록을 반복하여 출력하고, 사용자 입력을 받아 액션을 dispatch합니다.&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>useReducer는 React 애플리케이션에서 상태 관리를 위한 강력한 도구입니다. 복잡한 상태 로직을 간결하고 효율적으로 처리하고, 애플리케이션의 유지 보수성과 확장성을 향상시키는 데 도움을 줄 수 있습니다.&lt;/p></description></item></channel></rss>

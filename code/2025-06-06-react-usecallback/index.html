@@ -1,0 +1,399 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="React의 useCallback 훅을 활용해 함수를 효율적으로 관리하고 불필요한 리렌더링을 방지해보세요. 실제 사례를 통해 앱 성능을 높이는 방법을 알아봅니다. "><title>React useCallback으로 불필요한 리렌더링 방지하기</title><link rel=canonical href=https://ctrlcccv.github.io/code/2025-06-06-react-usecallback/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="React useCallback으로 불필요한 리렌더링 방지하기\n"><meta property='og:description' content="React의 useCallback 훅을 활용해 함수를 효율적으로 관리하고 불필요한 리렌더링을 방지해보세요. 실제 사례를 통해 앱 성능을 높이는 방법을 알아봅니다. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2025-06-06-react-usecallback/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='React Hooks'><meta property='article:tag' content='useCallback'><meta property='article:tag' content='성능 최적화'><meta property='article:published_time' content='2025-06-06T00:00:00+00:00'><meta property='article:modified_time' content='2025-06-06T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp'><meta name=twitter:title content="React useCallback으로 불필요한 리렌더링 방지하기\n"><meta name=twitter:description content="React의 useCallback 훅을 활용해 함수를 효율적으로 관리하고 불필요한 리렌더링을 방지해보세요. 실제 사례를 통해 앱 성능을 높이는 방법을 알아봅니다. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"React useCallback으로 불필요한 리렌더링 방지하기\n","datePublished":"2025-06-06T00:00:00Z","dateModified":"2025-06-06T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="React useCallback으로 불필요한 리렌더링 방지하기" href=https://ctrlcccv.github.io/code/2025-06-06-react-usecallback/ hreflang=ko><link rel=alternate title="Stop React Re-renders with useCallback Hook" href=https://ctrlcccv.github.io/code-en/2025-06-11-react-usecallback/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#usecallback-기본-개념-이해하기>useCallback 기본 개념 이해하기</a><ol><li><a href=#usecallback이란>useCallback이란?</a></li><li><a href=#기본-구조>기본 구조</a></li><li><a href=#작동-방식>작동 방식</a></li></ol></li><li><a href=#함수-안정화와-불필요한-리렌더링-방지하기>함수 안정화와 불필요한 리렌더링 방지하기</a><ol><li><a href=#문제와-해결책>문제와 해결책</a></li></ol></li><li><a href=#모범-사례와-흔한-실수>모범 사례와 흔한 실수</a></li><li><a href=#실전-사용-사례-이벤트-핸들러와-api-호출>실전 사용 사례: 이벤트 핸들러와 API 호출</a></li><li><a href=#usecallback-최적화-퀴즈>useCallback 최적화 퀴즈!</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2025-06-06-react-usecallback/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp loading=lazy alt="Featured image of post React useCallback으로 불필요한 리렌더링 방지하기
+"></a></div><div class=article-details><header class=article-category><a href=/categories/react/>React</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2025-06-06-react-usecallback/>React useCallback으로 불필요한 리렌더링 방지하기</a></h2><h3 class=article-subtitle>React의 useCallback 훅을 활용해 함수를 효율적으로 관리하고 불필요한 리렌더링을 방지해보세요. 실제 사례를 통해 앱 성능을 높이는 방법을 알아봅니다.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-06-06T00:00:00Z>6월 06, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>7 분 정도</time></div></footer></div></header><section class=article-content><p>리액트 컴포넌트가 불필요하게 다시 렌더링되어 앱이 느려지고 있나요?</p><p>리액트로 개발하다 보면 컴포넌트가 다시 그려질 때마다 함수가 새로 만들어져 성능이 저하되는 경우가 많습니다. 특히 자식 컴포넌트에 함수를 props로 넘겨줄 때 이런 문제가 더 심해집니다. React의 useCallback 훅은 이런 문제를 간단하게 해결해 줍니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=usecallback-기본-개념-이해하기>useCallback 기본 개념 이해하기</h2><br><iframe src="https://codesandbox.io/embed/zjshm3?view=preview&module=%2Fsrc%2FApp.tsx" style=width:100%;height:300px;border:0;border-radius:4px;overflow:hidden title=useCallback allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe><br><br><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useCallback</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>텍스트에디터</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>텍스트크기</span><span class=p>,</span> <span class=nx>set텍스트크기</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>16</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>텍스트색상</span><span class=p>,</span> <span class=nx>set텍스트색상</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=s1>&#39;black&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>// 1. 빈 의존성 배열 - 컴포넌트 마운트 시 한 번만 생성됨
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>기본설정적용</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>set텍스트크기</span><span class=p>(</span><span class=mi>16</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>set텍스트색상</span><span class=p>(</span><span class=s1>&#39;black&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// 빈 배열: 함수가 컴포넌트 생명주기 동안 유지됨
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=c1>// 2. 의존성이 있는 경우: `색상변경` 함수는 `텍스트크기`에 의존합니다. 
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>색상변경</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>((</span><span class=nx>새색상</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`</span><span class=si>${</span><span class=nx>텍스트크기</span><span class=si>}</span><span class=sb>px 크기의 텍스트 색상을 </span><span class=si>${</span><span class=nx>새색상</span><span class=si>}</span><span class=sb>으로 변경합니다`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>set텍스트색상</span><span class=p>(</span><span class=nx>새색상</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>텍스트크기</span><span class=p>]);</span> <span class=c1>// 텍스트크기가 변경될 때만 함수가 재생성됨
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>style</span><span class=o>=</span><span class=p>{{</span> <span class=nx>padding</span><span class=o>:</span> <span class=s1>&#39;20px&#39;</span><span class=p>,</span> <span class=nx>border</span><span class=o>:</span> <span class=s1>&#39;1px solid gray&#39;</span> <span class=p>}}&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>p</span> <span class=na>style</span><span class=o>=</span><span class=p>{{</span> <span class=nx>fontSize</span><span class=o>:</span> <span class=sb>`</span><span class=si>${</span><span class=nx>텍스트크기</span><span class=si>}</span><span class=sb>px`</span><span class=p>,</span> <span class=nx>color</span><span class=o>:</span> <span class=nx>텍스트색상</span> <span class=p>}}&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>이</span> <span class=nx>텍스트는</span> <span class=nx>크기와</span> <span class=nx>색상을</span> <span class=nx>변경할</span> <span class=nx>수</span> <span class=nx>있습니다</span><span class=p>.</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>set텍스트크기</span><span class=p>(</span><span class=nx>텍스트크기</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)}&gt;</span><span class=nx>텍스트</span> <span class=nx>크게</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>set텍스트크기</span><span class=p>(</span><span class=nx>텍스트크기</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)}&gt;</span><span class=nx>텍스트</span> <span class=nx>작게</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>색상변경</span><span class=p>(</span><span class=s1>&#39;red&#39;</span><span class=p>)}</span> <span class=na>style</span><span class=o>=</span><span class=p>{{</span> <span class=nx>color</span><span class=o>:</span> <span class=s1>&#39;red&#39;</span> <span class=p>}}&gt;</span><span class=nx>빨강</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>색상변경</span><span class=p>(</span><span class=s1>&#39;blue&#39;</span><span class=p>)}</span> <span class=na>style</span><span class=o>=</span><span class=p>{{</span> <span class=nx>color</span><span class=o>:</span> <span class=s1>&#39;blue&#39;</span> <span class=p>}}&gt;</span><span class=nx>파랑</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>기본설정적용</span><span class=p>}&gt;</span><span class=nx>기본</span> <span class=nx>설정으로</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=usecallback이란>useCallback이란?</h3><p>useCallback은 함수를 &ldquo;기억"해두는 React의 특별한 기능입니다. 컴포넌트가 다시 그려질 때마다 함수를 새로 만들지 않고, 특정 값이 바뀔 때만 함수를 새로 만들어 성능을 개선합니다.</p><br><h3 id=기본-구조>기본 구조</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>기억된함수</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 함수 내용
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=p>[</span><span class=nx>의존성1</span><span class=p>,</span> <span class=nx>의존성2</span><span class=p>]</span> <span class=c1>// 의존성 배열
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=작동-방식>작동 방식</h3><ol><li><p><strong>빈 의존성 배열</strong>: <code>기본설정적용</code> 함수는 빈 의존성 배열(<code>[]</code>)을 사용하여 컴포넌트가 처음 나타날 때 한 번만 만들어지고, 이후에는 계속 같은 함수를 재사용합니다. 이 함수는 항상 같은 일을 수행하므로 다시 만들 필요가 없습니다.</p></li><li><p><strong>의존성이 있는 경우</strong>: <code>색상변경</code> 함수는 <code>텍스트크기</code>에 의존합니다. 텍스트 크기가 바뀔 때마다 함수도 새로 만들어져야 최신 텍스트 크기 값을 제대로 사용할 수 있습니다. 만약 의존성 배열에 <code>텍스트크기</code>를 넣지 않으면, 함수는 처음에 기억한 이전 값을 계속 사용하게 됩니다.</p></li></ol><p>이렇게 useCallback을 활용하면, 특히 자식 컴포넌트에 함수를 전달할 때 불필요한 재렌더링을 방지하여 앱 성능을 높일 수 있습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=함수-안정화와-불필요한-리렌더링-방지하기>함수 안정화와 불필요한 리렌더링 방지하기</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useCallback</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 자식 컴포넌트 (React.memo로 최적화)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>TodoItem</span> <span class=o>=</span> <span class=nx>React</span><span class=p>.</span><span class=nx>memo</span><span class=p>(({</span> <span class=nx>todo</span><span class=p>,</span> <span class=nx>onToggle</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>input</span>
+</span></span><span class=line><span class=cl>        <span class=na>type</span><span class=o>=</span><span class=s>&#34;checkbox&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>checked</span><span class=o>=</span><span class=p>{</span><span class=nx>todo</span><span class=p>.</span><span class=nx>completed</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=na>onChange</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>onToggle</span><span class=p>(</span><span class=nx>todo</span><span class=p>.</span><span class=nx>id</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl>      <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>{</span><span class=nx>todo</span><span class=p>.</span><span class=nx>text</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 부모 컴포넌트
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>TodoList</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>todos</span><span class=p>,</span> <span class=nx>setTodos</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span> <span class=nx>id</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=s1>&#39;리액트 공부하기&#39;</span><span class=p>,</span> <span class=nx>completed</span><span class=o>:</span> <span class=kc>false</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span> <span class=nx>id</span><span class=o>:</span> <span class=mi>2</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=s1>&#39;useCallback 이해하기&#39;</span><span class=p>,</span> <span class=nx>completed</span><span class=o>:</span> <span class=kc>false</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// useCallback을 사용하여 함수 메모이제이션
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>handleToggleOptimized</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>((</span><span class=nx>id</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setTodos</span><span class=p>(</span><span class=nx>prevTodos</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>prevTodos</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>todo</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>todo</span><span class=p>.</span><span class=nx>id</span> <span class=o>===</span> <span class=nx>id</span> <span class=o>?</span> <span class=p>{</span> <span class=p>...</span><span class=nx>todo</span><span class=p>,</span> <span class=nx>completed</span><span class=o>:</span> <span class=o>!</span><span class=nx>todo</span><span class=p>.</span><span class=nx>completed</span> <span class=p>}</span> <span class=o>:</span> <span class=nx>todo</span>
+</span></span><span class=line><span class=cl>      <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// 빈 의존성 배열: 함수가 항상 같게 유지됨
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span><span class=nx>todos</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>todo</span> <span class=p>=&gt;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>          <span class=p>&lt;</span><span class=nt>TodoItem</span> 
+</span></span><span class=line><span class=cl>            <span class=na>key</span><span class=o>=</span><span class=p>{</span><span class=nx>todo</span><span class=p>.</span><span class=nx>id</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>            <span class=na>todo</span><span class=o>=</span><span class=p>{</span><span class=nx>todo</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>            <span class=na>onToggle</span><span class=o>=</span><span class=p>{</span><span class=nx>handleToggleOptimized</span><span class=p>}</span> <span class=err>//</span> <span class=na>최적화된</span> <span class=na>함수</span> <span class=na>사용</span>
+</span></span><span class=line><span class=cl>          <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>))}</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=문제와-해결책>문제와 해결책</h3><p><strong>문제:</strong>
+리액트에서 컴포넌트가 다시 그려질 때마다 내부 함수도 새로 만들어집니다. 자바스크립트에서는 함수 내용이 같아도 각각 다른 함수로 취급하기 때문에, 자식 컴포넌트에 props로 전달할 때 문제가 생깁니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=c1>// 두 함수는 같은 일을 하지만 서로 다른 함수로 인식됩니다
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>fn1</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;안녕&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>fn2</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;안녕&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>fn1</span> <span class=o>===</span> <span class=nx>fn2</span><span class=p>);</span> <span class=c1>// false
+</span></span></span></code></pre></td></tr></table></div></div><p>이 때문에 <code>React.memo</code>로 최적화한 자식 컴포넌트도 불필요하게 리렌더링됩니다. 부모가 리렌더링될 때마다 자식에게 전달되는 함수의 참조값이 매번 바뀌기 때문입니다.</p><p><strong>해결책:</strong>
+<code>useCallback</code>은 의존성 배열이 바뀌지 않는 한 같은 함수를 계속 사용합니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=c1>// 메모이제이션된 함수 - 컴포넌트가 리렌더링되어도 같은 참조 유지
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>handleToggle</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>((</span><span class=nx>id</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// 함수 내용
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>},</span> <span class=p>[]);</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>작동 원리:</strong></p><ol><li>컴포넌트 첫 렌더링 시 함수가 생성되고 메모리에 저장됩니다.</li><li>컴포넌트가 다시 렌더링되어도 저장된 함수를 재사용합니다.</li><li>의존성 배열의 값이 변경된 경우에만 함수를 새로 생성합니다.</li></ol><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=모범-사례와-흔한-실수>모범 사례와 흔한 실수</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>WarningExampleComponent</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>setCount</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 1. 불필요한 사용 (과도한 최적화의 예)
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>simpleHandler</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;간단한 핸들러&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// 단순한 함수에는 useCallback이 과도할 수 있음
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 2. 의존성 배열 오류 (잘못된 사용)
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>wrongDependencies</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`현재 카운트: </span><span class=si>${</span><span class=nx>count</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span> <span class=c1>// count 사용
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// 버그: count가 의존성에서 누락됨
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 3. 올바른 사용 예제
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>correctExample</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`현재 카운트: </span><span class=si>${</span><span class=nx>count</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`사용자 이름: </span><span class=si>${</span><span class=nx>user</span><span class=p>.</span><span class=nx>name</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>user</span><span class=p>.</span><span class=nx>name</span><span class=p>]);</span> <span class=c1>// 올바른 의존성: 사용하는 모든 값 포함
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 4. 함수형 업데이트로 의존성 줄이기
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>incrementWithoutDeps</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setCount</span><span class=p>(</span><span class=nx>c</span> <span class=p>=&gt;</span> <span class=nx>c</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span> <span class=c1>// 이전 상태를 기반으로 업데이트
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// count가 의존성에 필요하지 않음
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>useCallback 사용 시 주요 가이드라인:</p><ul><li><strong>성능 측정 후 최적화하기</strong>: React DevTools Profiler로 실제 성능 문제를 먼저 확인하세요.</li><li><strong>의존성 배열 제대로 관리하기</strong>: 함수 안에서 사용하는 모든 값을 의존성 배열에 포함시키세요.</li><li><strong>함수형 업데이트 활용하기</strong>: 이전 상태를 기반으로 업데이트하면 의존성 배열에서 해당 상태를 제거할 수 있습니다.</li></ul><br><h2 id=실전-사용-사례-이벤트-핸들러와-api-호출>실전 사용 사례: 이벤트 핸들러와 API 호출</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useCallback</span><span class=p>,</span> <span class=nx>useEffect</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>ProductSearch</span><span class=p>({</span> <span class=nx>categoryId</span> <span class=p>})</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>products</span><span class=p>,</span> <span class=nx>setProducts</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([]);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>searchTerm</span><span class=p>,</span> <span class=nx>setSearchTerm</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>isLoading</span><span class=p>,</span> <span class=nx>setIsLoading</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// API 호출 함수를 useCallback으로 메모이제이션
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>fetchProducts</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(</span><span class=kr>async</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setIsLoading</span><span class=p>(</span><span class=kc>true</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=kr>const</span> <span class=nx>response</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetch</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=sb>`/api/products?category=</span><span class=si>${</span><span class=nx>categoryId</span><span class=si>}</span><span class=sb>&amp;search=</span><span class=si>${</span><span class=nx>searchTerm</span><span class=si>}</span><span class=sb>`</span>
+</span></span><span class=line><span class=cl>      <span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=kr>const</span> <span class=nx>data</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>response</span><span class=p>.</span><span class=nx>json</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>      <span class=nx>setProducts</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=s1>&#39;상품을 불러오는 중 오류 발생:&#39;</span><span class=p>,</span> <span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>finally</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>setIsLoading</span><span class=p>(</span><span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>categoryId</span><span class=p>,</span> <span class=nx>searchTerm</span><span class=p>]);</span> <span class=c1>// categoryId나 searchTerm이 변경될 때만 함수 재생성
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 컴포넌트 마운트 시 또는 categoryId 변경 시 상품 불러오기
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fetchProducts</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>fetchProducts</span><span class=p>]);</span> <span class=c1>// useCallback으로 메모이제이션된 함수를 의존성으로 사용
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;{</span><span class=cm>/* UI 컴포넌트 */</span><span class=p>}&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>실제 애플리케이션 적용 사례:</strong></p><ul><li><strong>API 호출</strong>: 데이터를 불러오는 함수를 메모이제이션하여 불필요한 API 호출 방지</li><li><strong>이벤트 핸들러</strong>: 폼 제출, 버튼 클릭 등의 이벤트 핸들러 안정화</li><li><strong>useEffect 의존성</strong>: useEffect의 의존성 배열에 함수를 안전하게 포함</li></ul><br><h2 id=usecallback-최적화-퀴즈>useCallback 최적화 퀴즈!</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>React</span><span class=p>,</span> <span class=p>{</span> <span class=nx>useState</span><span class=p>,</span> <span class=nx>useCallback</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;react&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 자식 컴포넌트 (React.memo로 최적화)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>Button</span> <span class=o>=</span> <span class=nx>React</span><span class=p>.</span><span class=nx>memo</span><span class=p>(({</span> <span class=nx>onClick</span><span class=p>,</span> <span class=nx>label</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`</span><span class=si>${</span><span class=nx>label</span><span class=si>}</span><span class=sb> 버튼 렌더링됨`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>onClick</span><span class=p>}&gt;{</span><span class=nx>label</span><span class=p>}&lt;/</span><span class=nt>button</span><span class=p>&gt;;</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>Counter</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>setCount</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>theme</span><span class=p>,</span> <span class=nx>setTheme</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=s1>&#39;light&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 방법 1
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>incrementWithEmptyDeps</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setCount</span><span class=p>(</span><span class=nx>count</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 방법 2
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>incrementWithDeps</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setCount</span><span class=p>(</span><span class=nx>count</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>count</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 방법 3
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kr>const</span> <span class=nx>incrementWithFunctionalUpdate</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setCount</span><span class=p>(</span><span class=nx>prevCount</span> <span class=p>=&gt;</span> <span class=nx>prevCount</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>style</span><span class=o>=</span><span class=p>{{</span> <span class=nx>background</span><span class=o>:</span> <span class=nx>theme</span> <span class=o>===</span> <span class=s1>&#39;dark&#39;</span> <span class=o>?</span> <span class=s1>&#39;#333&#39;</span> <span class=o>:</span> <span class=s1>&#39;#fff&#39;</span> <span class=p>}}&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>카운트</span><span class=o>:</span> <span class=p>{</span><span class=nx>count</span><span class=p>}&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>Button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>incrementWithDeps</span><span class=p>}</span> <span class=na>label</span><span class=o>=</span><span class=s>&#34;증가&#34;</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=nx>setTheme</span><span class=p>(</span><span class=nx>theme</span> <span class=o>===</span> <span class=s1>&#39;light&#39;</span> <span class=o>?</span> <span class=s1>&#39;dark&#39;</span> <span class=o>:</span> <span class=s1>&#39;light&#39;</span><span class=p>)}&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>테마</span> <span class=nx>변경</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>위 코드에는 세 가지 방법으로 구현된 카운트 증가 함수가 있습니다. 이 중에서 불필요한 리렌더링을 막으면서도 정확하게 작동하는 최적의 방법은 무엇일까요? 자신의 생각을 아래에 적어보세요.</p><div class=quiz-wrap2><label for=quiz-input-1>정답 입력 : </label><textarea id=quiz-input-1 name=quiz-input-1 class=quiz-input placeholder="최적의 방법과 그 이유를 자유롭게 작성해주세요."></textarea></div><details><summary>정답 확인하기</summary><p>정답: 방법 3</p><br><p>이 문제는 useCallback을 올바르게 사용하고 의존성 배열을 효과적으로 관리하는 방법을 이해하고 있는지 확인하는 문제입니다.</p><ul><li><p><strong>방법 1: 빈 의존성 배열 사용</strong><br><span class=txt>빈 의존성 배열 <code>[]</code>을 사용하면 함수는 컴포넌트가 처음 마운트될 때 한 번만 생성됩니다. 하지만 함수 내부에서 참조하는 <code>count</code> 값이 업데이트되지 않는 문제가 있습니다. 이로 인해 버튼을 여러 번 클릭해도 카운터가 항상 1만 증가하는 버그가 발생합니다.</span></p></li><li><p><strong>방법 2: count를 의존성 배열에 포함</strong><br><span class=txt><code>count</code>를 의존성 배열에 포함시키면 최신 <code>count</code> 값을 항상 참조할 수 있어 정확하게 작동합니다. 하지만 <code>count</code>가 변경될 때마다 함수가 새로 생성되기 때문에, <code>Button</code> 컴포넌트가 불필요하게 다시 렌더링됩니다. 이는 useCallback을 사용하는 성능 최적화 효과를 반감시킵니다.</span></p></li><li><p><strong>방법 3: 함수형 업데이트 사용</strong><br><span class=txt>함수형 업데이트 방식(<code>prevCount => prevCount + 1</code>)을 사용하면 함수 내부에서 <code>count</code> 값을 직접 참조하지 않고도 항상 최신 상태값을 기반으로 업데이트할 수 있습니다. 따라서 의존성 배열을 비워도 안전하게 작동하며, 컴포넌트가 리렌더링되어도 함수의 참조가 유지되어 <code>Button</code> 컴포넌트의 불필요한 리렌더링을 방지할 수 있습니다.</span></p></li></ul><p>이처럼 useCallback과 함수형 업데이트를 함께 사용하면, 불필요한 리렌더링을 방지하면서도 항상 최신 상태를 기반으로 정확하게 동작하는 최적의 방법을 구현할 수 있습니다.</p></details><br><div class=btn_wrap><a href=/code/2023-11-08-password-eye/>[관련글] React useCallback 퀴즈 (5문제 + 해설)</a></div></section><footer class=article-footer><section class=article-tags><a href=/tags/react-hooks/>React Hooks</a>
+<a href=/tags/usecallback/>UseCallback</a>
+<a href=/tags/%EC%84%B1%EB%8A%A5-%EC%B5%9C%EC%A0%81%ED%99%94/>성능 최적화</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code-en/2025-06-11-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp loading=lazy data-key=2025-06-11-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp></div><div class=article-details><h2 class=article-title>Stop React Re-renders with useCallback Hook</h2></div></a></article><article class=has-image><a href=/code/2025-06-10-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-10-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback 차이점 쉽게 이해하기</h2></div></a></article><article class=has-image><a href=/code/2025-06-04-react-usememo/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-04-react-usememo.webp loading=lazy data-key=2025-06-04-react-usememo data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-04-react-usememo.webp></div><div class=article-details><h2 class=article-title>useMemo 활용한 React 객체 안정화 & 리렌더링 최적화 기법</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-13-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-13-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback: 5 Key Differences Every Developer Must Know</h2></div></a></article><article class=has-image><a href=/quiz/2025-06-06-usecallback-quiz/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-usecallback-quiz.webp loading=lazy data-key=2025-06-06-usecallback-quiz data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-usecallback-quiz.webp></div><div class=article-details><h2 class=article-title>React useCallback 퀴즈 (5문제 + 해설)</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

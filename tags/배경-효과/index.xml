@@ -1,0 +1,1645 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>배경 효과 on 컨트롤 + CCCV</title><link>https://ctrlcccv.github.io/tags/%EB%B0%B0%EA%B2%BD-%ED%9A%A8%EA%B3%BC/</link><description>Recent content in 배경 효과 on 컨트롤 + CCCV</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Thu, 08 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ctrlcccv.github.io/tags/%EB%B0%B0%EA%B2%BD-%ED%9A%A8%EA%B3%BC/index.xml" rel="self" type="application/rss+xml"/><item><title>jQuery - 마우스 따라 움직이는 패럴랙스 효과 구현하기</title><link>https://ctrlcccv.github.io/code/2025-05-08-parallax-effect/</link><pubDate>Thu, 08 May 2025 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2025-05-08-parallax-effect/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-08-parallax-effect.webp" alt="Featured image of post jQuery - 마우스 따라 움직이는 패럴랙스 효과 구현하기
+" />&lt;p>마우스의 움직임에 따라 요소들이 자연스럽게 움직이는 패럴랙스 효과, 함께 만들어볼까요?&lt;/p>
+&lt;p>웹사이트에 동적인 요소를 추가하면 방문자들의 시선을 사로잡고 페이지 체류 시간을 늘릴 수 있습니다. 특히 마우스의 움직임에 따라 요소들이 자연스럽게 반응하는 패럴랙스 효과는 시각적 매력을 높이는 데 효과적입니다. 이번 포스트에서는 jQuery를 활용하여 마우스 움직임에 반응하는 패럴랙스 효과를 구현하는 방법을 알아보겠습니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-구조">HTML 구조
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;container&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://unsplash.it/800/800?random=&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;배경 이미지&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;bg&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h1&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;title&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>타이틀&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;strong>컨테이너 구조&lt;/strong>&lt;br>
+&lt;span class="txt">
+container 안에 배경 이미지와 타이틀 텍스트를 배치하여 패럴랙스 효과를 적용할 요소들을 구성합니다.&lt;br>
+각 요소는 독립적으로 움직일 수 있도록 별도의 클래스를 부여했습니다.
+&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="css-스타일">CSS 스타일
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">#&lt;/span>&lt;span class="nn">container&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">overflow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">hidden&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">justify-content&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">align-items&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">relative&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">600&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">600&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">auto&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">#&lt;/span>&lt;span class="nn">container&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">bg&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">800&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">800&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">#&lt;/span>&lt;span class="nn">container&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">title&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">absolute&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">left&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin-top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">-33&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin-left&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">-63&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">46&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">font-weight&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">700&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#fff&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">text-shadow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="nb">rgba&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.4&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>컨테이너 스타일&lt;/strong>&lt;br>
+&lt;span class="txt">
+container는 중앙 정렬된 600x600 크기의 영역으로 설정되어 있습니다.&lt;br>
+overflow: hidden을 통해 내부 요소가 컨테이너를 벗어나지 않도록 제한합니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>배경 이미지 스타일&lt;/strong>&lt;br>
+&lt;span class="txt">
+배경 이미지는 컨테이너보다 큰 800x800 크기로 설정하여 움직임의 여유를 확보했습니다.&lt;br>
+이렇게 하면 패럴랙스 효과가 더 자연스럽게 보입니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>타이틀 스타일&lt;/strong>&lt;br>
+&lt;span class="txt">
+타이틀은 절대 위치로 중앙에 배치되며, 텍스트 그림자를 통해 가독성을 높였습니다.&lt;br>
+이 요소도 마우스 움직임에 따라 독립적으로 움직일 수 있습니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="jquery-코드">jQuery 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// #container 요소를 선택합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">containerSelector&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;#container&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">$container&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">containerSelector&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// container의 위치와 크기 정보를 얻습니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">bounds&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$container&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">getBoundingClientRect&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 마우스 위치와 움직임 여부를 추적하는 객체를 초기화합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">mousePos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">y&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">hasMoved&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// #container 위에서 마우스가 움직일 때마다 마우스 위치를 업데이트합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">document&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;mousemove&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">containerSelector&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">hasMoved&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">clientX&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">bounds&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">left&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">clientY&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">bounds&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">top&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 특정 대상에 패럴랙스 효과를 적용하는 함수입니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">applyParallax&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">moveFactor&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">xMovement&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">bounds&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">width&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="nx">bounds&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">width&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">moveFactor&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">yMovement&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">y&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">bounds&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">height&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="nx">bounds&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">height&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">moveFactor&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">css&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;transform&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="sb">`translate3d(&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">xMovement&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">px, &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">yMovement&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">px, 0)`&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 패럴랙스 효과를 지속적으로 새로 고칩니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">refreshParallax&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">hasMoved&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">applyParallax&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.bg&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">200&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">applyParallax&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.title&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">mousePos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">hasMoved&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">requestAnimationFrame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">refreshParallax&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 윈도우의 크기가 변경되거나 스크롤 할 때 bounds를 업데이트합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;resize scroll&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">bounds&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$container&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">getBoundingClientRect&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 패럴랙스 애니메이션을 시작합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">refreshParallax&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>마우스 이벤트 처리&lt;/strong>&lt;br>
+&lt;span class="txt">
+마우스가 움직일 때마다 위치 정보를 업데이트하고 hasMoved 플래그를 설정합니다.&lt;br>
+이를 통해 불필요한 애니메이션 업데이트를 방지합니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>패럴랙스 효과 적용&lt;/strong>&lt;br>
+&lt;span class="txt">
+applyParallax 함수는 대상 요소와 이동 계수를 받아 transform 속성을 통해 움직임을 적용합니다.&lt;br>
+각 요소마다 다른 이동 계수를 사용하여 깊이감 있는 효과를 만듭니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>애니메이션 루프&lt;/strong>&lt;br>
+&lt;span class="txt">
+requestAnimationFrame을 사용하여 부드러운 애니메이션을 구현합니다.&lt;br>
+마우스가 움직였을 때만 요소들의 위치를 업데이트합니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h3 id="패럴랙스-효과-조절하기">패럴랙스 효과 조절하기
+&lt;/h3>&lt;p>refreshParallax 함수에서 각 요소의 움직임을 조절할 수 있습니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">applyParallax&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.bg&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">200&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 배경 이미지
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">applyParallax&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.title&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 타이틀 텍스트
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>여기서 숫자를 바꾸면 움직임이 달라집니다.&lt;/p>
+&lt;ul>
+&lt;li>숫자가 클수록 더 멀리 움직입니다. (예: -300)&lt;/li>
+&lt;li>숫자가 작을수록 덜 움직입니다. (예: -50)&lt;/li>
+&lt;li>마이너스(-)를 플러스(+)로 바꾸면 반대 방향으로 움직입니다.&lt;/li>
+&lt;/ul>
+&lt;p>🔍 실제로 테스트해보세요.&lt;/p>
+&lt;ul>
+&lt;li>배경 이미지가 너무 많이 움직인다면 -200을 -100으로 줄여보세요.&lt;/li>
+&lt;li>타이틀이 너무 적게 움직인다면 -100을 -150으로 늘려보세요.&lt;/li>
+&lt;li>반대 방향으로 움직이게 하고 싶다면 마이너스를 플러스로 바꿔보세요.&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="패럴랙스-효과의-활용-사례">패럴랙스 효과의 활용 사례
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>메인 페이지 상단 배너&lt;/strong>&lt;br>
+&lt;span class="txt">
+웹사이트의 첫인상을 결정하는 상단 배너에 패럴랙스 효과를 적용하면 시각적 임팩트를 높일 수 있습니다.&lt;br>
+배경 이미지와 텍스트가 마우스 움직임에 따라 자연스럽게 움직이며, 방문자들의 호기심을 자극하고 페이지 탐색을 유도합니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>제품 소개 페이지&lt;/strong>&lt;br>
+&lt;span class="txt">
+제품의 특징을 강조하는 섹션에서 패럴랙스 효과를 활용하면 제품의 입체감을 표현할 수 있습니다.&lt;br>
+제품 이미지와 설명 텍스트가 서로 다른 속도로 움직이며, 마치 3D 공간에서 제품을 감상하는 듯한 경험을 제공합니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>포트폴리오 갤러리&lt;/strong>&lt;br>
+&lt;span class="txt">
+작품 이미지들에 패럴랙스 효과를 적용하면 갤러리가 더 생동감 있게 보입니다.&lt;br>
+마우스를 움직일 때마다 이미지들이 입체적으로 움직여 마치 실제 갤러리를 둘러보는 듯한 느낌을 줍니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>이번 포스트에서는 jQuery를 활용한 마우스 따라 움직이는 패럴랙스 효과를 구현해보았습니다.&lt;br>
+마우스의 움직임에 따라 배경 이미지와 타이틀이 자연스럽게 움직이며, 시각적 깊이감을 만들어냅니다.&lt;br>
+이 효과는 웹사이트의 메인 페이지나 특별한 섹션에 적용하면 사용자의 관심을 끌 수 있습니다.&lt;/p>
+&lt;p>또한 다양한 활용 사례와 성능 최적화 팁을 통해 실제 프로젝트에서의 적용 방법도 알아보았습니다.&lt;br>
+이러한 최적화 기법들을 적절히 활용하면 더 부드럽고 효율적인 패럴랙스 효과를 구현할 수 있습니다.&lt;/p>
+&lt;p>이 코드에 대해 궁금한 점이 있으시다면 댓글로 남겨주세요!&lt;/p>
+&lt;br>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-08-parallax-effect/">예제결과 미리보기&lt;/a>
+&lt;/div></description></item><item><title>jQuery - 벚꽃 흩날리는 효과</title><link>https://ctrlcccv.github.io/code/2024-02-21-cherry-blossom/</link><pubDate>Wed, 21 Feb 2024 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2024-02-21-cherry-blossom/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-02-21-cherry-blossom.webp" alt="Featured image of post jQuery - 벚꽃 흩날리는 효과
+" />&lt;p>봄의 따스함과 벚꽃이 만발한 풍경을 연상시키는 웹사이트는 방문자에게 감동적인 인상을 남길 수 있습니다. 이 글에서는 jQuery와 CSS를 결합하여, 마치 봄바람을 타고 날리는 벚꽃 잎의 모습을 재현하는 효과를 만드는 방법에 대해 알아보겠습니다. 자동으로 화면에 벚꽃이 흩날리는 배경을 구현하며, 웹사이트에 생동감과 로맨틱한 느낌을 더할 수 있는 코드를 소개합니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-구조">HTML 구조
+&lt;/h2>&lt;p>&lt;code>cherry_blossom&lt;/code> 클래스로 지정된 div 요소를 만들고, CSS를 통해 배경 이미지와 스타일을 적용합니다.&lt;br>
+이 div내에서 벚꽃 잎이 날리는 효과가 발생하게 됩니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;cherry_blossom&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="css-스타일">CSS 스타일
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">cherry_blossom&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">overflow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">hidden&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">relative&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">600&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">600&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">url&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;sakura.png&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kc">center&lt;/span> &lt;span class="kc">center&lt;/span> &lt;span class="kc">no-repeat&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">cover&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">perspective&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">cherry_blossom&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">petal&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">absolute&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">linear-gradient&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">-45&lt;/span>&lt;span class="kt">deg&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mh">#ffb6c1&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mh">#ffc5d0&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mh">#ffdfe6&lt;/span> &lt;span class="mi">80&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">%&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="kt">%&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">z-index&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">box-shadow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="nb">rgba&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.8&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pointer-events&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">transform-style&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">preserve-3d&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">transition&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="k">transform&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="kt">ms&lt;/span> &lt;span class="kc">linear&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">@&lt;/span>&lt;span class="k">keyframes&lt;/span> &lt;span class="nt">fall&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">0&lt;/span>&lt;span class="o">%&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">opacity&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">80&lt;/span>&lt;span class="o">%&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">opacity&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">100&lt;/span>&lt;span class="o">%&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">opacity&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>벚꽃 효과 설정&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>cherry_blossom 클래스에 overflow: hidden 속성을 적용하여 벚꽃 잎이 영역을 벗어나지 않도록 제한합니다.&lt;/li>
+&lt;li>position: relative로 벚꽃 잎의 기준점을 설정합니다.&lt;/li>
+&lt;li>width와 height로 벚꽃 효과의 가로 및 세로 크기를 지정합니다.&lt;/li>
+&lt;li>background 속성을 사용하여 벚꽃 배경 이미지를 설정하고, background-size: cover로 이미지를 전체 영역에 맞춥니다.&lt;/li>
+&lt;li>perspective: 1000px를 통해 3D 효과를 부여합니다.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>벚꽃 잎 스타일&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>petal 클래스에 position: absolute 속성을 적용하여 절대적인 위치로 벚꽃 잎을 배치합니다.&lt;/li>
+&lt;li>background 속성으로 그라데이션 스타일의 벚꽃 잎 색상을 설정하고, border-radius를 활용하여 둥근 꽃잎 모양을 구현합니다.&lt;/li>
+&lt;li>z-index: 1을 사용하여 벚꽃 잎이 다른 요소보다 위에 표시되도록 합니다.&lt;/li>
+&lt;li>box-shadow를 통해 입체감 있는 그림자 효과를 추가합니다.&lt;/li>
+&lt;li>pointer-events: none으로 마우스 이벤트가 꽃잎 위에서 발생하지 않도록 설정합니다.&lt;/li>
+&lt;li>transform-style: preserve-3d를 사용하여 하위 요소에 3D 변환 효과를 유지합니다.&lt;/li>
+&lt;li>transition 속성을 통해 transform에 대한 1000ms 동안의 선형 전환 효과를 설정합니다.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>벚꽃 애니메이션&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>@keyframes fall을 정의하여 벚꽃 잎이 위에서 아래로 떨어지는 애니메이션을 구현합니다.&lt;/li>
+&lt;li>0%에서는 top: 0 및 opacity: 1로 시작하여 불투명한 상태에서 맨 위에서 시작합니다.&lt;/li>
+&lt;li>80%까지는 opacity: 1을 유지하여 애니메이션이 80% 진행될 때까지 불투명 상태를 유지합니다.&lt;/li>
+&lt;li>100%에서는 top: 100% 및 opacity: 0.2로 설정하여 애니메이션이 종료될 때 화면 아래로 내려가며 투명도가 낮아집니다.&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="jquery-코드">jQuery 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;span class="lnt">80
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 기본 값 설정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">defaults&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">speed&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">maxSize&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">minSize&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">newOn&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">400&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 벚꽃 영역 크기를 저장할 변수
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">$wrap&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.cherry_blossom&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">wrapH&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$wrap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">height&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">wrapW&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$wrap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">width&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 벚꽃 잎 생성
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">$petal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;span class=&amp;#34;petal&amp;#34;&amp;gt;&amp;lt;/span&amp;gt;&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 랜덤 회전 값을 생성하는 함수
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">getRandomRotate&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">rotateX&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">360&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">rotateY&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">rotateZ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">120&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">translateX&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">translateY&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">translateZ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="sb">`rotateX(&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">rotateX&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">deg) rotateY(&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">rotateY&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">deg) rotateZ(&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">rotateZ&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">deg) translateX(&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">translateX&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">px) translateY(&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">translateY&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">px) translateZ(&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">translateZ&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">px)`&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 무작위 흔들림 애니메이션 배열 생성
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">randomSwayAnims&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nb">Array&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">)].&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">getRandomRotate&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 특정 요소에 흔들림 애니메이션 적용
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">applySwayAnim&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">element&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">randomSway&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">randomSwayAnims&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">floor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">randomSwayAnims&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">)];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">element&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">css&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;transform&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">randomSway&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">applySwayAnim&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">element&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 벚꽃 잎 생성 함수
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">petalGen&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">requestAnimationFrame&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">defaults&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">newOn&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">petalGen&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">petal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$petal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">clone&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">size&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">floor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">defaults&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">maxSize&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">defaults&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">minSize&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">defaults&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">minSize&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">startPosLeft&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">wrapW&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">fallTime&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">wrapH&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.1&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="nx">defaults&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">speed&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">horizontalOffset&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 애니메이션 끝나면 제거
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">petal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;animationend&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">petal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">remove&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}).&lt;/span>&lt;span class="nx">css&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">width&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">size&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">height&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">size&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">left&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">startPosLeft&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">position&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;absolute&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">animation&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="sb">`fall &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">fallTime&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">s linear`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}).&lt;/span>&lt;span class="nx">appendTo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">$wrap&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 위치 업데이트 함수
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">updatePos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">petal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">css&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;left&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="sb">`+=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">horizontalOffset&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">requestAnimationFrame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">updatePos&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">updatePos&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">applySwayAnim&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">petal&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 창 크기가 변경될 때 영역 크기 업데이트
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">resize&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">wrapH&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$wrap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">height&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">wrapW&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$wrap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">width&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 로딩 완료 후 벚꽃 잎 생성 시작
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;load&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">requestAnimationFrame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">petalGen&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>변수 선언 및 초기화&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>$wrap&lt;/code>는 &lt;code>cherry_blossom&lt;/code> 클래스를 가진 요소를 선택하는 jQuery 객체를 저장합니다.&lt;/li>
+&lt;li>&lt;code>wrapH&lt;/code>는 벚꽃 배경의 높이로, &lt;code>$wrap.height()&lt;/code>를 통해 값을 가져와 저장합니다.&lt;/li>
+&lt;li>&lt;code>wrapW&lt;/code>는 벚꽃 배경의 너비로, &lt;code>$wrap.width()&lt;/code>를 통해 값을 가져와 저장합니다.&lt;/li>
+&lt;li>&lt;code>defaults&lt;/code>는 벚꽃 잎의 생성 속도, 크기, 출현 주기 등의 기본 설정을 객체 형태로 저장합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>벚꽃 잎 생성 및 스타일링&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>getRandomRotate&lt;/code> 함수는 잎의 랜덤한 회전과 이동 값을 생성하고, 이를 3D 변환(transform) 값으로 반환합니다.&lt;/li>
+&lt;li>&lt;code>randomSwayAnims&lt;/code>는 무작위 흔들림 애니메이션 배열을 생성하며, 각 요소는 &lt;code>getRandomRotate&lt;/code> 함수를 호출하여 얻은 변환 값입니다.&lt;/li>
+&lt;li>&lt;code>applySwayAnim&lt;/code> 함수는 특정 요소에 흔들림 애니메이션을 적용하며, &lt;code>element.css('transform', randomSway)&lt;/code>를 사용하여 3D 변환 스타일을 적용하고, 일정 시간마다 반복 호출하여 흔들림 효과를 만듭니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>벚꽃 잎 생성 및 애니메이션 적용&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>petalGen&lt;/code> 함수는 시간 간격(&lt;code>defaults.newOn&lt;/code>)을 기준으로 &lt;code>setTimeout&lt;/code>과 &lt;code>requestAnimationFrame&lt;/code>을 활용하여 벚꽃 잎을 지속적으로 생성합니다.&lt;/li>
+&lt;li>벚꽃 잎의 시작 위치(&lt;code>startPosLeft&lt;/code>), 크기(&lt;code>size&lt;/code>), 수평 이동(&lt;code>horizontalOffset&lt;/code>), 떨어지는 시간(&lt;code>fallTime&lt;/code>)을 랜덤으로 설정하여 애니메이션 시작 전 속성을 지정합니다.&lt;/li>
+&lt;li>&lt;code>petal.on('animationend', () =&amp;gt; { petal.remove() })&lt;/code>는 CSS 애니메이션 종료 후 벚꽃 잎을 DOM에서 제거하는 이벤트 핸들러를 추가합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>창 크기에 따른 업데이트&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>창 크기 변화 시 벚꽃 배경의 높이와 너비를 업데이트하는 콜백 함수를 바인딩합니다. 이를 통해 벚꽃 잎의 시작 위치와 크기를 조절할 수 있도록 합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>벚꽃 잎 생성 시작&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>문서가 모두 로드된 후 &lt;code>petalGen&lt;/code> 함수를 호출하여 벚꽃 잎 생성을 시작합니다.&lt;br>
+이때 &lt;code>requestAnimationFrame&lt;/code>을 사용하여 부드러운 애니메이션을 지원합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>jQuery와 CSS3 애니메이션을 활용하여 벚꽃 잎이 흩날리는 배경 효과를 구현하는 방법을 살펴봤습니다.&lt;br>
+벚꽃 흩날리는 효과는 계절을 상징하는 다양한 웹사이트 디자인에서 활용될 수 있으며, 스크립트와 스타일을 조금만 변경하면 다른 형태의 입자나 요소를 화면에 흩날리게 할 수도 있습니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-02-21-cherry-blossom/" target="_blank">예제결과 미리보기&lt;/a>
+&lt;/div></description></item><item><title>jQuery - 패럴렉스 스크롤 예제</title><link>https://ctrlcccv.github.io/code/2024-01-15-parallax-scroll/</link><pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2024-01-15-parallax-scroll/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-15-parallax-scroll.webp" alt="Featured image of post jQuery - 패럴렉스 스크롤 예제" />&lt;p>패럴렉스 스크롤은 사용자의 스크롤 동작에 따라 배경과 전경의 요소들이 서로 다른 속도로 움직이면서 3D 같은 가시적 깊이감을 주는 기술입니다. 웹 디자인에서 이를 활용하면 더욱 몰입감 있고, 생동감 있는 사용자 경험을 제공할 수 있습니다. 이번 글에서는 jQuery를 이용해 간단한 패럴렉스 스크롤 효과를 구현하는 예제를 알아보겠습니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-구조">HTML 구조
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;parallax&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://picsum.photos/id/80/2000/2000&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;배경 이미지&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;bg&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;fast&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>빠르게 올라갑니다.&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;slow&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>느리게 올라갑니다.&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;container&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Parallax Scroll&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>패럴렉스 컨테이너&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>parallax&lt;/code> 클래스를 가진 &lt;code>&amp;lt;div&amp;gt;&lt;/code>는 패럴렉스 효과를 적용할 요소의 컨테이너 역할을 합니다.&lt;/li>
+&lt;li>배경 이미지(&lt;code>.bg&lt;/code>), 빠른 텍스트(&lt;code>.fast&lt;/code>)와 느린 텍스트(&lt;code>.slow&lt;/code>) 요소들이 포함됩니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>텍스트 요소&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>fast&lt;/code>와 &lt;code>slow&lt;/code> 클래스는 각각 스크롤 속도가 서로 다른 텍스트를 나타냅니다. 이를 통해 스크롤 시 속도 차이를 눈으로 확인할 수 있습니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>컨테이너&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>container&lt;/code> 클래스는 패럴렉스 스크롤 제목을 중앙에 표시하는 역할을 합니다.&lt;br>
+&lt;br>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="css-스타일">CSS 스타일
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">parallax&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">overflow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">hidden&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">relative&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">parallax&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">bg&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">relative&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">vh&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">z-index&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">-1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">object-fit&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">cover&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">parallax&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">fast&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">parallax&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">slow&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">absolute&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">left&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">48&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">font-weight&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">700&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">line-height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">1.2&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#fff&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">text-align&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">z-index&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">transform&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">translate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">-50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">-50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">container&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">justify-content&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">align-items&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">relative&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">vh&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">background-color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#8ab4f8&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">text-align&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">container&lt;/span> &lt;span class="nt">h1&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">60&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#fff&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>기본 레이아웃&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>parallax&lt;/code> 클래스에는 패럴렉스가 적용되는 요소의 포함되는 기본 스타일이 정의되어 있습니다. &lt;code>overflow: hidden&lt;/code>은 컨테이너 밖으로 벗어나는 이미지가 보이지 않도록 합니다.&lt;/li>
+&lt;li>&lt;code>bg&lt;/code> 클래스는 배경 이미지로 적용되며, 화면에 꽉 차게 표시됩니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>텍스트 스타일&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>fast&lt;/code>와 &lt;code>slow&lt;/code> 클래스를 가진 텍스트는 절대 위치로 설정되어 &lt;code>transform: translate(-50%, -50%)&lt;/code>를 통해 가운데 정렬됩니다. zIndex는 배경보다 앞에 오도록 설정합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="jquery-코드">jQuery 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">ypos&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 스크롤 위치를 추적하기 위한 변수입니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 패럴랙스 효과를 관리하는 함수입니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">parallax&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ypos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">scrollTop&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 현재 window의 스크롤 위치를 가져옵니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">updatePosition&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.bg&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">ypos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.8&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;top&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 배경에 대한 top 위치 업데이트
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">updatePosition&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.parallax .fast&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">ypos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;margin-top&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 빠른 속도로 움직이는 요소 위치 업데이트
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">updatePosition&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.parallax .slow&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">ypos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.6&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;margin-top&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 느린 속도로 움직이는 요소 위치 업데이트
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 주어진 요소의 위치를 업데이트하는 함수입니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">updatePosition&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">selector&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">scrollPos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">factor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">type&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">selector&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">css&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">type&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="sb">`&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">scrollPos&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">factor&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">px`&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 계산된 값을 사용하여 CSS 속성값을 설정합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 스크롤 이벤트가 발생할 때 parallax 함수를 호출합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;scroll&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">requestAnimationFrame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">parallax&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 초기 실행을 통해 패럴랙스 효과를 활성화합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">parallax&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>초기화 및 스크롤 위치 추적&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>ypos 변수는 스크롤 위치를 추적하는 데 사용됩니다.&lt;/li>
+&lt;li>페이지 로드 시 parallax 함수를 호출하여 초기 스크롤 위치에 대한 패럴랙스 효과를 적용합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>패럴랙스 효과 함수&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>parallax 함수는 스크롤 위치에 따라 배경 이미지 및 움직이는 요소들의 위치를 업데이트합니다.&lt;/li>
+&lt;li>updatePosition 함수를 호출하여 각 요소의 위치를 조절합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>위치 업데이트 함수 (updatePosition)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>selector는 CSS에서 해당 요소를 식별하는 업데이트할 요소의 선택자입니다.&lt;/li>
+&lt;li>scrollPos는 현재 페이지에서의 스크롤 위치입니다.&lt;/li>
+&lt;li>factor는 요소의 움직임에 영향을 주는 계수입니다. 값이 클수록 느리게 움직이며, 0 ~ 1 사이의 수를 사용합니다.&lt;/li>
+&lt;li>type은 CSS 속성을 지정하며, 이 예제에서는 &amp;rsquo;top&amp;rsquo; 또는 &amp;lsquo;margin-top&amp;rsquo; 중 하나를 선택하여 사용합니다.&lt;/li>
+&lt;li>css 메서드를 사용하여 주어진 요소의 CSS 속성값을 업데이트합니다.&lt;/li>
+&lt;li>scrollPos * factor를 통해 스크롤 위치에 계수를 곱한 값을 적용하여 움직임을 조절합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>스크롤 이벤트 핸들러&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>사용자가 페이지를 스크롤 할 때마다 parallax 함수가 호출되어 패럴랙스 효과를 적용합니다.&lt;/li>
+&lt;li>requestAnimationFrame을 사용하여 부드러운 애니메이션을 구현합니다.&lt;br>
+&lt;br>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>위에서 설명한 코드를 활용하여 패럴렉스 스크롤 효과를 구현할 수 있습니다. 이 글을 통해 소개된 패럴렉스 스크롤 효과를 웹사이트에 적용해보면서 사용자의 시선을 사로잡는 웹 페이지를 디자인해보시기 바랍니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-15-parallax-scroll/" target="_blank">예제결과 미리보기&lt;/a>
+&lt;/div></description></item><item><title>background-attachment:fixed 모바일에서 안되는 문제 해결 방법</title><link>https://ctrlcccv.github.io/code/2024-01-12-background-fixed2/</link><pubDate>Fri, 12 Jan 2024 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2024-01-12-background-fixed2/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-12-background-fixed2.webp" alt="Featured image of post background-attachment:fixed 모바일에서 안되는 문제 해결 방법" />&lt;p>웹사이트 디자인에서 배경 이미지를 고정시켜 놓고, 콘텐츠만 스크롤 되게 하는 디자인은 인기 있습니다. &lt;code>background-attachment: fixed&lt;/code> 속성은 이를 쉽게 구현할 수 있게 해주는 CSS 기능입니다. 그러나 모바일 기기는 &lt;code>background-attachment: fixed&lt;/code> 속성을 지원하지 않거나, 스크롤 성능 문제로 기대했던 효과를 보여주지 않습니다.&lt;/p>
+&lt;p>&lt;code>background-attachment: fixed&lt;/code> 속성으로 인해 발생하는 모바일 환경에서의 문제를 해결하는 방법을 자세히 알아보고, 구체적인 코드 예시를 통해 실제 웹사이트에 적용하는 방법을 제시합니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-구조">HTML 구조
+&lt;/h2>&lt;p>HTML 구조는 &lt;code>bg_fixed&lt;/code> 클래스를 가진 div 요소들과 배경 이미지, 그리고 콘텐츠를 담을 &lt;code>content&lt;/code> 클래스로 구성되며, 각각의 div에 고유한 배경 이미지를 지정합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;bg_fixed&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://picsum.photos/id/80/2000/2000&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;배경 이미지&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;bg_fixed&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://picsum.photos/id/81/2000/2000&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;배경 이미지&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;contents&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>컨텐츠&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;bg_fixed&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://picsum.photos/id/83/2000/2000&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;배경 이미지&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="css-스타일">CSS 스타일
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">bg_fixed&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="kt">vh&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="n">lvh&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">clip-path&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">inset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">bg_fixed&lt;/span> &lt;span class="nt">img&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">fixed&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">left&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">vh&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="n">lvh&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">object-fit&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">cover&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">contents&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">justify-content&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">align-items&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">vh&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">48&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">font-weight&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">500&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>.bg_fixed 스타일링&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>height:100vh&lt;/code>는 배경이미지가 전체 뷰포트 높이를 차지하게 해줍니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>clip-path: inset(0 0 0 0)&lt;/code> 속성은 .bg_fixed 요소의 클리핑 경로를 설정합니다. inset(0 0 0 0)는 모든 측면에 대해 클리핑 거리를 0으로 설정하므로, 해당 요소의 내용이 모두 보이게 됩니다. 즉, 배경 이미지가 요소의 전체 영역에 걸쳐 표시되며, 다른 내용이 숨겨지지 않습니다.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>.bg_fixed img 스타일링&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>이미지를 고정시키기 위해서 &lt;code>position: fixed&lt;/code>를 적용합니다. 스크롤 시에도 배경 이미지가 움직이지 않게 하는 핵심 속성입니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>object-fit: cover&lt;/code> 속성은 이미지가 컨테이너를 가득 채우면서 비율을 유지하도록 합니다.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>.contents 스타일링&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>콘텐츠 div에는 flexbox를 사용하여 중앙 정렬을 합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>코드 예시에서 보듯, 본래 &lt;code>background-attachment: fixed&lt;/code> 대신에 우리는 &lt;code>&amp;lt;img&amp;gt;&lt;/code> 태그와 &lt;code>position: fixed&lt;/code>를 이용해 유사한 효과를 내는 방법을 사용하였습니다. 이는 대부분의 모바일 브라우저에서 작동하며, 배경 이미지가 스크롤 시에도 처음 위치에 고정되어 있도록 합니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>이 방법을 사용함으로써, CSS의 &lt;code>background-attachment: fixed&lt;/code> 속성이 모바일 기기에서 작동하지 않는 문제에 대한 대안적 해결책을 제공합니다. 특히 스크롤 성능 관련 문제를 유발하지 않으면서도 우리가 원하는 디자인 효과를 구현할 수 있습니다.&lt;/p>
+&lt;p>웹 개발자는 이러한 기술을 활용하여 모바일 환경에서도 풍부하고 몰입감 있는 사용자 경험을 만들 수 있습니다. 물론 이러한 기술이 모든 상황에 완벽한 해결책은 아닐 수도 있고, 실제 적용에 앞서 충분한 테스팅과 최적화 과정이 필요할 것입니다.&lt;/p>
+&lt;p>코드의 구현과 스타일에 대해서는 항상 최신 브라우저들의 지원 상황을 확인하는 것이 중요하고, 가능한 많은 디바이스와 환경에서의 테스트를 통해 더 안정적이고 깔끔한 사용자 경험을 제공하시기 바랍니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-12-background-fixed2/">예제결과 미리보기&lt;/a>
+&lt;a href="https://ctrlcccv.github.io/code/2024-01-11-background-fixed/">[관련글] CSS - 스크롤 해도 고정되는 배경 이미지 만들기&lt;/a>
+&lt;/div></description></item><item><title>CSS - 스크롤 해도 고정되는 배경 이미지 만들기</title><link>https://ctrlcccv.github.io/code/2024-01-11-background-fixed/</link><pubDate>Thu, 11 Jan 2024 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2024-01-11-background-fixed/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-01-11-background-fixed.webp" alt="Featured image of post CSS - 스크롤 해도 고정되는 배경 이미지 만들기" />&lt;p>배경 이미지는 페이지의 분위기를 결정짓는 핵심적인 역할을 하며, 독특한 스크롤 효과는 사용자의 관심을 끌고 인터랙션을 유도합니다. 이번 글에서는 여러 배경 이미지들이 스크롤 시 고정되며, 콘텐츠가 그 위에서 스크롤 되는 효과를 구현하는 방법을 자세히 설명합니다. CSS의 &lt;code>background-attachment&lt;/code> 속성을 사용하여 이러한 효과를 쉽게 만들 수 있습니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-구조">HTML 구조
+&lt;/h2>&lt;p>HTML 구조는 간단합니다. 각각의 배경 이미지를 가진 &lt;code>&amp;lt;div&amp;gt;&lt;/code> 태그들로 구성되어 있습니다. 각 &lt;code>div&lt;/code>에는 고유의 클래스(&lt;code>bg_type1&lt;/code>, &lt;code>bg_type2&lt;/code>, &lt;code>bg_type3&lt;/code>)가 할당되어, 특정한 배경 이미지를 지정할 수 있도록 합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;bg bg_type1&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;bg bg_type2&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;bg bg_type3&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>이들 각각의 &lt;code>div&lt;/code>는 페이지에서 전체 높이(&lt;code>100vh&lt;/code>)의 섹션으로 표시되며, 각각 다른 배경 이미지를 가집니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;h2 id="css-스타일">CSS 스타일
+&lt;/h2>&lt;p>CSS에서는 해당 HTML 구조에 스타일을 적용하여 각 섹션에 배경 이미지를 넣고 위치를 고정시킵니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">bg&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">vh&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background-position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">cover&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background-repeat&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">no-repeat&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background-attachment&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">fixed&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">bg_type1&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background-image&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">url&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;https://picsum.photos/id/79/2000/2000&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">bg_type2&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background-image&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">url&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;https://picsum.photos/id/80/2000/2000&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">bg_type3&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background-image&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">url&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;https://picsum.photos/id/81/2000/2000&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background-attachment&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">local&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>배경 이미지 공통 스타일 (.bg)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>height: 100vh&lt;/code>&lt;br>
+각 배경이 화면의 전체 높이를 차지하도록 설정합니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>background-position: center center&lt;/code>&lt;br>
+배경 이미지가 반드시 섹션의 중심에 있도록 합니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>background-size: cover&lt;/code>&lt;br>
+배경 이미지가 섹션의 크기에 맞게 조절되어 모든 공간을 감싸도록 합니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>background-repeat: no-repeat&lt;/code>&lt;br>
+배경 이미지가 반복되지 않고 한 번만 표시됩니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>background-attachment: fixed&lt;/code>&lt;br>
+스크롤 해도 배경 이미지가 고정되도록 설정합니다. 이는 이미지가 뷰포트에 상대적으로 고정되어, 사용자가 스크롤 할 때 이미지가 움직이지 않고 그 자리에 남아있게 만듭니다.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>각 배경 이미지 스타일&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>.bg_type1&lt;/code>, &lt;code>.bg_type2&lt;/code>는 고유한 URL의 배경 이미지를 가지며 &lt;code>background-attachment: fixed&lt;/code> 속성을 통해 스크롤 해도 고정되어 있습니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>.bg_type3&lt;/code> 또한 고유한 배경 이미지를 가지지만, 여기에서는 &lt;code>background-attachment: local&lt;/code> 속성을 사용했습니다. 이 속성은 배경이 뷰포트가 아닌 해당 요소(&lt;code>div&lt;/code>)에 상대적으로 고정되어, 요소가 스크롤 될 때 배경 이미지도 함께 스크롤 됩니다. 이를 통해 나머지 두 섹션과는 다른 스크롤 효과를 경험할 수 있습니다.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>CSS를 활용하여 스크롤 시에도 고정된 배경 이미지를 만드는 방법을 배웠습니다. &lt;code>background-attachment&lt;/code> 속성을 사용함으로써 간단하게 배경 고정 효과를 줄 수 있으며, 사용자에게 멋진 시각적 경험을 제공합니다. 또한, 배경을 고정시키거나 이동시키는 방법을 알게 되면, 웹사이트의 다양한 섹션에 다채로운 동적 효과를 부여할 수 있습니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2024-01-11-background-fixed/">예제결과 미리보기&lt;/a>
+&lt;a href="https://ctrlcccv.github.io/code/2024-01-12-background-fixed2/">[관련글] background-attachment:fixed 모바일에서 안되는 문제 해결 방법&lt;/a>
+&lt;/div></description></item><item><title>jQuery - 종이 폭죽 터지는 효과 (Canvas Confetti 활용)</title><link>https://ctrlcccv.github.io/code/2023-12-13-canvas-confetti/</link><pubDate>Wed, 13 Dec 2023 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2023-12-13-canvas-confetti/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-12-13-canvas-confetti.webp" alt="Featured image of post jQuery - 종이 폭죽 터지는 효과 (Canvas Confetti 활용)" />&lt;p>종이 폭죽 효과를 만드는 Canvas Confetti 라이브러리를 소개하고, jQuery와 함께 사용하는 방법을 알아봅니다. 이 플러그인은 화려한 종이 조각들을 화면에서 터뜨리는 효과를 쉽게 구현할 수 있게 해주며, 특히 이벤트나 축하의 순간에 생동감을 불어넣기에 적합합니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="설치-방법">설치 방법
+&lt;/h2>&lt;h3 id="npm을-통한-설치">NPM을 통한 설치
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">npm install --save canvas-confetti
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>설치 후, require(&amp;lsquo;canvas-confetti&amp;rsquo;)를 통해 프로젝트에 포함시킬 수 있습니다. 이 컴포넌트는 클라이언트 사이드에서만 동작하며, Webpack 같은 빌드 도구를 사용해야 합니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;h3 id="cdn을-통한-설치">CDN을 통한 설치
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>최신 버전을 사용하기 위해 릴리스 페이지에서 &lt;a class="link" href="https://github.com/catdad/canvas-confetti/releases" target="_blank" rel="noopener"
+>최신 버전 정보&lt;/a>를 확인하고, 해당 버전으로 링크를 변경하세요.&lt;/p>
+&lt;br>
+&lt;h2 id="사용-예시">사용 예시
+&lt;/h2>&lt;h3 id="html-구조">HTML 구조
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;btn_confetti&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>폭죽 버튼 클릭&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>사용자가 클릭할 수 있는 HTML 요소를 정의합니다. 이 예시에서는 &amp;lt;div&amp;gt; 요소를 사용하고, btn_confetti라는 클래스를 부여하여 CSS와 jQuery 선택자로 쉽게 접근할 수 있도록 합니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h3 id="jquery-코드">jQuery 코드
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.btn_confetti&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;click&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 시작점으로 설정할 요소 가져오기
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">canvas&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.btn_confetti&amp;#39;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Canvas 요소의 위치 정보를 가져오기
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">canvasRect&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">canvas&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getBoundingClientRect&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Canvas Confetti 라이브러리를 사용하여 효과 적용
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">confetti&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">particleCount&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">spread&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">180&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">origin&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">x&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">canvasRect&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">left&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">canvasRect&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">width&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">innerWidth&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">y&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">canvasRect&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">top&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">canvasRect&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">height&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">innerHeight&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>jQuery를 사용한 이벤트 핸들링&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>버튼에 클릭 이벤트 핸들러를 연결합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>클릭 된 요소의 위치 계산&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>클릭 된 요소의 위치를 getBoundingClientRect() 함수를 사용하여 계산합니다. 이 함수는 요소의 위치와 크기에 대한 정보를 제공합니다. 이 정보는 폭죽이 터지는 시작점을 정하는 데 사용됩니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Canvas Confetti 효과 적용&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>confetti() 함수를 호출하여 종이 폭죽 효과를 적용합니다. particleCount, spread, origin 등의 옵션을 설정하여 폭죽 효과의 모양과 위치를 조절합니다.&lt;/li>
+&lt;li>particleCount : 발사될 종이 조각의 수입니다.&lt;/li>
+&lt;li>spread : 종이 조각이 퍼지는 각도 범위입니다.&lt;/li>
+&lt;li>origin : 폭죽이 시작될 위치입니다. 여기서는 클릭 된 요소의 중심점을 기준으로 계산합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="옵션-설명">옵션 설명
+&lt;/h2>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>particleCount (정수, 기본값: 50)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>발사될 종이 조각의 수입니다. 더 많은 수는 더 화려한 효과를 만듭니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>angle (숫자, 기본값: 90)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>종이 조각이 발사되는 각도입니다. 90도는 직각으로 발사됨을 의미합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>spread (숫자, 기본값: 45)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>종이 조각이 퍼지는 각도 범위입니다. 예를 들어, 45도는 중심 각도로부터 +-22.5도 범위 내에서 퍼집니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>startVelocity (숫자, 기본값: 45)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>종이 조각이 시작할 때의 속도입니다. 값이 높을수록 더 빠르게 움직입니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>decay (숫자, 기본값: 0.9)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>종이 조각이 속도를 잃는 비율입니다. 0과 1 사이의 값을 유지해야 하며, 값이 낮을수록 빠르게 속도를 잃습니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>gravity (숫자, 기본값: 1)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>중력의 영향을 얼마나 받을 것인지 정하는 값입니다. 1은 표준 중력을 의미하며, 0.5는 중력의 절반을 의미합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>drift (숫자, 기본값: 0)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>종이 조각이 옆으로 얼마나 흘러갈지 정하는 값입니다. 음수는 왼쪽, 양수는 오른쪽으로 흘러갑니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>flat (불린, 기본값: false)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>종이 조각이 기울어짐 없이 평평하게 떨어지도록 설정합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>ticks (정수, 기본값: 200)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>종이 조각이 몇 번 움직일 것인지 정하는 값입니다. 값이 크면 더 오래 움직입니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>origin (객체)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>발사 지점을 정하는 객체입니다.&lt;/li>
+&lt;li>origin.x (숫자, 기본값: 0.5) : 화면 가로 축에서의 위치를 0과 1 사이의 값으로 정합니다.&lt;/li>
+&lt;li>origin.y (숫자, 기본값: 0.5) : 화면 세로 축에서의 위치를 0과 1 사이의 값으로 정합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>1colors (문자열 배열)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>종이 조각의 색상을 HEX 형식의 문자열 배열로 정합니다. 예: [&amp;rsquo;#bada55&amp;rsquo;, &amp;lsquo;#ff0000&amp;rsquo;]&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>shapes (문자열 또는 Shape 객체 배열)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>종이 조각의 모양을 정합니다. 기본 모양은 &amp;lsquo;square&amp;rsquo;, &amp;lsquo;circle&amp;rsquo;, &amp;lsquo;star&amp;rsquo;가 있습니다. 사용자 정의 모양을 만들기 위해서는 confetti.shapeFromPath 또는 confetti.shapeFromText 메소드를 사용할 수 있습니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>scalar (숫자, 기본값: 1)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>각 종이 조각의 크기 비율을 정합니다. 작은 값을 사용하면 더 작은 종이 조각을 만들 수 있습니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>zIndex (정수, 기본값: 100)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>종이 폭죽이 나타날 때의 z-index 값을 정합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>disableForReducedMotion (불린, 기본값: false)&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>움직임을 줄이길 선호하는 사용자들을 위해 종이 폭죽 효과를 비활성화합니다. 해당 옵션이 활성화된 경우, confetti() 함수는 즉시 해결되는 프로미스를 반환합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="공식-예제-사이트">공식 예제 사이트
+&lt;/h2>&lt;p>Canvas Confetti 라이브러리의 기능을 직접 체험하고 싶다면, &lt;a class="link" href="https://www.kirilv.com/canvas-confetti" target="_blank" rel="noopener"
+>공식 예제 사이트&lt;/a>를 방문해보세요. 다양한 종류의 폭죽 효과를 직접 보고, 실험해볼 수 있습니다.&lt;/p>
+&lt;br>
+&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>Canvas Confetti 라이브러리는 웹사이트에 독특하고 즐거운 시각적 요소를 추가하는 간단하고 효과적인 방법입니다. jQuery와 함께 사용하여, 생동감 있는 UI를 만들 수 있습니다. 이 플러그인을 사용하여 웹사이트의 특별한 순간을 더욱 기억에 남게 만들어보세요!&lt;br>
+&lt;br>&lt;/p>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-12-13-canvas-confetti/">예제결과 미리보기&lt;/a>
+&lt;/div></description></item><item><title>CSS와 jQuery로 눈 내리는 효과 만들기 (반응형)</title><link>https://ctrlcccv.github.io/code/2023-11-29-snow/</link><pubDate>Wed, 29 Nov 2023 01:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2023-11-29-snow/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-29-snow2.webp" alt="Featured image of post CSS와 jQuery로 눈 내리는 효과 만들기 (반응형)" />&lt;p>CSS와 jQuery를 사용하여 웹 페이지에 눈 내리는 효과를 만드는 방법을 소개합니다. 이러한 효과는 특히 겨울철이나 특별한 행사를 위한 웹사이트에 매력적인 추가 요소가 될 수 있습니다. 본 글에서는 이러한 효과를 만드는 과정을 자세히 설명하고, 반응형 디자인을 고려하여 다양한 기기에서도 잘 작동하도록 구현하는 방법을 단계별로 안내합니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-구조">HTML 구조
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;snow_wrap&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">canvas&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;snow&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">canvas&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>브라우저 화면 크기를 변경하여&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">br&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>반응형 전환 효과를 확인해보세요.&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>snow_wrap 클래스는 캔버스를 포함하는 컨테이너입니다.&lt;/li>
+&lt;li>show 클래스는 눈송이 애니메이션을 표시하는 캔버스 요소입니다.&lt;br>
+&lt;br>&lt;/li>
+&lt;/ul>
+&lt;h2 id="css-스타일">CSS 스타일
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">snow_wrap&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">overflow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">hidden&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">vh&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">snow&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#141f3e&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>snow_wrap 클래스는 캔버스와 헤더를 감싸고, 전체 높이(100vh)를 차지합니다.&lt;/li>
+&lt;li>snow 클래스는 눈송이 애니메이션의 배경색을 설정합니다.&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="jquery-코드">jQuery 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;span class="lnt">80
+&lt;/span>&lt;span class="lnt">81
+&lt;/span>&lt;span class="lnt">82
+&lt;/span>&lt;span class="lnt">83
+&lt;/span>&lt;span class="lnt">84
+&lt;/span>&lt;span class="lnt">85
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">canvas&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.snow&amp;#39;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">context&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">canvas&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getContext&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;2d&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 캔버스의 초기 너비와 높이를 설정합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">canvasWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.snow_wrap&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">width&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">canvasHeight&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.snow_wrap&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">height&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">lastDeviceType&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">innerWidth&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">768&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="s1">&amp;#39;mobile&amp;#39;&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;desktop&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 눈송이 파티클을 생성하는 함수입니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">createParticles&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 기존 파티클을 삭제하고 새 파티클을 생성합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">snowParticles&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 디바이스에 따라 파티클 수를 조정합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">particleCount&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">lastDeviceType&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s1">&amp;#39;mobile&amp;#39;&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="mi">40&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">particleCount&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">snowParticles&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">new&lt;/span> &lt;span class="nx">createParticle&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 캔버스의 크기를 조정하는 함수입니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">setCanvasSize&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">currentDeviceType&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">innerWidth&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">768&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="s1">&amp;#39;mobile&amp;#39;&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;desktop&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 디바이스가 변경되면 새로운 파티클을 생성합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">currentDeviceType&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="nx">lastDeviceType&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">lastDeviceType&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">currentDeviceType&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">createParticles&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 임시 캔버스를 사용하여 현재 내용을 저장합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">tempCanvas&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">createElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;canvas&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">tempCtx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">tempCanvas&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getContext&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;2d&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">tempCanvas&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">width&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">canvasWidth&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">tempCanvas&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">height&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">canvasHeight&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">tempCtx&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">drawImage&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">canvas&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 캔버스의 크기를 재설정합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">canvasWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.snow_wrap&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">width&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">canvasHeight&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.snow_wrap&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">height&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">canvas&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">width&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">canvasWidth&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">canvas&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">height&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">canvasHeight&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 임시 캔버스의 내용을 원래 캔버스에 복원합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">drawImage&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">tempCanvas&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 눈송이 파티클을 저장할 배열입니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">snowParticles&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 개별 눈송이 파티클을 생성하는 생성자 함수입니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">createParticle&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">canvasWidth&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">canvasHeight&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">vx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">4&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">vy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">4&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">color&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sb">`rgba(255, 255, 255, &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">)`&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">radius&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">random&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">5&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 눈송이 파티클을 그리는 함수입니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">draw&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">clearRect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">canvasWidth&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">canvasHeight&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 캔버스를 지웁니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">snowParticles&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">forEach&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">particle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">beginPath&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">gradient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">createRadialGradient&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">radius&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">gradient&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addColorStop&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">color&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">gradient&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addColorStop&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;rgb(66, 66, 66)&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">fillStyle&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">gradient&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">arc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">radius&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PI&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">fill&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 파티클 위치 업데이트
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">vx&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">y&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">vy&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 파티클이 캔버스 밖으로 나가면 반대편에서 다시 시작
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">canvasWidth&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">y&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">canvasHeight&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nx">canvasWidth&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">y&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nx">canvasHeight&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nx">particle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 창 크기가 변경될 때마다 캔버스 크기를 조정합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">resize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">setCanvasSize&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">setCanvasSize&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 초기 캔버스 크기를 설정합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">createParticles&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 초기 파티클을 생성합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">setInterval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">draw&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">33&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 33ms 간격으로 눈송이 애니메이션을 시작합니다.
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>캔버스 초기화 및 크기 설정&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>캔버스와 2D 렌더링 컨텍스트를 초기화합니다.&lt;/li>
+&lt;li>캔버스의 너비와 높이를 .snow_wrap 요소의 크기에 맞춥니다.&lt;/li>
+&lt;li>사용자 기기 유형(모바일/데스크톱)을 감지합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>눈송이 파티클 생성&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>createParticles 함수는 새로운 눈송이 파티클을 생성합니다.&lt;/li>
+&lt;li>디바이스 유형에 따라 파티클의 수를 조정합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>캔버스 크기 조정 로직&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>setCanvasSize 함수는 창 크기가 변경될 때마다 캔버스 크기를 조정합니다.&lt;/li>
+&lt;li>기기 변경 시 새로운 파티클을 생성합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>눈송이 파티클 생성자&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>createParticle 생성자 함수는 개별 눈송이 파티클의 속성을 정의합니다.&lt;/li>
+&lt;li>this.x와 this.y는 파티클의 초기 위치를 무작위로 설정합니다.&lt;/li>
+&lt;li>this.vx와 this.vy는 파티클의 수평 및 수직 속도를 결정합니다. 이 값들은 눈송이가 얼마나 빠르게 움직일지를 제어합니다. 수치를 조정하여 눈송이의 내리는 속도를 변경할 수 있습니다.&lt;/li>
+&lt;li>this.color는 파티클의 색상을 설정합니다.&lt;/li>
+&lt;li>this.radius는 파티클의 반지름을 정의합니다. 이 값은 눈송이의 크기를 조절하는 데 사용됩니다. 값이 클수록 눈송이가 더 커집니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>애니메이션 구현&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>draw 함수는 눈송이 파티클을 캔버스에 그립니다.&lt;/li>
+&lt;li>파티클의 위치를 업데이트하고 화면 바깥으로 나가면 반대편에서 재진입하게 합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>창 크기 변경 감지 및 초기화&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>$(window).resize(setCanvasSize)로 창 크기가 변경될 때마다 캔버스 크기를 조정합니다.&lt;/li>
+&lt;li>페이지 로드 시 초기 캔버스 크기를 설정하고, 초기 파티클을 생성합니다.&lt;/li>
+&lt;li>setInterval(draw, 33)로 눈송이 애니메이션을 33밀리 초 간격으로 반복합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>눈송이 파티클의 크기와 내리는 속도는 createParticle 생성자 함수 내의 this.radius, this.vx, this.vy 값을 조정하여 쉽게 변경할 수 있습니다. 예를 들어, this.radius = Math.random() * 10 + 2라고 설정하면, 눈송이의 크기 범위가 더 커집니다. 마찬가지로 this.vy = Math.random() * 6 + 1과 같이 설정하면 눈송이가 더 빠르게 떨어집니다. 이러한 조정을 통해 다양한 환경과 테마에 맞는 독특한 눈 내리는 효과를 만들 수 있습니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>CSS와 jQuery를 사용하여 눈 내리는 효과를 만드는 과정을 단계별로 살펴보았습니다. 눈송이의 크기, 속도 및 개수를 조절하여 다양한 환경에 맞는 독특한 시각적 요소를 생성할 수 있습니다. 반응형 디자인을 고려하여 구현함으로써, 모든 디바이스에서 일관된 사용자 경험을 제공하는 것도 중요합니다. 이러한 시각적 효과는 단순한 장식 이상의 가치를 지니며, 웹사이트의 전반적인 분위기와 사용자의 참여를 높이는 데 크게 기여할 수 있습니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-29-snow/">예제결과 미리보기&lt;/a>
+&lt;/div></description></item></channel></rss>

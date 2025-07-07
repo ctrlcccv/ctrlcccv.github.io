@@ -1,0 +1,437 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="Struggling with JavaScript copy operations? Learn critical differences between shallow and deep copying, when to use each, and master latest techniques including structuredClone(). "><title>JavaScript Shallow Copy vs Deep Copy: 2025 Edition</title><link rel=canonical href=https://ctrlcccv.github.io/code-en/2025-07-07-javascript-copy/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="JavaScript Shallow Copy vs Deep Copy: 2025 Edition\n"><meta property='og:description' content="Struggling with JavaScript copy operations? Learn critical differences between shallow and deep copying, when to use each, and master latest techniques including structuredClone(). "><meta property='og:url' content='https://ctrlcccv.github.io/code-en/2025-07-07-javascript-copy/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code-En'><meta property='article:tag' content='JavaScript fundamentals'><meta property='article:tag' content='shallow copy'><meta property='article:tag' content='deep copy'><meta property='article:published_time' content='2025-07-07T00:00:00+00:00'><meta property='article:modified_time' content='2025-07-07T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-07-javascript-copy-en.webp'><meta name=twitter:title content="JavaScript Shallow Copy vs Deep Copy: 2025 Edition\n"><meta name=twitter:description content="Struggling with JavaScript copy operations? Learn critical differences between shallow and deep copying, when to use each, and master latest techniques including structuredClone(). "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-07-javascript-copy-en.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"JavaScript Shallow Copy vs Deep Copy: 2025 Edition\n","datePublished":"2025-07-07T00:00:00Z","dateModified":"2025-07-07T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="JavaScript 얕은 복사 vs 깊은 복사: 2025년 최신 가이드 (feat. structuredClone)" href=https://ctrlcccv.github.io/code/2025-07-04-javascript-copy/ hreflang=ko><link rel=alternate title="JavaScript Shallow Copy vs Deep Copy: 2025 Edition" href=https://ctrlcccv.github.io/code-en/2025-07-07-javascript-copy/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#what-is-javascript-copy>What is JavaScript Copy?</a></li><li><a href=#why-javascript-copy-methods-matter-in-real-development>Why JavaScript Copy Methods Matter in Real Development</a><ol><li><a href=#the-root-cause-reference-vs-value-types>The Root Cause: Reference vs Value Types</a></li><li><a href=#why-this-matters-in-real-applications>Why This Matters in Real Applications</a></li></ol></li><li><a href=#understanding-shallow-copy>Understanding Shallow Copy</a><ol><li><a href=#what-is-shallow-copy>What is Shallow Copy?</a></li><li><a href=#when-to-use-shallow-copy>When to Use Shallow Copy</a></li></ol></li><li><a href=#mastering-deep-copy>Mastering Deep Copy</a><ol><li><a href=#what-is-deep-copy-and-when-you-need-it>What is Deep Copy and When You Need It</a></li><li><a href=#essential-use-cases-for-deep-copy>Essential Use Cases for Deep Copy</a></li></ol></li><li><a href=#5-javascript-copy-methods-compared>5 JavaScript Copy Methods Compared</a><ol><li><a href=#method-1-structuredclone---the-modern-standard>Method 1: structuredClone() - The Modern Standard</a></li><li><a href=#method-2-json-parsestringify---simple-but-limited>Method 2: JSON Parse/Stringify - Simple but Limited</a></li><li><a href=#method-3-spread-operator----best-for-shallow-copy>Method 3: Spread Operator (&mldr;) - Best for Shallow Copy</a></li><li><a href=#method-4-objectassign---alternative-shallow-copy>Method 4: Object.assign() - Alternative Shallow Copy</a></li><li><a href=#method-5-lodash-clonedeep---when-you-need-functions>Method 5: Lodash cloneDeep() - When You Need Functions</a></li></ol></li><li><a href=#2025-best-practices-guide>2025 Best Practices Guide</a><ol><li><a href=#choosing-the-right-method-decision-matrix>Choosing the Right Method: Decision Matrix</a></li><li><a href=#real-world-implementation-examples>Real-World Implementation Examples</a><ol><li><a href=#1-form-data-management>1. Form Data Management</a></li><li><a href=#2-shopping-cart-state-management>2. Shopping Cart State Management</a></li><li><a href=#3-api-response-processing>3. API Response Processing</a></li></ol></li></ol></li><li><a href=#frequently-asked-questions>Frequently Asked Questions</a><ol><li><a href=#how-do-i-know-when-to-use-shallow-vs-deep-copy>How do I know when to use shallow vs deep copy?</a></li><li><a href=#is-structuredclone-always-better-than-json-methods>Is structuredClone() always better than JSON methods?</a></li><li><a href=#can-i-copy-functions-with-structuredclone>Can I copy functions with structuredClone()?</a></li><li><a href=#which-method-performs-best>Which method performs best?</a></li><li><a href=#what-about-copying-arrays>What about copying arrays?</a></li></ol></li><li><a href=#key-takeaways>Key Takeaways</a></li><li><a href=#whats-next>What&rsquo;s Next?</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code-en/2025-07-07-javascript-copy/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-07-javascript-copy-en.webp loading=lazy alt="Featured image of post JavaScript Shallow Copy vs Deep Copy: 2025 Edition
+"></a></div><div class=article-details><header class=article-category><a href=/categories/javascript/>JavaScript</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code-en/2025-07-07-javascript-copy/>JavaScript Shallow Copy vs Deep Copy: 2025 Edition</a></h2><h3 class=article-subtitle>Struggling with JavaScript copy operations? Learn critical differences between shallow and deep copying, when to use each, and master latest techniques including structuredClone().</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-07-07T00:00:00Z>7월 07, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>11 분 정도</time></div></footer></div></header><section class=article-content><blockquote><p>💡 Having some background knowledge about JavaScript <a class=link href=/code-en/2025-07-01-primitive-reference>Primitive vs Reference</a> will make this article much easier to follow and understand.</p></blockquote><p>When working with JavaScript objects and arrays, you&rsquo;ve probably encountered this frustrating scenario: &ldquo;I copied my data to a new variable, but why is my original data changing too?&rdquo; Sound familiar?</p><p>I remember struggling with this exact problem early in my development journey. I thought I was creating independent copies of my objects, but my original data kept getting modified unexpectedly. This became especially problematic when building interactive applications where user actions would accidentally overwrite important data. Then I had that &ldquo;aha!&rdquo; moment when I finally understood the difference between shallow and deep copying – it completely changed how I approach data manipulation in JavaScript.</p><p>In this comprehensive guide, I&rsquo;ll walk you through everything you need to know about JavaScript copying methods. We&rsquo;ll cover the fundamental concepts, explore 5 different copying techniques, and see practical examples that you&rsquo;ll encounter in real-world development.</p><p>From basic spread operators to the latest <code>structuredClone()</code> method, you&rsquo;ll learn exactly when and how to use each approach to avoid those sneaky bugs that can crash your applications.</p><br><h2 id=what-is-javascript-copy>What is JavaScript Copy?</h2><blockquote><p><strong>JavaScript Copy: The Essential Definition</strong></p><p><strong>Shallow copy</strong> creates a new object but keeps references to nested objects from the original. <strong>Deep copy</strong> creates a completely independent duplicate with no shared references. The choice between them depends on your data structure and whether you need complete isolation from the original object.</p></blockquote><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=why-javascript-copy-methods-matter-in-real-development>Why JavaScript Copy Methods Matter in Real Development</h2><h3 id=the-root-cause-reference-vs-value-types>The Root Cause: Reference vs Value Types</h3><p>Understanding copying issues requires knowledge of how JavaScript stores different data types.</p><p>JavaScript has two fundamental data categories:</p><ul><li><p><strong>Primitive Types</strong>: <code>string</code>, <code>number</code>, <code>boolean</code>, <code>null</code>, <code>undefined</code>, <code>symbol</code></p><ul><li>Stored as actual values</li><li>Copying always creates independent duplicates</li></ul></li><li><p><strong>Reference Types</strong>: <code>object</code>, <code>array</code>, <code>function</code></p><ul><li>Stored as memory addresses (references)</li><li>Copying requires special attention</li></ul></li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// Primitive types - no problems here
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>originalPrice</span> <span class=o>=</span> <span class=mf>99.99</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>discountedPrice</span> <span class=o>=</span> <span class=nx>originalPrice</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>discountedPrice</span> <span class=o>=</span> <span class=mf>79.99</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>originalPrice</span><span class=p>);</span> <span class=c1>// 99.99 (unchanged)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// Reference types - this is where things get tricky!
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>originalCart</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;laptop&#39;</span><span class=p>,</span> <span class=s1>&#39;mouse&#39;</span><span class=p>,</span> <span class=s1>&#39;keyboard&#39;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>userCart</span> <span class=o>=</span> <span class=nx>originalCart</span><span class=p>;</span>  <span class=c1>// Points to the same memory location
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>userCart</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=s1>&#39;monitor&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>originalCart</span><span class=p>);</span> <span class=c1>// [&#39;laptop&#39;, &#39;mouse&#39;, &#39;keyboard&#39;, &#39;monitor&#39;] (original changed!)
+</span></span></span></code></pre></td></tr></table></div></div><br><h3 id=why-this-matters-in-real-applications>Why This Matters in Real Applications</h3><p>In production environments, most data is structured as objects or arrays: user profiles, product inventories, form data, API responses. Without proper copying techniques, you risk:</p><ul><li>Accidental data corruption</li><li>Unexpected UI updates</li><li>Hard-to-debug state management issues</li><li>Performance problems from unwanted re-renders</li></ul><br><h2 id=understanding-shallow-copy>Understanding Shallow Copy</h2><h3 id=what-is-shallow-copy>What is Shallow Copy?</h3><p>Shallow copy creates a <strong>new object for the top level only</strong>, but nested objects and arrays still <strong>share references</strong> with the original.</p><p>Think of it like copying a filing cabinet. You get a new cabinet (top level), but the folders inside (nested objects) are the same ones from the original cabinet.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>productCatalog</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>title</span><span class=o>:</span> <span class=s2>&#34;Electronics Store&#34;</span><span class=p>,</span>     <span class=c1>// Top level (gets copied)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>categories</span><span class=o>:</span> <span class=p>{</span>                   <span class=c1>// Nested object (shared reference)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>laptops</span><span class=o>:</span> <span class=p>[</span><span class=s1>&#39;MacBook&#39;</span><span class=p>,</span> <span class=s1>&#39;ThinkPad&#39;</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>        <span class=nx>phones</span><span class=o>:</span> <span class=p>[</span><span class=s1>&#39;iPhone&#39;</span><span class=p>,</span> <span class=s1>&#39;Samsung&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Common shallow copy methods
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>catalog1</span> <span class=o>=</span> <span class=nb>Object</span><span class=p>.</span><span class=nx>assign</span><span class=p>({},</span> <span class=nx>productCatalog</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>catalog2</span> <span class=o>=</span> <span class=p>{</span> <span class=p>...</span><span class=nx>productCatalog</span> <span class=p>};</span>  <span class=c1>// Spread operator (most popular)
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// Top-level changes are independent
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>catalog1</span><span class=p>.</span><span class=nx>title</span> <span class=o>=</span> <span class=s2>&#34;Tech Warehouse&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>productCatalog</span><span class=p>.</span><span class=nx>title</span><span class=p>);</span> <span class=c1>// &#34;Electronics Store&#34; (original intact)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>catalog1</span><span class=p>.</span><span class=nx>title</span><span class=p>);</span>       <span class=c1>// &#34;Tech Warehouse&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// Nested changes affect both objects!
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>catalog1</span><span class=p>.</span><span class=nx>categories</span><span class=p>.</span><span class=nx>laptops</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=s1>&#39;Dell XPS&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>productCatalog</span><span class=p>.</span><span class=nx>categories</span><span class=p>.</span><span class=nx>laptops</span><span class=p>);</span> <span class=c1>// [&#39;MacBook&#39;, &#39;ThinkPad&#39;, &#39;Dell XPS&#39;] (original modified!)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>catalog1</span><span class=p>.</span><span class=nx>categories</span><span class=p>.</span><span class=nx>laptops</span><span class=p>);</span>       <span class=c1>// [&#39;MacBook&#39;, &#39;ThinkPad&#39;, &#39;Dell XPS&#39;]
+</span></span></span></code></pre></td></tr></table></div></div><br><h3 id=when-to-use-shallow-copy>When to Use Shallow Copy</h3><p>Shallow copying is perfect when you need:</p><ol><li><strong>Simple object structures</strong> without nesting</li><li><strong>Performance optimization</strong> (faster than deep copy)</li><li><strong>Memory efficiency</strong> (shared references save space)</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ Perfect for shallow copy
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>userProfile</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>username</span><span class=o>:</span> <span class=s2>&#34;johndoe&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>email</span><span class=o>:</span> <span class=s2>&#34;john@example.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>isActive</span><span class=o>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>updatedProfile</span> <span class=o>=</span> <span class=p>{</span> <span class=p>...</span><span class=nx>userProfile</span><span class=p>,</span> <span class=nx>isActive</span><span class=o>:</span> <span class=kc>false</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=c1>// Simple structure means no reference issues!
+</span></span></span></code></pre></td></tr></table></div></div><br><h2 id=mastering-deep-copy>Mastering Deep Copy</h2><h3 id=what-is-deep-copy-and-when-you-need-it>What is Deep Copy and When You Need It</h3><p>Deep copy creates a <strong>completely independent duplicate</strong> at every level. All nested objects, arrays, and properties are newly created with no shared references.</p><p>This is like photocopying every single document in that filing cabinet and putting them in a brand new cabinet.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>applicationState</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>currentUser</span><span class=o>:</span> <span class=s2>&#34;alice_dev&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>preferences</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>theme</span><span class=o>:</span> <span class=s2>&#34;dark&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>notifications</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>email</span><span class=o>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>push</span><span class=o>:</span> <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>desktop</span><span class=o>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=nx>recentProjects</span><span class=o>:</span> <span class=p>[</span><span class=s2>&#34;weather-app&#34;</span><span class=p>,</span> <span class=s2>&#34;todo-list&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Deep copy using structuredClone (2025 recommended method!)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>backupState</span> <span class=o>=</span> <span class=nx>structuredClone</span><span class=p>(</span><span class=nx>applicationState</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Change deeply nested values
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>backupState</span><span class=p>.</span><span class=nx>preferences</span><span class=p>.</span><span class=nx>notifications</span><span class=p>.</span><span class=nx>email</span> <span class=o>=</span> <span class=kc>false</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>backupState</span><span class=p>.</span><span class=nx>recentProjects</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=s2>&#34;portfolio-site&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>applicationState</span><span class=p>.</span><span class=nx>preferences</span><span class=p>.</span><span class=nx>notifications</span><span class=p>.</span><span class=nx>email</span><span class=p>);</span>  <span class=c1>// true (original preserved!)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>backupState</span><span class=p>.</span><span class=nx>preferences</span><span class=p>.</span><span class=nx>notifications</span><span class=p>.</span><span class=nx>email</span><span class=p>);</span>       <span class=c1>// false
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>applicationState</span><span class=p>.</span><span class=nx>recentProjects</span><span class=p>);</span>                   <span class=c1>// [&#34;weather-app&#34;, &#34;todo-list&#34;]
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>backupState</span><span class=p>.</span><span class=nx>recentProjects</span><span class=p>);</span>                        <span class=c1>// [&#34;weather-app&#34;, &#34;todo-list&#34;, &#34;portfolio-site&#34;]
+</span></span></span></code></pre></td></tr></table></div></div><br><h3 id=essential-use-cases-for-deep-copy>Essential Use Cases for Deep Copy</h3><p>You absolutely need deep copy when:</p><ol><li><strong>Working with nested data structures</strong></li><li><strong>Preserving original data integrity</strong></li><li><strong>Creating backup copies before modifications</strong></li><li><strong>Managing application state safely</strong></li></ol><br><h2 id=5-javascript-copy-methods-compared>5 JavaScript Copy Methods Compared</h2><h3 id=method-1-structuredclone---the-modern-standard>Method 1: structuredClone() - The Modern Standard</h3><p>The newest and most reliable method, built into modern browsers.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>complexData</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>id</span><span class=o>:</span> <span class=s1>&#39;user_123&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>createdAt</span><span class=o>:</span> <span class=k>new</span> <span class=nb>Date</span><span class=p>(</span><span class=s1>&#39;2024-01-15&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tags</span><span class=o>:</span> <span class=k>new</span> <span class=nx>Set</span><span class=p>([</span><span class=s1>&#39;developer&#39;</span><span class=p>,</span> <span class=s1>&#39;javascript&#39;</span><span class=p>,</span> <span class=s1>&#39;react&#39;</span><span class=p>]),</span>
+</span></span><span class=line><span class=cl>    <span class=nx>metadata</span><span class=o>:</span> <span class=k>new</span> <span class=nx>Map</span><span class=p>([[</span><span class=s1>&#39;version&#39;</span><span class=p>,</span> <span class=s1>&#39;1.0&#39;</span><span class=p>],</span> <span class=p>[</span><span class=s1>&#39;env&#39;</span><span class=p>,</span> <span class=s1>&#39;production&#39;</span><span class=p>]]),</span>
+</span></span><span class=line><span class=cl>    <span class=nx>config</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>settings</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>autoSave</span><span class=o>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>theme</span><span class=o>:</span> <span class=s1>&#39;dark&#39;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>perfectCopy</span> <span class=o>=</span> <span class=nx>structuredClone</span><span class=p>(</span><span class=nx>complexData</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// All complex types are properly preserved!
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>perfectCopy</span><span class=p>.</span><span class=nx>createdAt</span> <span class=k>instanceof</span> <span class=nb>Date</span><span class=p>);</span>     <span class=c1>// true
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>perfectCopy</span><span class=p>.</span><span class=nx>tags</span><span class=p>.</span><span class=nx>has</span><span class=p>(</span><span class=s1>&#39;developer&#39;</span><span class=p>));</span>         <span class=c1>// true
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>perfectCopy</span><span class=p>.</span><span class=nx>metadata</span><span class=p>.</span><span class=nx>get</span><span class=p>(</span><span class=s1>&#39;version&#39;</span><span class=p>));</span>       <span class=c1>// &#39;1.0&#39;
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>Benefits of structuredClone():</strong></p><ul><li>No external libraries required</li><li>Handles Date, Map, Set, RegExp, and more</li><li>Manages circular references automatically</li><li>Excellent performance</li></ul><p><strong>Limitations:</strong></p><ul><li>Cannot copy functions</li><li>Not supported in very old browsers (but widely available in 2025)</li></ul><br><h3 id=method-2-json-parsestringify---simple-but-limited>Method 2: JSON Parse/Stringify - Simple but Limited</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ Problematic example
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>dataWithComplexTypes</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;DevProject&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>launchDate</span><span class=o>:</span> <span class=k>new</span> <span class=nb>Date</span><span class=p>(),</span>                        <span class=c1>// Becomes string
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>execute</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span> <span class=k>return</span> <span class=s2>&#34;Running&#34;</span><span class=p>;</span> <span class=p>},</span>     <span class=c1>// Disappears
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>status</span><span class=o>:</span> <span class=kc>undefined</span><span class=p>,</span>                             <span class=c1>// Disappears
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>config</span><span class=o>:</span> <span class=kc>null</span>                                   <span class=c1>// Preserved as null
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>jsonCopy</span> <span class=o>=</span> <span class=nx>JSON</span><span class=p>.</span><span class=nx>parse</span><span class=p>(</span><span class=nx>JSON</span><span class=p>.</span><span class=nx>stringify</span><span class=p>(</span><span class=nx>dataWithComplexTypes</span><span class=p>));</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>jsonCopy</span><span class=p>.</span><span class=nx>launchDate</span> <span class=k>instanceof</span> <span class=nb>Date</span><span class=p>);</span> <span class=c1>// false - now a string!
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>jsonCopy</span><span class=p>.</span><span class=nx>execute</span><span class=p>);</span>                     <span class=c1>// undefined - function lost!
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ Safe usage example
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>basicProjectData</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>projectName</span><span class=o>:</span> <span class=s2>&#34;My Website&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>version</span><span class=o>:</span> <span class=s2>&#34;2.1.0&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>contributors</span><span class=o>:</span> <span class=p>[</span><span class=s2>&#34;Alice&#34;</span><span class=p>,</span> <span class=s2>&#34;Bob&#34;</span><span class=p>,</span> <span class=s2>&#34;Charlie&#34;</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>    <span class=nx>isPublic</span><span class=o>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>safeCopy</span> <span class=o>=</span> <span class=nx>JSON</span><span class=p>.</span><span class=nx>parse</span><span class=p>(</span><span class=nx>JSON</span><span class=p>.</span><span class=nx>stringify</span><span class=p>(</span><span class=nx>basicProjectData</span><span class=p>));</span>
+</span></span><span class=line><span class=cl><span class=c1>// Works perfectly with basic data types
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>Why JSON Method Has Limitations:</strong></p><p>JSON was designed for <strong>data interchange between servers and clients</strong>, so it only supports basic, serializable data types. JavaScript-specific objects like functions, Date objects, or undefined values can&rsquo;t be represented in JSON format.</p><br><h3 id=method-3-spread-operator----best-for-shallow-copy>Method 3: Spread Operator (&mldr;) - Best for Shallow Copy</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// Perfect for simple objects
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>taskItem</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>id</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>text</span><span class=o>:</span> <span class=s2>&#34;Learn JavaScript copying&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>completed</span><span class=o>:</span> <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>priority</span><span class=o>:</span> <span class=s2>&#34;high&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>updatedTask</span> <span class=o>=</span> <span class=p>{</span> <span class=p>...</span><span class=nx>taskItem</span><span class=p>,</span> <span class=nx>completed</span><span class=o>:</span> <span class=kc>true</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Great for arrays too
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>originalTasks</span> <span class=o>=</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span> <span class=nx>id</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=s2>&#34;Task 1&#34;</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span> <span class=nx>id</span><span class=o>:</span> <span class=mi>2</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=s2>&#34;Task 2&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>];</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>newTaskList</span> <span class=o>=</span> <span class=p>[...</span><span class=nx>originalTasks</span><span class=p>,</span> <span class=p>{</span> <span class=nx>id</span><span class=o>:</span> <span class=mi>3</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=s2>&#34;Task 3&#34;</span> <span class=p>}];</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=method-4-objectassign---alternative-shallow-copy>Method 4: Object.assign() - Alternative Shallow Copy</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>defaultConfig</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>apiUrl</span><span class=o>:</span> <span class=s2>&#34;https://api.example.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>timeout</span><span class=o>:</span> <span class=mi>5000</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>retries</span><span class=o>:</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>userConfig</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>timeout</span><span class=o>:</span> <span class=mi>10000</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>debug</span><span class=o>:</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Merge configurations
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>finalConfig</span> <span class=o>=</span> <span class=nb>Object</span><span class=p>.</span><span class=nx>assign</span><span class=p>({},</span> <span class=nx>defaultConfig</span><span class=p>,</span> <span class=nx>userConfig</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>// Results in: { apiUrl: &#34;https://api.example.com&#34;, timeout: 10000, retries: 3, debug: true }
+</span></span></span></code></pre></td></tr></table></div></div><br><h3 id=method-5-lodash-clonedeep---when-you-need-functions>Method 5: Lodash cloneDeep() - When You Need Functions</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// npm install lodash
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>import</span> <span class=nx>_</span> <span class=nx>from</span> <span class=s1>&#39;lodash&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>moduleWithMethods</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;UserManager&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>data</span><span class=o>:</span> <span class=p>{</span> <span class=nx>users</span><span class=o>:</span> <span class=p>[]</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=nx>addUser</span><span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>user</span><span class=p>)</span> <span class=p>{</span> <span class=k>this</span><span class=p>.</span><span class=nx>data</span><span class=p>.</span><span class=nx>users</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>user</span><span class=p>);</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=nx>getCount</span><span class=o>:</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=k>this</span><span class=p>.</span><span class=nx>data</span><span class=p>.</span><span class=nx>users</span><span class=p>.</span><span class=nx>length</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>clonedModule</span> <span class=o>=</span> <span class=nx>_</span><span class=p>.</span><span class=nx>cloneDeep</span><span class=p>(</span><span class=nx>moduleWithMethods</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>clonedModule</span><span class=p>.</span><span class=nx>addUser</span><span class=p>.</span><span class=nx>toString</span><span class=p>());</span> <span class=c1>// Function is preserved!
+</span></span></span></code></pre></td></tr></table></div></div><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=2025-best-practices-guide>2025 Best Practices Guide</h2><h3 id=choosing-the-right-method-decision-matrix>Choosing the Right Method: Decision Matrix</h3><div class=table-wrapper><table><thead><tr><th><strong>Scenario</strong></th><th><strong>Recommended Method</strong></th><th><strong>Why This Choice</strong></th></tr></thead><tbody><tr><td>Simple objects + performance critical</td><td>Spread operator <code>{...obj}</code></td><td>Fastest and sufficient</td></tr><tr><td>Nested objects + no special types</td><td><code>structuredClone()</code></td><td>Safe and reliable</td></tr><tr><td>Complex types (Date, Map, Set)</td><td><code>structuredClone()</code></td><td>Preserves type integrity</td></tr><tr><td>Need to copy functions</td><td><code>_.cloneDeep()</code></td><td>Only method that handles functions</td></tr><tr><td>Legacy browser support needed</td><td>JSON method + validation</td><td>Maximum compatibility</td></tr></tbody></table></div><br><h3 id=real-world-implementation-examples>Real-World Implementation Examples</h3><p>Here&rsquo;s how these copying methods solve actual development challenges:</p><br><h4 id=1-form-data-management>1. Form Data Management</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// Managing form state without mutations
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>originalFormData</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>personalInfo</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>firstName</span><span class=o>:</span> <span class=s2>&#34;John&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>lastName</span><span class=o>:</span> <span class=s2>&#34;Doe&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>email</span><span class=o>:</span> <span class=s2>&#34;john@example.com&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=nx>preferences</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>newsletter</span><span class=o>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>notifications</span><span class=o>:</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// User makes changes - create independent copy
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>formDraft</span> <span class=o>=</span> <span class=nx>structuredClone</span><span class=p>(</span><span class=nx>originalFormData</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>formDraft</span><span class=p>.</span><span class=nx>personalInfo</span><span class=p>.</span><span class=nx>firstName</span> <span class=o>=</span> <span class=s2>&#34;Jane&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>formDraft</span><span class=p>.</span><span class=nx>preferences</span><span class=p>.</span><span class=nx>newsletter</span> <span class=o>=</span> <span class=kc>false</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Original data remains untouched for reset functionality
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>originalFormData</span><span class=p>.</span><span class=nx>personalInfo</span><span class=p>.</span><span class=nx>firstName</span><span class=p>);</span> <span class=c1>// &#34;John&#34; (preserved!)
+</span></span></span></code></pre></td></tr></table></div></div><br><h4 id=2-shopping-cart-state-management>2. Shopping Cart State Management</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>shoppingCart</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>items</span><span class=o>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span> <span class=nx>productId</span><span class=o>:</span> <span class=s1>&#39;P1&#39;</span><span class=p>,</span> <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;Laptop&#39;</span><span class=p>,</span> <span class=nx>quantity</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span> <span class=nx>price</span><span class=o>:</span> <span class=mi>999</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span> <span class=nx>productId</span><span class=o>:</span> <span class=s1>&#39;P2&#39;</span><span class=p>,</span> <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;Mouse&#39;</span><span class=p>,</span> <span class=nx>quantity</span><span class=o>:</span> <span class=mi>2</span><span class=p>,</span> <span class=nx>price</span><span class=o>:</span> <span class=mi>25</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>],</span>
+</span></span><span class=line><span class=cl>    <span class=nx>discounts</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>code</span><span class=o>:</span> <span class=s1>&#39;SAVE10&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>percentage</span><span class=o>:</span> <span class=mi>10</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Add new item without affecting original cart
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>updatedCart</span> <span class=o>=</span> <span class=nx>structuredClone</span><span class=p>(</span><span class=nx>shoppingCart</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>updatedCart</span><span class=p>.</span><span class=nx>items</span><span class=p>.</span><span class=nx>push</span><span class=p>({</span> <span class=nx>productId</span><span class=o>:</span> <span class=s1>&#39;P3&#39;</span><span class=p>,</span> <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;Keyboard&#39;</span><span class=p>,</span> <span class=nx>quantity</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span> <span class=nx>price</span><span class=o>:</span> <span class=mi>75</span> <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Safe to modify without side effects
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>shoppingCart</span><span class=p>.</span><span class=nx>items</span><span class=p>.</span><span class=nx>length</span><span class=p>);</span>     <span class=c1>// 2 (original preserved)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>updatedCart</span><span class=p>.</span><span class=nx>items</span><span class=p>.</span><span class=nx>length</span><span class=p>);</span>      <span class=c1>// 3 (new version)
+</span></span></span></code></pre></td></tr></table></div></div><br><h4 id=3-api-response-processing>3. API Response Processing</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>apiResponse</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>timestamp</span><span class=o>:</span> <span class=s2>&#34;2024-01-15T10:30:00Z&#34;</span><span class=p>,</span>  <span class=c1>// String format from API
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>userData</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>profile</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;Developer&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>joinDate</span><span class=o>:</span> <span class=s2>&#34;2023-06-01T00:00:00Z&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>settings</span><span class=o>:</span> <span class=p>{</span> <span class=nx>theme</span><span class=o>:</span> <span class=s2>&#34;auto&#34;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Process data while preserving original
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>processedData</span> <span class=o>=</span> <span class=nx>structuredClone</span><span class=p>(</span><span class=nx>apiResponse</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>processedData</span><span class=p>.</span><span class=nx>timestamp</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Date</span><span class=p>(</span><span class=nx>processedData</span><span class=p>.</span><span class=nx>timestamp</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>processedData</span><span class=p>.</span><span class=nx>userData</span><span class=p>.</span><span class=nx>profile</span><span class=p>.</span><span class=nx>joinDate</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Date</span><span class=p>(</span><span class=nx>processedData</span><span class=p>.</span><span class=nx>userData</span><span class=p>.</span><span class=nx>profile</span><span class=p>.</span><span class=nx>joinDate</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>processedData</span><span class=p>.</span><span class=nx>userData</span><span class=p>.</span><span class=nx>settings</span><span class=p>.</span><span class=nx>theme</span> <span class=o>=</span> <span class=s2>&#34;dark&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Original API response stays intact for debugging
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=k>typeof</span> <span class=nx>apiResponse</span><span class=p>.</span><span class=nx>timestamp</span><span class=p>);</span>              <span class=c1>// &#34;string&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>processedData</span><span class=p>.</span><span class=nx>timestamp</span> <span class=k>instanceof</span> <span class=nb>Date</span><span class=p>);</span>   <span class=c1>// true
+</span></span></span></code></pre></td></tr></table></div></div><br><h2 id=frequently-asked-questions>Frequently Asked Questions</h2><h3 id=how-do-i-know-when-to-use-shallow-vs-deep-copy>How do I know when to use shallow vs deep copy?</h3><p>Examine your object structure first. If you have nested objects or arrays that you plan to modify, use deep copy. For simple, flat objects, shallow copy is sufficient and faster. When in doubt, <code>structuredClone()</code> is the safest choice. In my experience, I follow the principle: &ldquo;Start with <code>structuredClone()</code> and optimize only if performance becomes an issue.&rdquo;</p><br><h3 id=is-structuredclone-always-better-than-json-methods>Is structuredClone() always better than JSON methods?</h3><p>In most cases, yes. <code>structuredClone()</code> preserves data types accurately while JSON methods can transform or lose data (functions, Date objects, undefined values). The performance difference is negligible for typical use cases. However, for processing thousands of simple objects in performance-critical applications, JSON methods might have a slight speed advantage.</p><br><h3 id=can-i-copy-functions-with-structuredclone>Can I copy functions with structuredClone()?</h3><p>No, <code>structuredClone()</code> cannot copy functions. If you need to copy functions, use Lodash&rsquo;s <code>cloneDeep()</code>. However, in modern JavaScript development, it&rsquo;s often better to separate data from behavior—keep your data as plain objects and functions separate for better architecture and testability.</p><br><h3 id=which-method-performs-best>Which method performs best?</h3><p><strong>For shallow copying:</strong></p><ul><li>Spread operator (<code>{...obj}</code>, <code>[...arr]</code>) is fastest</li><li>Perfect balance of speed and correctness for simple structures</li></ul><p><strong>For deep copying:</strong></p><ul><li><strong>Performance ranking</strong>: JSON methods > <code>structuredClone()</code> > Lodash</li><li><strong>Reliability ranking</strong>: <code>structuredClone()</code> > Lodash > JSON methods</li></ul><p>But remember: correctness trumps performance. <code>structuredClone()</code> offers:</p><ul><li>Perfect type preservation (Date, Map, Set, RegExp)</li><li>Circular reference handling (JSON methods throw errors)</li><li>Predictable results (no data transformation surprises)</li><li>Built-in availability (no external dependencies)</li></ul><p>The performance difference is usually negligible (milliseconds), so prioritize safe, bug-free code with <code>structuredClone()</code>!</p><br><h3 id=what-about-copying-arrays>What about copying arrays?</h3><p>Arrays follow the same principles as objects. Use spread operator <code>[...array]</code> for shallow copying simple arrays, and <code>structuredClone(array)</code> for arrays containing objects or nested arrays. Array methods like <code>slice()</code> also create shallow copies but spread operator is more readable and consistent.</p><br><h2 id=key-takeaways>Key Takeaways</h2><p>Let&rsquo;s summarize the essential points about JavaScript copying:</p><ul><li><strong>Shallow Copy</strong>: Copies only the top level, perfect for simple structures</li><li><strong>Deep Copy</strong>: Creates completely independent copies, essential for nested data</li><li><strong>2025 Recommendations</strong>: Spread operator for shallow, <code>structuredClone()</code> for deep copying</li><li><strong>Golden Rule</strong>: When uncertain, choose <code>structuredClone()</code> for safety</li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=whats-next>What&rsquo;s Next?</h2><p>Practice these concepts by building a simple todo list application. Create, modify, and delete tasks while ensuring your original data stays protected. Try implementing undo functionality using these copying techniques—you&rsquo;ll quickly see why proper copying is crucial for robust applications.</p><p>Now that you understand how JavaScript manages data through copying, you might be wondering: &ldquo;How does JavaScript actually find and access these variables in the first place?&rdquo; The answer lies in understanding <strong>JavaScript&rsquo;s lexical environment</strong>—the sophisticated system that tracks where variables live and how they can be accessed.</p><p>In our next article, we&rsquo;ll dive deep into the fascinating world of variable lookup, scope chains, and closures. You&rsquo;ll discover why your variables sometimes behave unexpectedly and learn the fundamental concepts that make JavaScript&rsquo;s variable management system tick. Understanding lexical environments will make you a much more confident developer when working with complex data structures and closures.</p><p>What&rsquo;s been your experience with JavaScript copying? Have you encountered any tricky situations or discovered clever solutions? Share your stories in the comments below—let&rsquo;s learn together! 🚀</p><br><div class=btn_wrap><a target=_blank href=https://developer.mozilla.org/en-US/docs/Web/API/Window/structuredClone>MDN - structuredClone() Official Documentation</a></div></section><footer class=article-footer><section class=article-tags><a href=/tags/javascript-fundamentals/>JavaScript Fundamentals</a>
+<a href=/tags/shallow-copy/>Shallow Copy</a>
+<a href=/tags/deep-copy/>Deep Copy</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code-en/2025-06-25-function-expression/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-25-function-expression-en.webp loading=lazy data-key=2025-06-25-function-expression data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-25-function-expression-en.webp></div><div class=article-details><h2 class=article-title>JavaScript Function Expression: 3 Essential Patterns Every Developer Must Know</h2></div></a></article><article class=has-image><a href=/code/2025-07-04-javascript-copy/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp loading=lazy data-key=2025-07-04-javascript-copy data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp></div><div class=article-details><h2 class=article-title>JavaScript 얕은 복사 vs 깊은 복사: 2025년 최신 가이드 (feat. structuredClone)</h2></div></a></article><article class=has-image><a href=/code-en/2025-07-03-javascript-immutability/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-03-javascript-immutability-en.webp loading=lazy data-key=2025-07-03-javascript-immutability data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-03-javascript-immutability-en.webp></div><div class=article-details><h2 class=article-title>Why Your Code Breaks: JavaScript Immutability Rules</h2></div></a></article><article class=has-image><a href=/code/2025-07-02-javascript-immutability/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp loading=lazy data-key=2025-07-02-javascript-immutability data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp></div><div class=article-details><h2 class=article-title>JavaScript 불변성, 왜 중요할까? 쉽게 이해하는 React 준비 완벽 가이드</h2></div></a></article><article class=has-image><a href=/code-en/2025-07-01-primitive-reference/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-01-primitive-reference-en.webp loading=lazy data-key=2025-07-01-primitive-reference data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-01-primitive-reference-en.webp></div><div class=article-details><h2 class=article-title>JavaScript Primitive vs Reference: The Bug You Didn't Expect</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

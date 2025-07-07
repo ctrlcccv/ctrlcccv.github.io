@@ -1,0 +1,495 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="React에서 props는 데이터를 부모 컴포넌트에서 자식 컴포넌트로 효과적으로 전달하여 코드 재사용성을 높이고 개발 효율성을 극대화합니다. 이 글은 React props의 활용 방법과 최적화에 대해 다룹니다. "><title>React props: 컴포넌트 간 데이터 전달, 활용, 최적화</title><link rel=canonical href=https://ctrlcccv.github.io/code/2024-03-14-react-props/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="React props: 컴포넌트 간 데이터 전달, 활용, 최적화\n"><meta property='og:description' content="React에서 props는 데이터를 부모 컴포넌트에서 자식 컴포넌트로 효과적으로 전달하여 코드 재사용성을 높이고 개발 효율성을 극대화합니다. 이 글은 React props의 활용 방법과 최적화에 대해 다룹니다. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2024-03-14-react-props/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='React 기초'><meta property='article:tag' content='컴포넌트'><meta property='article:tag' content='데이터 전달'><meta property='article:published_time' content='2024-03-14T00:00:00+00:00'><meta property='article:modified_time' content='2024-03-14T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-14-react-props.webp'><meta name=twitter:title content="React props: 컴포넌트 간 데이터 전달, 활용, 최적화\n"><meta name=twitter:description content="React에서 props는 데이터를 부모 컴포넌트에서 자식 컴포넌트로 효과적으로 전달하여 코드 재사용성을 높이고 개발 효율성을 극대화합니다. 이 글은 React props의 활용 방법과 최적화에 대해 다룹니다. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-14-react-props.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"React props: 컴포넌트 간 데이터 전달, 활용, 최적화\n","datePublished":"2024-03-14T00:00:00Z","dateModified":"2024-03-14T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#props-정의-및-역할>props 정의 및 역할</a></li><li><a href=#props-전달-방법>props 전달 방법</a></li><li><a href=#props의-다양한-데이터-유형>props의 다양한 데이터 유형</a></li><li><a href=#props-활용-팁>props 활용 팁</a></li><li><a href=#props-활용-시-주의-사항>props 활용 시 주의 사항</a></li><li><a href=#결론>결론</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2024-03-14-react-props/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-14-react-props.webp loading=lazy alt="Featured image of post React props: 컴포넌트 간 데이터 전달, 활용, 최적화
+"></a></div><div class=article-details><header class=article-category><a href=/categories/react/>React</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2024-03-14-react-props/>React props: 컴포넌트 간 데이터 전달, 활용, 최적화</a></h2><h3 class=article-subtitle>React에서 props는 데이터를 부모 컴포넌트에서 자식 컴포넌트로 효과적으로 전달하여 코드 재사용성을 높이고 개발 효율성을 극대화합니다. 이 글은 React props의 활용 방법과 최적화에 대해 다룹니다.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2024-03-14T00:00:00Z>3월 14, 2024</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>5 분 정도</time></div></footer></div></header><section class=article-content><p>리액트에서 컴포넌트는 코드 재사용성을 높여 개발 효율성을 극대화하는 핵심 요소입니다. 그러나 컴포넌트 간에 데이터를 전달해야 할 때 어려움이 발생할 수 있습니다. 이러한 문제를 해결하기 위해 리액트는 props라는 개념을 도입하여 부모 컴포넌트에서 자식 컴포넌트로 데이터를 효과적으로 전달할 수 있게 합니다. 이 글에서는 props를 심층적으로 이해하고, 다양한 활용 방법 및 최적화에 대해 알아보겠습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=props-정의-및-역할>props 정의 및 역할</h2><p><code>props</code>는 <strong>Properties</strong>의 약자로, <strong>부모 컴포넌트에서 자식 컴포넌트로 데이터를 전달하는 데 사용되는 객체</strong>입니다. 컴포넌트 간에 직접적인 데이터 공유가 불가능하므로 props는 컴포넌트 간의 데이터 흐름을 구현하는 필수적인 역할을 합니다.</p><br><h2 id=props-전달-방법>props 전달 방법</h2><p><strong>함수 컴포넌트</strong><br>함수 컴포넌트에서는 props를 함수의 인자로 전달합니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>UserCard</span> <span class=o>=</span> <span class=p>({</span> <span class=nx>userName</span><span class=p>,</span> <span class=nx>userAge</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;{</span><span class=nx>userName</span><span class=p>}&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>나이는</span> <span class=p>{</span><span class=nx>userAge</span><span class=p>}</span><span class=nx>살입니다</span><span class=p>.&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>App</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>UserCard</span> <span class=na>userName</span><span class=o>=</span><span class=s>&#34;홍길동&#34;</span> <span class=na>userAge</span><span class=o>=</span><span class=p>{</span><span class=mi>20</span><span class=p>}</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>클래스 컴포넌트</strong><br>클래스 컴포넌트에서는 <code>this.props</code> 객체를 통해 props에 접근할 수 있습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>class</span> <span class=nx>UserCard</span> <span class=kr>extends</span> <span class=nx>React</span><span class=p>.</span><span class=nx>Component</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>render</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=p>{</span> <span class=nx>userName</span><span class=p>,</span> <span class=nx>userAge</span> <span class=p>}</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>props</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;{</span><span class=nx>userName</span><span class=p>}&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>나이는</span> <span class=p>{</span><span class=nx>userAge</span><span class=p>}</span><span class=nx>살입니다</span><span class=p>.&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>App</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>UserCard</span> <span class=na>userName</span><span class=o>=</span><span class=s>&#34;이순신&#34;</span> <span class=na>userAge</span><span class=o>=</span><span class=p>{</span><span class=mi>30</span><span class=p>}</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=props의-다양한-데이터-유형>props의 다양한 데이터 유형</h2><p>props는 문자열, 숫자, 객체, 배열 등 다양한 기본 자료형뿐 아니라 함수, 컴포넌트, 심지어 객체의 콜백 함수까지 전달할 수 있습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>UserCard</span> <span class=o>=</span> <span class=p>({</span>
+</span></span><span class=line><span class=cl>    <span class=nx>userName</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>userAge</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>userHobbies</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>renderProfileButton</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>CustomComponent</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>handleProfileClick</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;{</span><span class=nx>userName</span><span class=p>}&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>나이는</span> <span class=p>{</span><span class=nx>userAge</span><span class=p>}</span><span class=nx>살입니다</span><span class=p>.&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=p>{</span><span class=nx>userHobbies</span><span class=p>.</span><span class=nx>map</span><span class=p>((</span><span class=nx>hobby</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>                    <span class=p>&lt;</span><span class=nt>li</span> <span class=na>key</span><span class=o>=</span><span class=p>{</span><span class=nx>hobby</span><span class=p>}&gt;{</span><span class=nx>hobby</span><span class=p>}&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=p>))}</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span><span class=nx>renderProfileButton</span> <span class=o>&amp;&amp;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>handleProfileClick</span><span class=p>}&gt;</span><span class=nx>프로필</span> <span class=nx>보기</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>)}</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span><span class=nx>CustomComponent</span> <span class=o>&amp;&amp;</span> <span class=p>&lt;</span><span class=nt>CustomComponent</span> <span class=p>/&gt;}</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>App</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>userHobbies</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;독서&#34;</span><span class=p>,</span> <span class=s2>&#34;영화 감상&#34;</span><span class=p>,</span> <span class=s2>&#34;여행&#34;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>handleProfileClick</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>alert</span><span class=p>(</span><span class=s2>&#34;프로필을 확인합니다.&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>UserCard</span>
+</span></span><span class=line><span class=cl>                <span class=na>userName</span><span class=o>=</span><span class=s>&#34;김유신&#34;</span>
+</span></span><span class=line><span class=cl>                <span class=na>userAge</span><span class=o>=</span><span class=p>{</span><span class=mi>40</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>                <span class=na>userHobbies</span><span class=o>=</span><span class=p>{</span><span class=nx>userHobbies</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>                <span class=na>renderProfileButton</span><span class=o>=</span><span class=p>{</span><span class=kc>true</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>                <span class=na>handleProfileClick</span><span class=o>=</span><span class=p>{</span><span class=nx>handleProfileClick</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>                <span class=na>CustomComponent</span><span class=o>=</span><span class=p>{()</span> <span class=p>=&gt;</span> <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>추가</span> <span class=nx>정보입니다</span><span class=p>.&lt;/</span><span class=nt>p</span><span class=p>&gt;}</span>
+</span></span><span class=line><span class=cl>            <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><br><h2 id=props-활용-팁>props 활용 팁</h2><p><strong><code>React.cloneElement</code> 함수를 사용하여 props 동적 변경</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>CounterApp</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>[</span><span class=nx>counter</span><span class=p>,</span> <span class=nx>setCounter</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>handleClick</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>setCounter</span><span class=p>(</span><span class=nx>counter</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>CounterDisplay</span> <span class=na>counter</span><span class=o>=</span><span class=p>{</span><span class=nx>counter</span><span class=p>}</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>handleClick</span><span class=p>}&gt;</span><span class=nx>카운터</span> <span class=nx>증가</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>CounterDisplay</span> <span class=o>=</span> <span class=p>({</span> <span class=nx>counter</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;</span><span class=nx>카운터</span><span class=o>:</span> <span class=p>{</span><span class=nx>counter</span><span class=p>}&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>EnhancedCounterDisplay</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>props</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>counter</span><span class=o>:</span> <span class=mi>100</span><span class=p>,</span> <span class=c1>// props를 동적으로 변경
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>React</span><span class=p>.</span><span class=nx>cloneElement</span><span class=p>(&lt;</span><span class=nt>CounterDisplay</span> <span class=p>/&gt;,</span> <span class=nx>props</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>EnhancedCounterApp</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>EnhancedCounterDisplay</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong><code>PropTypes</code> 라이브러리를 사용하여 props 유형 검증</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>import</span> <span class=nx>PropTypes</span> <span class=nx>from</span> <span class=s2>&#34;prop-types&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>UserCard</span> <span class=o>=</span> <span class=p>({</span> <span class=nx>userName</span><span class=p>,</span> <span class=nx>userAge</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;{</span><span class=nx>userName</span><span class=p>}&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>나이는</span> <span class=p>{</span><span class=nx>userAge</span><span class=p>}</span><span class=nx>살입니다</span><span class=p>.&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>UserCard</span><span class=p>.</span><span class=nx>propTypes</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>userName</span><span class=o>:</span> <span class=nx>PropTypes</span><span class=p>.</span><span class=nx>string</span><span class=p>.</span><span class=nx>isRequired</span><span class=p>,</span> <span class=c1>// userName prop은 필수이며 문자열이어야 합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>userAge</span><span class=o>:</span> <span class=nx>PropTypes</span><span class=p>.</span><span class=nx>number</span><span class=p>,</span> <span class=c1>// userAge prop은 숫자형이어야 합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>App</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>UserCard</span> <span class=na>userName</span><span class=o>=</span><span class=s>&#34;홍길동&#34;</span> <span class=na>userAge</span><span class=o>=</span><span class=p>{</span><span class=mi>20</span><span class=p>}</span> <span class=p>/&gt;</span> <span class=c1>// 유효한 props
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=p>&lt;</span><span class=nt>UserCard</span> <span class=na>userAge</span><span class=o>=</span><span class=p>{</span><span class=mi>20</span><span class=p>}</span> <span class=p>/&gt;</span> <span class=c1>// ❌ 오류 발생: userName prop이 누락되었습니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=p>&lt;</span><span class=nt>UserCard</span> <span class=na>userName</span><span class=o>=</span><span class=s>&#34;이순신&#34;</span> <span class=na>userAge</span><span class=o>=</span><span class=s>&#34;30&#34;</span> <span class=p>/&gt;</span> <span class=c1>// ❌ 오류 발생: userAge prop은 숫자형이어야 합니다.
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>전달된 props를 래핑하여 재사용</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>withAdditionalProps</span> <span class=o>=</span> <span class=p>(</span><span class=nx>Component</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span><span class=nx>props</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>additionalProps</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 추가적인 props를 정의
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>extraProp</span><span class=o>:</span> <span class=s2>&#34;Hello, world!&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=p>&lt;</span><span class=nt>Component</span> <span class=p>{</span><span class=na>...props</span><span class=p>}</span> <span class=p>{</span><span class=na>...additionalProps</span><span class=p>}</span> <span class=p>/&gt;;</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>UserCard</span> <span class=o>=</span> <span class=p>({</span> <span class=nx>userName</span><span class=p>,</span> <span class=nx>userAge</span><span class=p>,</span> <span class=nx>extraProp</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;{</span><span class=nx>userName</span><span class=p>}&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>나이는</span> <span class=p>{</span><span class=nx>userAge</span><span class=p>}</span><span class=nx>살입니다</span><span class=p>.&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>추가</span> <span class=nx>prop</span><span class=o>:</span> <span class=p>{</span><span class=nx>extraProp</span><span class=p>}&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>  
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>EnhancedComponent</span> <span class=o>=</span> <span class=nx>withAdditionalProps</span><span class=p>(</span><span class=nx>UserCard</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>App</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>EnhancedComponent</span> <span class=na>userName</span><span class=o>=</span><span class=s>&#34;김유신&#34;</span> <span class=na>userAge</span><span class=o>=</span><span class=p>{</span><span class=mi>40</span><span class=p>}</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong><code>children</code> prop을 사용하여 자식 컴포넌트 내용 접근</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>Wrapper</span> <span class=o>=</span> <span class=p>({</span> <span class=nx>content</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span><span class=nx>content</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>App</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>Wrapper</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;</span><span class=nx>안녕하세요</span><span class=p>&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>리액트</span> <span class=nx>props에</span> <span class=nx>대한</span> <span class=nx>블로그</span> <span class=nx>글입니다</span><span class=p>.&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;/</span><span class=nt>Wrapper</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>함수형 컴포넌트의 <code>useMemo</code> hook을 사용하여 props 최적화</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>DataDisplay</span> <span class=o>=</span> <span class=p>({</span> <span class=nx>items</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>processedItems</span> <span class=o>=</span> <span class=nx>useMemo</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 데이터를 처리하는 비용이 많이 드는 작업
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>return</span> <span class=nx>items</span><span class=p>.</span><span class=nx>map</span><span class=p>((</span><span class=nx>item</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>item</span><span class=p>.</span><span class=nx>toUpperCase</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=p>[</span><span class=nx>items</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span><span class=nx>processedItems</span><span class=p>.</span><span class=nx>map</span><span class=p>((</span><span class=nx>item</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=p>&lt;</span><span class=nt>p</span> <span class=na>key</span><span class=o>=</span><span class=p>{</span><span class=nx>item</span><span class=p>}&gt;{</span><span class=nx>item</span><span class=p>}&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>))}</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>커스텀 Hook을 사용하여 props 재사용성 향상</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>UserData</span> <span class=o>=</span> <span class=p>(</span><span class=nx>names</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>processedNames</span> <span class=o>=</span> <span class=nx>useMemo</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 데이터를 처리하는 비용이 많이 드는 작업
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>return</span> <span class=nx>names</span><span class=p>.</span><span class=nx>map</span><span class=p>((</span><span class=nx>name</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>name</span><span class=p>.</span><span class=nx>toUpperCase</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=p>[</span><span class=nx>names</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>processedNames</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>UserList</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>{</span> <span class=nx>processedNames</span> <span class=p>}</span> <span class=o>=</span> <span class=nx>UserData</span><span class=p>([</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;홍길동&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;이순신&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;김유신&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span><span class=nx>processedNames</span><span class=p>.</span><span class=nx>map</span><span class=p>((</span><span class=nx>name</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=p>&lt;</span><span class=nt>p</span> <span class=na>key</span><span class=o>=</span><span class=p>{</span><span class=nx>name</span><span class=p>}&gt;{</span><span class=nx>name</span><span class=p>}&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>))}</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>App</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>UserList</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><br><h2 id=props-활용-시-주의-사항>props 활용 시 주의 사항</h2><ul><li><p><strong>props는 불변(immutable)해야 합니다.</strong><br>자식 컴포넌트에서 props를 수정하면 예상치 못한 동작이 발생할 수 있습니다.</p></li><li><p><strong>props는 최대한 간결하게 유지해야 합니다.</strong><br>불필요한 데이터를 props로 전달하면 컴포넌트 간의 결합도를 높이고 유지 관리를 어렵게 만듭니다.</p></li><li><p><strong>props는 명확한 의미가 있는 이름을 사용해야 합니다.</strong><br>props 이름을 명확하게 지으면 코드를 이해하고 유지 관리하는 데 도움이 됩니다.</p></li></ul><br><h2 id=결론>결론</h2><p>리액트 props는 컴포넌트 간에 데이터를 전달하는 중요한 개념입니다. props를 올바르게 사용하면 코드 재사용성을 높이고 컴포넌트 관리를 효율적으로 할 수 있습니다.</p></section><footer class=article-footer><section class=article-tags><a href=/tags/react-%EA%B8%B0%EC%B4%88/>React 기초</a>
+<a href=/tags/%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/>컴포넌트</a>
+<a href=/tags/%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EB%8B%AC/>데이터 전달</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2024-03-05-component-split/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-05-component-split.webp loading=lazy data-key=2024-03-05-component-split data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-03-05-component-split.webp></div><div class=article-details><h2 class=article-title>React 컴포넌트 분리 기준: 관리하기 쉬운 코드 만들기</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-13-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-13-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback: 5 Key Differences Every Developer Must Know</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-11-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp loading=lazy data-key=2025-06-11-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp></div><div class=article-details><h2 class=article-title>Stop React Re-renders with useCallback Hook</h2></div></a></article><article class=has-image><a href=/code/2025-06-10-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-10-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback 차이점 쉽게 이해하기</h2></div></a></article><article class=has-image><a href=/code/2025-06-06-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp loading=lazy data-key=2025-06-06-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp></div><div class=article-details><h2 class=article-title>React useCallback으로 불필요한 리렌더링 방지하기</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

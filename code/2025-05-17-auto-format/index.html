@@ -1,0 +1,213 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="jQuery를 활용하여 입력 필드에 자동으로 하이픈이나 기타 구분자를 적용하는 방법을 소개합니다. 전화번호, 카드번호, 생년월일 등 다양한 형식의 입력을 자동화하세요. "><title>jQuery - 전화번호/카드번호 자동 하이픈 및 커스텀 패턴 설정법</title><link rel=canonical href=https://ctrlcccv.github.io/code/2025-05-17-auto-format/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="jQuery - 전화번호/카드번호 자동 하이픈 및 커스텀 패턴 설정법\n"><meta property='og:description' content="jQuery를 활용하여 입력 필드에 자동으로 하이픈이나 기타 구분자를 적용하는 방법을 소개합니다. 전화번호, 카드번호, 생년월일 등 다양한 형식의 입력을 자동화하세요. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2025-05-17-auto-format/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='입력 태그 커스텀'><meta property='article:published_time' content='2025-05-17T00:00:00+00:00'><meta property='article:modified_time' content='2025-05-17T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-17-auto-format.webp'><meta name=twitter:title content="jQuery - 전화번호/카드번호 자동 하이픈 및 커스텀 패턴 설정법\n"><meta name=twitter:description content="jQuery를 활용하여 입력 필드에 자동으로 하이픈이나 기타 구분자를 적용하는 방법을 소개합니다. 전화번호, 카드번호, 생년월일 등 다양한 형식의 입력을 자동화하세요. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-17-auto-format.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"jQuery - 전화번호\/카드번호 자동 하이픈 및 커스텀 패턴 설정법\n","datePublished":"2025-05-17T00:00:00Z","dateModified":"2025-05-17T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="jQuery - 전화번호/카드번호 자동 하이픈 및 커스텀 패턴 설정법" href=https://ctrlcccv.github.io/code/2025-05-17-auto-format/ hreflang=ko><link rel=alternate title="How to Build Custom Input Auto Format with jQuery" href=https://ctrlcccv.github.io/code-en/2025-05-20-auto-format/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#html-구조>HTML 구조</a></li><li><a href=#css-스타일>CSS 스타일</a></li><li><a href=#jquery-코드>jQuery 코드</a></li><li><a href=#활용-예시>활용 예시</a><ol><li><a href=#다양한-형식-지원하기>다양한 형식 지원하기</a></li><li><a href=#커스텀-포맷-함수-확장하기>커스텀 포맷 함수 확장하기</a></li></ol></li><li><a href=#결론>결론</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2025-05-17-auto-format/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-17-auto-format.webp loading=lazy alt="Featured image of post jQuery - 전화번호/카드번호 자동 하이픈 및 커스텀 패턴 설정법
+"></a></div><div class=article-details><header class=article-category><a href=/categories/jquery/>JQuery</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2025-05-17-auto-format/>jQuery - 전화번호/카드번호 자동 하이픈 및 커스텀 패턴 설정법</a></h2><h3 class=article-subtitle>jQuery를 활용하여 입력 필드에 자동으로 하이픈이나 기타 구분자를 적용하는 방법을 소개합니다. 전화번호, 카드번호, 생년월일 등 다양한 형식의 입력을 자동화하세요.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-05-17T00:00:00Z>5월 17, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>4 분 정도</time></div></footer></div></header><section class=article-content><p>전화번호나 카드번호를 입력할 때마다 하이픈(-)을 직접 입력하는 것이 번거롭다고 느낀 적이 있으신가요?</p><p>웹사이트나 앱에서 형식이 있는 데이터를 입력할 때, 사용자가 구분자까지 직접 입력하면 불편함을 느낄 수 있습니다. 특히 전화번호, 카드번호, 생년월일과 같이 특정 형식이 있는 데이터의 경우, 자동으로 하이픈이나 슬래시 등의 구분자를 적용해주면 사용자의 입력 시간을 단축하고 실수를 줄이며 데이터 입력의 정확성을 높일 수 있습니다. 이번 포스트에서는 jQuery를 활용하여 다양한 입력 필드에 자동 포맷을 적용하는 방법을 소개합니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=html-구조>HTML 구조</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;input_container&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>h2</span><span class=p>&gt;</span>자동 형식 입력<span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>label</span> <span class=na>for</span><span class=o>=</span><span class=s>&#34;phone&#34;</span><span class=p>&gt;</span>전화번호:<span class=p>&lt;/</span><span class=nt>label</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;text&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;phone&#34;</span> <span class=na>placeholder</span><span class=o>=</span><span class=s>&#34;000-0000-0000&#34;</span> <span class=na>data-format</span><span class=o>=</span><span class=s>&#34;xxx-xxxx-xxxx&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>label</span> <span class=na>for</span><span class=o>=</span><span class=s>&#34;date&#34;</span><span class=p>&gt;</span>생년월일:<span class=p>&lt;/</span><span class=nt>label</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;text&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;date&#34;</span> <span class=na>placeholder</span><span class=o>=</span><span class=s>&#34;YYYY/MM/DD&#34;</span> <span class=na>data-format</span><span class=o>=</span><span class=s>&#34;xxxx/xx/xx&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>label</span> <span class=na>for</span><span class=o>=</span><span class=s>&#34;card&#34;</span><span class=p>&gt;</span>카드번호:<span class=p>&lt;/</span><span class=nt>label</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;text&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;card&#34;</span> <span class=na>placeholder</span><span class=o>=</span><span class=s>&#34;0000-0000-0000-0000&#34;</span> <span class=na>data-format</span><span class=o>=</span><span class=s>&#34;xxxx-xxxx-xxxx-xxxx&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>커스텀 데이터 속성 활용</strong><br><span class=txt><code>input</code> 태그에 <code>data-format</code> 속성을 추가하여 원하는 형식을 지정합니다.<br>&lsquo;x&rsquo; 문자는 숫자가 입력될 위치를 나타내며, 그 외 문자는 구분자로 사용됩니다.</span></p></li><li><p><strong>다양한 형식 지원</strong><br><span class=txt>전화번호, 생년월일, 카드번호 등 다양한 형식을 하나의 코드로 처리할 수 있습니다.<br>개발자가 필요에 따라 형식을 자유롭게 커스터마이징 할 수 있습니다.</span></p></li><li><p><strong>직관적인 플레이스홀더</strong><br><span class=txt><code>placeholder</code> 속성을 활용하여 사용자에게 입력 형식을 미리 보여줍니다.<br>이를 통해 사용자는 어떤 형식으로 데이터가 표시될지 예측할 수 있습니다.</span></p></li></ul><br><h2 id=css-스타일>CSS 스타일</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=p>.</span><span class=nc>input_container</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>margin</span><span class=p>:</span> <span class=mi>20</span><span class=kt>px</span> <span class=kc>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>350</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>20</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background-color</span><span class=p>:</span> <span class=kc>white</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-radius</span><span class=p>:</span> <span class=mi>10</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>box-shadow</span><span class=p>:</span> <span class=mi>0</span> <span class=mi>2</span><span class=kt>px</span> <span class=mi>10</span><span class=kt>px</span> <span class=nb>rgba</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mf>0.1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>input_container</span> <span class=nt>h2</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>margin-bottom</span><span class=p>:</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=mh>#333</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>input_container</span> <span class=nt>input</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>10</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border</span><span class=p>:</span> <span class=mi>1</span><span class=kt>px</span> <span class=kc>solid</span> <span class=mh>#ddd</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-radius</span><span class=p>:</span> <span class=mi>5</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>margin-bottom</span><span class=p>:</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>input_container</span> <span class=nt>label</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>display</span><span class=p>:</span> <span class=kc>block</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>margin-bottom</span><span class=p>:</span> <span class=mi>5</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=mh>#666</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>깔끔한 입력 폼 디자인</strong><br><span class=txt>전체 입력 폼은 흰색 배경과 부드러운 그림자로 시각적 깊이감을 줍니다.<br>둥근 모서리와 적절한 여백으로 사용자 친화적인 디자인을 완성했습니다.</span></p></li><li><p><strong>입력 필드 스타일링</strong><br><span class=txt>입력 필드는 적절한 패딩과 크기로 사용자가 쉽게 클릭하고 입력할 수 있도록 디자인되었습니다.<br>폰트 크기와 색상을 가독성 있게 조정하여 사용자 입력의 편의성을 높였습니다.</span></p></li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=jquery-코드>jQuery 코드</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=c1>// 포맷이 지정된 모든 입력 필드 찾기
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>autoFormat</span><span class=p>(){</span>
+</span></span><span class=line><span class=cl>    <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;input[data-format]&#39;</span><span class=p>).</span><span class=nx>each</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 최대 길이 설정
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kr>const</span> <span class=nx>format</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>data</span><span class=p>(</span><span class=s1>&#39;format&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>attr</span><span class=p>(</span><span class=s1>&#39;maxlength&#39;</span><span class=p>,</span> <span class=nx>format</span><span class=p>.</span><span class=nx>length</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1>// 입력 이벤트 리스너 추가
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;input&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>$input</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>format</span> <span class=o>=</span> <span class=nx>$input</span><span class=p>.</span><span class=nx>data</span><span class=p>(</span><span class=s1>&#39;format&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>            <span class=c1>// 숫자만 추출
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=kd>let</span> <span class=nx>numbers</span> <span class=o>=</span> <span class=nx>$input</span><span class=p>.</span><span class=nx>val</span><span class=p>().</span><span class=nx>replace</span><span class=p>(</span><span class=sr>/[^0-9]/g</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>            <span class=c1>// 형식에 맞게 변환
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=kd>let</span> <span class=nx>result</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=kd>let</span> <span class=nx>numberIndex</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>            <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>format</span><span class=p>.</span><span class=nx>length</span> <span class=o>&amp;&amp;</span> <span class=nx>numberIndex</span> <span class=o>&lt;</span> <span class=nx>numbers</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=p>(</span><span class=nx>format</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>===</span> <span class=s1>&#39;x&#39;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                    <span class=c1>// x 위치에 숫자 삽입
+</span></span></span><span class=line><span class=cl><span class=c1></span>                    <span class=nx>result</span> <span class=o>+=</span> <span class=nx>numbers</span><span class=p>[</span><span class=nx>numberIndex</span><span class=o>++</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>                <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                    <span class=c1>// 구분자는 그대로 유지
+</span></span></span><span class=line><span class=cl><span class=c1></span>                    <span class=nx>result</span> <span class=o>+=</span> <span class=nx>format</span><span class=p>[</span><span class=nx>i</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>                    
+</span></span><span class=line><span class=cl>                    <span class=c1>// 다음 문자가 x이고, 아직 숫자가 남아있으면 계속 진행
+</span></span></span><span class=line><span class=cl><span class=c1></span>                    <span class=k>if</span> <span class=p>(</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>1</span> <span class=o>&lt;</span> <span class=nx>format</span><span class=p>.</span><span class=nx>length</span> <span class=o>&amp;&amp;</span> <span class=nx>format</span><span class=p>[</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span> <span class=o>===</span> <span class=s1>&#39;x&#39;</span> <span class=o>&amp;&amp;</span> <span class=nx>numberIndex</span> <span class=o>&lt;</span> <span class=nx>numbers</span><span class=p>.</span><span class=nx>length</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                        <span class=k>continue</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                    <span class=p>}</span>
+</span></span><span class=line><span class=cl>                <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>            <span class=c1>// 마지막 문자가 구분자인 경우 처리 (백스페이스로 삭제 시)
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=k>if</span> <span class=p>(</span><span class=nx>result</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=mi>0</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=sr>/[0-9]/</span><span class=p>.</span><span class=nx>test</span><span class=p>(</span><span class=nx>result</span><span class=p>[</span><span class=nx>result</span><span class=p>.</span><span class=nx>length</span> <span class=o>-</span> <span class=mi>1</span><span class=p>]))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>originalEvent</span><span class=p>.</span><span class=nx>inputType</span> <span class=o>===</span> <span class=s1>&#39;deleteContentBackward&#39;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                    <span class=nx>result</span> <span class=o>=</span> <span class=nx>result</span><span class=p>.</span><span class=nx>substring</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=nx>result</span><span class=p>.</span><span class=nx>length</span> <span class=o>-</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl>            <span class=nx>$input</span><span class=p>.</span><span class=nx>val</span><span class=p>(</span><span class=nx>result</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>$</span><span class=p>(</span><span class=nb>document</span><span class=p>).</span><span class=nx>ready</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>autoFormat</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>자동 포맷 초기화</strong><br><span class=txt><code>autoFormat()</code> 함수는 페이지 로드시 호출되어 <code>data-format</code> 속성이 있는 모든 입력 필드에 자동 포맷 기능을 적용합니다.
+<code>input[data-format]</code> 선택자를 사용하여 대상 요소를 한 번에 처리합니다.</span></p></li><li><p><strong>최대 길이 자동 설정</strong><br><span class=txt>각 입력 필드의 최대 길이는 포맷 문자열의 길이로 자동 설정됩니다.<br>이를 통해 사용자가 형식보다 더 많은 글자를 입력할 수 없도록 방지합니다.</span></p></li><li><p><strong>입력 이벤트 처리</strong><br><span class=txt>사용자가 키를 입력할 때마다 <code>input</code> 이벤트가 발생하고 이를 감지하여 포맷을 적용합니다.<br>이벤트 기반 처리 방식으로 사용자 입력에 실시간으로 반응합니다.</span></p></li><li><p><strong>숫자 추출 및 포맷 적용</strong><br><span class=txt>정규식 <code>replace(/[^0-9]/g, '')</code>을 사용하여 입력값에서 숫자만 추출합니다.<br>추출된 숫자를 지정된 포맷에 맞게 배치하고, 구분자(하이픈, 슬래시 등)를 적절한 위치에 삽입합니다.</span></p></li><li><p><strong>백스페이스 처리</strong><br><span class=txt>사용자가 백스페이스로 문자를 삭제할 경우, 마지막 문자가 구분자인 경우 해당 구분자도 함께 제거되도록 처리합니다.
+이를 통해 삭제 시의 불편함을 줄일 수 있습니다.</span></p></li></ul><br><h2 id=활용-예시>활용 예시</h2><h3 id=다양한-형식-지원하기>다양한 형식 지원하기</h3><p>이 코드는 다양한 포맷을 쉽게 지원할 수 있습니다. 필요에 따라 다음과 같은 형식도 추가할 수 있습니다:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=c>&lt;!-- 사업자 등록번호 --&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;text&#34;</span> <span class=na>placeholder</span><span class=o>=</span><span class=s>&#34;000-00-00000&#34;</span> <span class=na>data-format</span><span class=o>=</span><span class=s>&#34;xxx-xx-xxxxx&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>&lt;!-- IP 주소 --&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;text&#34;</span> <span class=na>placeholder</span><span class=o>=</span><span class=s>&#34;000.000.000.000&#34;</span> <span class=na>data-format</span><span class=o>=</span><span class=s>&#34;xxx.xxx.xxx.xxx&#34;</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=커스텀-포맷-함수-확장하기>커스텀 포맷 함수 확장하기</h3><p>다음과 같이 함수를 확장하면 특정 입력 필드에 대해 추가적인 유효성 검사나 포맷팅을 적용할 수 있습니다:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=c1>// 특정 ID를 가진 필드에 추가 기능 적용
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>$</span><span class=p>(</span><span class=s1>&#39;#card&#39;</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;blur&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>cardNumber</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>val</span><span class=p>().</span><span class=nx>replace</span><span class=p>(</span><span class=sr>/[^0-9]/g</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 카드번호 유효성 검사 로직 추가
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=nx>cardNumber</span><span class=p>.</span><span class=nx>length</span> <span class=o>&lt;</span> <span class=mi>16</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>alert</span><span class=p>(</span><span class=s1>&#39;유효한 카드번호를 입력해주세요.&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p>📝 <strong>참고</strong>: 실제 서비스에서는 민감한 정보(카드번호, 주민등록번호 등)를 클라이언트 측에서 처리할 때 주의가 필요합니다. 보안을 위해 서버 측 검증을 항상 함께 구현해주세요!</p><br><h2 id=결론>결론</h2><p>이번 포스트에서는 jQuery를 활용하여 전화번호, 생년월일, 카드번호 등 다양한 형식의 입력에 자동으로 구분자를 적용하는 방법을 살펴보았습니다. 하나의 함수로 여러 형식을 지원할 수 있어 유지 보수가 용이하고, <code>data-format</code> 속성을 통해 HTML 마크업만으로 원하는 형식을 지정할 수 있어 개발자 친화적인 구현이 가능합니다.</p><p>이 코드를 실제 프로젝트에 적용해보시고, 여러분만의 방식으로 확장해보세요! 더 좋은 방법이나 개선 아이디어가 있으시다면 댓글로 공유해주세요. 여러분의 의견이 더 나은 코드를 만드는 데 큰 도움이 됩니다. 😊</p><br><div class=btn_wrap><a target=_blank href=https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-17-auto-format/>예제결과 미리보기</a></div></section><footer class=article-footer><section class=article-tags><a href=/tags/%EC%9E%85%EB%A0%A5-%ED%83%9C%EA%B7%B8-%EC%BB%A4%EC%8A%A4%ED%85%80/>입력 태그 커스텀</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2025-05-14-autofocus/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-14-autofocus.webp loading=lazy data-key=2025-05-14-autofocus data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-14-autofocus.webp></div><div class=article-details><h2 class=article-title>jQuery - 전화번호 입력 폼 자동 포커스 이동</h2></div></a></article><article class=has-image><a href=/code/2023-11-09-password/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-09-password.webp loading=lazy data-key=2023-11-09-password data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-09-password.webp></div><div class=article-details><h2 class=article-title>jQuery - Input password 비밀번호 보이기</h2></div></a></article><article class=has-image><a href=/code/2023-08-07-select-custom/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/select-custom.webp loading=lazy data-key=2023-08-07-select-custom data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/select-custom.webp></div><div class=article-details><h2 class=article-title>jQuery - select 태그 커스텀</h2></div></a></article><article class=has-image><a href=/code-en/2025-05-28-tab-menu/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-28-tab-menu-en.webp loading=lazy data-key=2025-05-28-tab-menu data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-28-tab-menu-en.webp></div><div class=article-details><h2 class=article-title>How to Build Multiple Tab Menus Using One jQuery Function</h2></div></a></article><article class=has-image><a href=/code/2025-05-27-tab-menu/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-27-tab-menu.webp loading=lazy data-key=2025-05-27-tab-menu data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-27-tab-menu.webp></div><div class=article-details><h2 class=article-title>jQuery - 클래스 하나로 탭메뉴 여러개 구현하기</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

@@ -1,0 +1,620 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="자바스크립트 스코프의 모든 것을 한 번에 정리합니다. 전역/함수/블록 스코프부터 실무 패턴까지, 초보자도 쉽게 이해할 수 있는 변수 관리 노하우를 알려 드립니다. "><title>JavaScript 스코프 완벽 가이드: 변수 관리의 핵심 3가지 규칙</title><link rel=canonical href=https://ctrlcccv.github.io/code/2025-06-16-javascript-scope/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="JavaScript 스코프 완벽 가이드: 변수 관리의 핵심 3가지 규칙\n"><meta property='og:description' content="자바스크립트 스코프의 모든 것을 한 번에 정리합니다. 전역/함수/블록 스코프부터 실무 패턴까지, 초보자도 쉽게 이해할 수 있는 변수 관리 노하우를 알려 드립니다. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2025-06-16-javascript-scope/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='자바스크립트 기초'><meta property='article:tag' content='변수 관리'><meta property='article:tag' content='스코프'><meta property='article:published_time' content='2025-06-16T00:00:00+00:00'><meta property='article:modified_time' content='2025-06-16T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-16-javascript-scope.webp'><meta name=twitter:title content="JavaScript 스코프 완벽 가이드: 변수 관리의 핵심 3가지 규칙\n"><meta name=twitter:description content="자바스크립트 스코프의 모든 것을 한 번에 정리합니다. 전역/함수/블록 스코프부터 실무 패턴까지, 초보자도 쉽게 이해할 수 있는 변수 관리 노하우를 알려 드립니다. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-16-javascript-scope.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"JavaScript 스코프 완벽 가이드: 변수 관리의 핵심 3가지 규칙\n","datePublished":"2025-06-16T00:00:00Z","dateModified":"2025-06-16T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="JavaScript 스코프 완벽 가이드: 변수 관리의 핵심 3가지 규칙" href=https://ctrlcccv.github.io/code/2025-06-16-javascript-scope/ hreflang=ko><link rel=alternate title="JavaScript Scope: 3 Essential Types Every Beginner Must Know (With Examples)" href=https://ctrlcccv.github.io/code-en/2025-06-17-javascript-scope/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#javascript-스코프란>JavaScript 스코프란?</a></li><li><a href=#javascript-스코프의-3가지-종류>JavaScript 스코프의 3가지 종류</a><ol><li><a href=#1-전역-스코프-global-scope>1. 전역 스코프 (Global Scope)</a></li><li><a href=#2-함수-스코프-function-scope>2. 함수 스코프 (Function Scope)</a></li><li><a href=#3-블록-스코프-block-scope>3. 블록 스코프 (Block Scope)</a></li></ol></li><li><a href=#var-vs-let-vs-const-스코프-차이점-완벽-정리>var vs let vs const: 스코프 차이점 완벽 정리</a><ol><li><a href=#var의-문제점>var의 문제점</a></li><li><a href=#let과-const의-올바른-사용법>let과 const의 올바른 사용법</a></li></ol></li><li><a href=#스코프-체인과-렉시컬-스코프>스코프 체인과 렉시컬 스코프</a><ol><li><a href=#스코프-체인의-동작-원리>스코프 체인의 동작 원리</a></li><li><a href=#렉시컬-스코프-lexical-scope>렉시컬 스코프 (Lexical Scope)</a></li></ol></li><li><a href=#변수-섀도잉-variable-shadowing>변수 섀도잉 (Variable Shadowing)</a></li><li><a href=#스코프를-활용한-실용적인-팁>스코프를 활용한 실용적인 팁</a><ol><li><a href=#1-전역-변수-오염-방지하기>1. 전역 변수 오염 방지하기</a></li><li><a href=#2-임시-변수-깔끔하게-관리하기>2. 임시 변수 깔끔하게 관리하기</a></li><li><a href=#3-반복문에서-변수-충돌-방지하기>3. 반복문에서 변수 충돌 방지하기</a></li><li><a href=#4-설정값-안전하게-관리하기>4. 설정값 안전하게 관리하기</a></li><li><a href=#5-조건문에서-임시-데이터-처리하기>5. 조건문에서 임시 데이터 처리하기</a></li></ol></li><li><a href=#자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</a><ol><li><a href=#var와-letconst의-차이점이-실무에서-왜-중요한가요>var와 let/const의 차이점이 실무에서 왜 중요한가요?</a></li><li><a href=#전역-변수-사용을-피해야-하는-이유는-무엇인가요>전역 변수 사용을 피해야 하는 이유는 무엇인가요?</a></li><li><a href=#스코프-체인의-성능-영향은-어느-정도인가요>스코프 체인의 성능 영향은 어느 정도인가요?</a></li><li><a href=#함수-안에-함수를-선언하는-것이-좋은-방법인가요>함수 안에 함수를 선언하는 것이 좋은 방법인가요?</a></li><li><a href=#블록-스코프를-언제-활용하면-좋을까요>블록 스코프를 언제 활용하면 좋을까요?</a></li></ol></li><li><a href=#마무리-스코프-마스터하기>마무리: 스코프 마스터하기</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2025-06-16-javascript-scope/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-16-javascript-scope.webp loading=lazy alt="Featured image of post JavaScript 스코프 완벽 가이드: 변수 관리의 핵심 3가지 규칙
+"></a></div><div class=article-details><header class=article-category><a href=/categories/javascript/>JavaScript</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2025-06-16-javascript-scope/>JavaScript 스코프 완벽 가이드: 변수 관리의 핵심 3가지 규칙</a></h2><h3 class=article-subtitle>자바스크립트 스코프의 모든 것을 한 번에 정리합니다. 전역/함수/블록 스코프부터 실무 패턴까지, 초보자도 쉽게 이해할 수 있는 변수 관리 노하우를 알려 드립니다.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-06-16T00:00:00Z>6월 16, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>11 분 정도</time></div></footer></div></header><section class=article-content><p>JavaScript를 배우다 보면 변수가 어디서는 접근되고 어디서는 안 되는 상황에 당황하신 적 있으실 겁니다. 함수 안에서 선언한 변수가 밖에서 접근되지 않는다거나, 예상치 못한 곳에서 전역 변수가 변경되어 버그가 생기는 경우 말이죠.</p><p>저도 처음 JavaScript를 배울 때는 스코프 개념이 헷갈려서 많은 실수를 했었습니다. 특히 var, let, const의 차이를 제대로 이해하지 못해 예상치 못한 버그를 만들어냈어요. 하지만 스코프의 원리를 제대로 이해하고 나니 변수 관리가 훨씬 수월해졌고, 더 안전하고 예측할 수 있는 코드를 작성할 수 있게 되었습니다.</p><p>이 글에서는 JavaScript 스코프의 핵심 개념부터 실무에서 바로 활용할 수 있는 변수 관리 노하우까지 명확하게 알려 드릴게요.</p><p>전역/함수/블록 스코프의 차이점부터 스코프 체인, 렉시컬 스코프, 그리고 실제 프로젝트에서 활용할 수 있는 패턴까지, 실제 코드 예제와 함께 단계별로 살펴보겠습니다.</p><br><h2 id=javascript-스코프란>JavaScript 스코프란?</h2><p><strong>JavaScript 스코프(Scope)란 변수와 함수에 접근할 수 있는 유효한 범위를 의미합니다.</strong> 스코프는 변수가 어디서 선언되었는지에 따라 해당 변수를 참조할 수 있는 코드 영역을 결정하며, JavaScript의 핵심 개념 중 하나입니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=javascript-스코프의-3가지-종류>JavaScript 스코프의 3가지 종류</h2><h3 id=1-전역-스코프-global-scope>1. 전역 스코프 (Global Scope)</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 전역 스코프에 선언된 변수들
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;홍길동&#34;</span><span class=p>;</span> <span class=c1>// 전역 변수
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>score</span> <span class=o>=</span> <span class=mi>100</span><span class=p>;</span> <span class=c1>// 전역 변수
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>showWelcome</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;안녕하세요 &#34;</span> <span class=o>+</span> <span class=nx>userName</span><span class=p>);</span> <span class=c1>// 전역 변수에 접근 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>showScore</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;점수: &#34;</span> <span class=o>+</span> <span class=nx>score</span><span class=p>);</span> <span class=c1>// 전역 변수에 접근 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>score</span> <span class=o>=</span> <span class=nx>score</span> <span class=o>+</span> <span class=mi>10</span><span class=p>;</span> <span class=c1>// 전역 변수 수정 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>showWelcome</span><span class=p>();</span> <span class=c1>// &#34;안녕하세요 홍길동&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>showScore</span><span class=p>();</span> <span class=c1>// &#34;점수: 100&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>showScore</span><span class=p>();</span> <span class=c1>// &#34;점수: 110&#34;
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>전역 스코프의 특징:</strong></p><ul><li>코드의 최상위 레벨에 선언된 변수들이 속합니다.</li><li>프로그램 어디서든 접근할 수 있습니다.</li><li>브라우저에서는 <code>window</code> 객체의 속성이 됩니다.</li></ul><p><strong>실무에서의 활용:</strong>
+전역 변수는 애플리케이션 전체에서 공유해야 하는 설정값이나 상태 정보를 저장할 때 유용해요. 하지만 너무 많이 사용하면 코드가 복잡해지고 예상치 못한 버그의 원인이 될 수 있어 주의해야 합니다.</p><br><h3 id=2-함수-스코프-function-scope>2. 함수 스코프 (Function Scope)</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>calculateGrade</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 함수 스코프 내의 변수들
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>studentName</span> <span class=o>=</span> <span class=s2>&#34;김학생&#34;</span><span class=p>;</span> <span class=c1>// 함수 내부에서만 접근 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>let</span> <span class=nx>mathScore</span> <span class=o>=</span> <span class=mi>85</span><span class=p>;</span> <span class=c1>// 함수 내부에서만 접근 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>let</span> <span class=nx>englishScore</span> <span class=o>=</span> <span class=mi>90</span><span class=p>;</span> <span class=c1>// 함수 내부에서만 접근 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>getAverage</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 중첩 함수도 함수 스코프를 가짐
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kd>let</span> <span class=nx>average</span> <span class=o>=</span> <span class=p>(</span><span class=nx>mathScore</span> <span class=o>+</span> <span class=nx>englishScore</span><span class=p>)</span> <span class=o>/</span> <span class=mi>2</span><span class=p>;</span> <span class=c1>// 이 함수 내부에서만 접근 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span>        
+</span></span><span class=line><span class=cl>        <span class=c1>// 외부 함수의 변수에 접근 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>studentName</span> <span class=o>+</span> <span class=s2>&#34;의 평균: &#34;</span> <span class=o>+</span> <span class=nx>average</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>average</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>finalGrade</span> <span class=o>=</span> <span class=nx>getAverage</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;최종 등급: &#34;</span> <span class=o>+</span> <span class=p>(</span><span class=nx>finalGrade</span> <span class=o>&gt;=</span> <span class=mi>90</span> <span class=o>?</span> <span class=s2>&#34;A&#34;</span> <span class=o>:</span> <span class=s2>&#34;B&#34;</span><span class=p>));</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>calculateGrade</span><span class=p>();</span> <span class=c1>// 함수 실행
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// console.log(studentName); // ❌ 에러! 함수 외부에서는 접근 불가
+</span></span></span><span class=line><span class=cl><span class=c1>// console.log(mathScore); // ❌ 에러! 함수 외부에서는 접근 불가
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>함수 스코프의 장점:</strong></p><ol><li><strong>데이터 은닉</strong>: 함수 내부의 변수를 외부에서 접근할 수 없어 데이터를 안전하게 보호합니다.</li><li><strong>네임스페이스 분리</strong>: 다른 함수와 변수명 충돌을 방지합니다.</li><li><strong>메모리 관리</strong>: 함수 실행이 끝나면 내부 변수들이 가비지 컬렉션(메모리 정리) 대상이 됩니다.</li></ol><br><h3 id=3-블록-스코프-block-scope>3. 블록 스코프 (Block Scope)</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>checkAge</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>users</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;김철수&#34;</span><span class=p>,</span> <span class=s2>&#34;이영희&#34;</span><span class=p>,</span> <span class=s2>&#34;박민수&#34;</span><span class=p>];</span> <span class=c1>// 함수 스코프
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=c1>// if 블록 스코프
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=nx>users</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>message</span> <span class=o>=</span> <span class=s2>&#34;사용자가 있습니다&#34;</span><span class=p>;</span> <span class=c1>// 블록 스코프
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kd>let</span> <span class=nx>currentUser</span> <span class=o>=</span> <span class=nx>users</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span> <span class=c1>// 블록 스코프
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>message</span><span class=p>);</span> <span class=c1>// &#34;사용자가 있습니다&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;현재 사용자: &#34;</span> <span class=o>+</span> <span class=nx>currentUser</span><span class=p>);</span> <span class=c1>// &#34;현재 사용자: 김철수&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// for 블록 스코프
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>users</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>user</span> <span class=o>=</span> <span class=nx>users</span><span class=p>[</span><span class=nx>i</span><span class=p>];</span> <span class=c1>// 블록 스코프 (각 반복마다 새로운 변수)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>((</span><span class=nx>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span> <span class=o>+</span> <span class=s2>&#34;번째 사용자: &#34;</span> <span class=o>+</span> <span class=nx>user</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// console.log(message); // ❌ 에러! 블록 외부에서 접근 불가
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// console.log(currentUser); // ❌ 에러! 블록 외부에서 접근 불가
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// console.log(user); // ❌ 에러! 블록 외부에서 접근 불가
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>checkAge</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>블록 스코프의 특징:</strong></p><ul><li><code>let</code>과 <code>const</code>로 선언된 변수만 블록 스코프를 가집니다.</li><li>중괄호 <code>{}</code> 안에서 선언된 변수는 해당 블록 내에서만 접근할 수 있습니다.</li><li>반복문에서 특히 유용하게 활용됩니다.</li></ul><br><h2 id=var-vs-let-vs-const-스코프-차이점-완벽-정리>var vs let vs const: 스코프 차이점 완벽 정리</h2><p>실무에서 가장 많이 헷갈리는 부분이 바로 <code>var</code>, <code>let</code>, <code>const</code>의 스코프 차이입니다.</p><div class=table-wrapper><table><thead><tr><th>특성</th><th>var</th><th>let</th><th>const</th></tr></thead><tbody><tr><td><strong>스코프</strong></td><td>함수 스코프</td><td>블록 스코프</td><td>블록 스코프</td></tr><tr><td><strong>재선언</strong></td><td>가능</td><td>불가능</td><td>불가능</td></tr><tr><td><strong>재할당</strong></td><td>가능</td><td>가능</td><td>불가능</td></tr><tr><td><strong>호이스팅</strong></td><td>선언부만 호이스팅</td><td>호이스팅되지만 접근 불가</td><td>호이스팅되지만 접근 불가</td></tr><tr><td><strong>초기값</strong></td><td>선택사항</td><td>선택사항</td><td>필수</td></tr></tbody></table></div><h3 id=var의-문제점>var의 문제점</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>showVarProblems</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=k>typeof</span> <span class=nx>userName</span><span class=p>);</span> <span class=c1>// undefined (호이스팅으로 인해)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=kc>true</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kd>var</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;김개발&#34;</span><span class=p>;</span> <span class=c1>// var는 블록 스코프를 무시
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kd>var</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;이코딩&#34;</span><span class=p>;</span> <span class=c1>// 재선언이 가능해서 실수 발생 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>userName</span><span class=p>);</span> <span class=c1>// &#34;이코딩&#34; (블록 밖에서도 접근 가능)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 반복문에서의 var 문제
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>for</span> <span class=p>(</span><span class=kd>var</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=mi>3</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 1초 후에 실행되는 함수
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>setTimeout</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;var i: &#34;</span> <span class=o>+</span> <span class=nx>i</span><span class=p>);</span> <span class=c1>// 모두 3이 출력됨 (문제!)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=p>},</span> <span class=mi>1000</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>showVarProblems</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=let과-const의-올바른-사용법>let과 const의 올바른 사용법</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>showBestPractices</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>SITE_NAME</span> <span class=o>=</span> <span class=s2>&#34;내 웹사이트&#34;</span><span class=p>;</span> <span class=c1>// 변경되지 않는 값은 const
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kd>let</span> <span class=nx>visitCount</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=c1>// 나중에 값이 변경될 변수는 let
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 블록 스코프 활용
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=nb>Math</span><span class=p>.</span><span class=nx>random</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mf>0.5</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>randomMessage</span> <span class=o>=</span> <span class=s2>&#34;랜덤 메시지&#34;</span><span class=p>;</span> <span class=c1>// 블록 내에서만 사용
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>visitCount</span> <span class=o>=</span> <span class=nx>visitCount</span> <span class=o>+</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>randomMessage</span> <span class=o>+</span> <span class=s2>&#34; - 방문 횟수: &#34;</span> <span class=o>+</span> <span class=nx>visitCount</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 반복문에서 let 사용
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=mi>3</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>setTimeout</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;let i: &#34;</span> <span class=o>+</span> <span class=nx>i</span><span class=p>);</span> <span class=c1>// 0, 1, 2가 각각 출력됨 (올바름!)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=p>},</span> <span class=mi>1000</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// console.log(randomMessage); // ❌ 에러! 블록 외부에서 접근 불가
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;총 방문 횟수: &#34;</span> <span class=o>+</span> <span class=nx>visitCount</span><span class=p>);</span> <span class=c1>// ✅ 함수 스코프 내에서 접근 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>showBestPractices</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=스코프-체인과-렉시컬-스코프>스코프 체인과 렉시컬 스코프</h2><h3 id=스코프-체인의-동작-원리>스코프 체인의 동작 원리</h3><p>스코프 체인은 변수를 찾을 때 JavaScript 엔진이 따르는 규칙입니다. 안쪽 스코프에서 바깥쪽 스코프로 순차적으로 변수를 검색하는 과정입니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>globalMessage</span> <span class=o>=</span> <span class=s2>&#34;전역 메시지&#34;</span><span class=p>;</span> <span class=c1>// 전역 스코프
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>outerFunction</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>outerMessage</span> <span class=o>=</span> <span class=s2>&#34;외부 함수 메시지&#34;</span><span class=p>;</span> <span class=c1>// 외부 함수 스코프
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>innerFunction</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>innerMessage</span> <span class=o>=</span> <span class=s2>&#34;내부 함수 메시지&#34;</span><span class=p>;</span> <span class=c1>// 내부 함수 스코프
+</span></span></span><span class=line><span class=cl><span class=c1></span>        
+</span></span><span class=line><span class=cl>        <span class=c1>// 스코프 체인 순서: 내부 → 외부 → 전역
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>innerMessage</span><span class=p>);</span>  <span class=c1>// &#34;내부 함수 메시지&#34; (가장 가까운 스코프)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>outerMessage</span><span class=p>);</span>  <span class=c1>// &#34;외부 함수 메시지&#34; (외부 함수 스코프)
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>globalMessage</span><span class=p>);</span> <span class=c1>// &#34;전역 메시지&#34; (전역 스코프)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>innerFunction</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>outerFunction</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>스코프 체인의 검색 순서:</strong></p><ol><li>현재 함수의 지역 스코프</li><li>외부 함수의 스코프</li><li>전역 스코프</li><li>변수를 찾지 못하면 <code>ReferenceError</code> 발생</li></ol><br><h3 id=렉시컬-스코프-lexical-scope>렉시컬 스코프 (Lexical Scope)</h3><p>렉시컬 스코프는 함수가 <strong>어디서 선언되었는지</strong>에 따라 스코프가 결정되는 방식입니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>message</span> <span class=o>=</span> <span class=s2>&#34;전역 메시지&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>outerFunction</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>message</span> <span class=o>=</span> <span class=s2>&#34;외부 함수 메시지&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>innerFunction</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>message</span><span class=p>);</span> <span class=c1>// &#34;외부 함수 메시지&#34; 출력
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>innerFunction</span><span class=p>;</span> <span class=c1>// 함수를 반환
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>callInnerFunction</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>message</span> <span class=o>=</span> <span class=s2>&#34;호출 함수 메시지&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>inner</span> <span class=o>=</span> <span class=nx>outerFunction</span><span class=p>();</span> <span class=c1>// 함수를 받아옴
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>inner</span><span class=p>();</span> <span class=c1>// 여기서 호출해도 선언 위치의 스코프를 사용
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>callInnerFunction</span><span class=p>();</span> <span class=c1>// &#34;외부 함수 메시지&#34; 출력
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>렉시컬 스코프의 핵심:</strong></p><ul><li>함수가 <strong>어디서 호출되는지</strong>가 아니라 <strong>어디서 선언되었는지</strong>에 따라 스코프가 결정됩니다.</li><li>함수를 정의하는 시점에 상위 스코프가 결정되어 고정됩니다.</li></ul><br><h2 id=변수-섀도잉-variable-shadowing>변수 섀도잉 (Variable Shadowing)</h2><p>변수 섀도잉은 안쪽 스코프의 변수가 바깥쪽 스코프의 같은 이름 변수를 가리는 현상입니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;전역 사용자&#34;</span><span class=p>;</span> <span class=c1>// 전역 변수
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>login</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;로그인 사용자&#34;</span><span class=p>;</span> <span class=c1>// 전역 변수를 가림 (섀도잉)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>showUserInfo</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;내부 사용자&#34;</span><span class=p>;</span> <span class=c1>// 외부 함수의 변수를 가림
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;현재 사용자: &#34;</span> <span class=o>+</span> <span class=nx>userName</span><span class=p>);</span> <span class=c1>// &#34;내부 사용자&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;함수 내 사용자: &#34;</span> <span class=o>+</span> <span class=nx>userName</span><span class=p>);</span> <span class=c1>// &#34;로그인 사용자&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>showUserInfo</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;전역 사용자: &#34;</span> <span class=o>+</span> <span class=nx>userName</span><span class=p>);</span> <span class=c1>// &#34;전역 사용자&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>login</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>섀도잉 주의사항:</strong></p><ul><li>의도하지 않은 변수 가림으로 인해 버그가 발생할 수 있습니다.</li><li>가능하면 다른 변수명을 사용하는 것이 좋습니다.</li><li>코드 리뷰 시 섀도잉이 발생하는 부분을 특별히 확인해야 합니다.</li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=스코프를-활용한-실용적인-팁>스코프를 활용한 실용적인 팁</h2><h3 id=1-전역-변수-오염-방지하기>1. 전역 변수 오염 방지하기</h3><p>전역 변수를 너무 많이 만들면 문제가 생길 수 있어요. 간단한 방법으로 이를 방지할 수 있습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ 나쁜 예: 전역 변수가 많음
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>var</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;홍길동&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>userAge</span> <span class=o>=</span> <span class=mi>25</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>userEmail</span> <span class=o>=</span> <span class=s2>&#34;hong@example.com&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>showUserInfo</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>userName</span> <span class=o>+</span> <span class=s2>&#34;, &#34;</span> <span class=o>+</span> <span class=nx>userAge</span> <span class=o>+</span> <span class=s2>&#34;세, &#34;</span> <span class=o>+</span> <span class=nx>userEmail</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 좋은 예: 함수로 묶어서 관리
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>createUser</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;홍길동&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>userAge</span> <span class=o>=</span> <span class=mi>25</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>userEmail</span> <span class=o>=</span> <span class=s2>&#34;hong@example.com&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>showUserInfo</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>userName</span> <span class=o>+</span> <span class=s2>&#34;, &#34;</span> <span class=o>+</span> <span class=nx>userAge</span> <span class=o>+</span> <span class=s2>&#34;세, &#34;</span> <span class=o>+</span> <span class=nx>userEmail</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 필요한 함수만 외부에서 사용할 수 있게 반환
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>show</span><span class=o>:</span> <span class=nx>showUserInfo</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>user</span> <span class=o>=</span> <span class=nx>createUser</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>user</span><span class=p>.</span><span class=nx>show</span><span class=p>();</span> <span class=c1>// &#34;홍길동, 25세, hong@example.com&#34;
+</span></span></span></code></pre></td></tr></table></div></div><br><h3 id=2-임시-변수-깔끔하게-관리하기>2. 임시 변수 깔끔하게 관리하기</h3><p>계산 과정에서 사용하는 임시 변수들을 블록 스코프로 깔끔하게 관리할 수 있어요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>calculateTotal</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>basePrice</span> <span class=o>=</span> <span class=mi>10000</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>finalPrice</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 할인 계산을 위한 임시 변수들을 블록으로 묶기
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>discountRate</span> <span class=o>=</span> <span class=mf>0.1</span><span class=p>;</span> <span class=c1>// 10% 할인
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kr>const</span> <span class=nx>discountAmount</span> <span class=o>=</span> <span class=nx>basePrice</span> <span class=o>*</span> <span class=nx>discountRate</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>finalPrice</span> <span class=o>=</span> <span class=nx>basePrice</span> <span class=o>-</span> <span class=nx>discountAmount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;할인 금액: &#34;</span> <span class=o>+</span> <span class=nx>discountAmount</span> <span class=o>+</span> <span class=s2>&#34;원&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 세금 계산을 위한 임시 변수들을 블록으로 묶기
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>taxRate</span> <span class=o>=</span> <span class=mf>0.1</span><span class=p>;</span> <span class=c1>// 10% 세금
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kr>const</span> <span class=nx>taxAmount</span> <span class=o>=</span> <span class=nx>finalPrice</span> <span class=o>*</span> <span class=nx>taxRate</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>finalPrice</span> <span class=o>=</span> <span class=nx>finalPrice</span> <span class=o>+</span> <span class=nx>taxAmount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;세금: &#34;</span> <span class=o>+</span> <span class=nx>taxAmount</span> <span class=o>+</span> <span class=s2>&#34;원&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;최종 가격: &#34;</span> <span class=o>+</span> <span class=nx>finalPrice</span> <span class=o>+</span> <span class=s2>&#34;원&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// console.log(discountRate); // ❌ 에러! 블록 밖에서 접근 불가
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// console.log(taxRate); // ❌ 에러! 블록 밖에서 접근 불가
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>calculateTotal</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=3-반복문에서-변수-충돌-방지하기>3. 반복문에서 변수 충돌 방지하기</h3><p>중첩된 반복문에서 변수명이 겹치지 않도록 주의해야 해요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>printMultiplicationTable</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 바깥쪽 반복문
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;=</span> <span class=mi>3</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span> <span class=o>+</span> <span class=s2>&#34;단:&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1>// 안쪽 반복문 - 다른 변수명 사용
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>j</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span> <span class=nx>j</span> <span class=o>&lt;=</span> <span class=mi>3</span><span class=p>;</span> <span class=nx>j</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span> <span class=o>+</span> <span class=s2>&#34; × &#34;</span> <span class=o>+</span> <span class=nx>j</span> <span class=o>+</span> <span class=s2>&#34; = &#34;</span> <span class=o>+</span> <span class=p>(</span><span class=nx>i</span> <span class=o>*</span> <span class=nx>j</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;---&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>printMultiplicationTable</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=4-설정값-안전하게-관리하기>4. 설정값 안전하게 관리하기</h3><p>중요한 설정값들을 함수 안에 숨겨서 실수로 변경되는 것을 방지할 수 있어요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createGame</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 게임 설정값들 (외부에서 변경 불가)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>MAX_LIVES</span> <span class=o>=</span> <span class=mi>3</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>MAX_SCORE</span> <span class=o>=</span> <span class=mi>999999</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>currentLives</span> <span class=o>=</span> <span class=nx>MAX_LIVES</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>currentScore</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 점수 추가
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>addScore</span><span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>points</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>currentScore</span> <span class=o>=</span> <span class=nx>currentScore</span> <span class=o>+</span> <span class=nx>points</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=nx>currentScore</span> <span class=o>&gt;</span> <span class=nx>MAX_SCORE</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>currentScore</span> <span class=o>=</span> <span class=nx>MAX_SCORE</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;현재 점수: &#34;</span> <span class=o>+</span> <span class=nx>currentScore</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1>// 생명 감소
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>loseLife</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=nx>currentLives</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>currentLives</span> <span class=o>=</span> <span class=nx>currentLives</span> <span class=o>-</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;남은 생명: &#34;</span> <span class=o>+</span> <span class=nx>currentLives</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=p>(</span><span class=nx>currentLives</span> <span class=o>===</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;게임 오버!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1>// 현재 상태 확인
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>getStatus</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>score</span><span class=o>:</span> <span class=nx>currentScore</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=nx>lives</span><span class=o>:</span> <span class=nx>currentLives</span>
+</span></span><span class=line><span class=cl>            <span class=p>};</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>game</span> <span class=o>=</span> <span class=nx>createGame</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>game</span><span class=p>.</span><span class=nx>addScore</span><span class=p>(</span><span class=mi>100</span><span class=p>);</span>  <span class=c1>// &#34;현재 점수: 100&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>game</span><span class=p>.</span><span class=nx>loseLife</span><span class=p>();</span>     <span class=c1>// &#34;남은 생명: 2&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// console.log(MAX_LIVES); // ❌ 에러! 외부에서 접근 불가
+</span></span></span><span class=line><span class=cl><span class=c1>// currentScore = 999999;  // ❌ 에러! 직접 변경 불가
+</span></span></span></code></pre></td></tr></table></div></div><br><h3 id=5-조건문에서-임시-데이터-처리하기>5. 조건문에서 임시 데이터 처리하기</h3><p>조건문 안에서만 사용하는 데이터를 블록 스코프로 제한하여 깔끔하게 처리할 수 있어요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>processUserInput</span><span class=p>(</span><span class=nx>userInput</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>userInput</span> <span class=o>&amp;&amp;</span> <span class=nx>userInput</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 이 블록 안에서만 사용하는 변수들
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kr>const</span> <span class=nx>trimmedInput</span> <span class=o>=</span> <span class=nx>userInput</span><span class=p>.</span><span class=nx>trim</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>upperCaseInput</span> <span class=o>=</span> <span class=nx>trimmedInput</span><span class=p>.</span><span class=nx>toUpperCase</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>isValidInput</span> <span class=o>=</span> <span class=nx>upperCaseInput</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;=</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>isValidInput</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;처리된 입력: &#34;</span> <span class=o>+</span> <span class=nx>upperCaseInput</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>upperCaseInput</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;입력이 너무 짧습니다.&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=kc>null</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;입력이 없습니다.&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>null</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// console.log(trimmedInput); // ❌ 에러! 블록 밖에서 접근 불가
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>processUserInput</span><span class=p>(</span><span class=s2>&#34;  hello  &#34;</span><span class=p>);</span> <span class=c1>// &#34;처리된 입력: HELLO&#34;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>processUserInput</span><span class=p>(</span><span class=s2>&#34;a&#34;</span><span class=p>);</span>         <span class=c1>// &#34;입력이 너무 짧습니다.&#34;
+</span></span></span></code></pre></td></tr></table></div></div><br><h2 id=자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</h2><h3 id=var와-letconst의-차이점이-실무에서-왜-중요한가요>var와 let/const의 차이점이 실무에서 왜 중요한가요?</h3><p>실제 프로젝트에서 var를 사용하면 예상치 못한 버그가 발생할 수 있어요. 제가 경험한 사례로는 반복문에서 이벤트 핸들러를 등록할 때 var를 사용해서 모든 버튼이 같은 값을 참조하는 문제가 있었습니다. let과 const를 사용하면 블록 스코프로 인해 이런 문제를 예방할 수 있어서, 현재는 거의 모든 프로젝트에서 let과 const만 사용하고 있습니다.</p><br><h3 id=전역-변수-사용을-피해야-하는-이유는-무엇인가요>전역 변수 사용을 피해야 하는 이유는 무엇인가요?</h3><p>전역 변수가 많아질수록 코드의 예측 가능성이 떨어져요. 어떤 함수에서든 전역 변수를 수정할 수 있어서 디버깅이 어려워지고, 다른 라이브러리와 변수명이 충돌할 위험도 있습니다. 실무에서는 함수로 관련 변수들을 묶어서 관리하는 것이 좋습니다.</p><br><h3 id=스코프-체인의-성능-영향은-어느-정도인가요>스코프 체인의 성능 영향은 어느 정도인가요?</h3><p>스코프 체인이 길어질수록 변수 검색 시간이 늘어나긴 하지만, 일반적인 웹 애플리케이션에서는 성능상 큰 문제가 되지 않아요. 하지만 반복문 내에서 깊은 스코프 체인을 자주 참조한다면 성능에 영향을 줄 수 있으니, 자주 사용하는 변수는 지역 변수로 캐싱하는 것이 좋습니다.</p><br><h3 id=함수-안에-함수를-선언하는-것이-좋은-방법인가요>함수 안에 함수를 선언하는 것이 좋은 방법인가요?</h3><p>네, 중첩 함수는 관련된 기능을 논리적으로 그룹화하고 외부에서 접근을 제한할 수 있어 좋은 패턴이에요. 하지만 너무 깊게 중첩하면 코드 가독성이 떨어질 수 있으니 적절한 수준에서 사용하는 것이 중요합니다. 일반적으로 2-3 레벨 정도의 중첩이 적당해요.</p><br><h3 id=블록-스코프를-언제-활용하면-좋을까요>블록 스코프를 언제 활용하면 좋을까요?</h3><p>블록 스코프는 임시로 사용하는 변수들을 제한할 때 특히 유용해요. 반복문, 조건문, 또는 계산 과정에서 잠시 사용하는 변수들을 블록으로 묶으면 코드가 더 깔끔해지고 실수를 방지할 수 있습니다. 특히 복잡한 계산이나 데이터 처리 과정에서 단계별로 블록을 나누면 가독성이 좋아져요.</p><br><h2 id=마무리-스코프-마스터하기>마무리: 스코프 마스터하기</h2><p>이번 글에서 다룬 핵심 내용을 정리해 보겠습니다.</p><ul><li><strong>스코프의 3가지 종류</strong>: 전역, 함수, 블록 스코프의 특징과 활용 방법</li><li><strong>var vs let/const</strong>: 현대 JavaScript에서 let과 const를 사용해야 하는 이유</li><li><strong>스코프 체인과 렉시컬 스코프</strong>: 변수 검색 메커니즘의 이해</li><li><strong>실용적인 활용법</strong>: 전역 변수 오염 방지, 임시 변수 관리, 설정값 보호 등</li></ul><p>오늘 배운 내용으로 간단한 게임이나 계산 프로그램을 만들어보세요. 함수로 관련 변수들을 묶어서 관리하고, 블록 스코프를 활용해서 임시 변수들을 깔끔하게 정리하는 연습을 해보시면 스코프 개념이 더 확실해질 거예요.</p><p>다음 글에서는 <a class=link href=/code/2025-06-18-block-function/>자바스크립트 블록과 함수의 차이점</a>을 더 깊이 있게 비교 분석해보겠습니다. 각각의 장단점과 실무에서 언제 어떤 방식을 선택해야 하는지 구체적인 가이드를 제공할 예정이에요.</p><p>여러분의 JavaScript 스코프 관련 경험은 어떠셨나요? 실무에서 겪으신 스코프 관련 문제나 해결 방법이 있다면 댓글로 공유해주세요!</p><br><div class=btn_wrap><a target=_blank href=https://developer.mozilla.org/ko/docs/Glossary/Scope>JavaScript 스코프 - MDN 문서</a></div></section><footer class=article-footer><section class=article-tags><a href=/tags/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B8%B0%EC%B4%88/>자바스크립트 기초</a>
+<a href=/tags/%EB%B3%80%EC%88%98-%EA%B4%80%EB%A6%AC/>변수 관리</a>
+<a href=/tags/%EC%8A%A4%EC%BD%94%ED%94%84/>스코프</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2025-07-04-javascript-copy/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp loading=lazy data-key=2025-07-04-javascript-copy data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp></div><div class=article-details><h2 class=article-title>JavaScript 얕은 복사 vs 깊은 복사: 2025년 최신 가이드 (feat. structuredClone)</h2></div></a></article><article class=has-image><a href=/code/2025-07-02-javascript-immutability/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp loading=lazy data-key=2025-07-02-javascript-immutability data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp></div><div class=article-details><h2 class=article-title>JavaScript 불변성, 왜 중요할까? 쉽게 이해하는 React 준비 완벽 가이드</h2></div></a></article><article class=has-image><a href=/code/2025-06-30-primitive-reference/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-30-primitive-reference.webp loading=lazy data-key=2025-06-30-primitive-reference data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-30-primitive-reference.webp></div><div class=article-details><h2 class=article-title>JavaScript 원시타입 vs 참조타입: 차이점과 복사 방식 총정리</h2></div></a></article><article class=has-image><a href=/code/2025-06-26-let-const/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-26-let-const.webp loading=lazy data-key=2025-06-26-let-const data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-26-let-const.webp></div><div class=article-details><h2 class=article-title>JS 변수 선언법: var 대신 let과 const를 써야 하는 이유</h2></div></a></article><article class=has-image><a href=/code/2025-06-24-function-expression/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-24-function-expression.webp loading=lazy data-key=2025-06-24-function-expression data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-24-function-expression.webp></div><div class=article-details><h2 class=article-title>자바스크립트 함수 표현식 가이드 - 실무에서 바로 쓰는 핵심 정리</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

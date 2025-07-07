@@ -1,0 +1,299 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="리액트 useCallback 훅의 실제 사용법을 5가지 최적화 문제로 마스터해보세요. 불필요한 리렌더링부터 무한 루프까지, 정답과 해설로 성능 최적화 기술을 배워보세요. "><title>React useCallback 퀴즈 (5문제 + 해설)</title><link rel=canonical href=https://ctrlcccv.github.io/quiz/2025-06-06-usecallback-quiz/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="React useCallback 퀴즈 (5문제 + 해설)\n"><meta property='og:description' content="리액트 useCallback 훅의 실제 사용법을 5가지 최적화 문제로 마스터해보세요. 불필요한 리렌더링부터 무한 루프까지, 정답과 해설로 성능 최적화 기술을 배워보세요. "><meta property='og:url' content='https://ctrlcccv.github.io/quiz/2025-06-06-usecallback-quiz/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Quiz'><meta property='article:tag' content='React Hooks'><meta property='article:tag' content='useCallback'><meta property='article:tag' content='성능 최적화'><meta property='article:published_time' content='2025-06-06T00:00:00+00:00'><meta property='article:modified_time' content='2025-06-06T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-usecallback-quiz.webp'><meta name=twitter:title content="React useCallback 퀴즈 (5문제 + 해설)\n"><meta name=twitter:description content="리액트 useCallback 훅의 실제 사용법을 5가지 최적화 문제로 마스터해보세요. 불필요한 리렌더링부터 무한 루프까지, 정답과 해설로 성능 최적화 기술을 배워보세요. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-usecallback-quiz.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"React useCallback 퀴즈 (5문제 \u002b 해설)\n","datePublished":"2025-06-06T00:00:00Z","dateModified":"2025-06-06T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#1-불필요한-리렌더링-방지하기>1. 불필요한 리렌더링 방지하기</a></li><li><a href=#2-의존성-배열-문제>2. 의존성 배열 문제</a></li><li><a href=#3-카운터-업데이트-문제>3. 카운터 업데이트 문제</a></li><li><a href=#4-무한-루프-문제>4. 무한 루프 문제</a></li><li><a href=#5-최적화-전략-평가>5. 최적화 전략 평가</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/quiz/2025-06-06-usecallback-quiz/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-usecallback-quiz.webp loading=lazy alt="Featured image of post React useCallback 퀴즈 (5문제 + 해설)
+"></a></div><div class=article-details><header class=article-category><a href=/categories/quiz/>Quiz</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/quiz/2025-06-06-usecallback-quiz/>React useCallback 퀴즈 (5문제 + 해설)</a></h2><h3 class=article-subtitle>리액트 useCallback 훅의 실제 사용법을 5가지 최적화 문제로 마스터해보세요. 불필요한 리렌더링부터 무한 루프까지, 정답과 해설로 성능 최적화 기술을 배워보세요.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-06-06T00:00:00Z>6월 06, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>6 분 정도</time></div></footer></div></header><section class=article-content><p>리액트에서 useCallback을 정확히 이해하고 활용하는 능력을 테스트하는 5가지 문제입니다. 각 문제에서 가장 적절한 답변을 선택하고, 그 이유를 함께 작성해보세요.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=1-불필요한-리렌더링-방지하기>1. 불필요한 리렌더링 방지하기</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>SearchComponent</span><span class=p>({</span> <span class=nx>onSearch</span> <span class=p>})</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>query</span><span class=p>,</span> <span class=nx>setQuery</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>handleSearch</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>onSearch</span><span class=p>(</span><span class=nx>query</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>input</span> 
+</span></span><span class=line><span class=cl>        <span class=na>value</span><span class=o>=</span><span class=p>{</span><span class=nx>query</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>        <span class=na>onChange</span><span class=o>=</span><span class=p>{(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setQuery</span><span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>value</span><span class=p>)}</span> 
+</span></span><span class=line><span class=cl>      <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>MemoizedSearchButton</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>handleSearch</span><span class=p>}</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>MemoizedSearchButton</span> <span class=o>=</span> <span class=nx>React</span><span class=p>.</span><span class=nx>memo</span><span class=p>(({</span> <span class=nx>onClick</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;검색 버튼 렌더링&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>onClick</span><span class=p>}&gt;</span><span class=nx>검색</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;;</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Q1. 위 코드에서 발생하는 문제점과 가장 적절한 해결책은 무엇인가요?</strong></p><p>A. 문제 없음, 코드가 이미 최적화되어 있다.<br>B. handleSearch를 useCallback으로 감싸고 의존성 배열에 query와 onSearch를 추가한다.<br>C. MemoizedSearchButton에 key 속성을 추가하여 강제로 리렌더링한다.<br>D. handleSearch를 컴포넌트 외부로 이동시킨다.</p><div class=quiz-wrap2><textarea class=quiz-input placeholder="선택한 답변과 그 이유를 작성해주세요."></textarea></div><details><summary>정답 확인하기</summary><p><strong>정답: B</strong></p><p>handleSearch 함수는 컴포넌트가 리렌더링될 때마다 새로 생성됩니다. 이로 인해 React.memo로 감싼 MemoizedSearchButton 컴포넌트가 불필요하게 다시 렌더링됩니다. React.memo는 props가 변경되지 않으면 리렌더링을 방지하는데, 매번 새로운 함수 참조가 전달되므로 최적화 효과가 사라집니다.</p><p>useCallback을 사용하면 이 문제를 해결할 수 있습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>handleSearch</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>onSearch</span><span class=p>(</span><span class=nx>query</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=p>[</span><span class=nx>query</span><span class=p>,</span> <span class=nx>onSearch</span><span class=p>]);</span>
+</span></span></code></pre></td></tr></table></div></div><p>이렇게 하면 query나 onSearch가 변경되지 않는 한 handleSearch 함수의 참조가 유지되어, MemoizedSearchButton이 불필요하게 리렌더링되는 것을 방지할 수 있습니다.</p></details><br><h2 id=2-의존성-배열-문제>2. 의존성 배열 문제</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>UserProfile</span><span class=p>({</span> <span class=nx>userId</span> <span class=p>})</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>userData</span><span class=p>,</span> <span class=nx>setUserData</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>fetchUserData</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(</span><span class=kr>async</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>response</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetch</span><span class=p>(</span><span class=sb>`/api/users/</span><span class=si>${</span><span class=nx>userId</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>data</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>response</span><span class=p>.</span><span class=nx>json</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setUserData</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span> <span class=c1>// 빈 의존성 배열
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fetchUserData</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>fetchUserData</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1>// 컴포넌트 나머지 부분
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Q2. 이 코드의 문제점과 올바른 해결책은 무엇인가요?</strong></p><p>A. 문제 없음, 코드가 이미 최적화되어 있다.<br>B. useCallback 대신 useMemo를 사용해야 한다.<br>C. fetchUserData의 의존성 배열에 userId를 추가해야 한다.<br>D. useEffect의 의존성 배열에 userId를 직접 추가해야 한다.</p><div class=quiz-wrap2><textarea class=quiz-input placeholder="선택한 답변과 그 이유를 작성해주세요."></textarea></div><details><summary>정답 확인하기</summary><p><strong>정답: C</strong></p><p>fetchUserData 함수는 내부에서 userId를 사용하지만, 의존성 배열에는 포함되어 있지 않습니다. 이로 인해 userId가 변경되어도 함수는 새로 생성되지 않고, 항상 처음 마운트될 때의 userId 값만 사용합니다. 따라서 다른 사용자 ID로 변경되어도 항상 첫 번째 사용자의 데이터만 가져오는 버그가 발생합니다.</p><p>올바른 해결책은 fetchUserData의 의존성 배열에 userId를 추가하는 것입니다:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>fetchUserData</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(</span><span class=kr>async</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>response</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetch</span><span class=p>(</span><span class=sb>`/api/users/</span><span class=si>${</span><span class=nx>userId</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>data</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>response</span><span class=p>.</span><span class=nx>json</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=nx>setUserData</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=p>[</span><span class=nx>userId</span><span class=p>]);</span> <span class=c1>// userId를 의존성 배열에 추가
+</span></span></span></code></pre></td></tr></table></div></div><p>이렇게 하면 userId가 변경될 때마다 fetchUserData 함수가 새로 생성되어 최신 userId 값을 사용하게 됩니다.</p></details><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=3-카운터-업데이트-문제>3. 카운터 업데이트 문제</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>Counter</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>count</span><span class=p>,</span> <span class=nx>setCount</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>increment</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setCount</span><span class=p>(</span><span class=nx>count</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span><span class=nx>카운트</span><span class=o>:</span> <span class=p>{</span><span class=nx>count</span><span class=p>}&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>button</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=nx>increment</span><span class=p>}&gt;</span><span class=nx>증가</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Q3. 위 코드에서 발생하는 문제점과 적절한 해결책은 무엇인가요?</strong></p><p>A. 의존성 배열에 count를 추가한다<br>B. 함수형 업데이트(prevCount => prevCount + 1)를 사용한다<br>C. useCallback 대신 일반 함수를 사용한다<br>D. useCallback 대신 useMemo를 사용한다</p><div class=quiz-wrap2><textarea class=quiz-input placeholder="선택한 답변과 그 이유를 작성해주세요."></textarea></div><details><summary>정답 확인하기</summary><p><strong>정답: B</strong></p><p>현재 코드에서는 increment 함수가 빈 의존성 배열을 사용해 컴포넌트가 처음 마운트될 때의 count 값(0)만 계속 참조합니다. 이로 인해 버튼을 여러 번 클릭해도 count가 항상 1로만 증가하는 문제가 발생합니다.</p><p>함수형 업데이트를 사용하면 이 문제를 해결할 수 있습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kr>const</span> <span class=nx>increment</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>setCount</span><span class=p>(</span><span class=nx>prevCount</span> <span class=p>=&gt;</span> <span class=nx>prevCount</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=p>[]);</span>
+</span></span></code></pre></td></tr></table></div></div><p>함수형 업데이트 방식은 외부 count 값을 직접 참조하지 않고 리액트가 제공하는 최신 상태값을 기반으로 업데이트합니다. 따라서 의존성 배열을 비워도 항상 현재 count 값에서 1씩 정확하게 증가시킬 수 있습니다.</p><p>선택지 A(의존성 배열에 count 추가)도 문제를 해결할 수 있지만, count가 변경될 때마다 함수가 새로 생성되므로 useCallback의 메모이제이션 효과가 사라진다는 단점이 있습니다.</p></details><br><h2 id=4-무한-루프-문제>4. 무한 루프 문제</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>DataFetcher</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>data</span><span class=p>,</span> <span class=nx>setData</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>([]);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>filter</span><span class=p>,</span> <span class=nx>setFilter</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>fetchData</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>(</span><span class=kr>async</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>response</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetch</span><span class=p>(</span><span class=sb>`/api/data?filter=</span><span class=si>${</span><span class=nx>filter</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>result</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>response</span><span class=p>.</span><span class=nx>json</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setData</span><span class=p>(</span><span class=nx>result</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>filter</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fetchData</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>fetchData</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>input</span> 
+</span></span><span class=line><span class=cl>        <span class=na>value</span><span class=o>=</span><span class=p>{</span><span class=nx>filter</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>        <span class=na>onChange</span><span class=o>=</span><span class=p>{(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setFilter</span><span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>value</span><span class=p>)}</span> 
+</span></span><span class=line><span class=cl>        <span class=na>placeholder</span><span class=o>=</span><span class=s>&#34;필터 입력&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span><span class=nx>data</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>item</span> <span class=p>=&gt;</span> <span class=p>&lt;</span><span class=nt>li</span> <span class=na>key</span><span class=o>=</span><span class=p>{</span><span class=nx>item</span><span class=p>.</span><span class=nx>id</span><span class=p>}&gt;{</span><span class=nx>item</span><span class=p>.</span><span class=nx>name</span><span class=p>}&lt;/</span><span class=nt>li</span><span class=p>&gt;)}</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Q4. 위 코드에서 발생할 수 있는 문제와 가장 적절한 해결책은 무엇인가요?</strong></p><p>A. useCallback을 제거하고 일반 함수 사용하기<br>B. useEffect 의존성 배열에서 fetchData 제거하기<br>C. useEffect에 디바운스(debounce) 로직 추가하기<br>D. filter 상태 대신 useRef 사용하기</p><div class=quiz-wrap2><textarea class=quiz-input placeholder="선택한 답변과 그 이유를 작성해주세요."></textarea></div><details><summary>정답 확인하기</summary><p><strong>정답: C</strong></p><p>현재 코드에서는 사용자가 입력할 때마다 다음과 같은 연쇄 반응이 일어납니다.</p><ol><li>사용자가 입력 → filter 상태 변경</li><li>filter 변경 → fetchData 함수 재생성</li><li>fetchData 재생성 → useEffect 트리거</li><li>API 호출 후 데이터 설정 → 컴포넌트 리렌더링</li></ol><p>사용자가 빠르게 타이핑하면 모든 키 입력마다 API 호출이 발생하여 불필요한 네트워크 요청이 많아지고 성능이 저하됩니다.</p><p>디바운스 패턴을 적용하면 이 문제를 효과적으로 해결할 수 있습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=nx>useEffect</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>handler</span> <span class=o>=</span> <span class=nx>setTimeout</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fetchData</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=mi>500</span><span class=p>);</span> <span class=c1>// 500ms 후에 fetchData 실행
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>clearTimeout</span><span class=p>(</span><span class=nx>handler</span><span class=p>);</span> <span class=c1>// 이전 타이머 취소
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=p>[</span><span class=nx>fetchData</span><span class=p>]);</span>
+</span></span></code></pre></td></tr></table></div></div><p>이렇게 하면 사용자가 타이핑을 멈춘 후 일정 시간(500ms)이 지난 후에만 API 호출이 발생하므로, 불필요한 API 호출을 줄이고 성능을 개선할 수 있습니다.</p></details><br><h2 id=5-최적화-전략-평가>5. 최적화 전략 평가</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=kd>function</span> <span class=nx>SimpleForm</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>name</span><span class=p>,</span> <span class=nx>setName</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=p>[</span><span class=nx>email</span><span class=p>,</span> <span class=nx>setEmail</span><span class=p>]</span> <span class=o>=</span> <span class=nx>useState</span><span class=p>(</span><span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>handleNameChange</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>((</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setName</span><span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>value</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>handleEmailChange</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>((</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>setEmail</span><span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>value</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>handleSubmit</span> <span class=o>=</span> <span class=nx>useCallback</span><span class=p>((</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>({</span> <span class=nx>name</span><span class=p>,</span> <span class=nx>email</span> <span class=p>});</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=p>[</span><span class=nx>name</span><span class=p>,</span> <span class=nx>email</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>form</span> <span class=na>onSubmit</span><span class=o>=</span><span class=p>{</span><span class=nx>handleSubmit</span><span class=p>}&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>input</span> 
+</span></span><span class=line><span class=cl>        <span class=na>type</span><span class=o>=</span><span class=s>&#34;text&#34;</span> 
+</span></span><span class=line><span class=cl>        <span class=na>value</span><span class=o>=</span><span class=p>{</span><span class=nx>name</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>        <span class=na>onChange</span><span class=o>=</span><span class=p>{</span><span class=nx>handleNameChange</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>        <span class=na>placeholder</span><span class=o>=</span><span class=s>&#34;이름&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>input</span> 
+</span></span><span class=line><span class=cl>        <span class=na>type</span><span class=o>=</span><span class=s>&#34;email&#34;</span> 
+</span></span><span class=line><span class=cl>        <span class=na>value</span><span class=o>=</span><span class=p>{</span><span class=nx>email</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>        <span class=na>onChange</span><span class=o>=</span><span class=p>{</span><span class=nx>handleEmailChange</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>        <span class=na>placeholder</span><span class=o>=</span><span class=s>&#34;이메일&#34;</span>
+</span></span><span class=line><span class=cl>      <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>button</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;submit&#34;</span><span class=p>&gt;</span><span class=nx>제출</span><span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>form</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Q5. 위 코드에서 useCallback 사용에 대한 가장 적절한 평가는 무엇인가요?</strong></p><p>A. 모든 함수에 useCallback 사용이 적절하다<br>B. handleNameChange와 handleEmailChange는 useCallback이 불필요하다<br>C. handleSubmit에만 useCallback이 불필요하다<br>D. 모든 함수에 useCallback 대신 useMemo를 사용해야 한다</p><div class=quiz-wrap2><textarea class=quiz-input placeholder="선택한 답변과 그 이유를 작성해주세요."></textarea></div><details><summary>정답 확인하기</summary><p><strong>정답: B</strong></p><p>handleNameChange와 handleEmailChange 함수는 단순히 입력값을 상태에 저장하는 간단한 함수입니다. 이 함수들은 자식 컴포넌트에 props로 전달되지 않고 현재 컴포넌트 내부에서만 사용되므로 useCallback으로 메모이제이션할 필요가 없습니다.</p><p>이러한 경우 다음과 같이 인라인 함수를 사용하는 것이 더 간결하고 가독성이 좋습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>input</span> 
+</span></span><span class=line><span class=cl>  <span class=na>type</span><span class=o>=</span><span class=s>&#34;text&#34;</span> 
+</span></span><span class=line><span class=cl>  <span class=na>value</span><span class=o>=</span><span class=p>{</span><span class=nx>name</span><span class=p>}</span> 
+</span></span><span class=line><span class=cl>  <span class=na>onChange</span><span class=o>=</span><span class=p>{(</span><span class=nx>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>setName</span><span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>value</span><span class=p>)}</span> 
+</span></span><span class=line><span class=cl>  <span class=na>placeholder</span><span class=o>=</span><span class=s>&#34;이름&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>/&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>반면, handleSubmit 함수는 form 제출 시 사용되는 함수로, 실제 애플리케이션에서는 API 호출이나 데이터 검증 등 복잡한 로직이 포함될 수 있어 useCallback을 유지하는 것이 적절할 수 있습니다. 또한 이 함수는 name과 email 값에 의존하므로 의존성 배열에 이들을 포함시키는 것이 중요합니다.</p><p>과도한 최적화는 코드를 더 복잡하게 만들 수 있으므로, 실제로 성능 문제가 발생하는 경우에만 useCallback을 적용하는 것이 좋은 방법입니다.</p></details><br></section><footer class=article-footer><section class=article-tags><a href=/tags/react-hooks/>React Hooks</a>
+<a href=/tags/usecallback/>UseCallback</a>
+<a href=/tags/%EC%84%B1%EB%8A%A5-%EC%B5%9C%EC%A0%81%ED%99%94/>성능 최적화</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2025-06-06-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp loading=lazy data-key=2025-06-06-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-06-react-usecallback.webp></div><div class=article-details><h2 class=article-title>React useCallback으로 불필요한 리렌더링 방지하기</h2></div></a></article><article class=has-image><a href=/code-en/2025-06-11-react-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp loading=lazy data-key=2025-06-11-react-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-11-react-usecallback-en.webp></div><div class=article-details><h2 class=article-title>Stop React Re-renders with useCallback Hook</h2></div></a></article><article class=has-image><a href=/code/2025-06-10-usememo-usecallback/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp loading=lazy data-key=2025-06-10-usememo-usecallback data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-10-usememo-usecallback.webp></div><div class=article-details><h2 class=article-title>React useMemo vs useCallback 차이점 쉽게 이해하기</h2></div></a></article><article class=has-image><a href=/code/2025-06-04-react-usememo/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-04-react-usememo.webp loading=lazy data-key=2025-06-04-react-usememo data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-04-react-usememo.webp></div><div class=article-details><h2 class=article-title>useMemo 활용한 React 객체 안정화 & 리렌더링 최적화 기법</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

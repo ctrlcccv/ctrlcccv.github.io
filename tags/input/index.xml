@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Input on 컨트롤 + CCCV</title><link>https://ctrlcccv.github.io/tags/input/</link><description>Recent content in Input on 컨트롤 + CCCV</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Tue, 20 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ctrlcccv.github.io/tags/input/index.xml" rel="self" type="application/rss+xml"/><item><title>How to Build Custom Input Auto Format with jQuery</title><link>https://ctrlcccv.github.io/code-en/2025-05-22-auto-format/</link><pubDate>Tue, 20 May 2025 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code-en/2025-05-22-auto-format/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-20-auto-format-en.webp" alt="Featured image of post How to Build Custom Input Auto Format with jQuery
+" />&lt;p>Tired of typing hyphens manually every time you enter a phone number or credit card?&lt;/p>
+&lt;p>Manually adding separators like hyphens or slashes can be frustrating, especially when filling out forms on websites or apps. With data like phone numbers, card numbers, or dates, automatically applying these separators can save time, reduce errors, and improve data accuracy. This post will show you how to implement automatic formatting for various input fields using jQuery.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-structure">HTML Structure
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;input_container&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Automatic Format Inputs&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span> &lt;span class="na">for&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;phone&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Phone Number:&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text&amp;#34;&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;phone&amp;#34;&lt;/span> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;000-0000-0000&amp;#34;&lt;/span> &lt;span class="na">data-format&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;xxx-xxxx-xxxx&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span> &lt;span class="na">for&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;date&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Date of Birth:&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text&amp;#34;&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;date&amp;#34;&lt;/span> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;YYYY/MM/DD&amp;#34;&lt;/span> &lt;span class="na">data-format&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;xxxx/xx/xx&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span> &lt;span class="na">for&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;card&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Card Number:&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text&amp;#34;&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;card&amp;#34;&lt;/span> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;0000-0000-0000-0000&amp;#34;&lt;/span> &lt;span class="na">data-format&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;xxxx-xxxx-xxxx-xxxx&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Custom Data Attributes&lt;/strong>&lt;br>
+&lt;span class="txt">
+Use the &lt;code>data-format&lt;/code> attribute to define your input format. Each &amp;lsquo;x&amp;rsquo; stands for a digit, while other characters (like hyphens or slashes) act as fixed separators.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Support for Various Formats&lt;/strong>&lt;br>
+&lt;span class="txt">
+Handle multiple formats like phone numbers, dates, and card numbers with a single code implementation.&lt;br>
+Developers can freely customize formats according to their needs.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Intuitive Placeholders&lt;/strong>&lt;br>
+&lt;span class="txt">
+Use the &lt;code>placeholder&lt;/code> attribute to give users a preview of the expected format.&lt;br>
+This helps users understand how their input will be displayed.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="css-styling">CSS Styling
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">input_container&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">auto&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">350&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background-color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">white&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">box-shadow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="nb">rgba&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mf">0.1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">input_container&lt;/span> &lt;span class="nt">h2&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin-bottom&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#333&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">input_container&lt;/span> &lt;span class="nt">input&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">solid&lt;/span> &lt;span class="mh">#ddd&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">16&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin-bottom&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">input_container&lt;/span> &lt;span class="nt">label&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">block&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin-bottom&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#666&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Clean Input Form Design&lt;/strong>&lt;br>
+&lt;span class="txt">
+The entire input form has a white background and soft shadow for visual depth.&lt;br>
+Rounded corners and appropriate spacing create a user-friendly design.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Input Field Styling&lt;/strong>&lt;br>
+&lt;span class="txt">
+Input fields are designed with proper padding and size for easy clicking and input.&lt;br>
+Font size and color are adjusted for readability to enhance user input convenience.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="jquery-code">jQuery Code
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Find all input fields with specified format
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">autoFormat&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;input[data-format]&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">each&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Set maximum length
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">format&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;format&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;maxlength&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">format&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Add input event listener
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;input&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">$input&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">format&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;format&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Extract numbers only
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">numbers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/[^0-9]/g&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Transform according to format
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">numberIndex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">format&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">numberIndex&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">numbers&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">format&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s1">&amp;#39;x&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Insert number at x position
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">result&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="nx">numbers&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">numberIndex&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Maintain separators
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">result&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="nx">format&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Continue if next character is x and numbers remain
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">format&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">format&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s1">&amp;#39;x&amp;#39;&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">numberIndex&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">numbers&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">continue&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Handle case where last character is a separator (for backspace deletion)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="o">!&lt;/span>&lt;span class="sr">/[0-9]/&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">]))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">originalEvent&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">inputType&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s1">&amp;#39;deleteContentBackward&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">substring&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">document&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">ready&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">autoFormat&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Auto Format Initialization&lt;/strong>&lt;br>
+&lt;span class="txt">
+The &lt;code>autoFormat()&lt;/code> function is called on page load to apply auto-formatting to all input fields with the &lt;code>data-format&lt;/code> attribute.
+Uses the &lt;code>input[data-format]&lt;/code> selector to process all target elements at once.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Automatic Maximum Length Setting&lt;/strong>&lt;br>
+&lt;span class="txt">
+Each input field&amp;rsquo;s maximum length is automatically set based on the format string length.&lt;br>
+This prevents users from entering more characters than the format allows.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Input Event Handling&lt;/strong>&lt;br>
+&lt;span class="txt">
+The &lt;code>input&lt;/code> event triggers whenever the user types a key, and the format is applied in real-time.&lt;br>
+This approach updates the input field in real time as users type.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Number Extraction and Format Application&lt;/strong>&lt;br>
+&lt;span class="txt">
+The regex &lt;code>replace(/[^0-9]/g, '')&lt;/code> extracts only numbers from the input value.&lt;br>
+These numbers are then placed according to the specified format, with separators (hyphens, slashes, etc.) inserted at appropriate positions.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Backspace Handling&lt;/strong>&lt;br>
+&lt;span class="txt">
+When a user deletes characters using backspace, the code handles cases where the last character is a separator, removing it as well.
+This makes it easier for users when deleting characters.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="implementation-examples">Implementation Examples
+&lt;/h2>&lt;h3 id="supporting-various-formats">Supporting Various Formats
+&lt;/h3>&lt;p>This code easily supports various formats. You can add formats like these as needed:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="c">&amp;lt;!-- Business Registration Number --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text&amp;#34;&lt;/span> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;000-00-00000&amp;#34;&lt;/span> &lt;span class="na">data-format&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;xxx-xx-xxxxx&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&amp;lt;!-- IP Address --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text&amp;#34;&lt;/span> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;000.000.000.000&amp;#34;&lt;/span> &lt;span class="na">data-format&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;xxx.xxx.xxx.xxx&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="extending-the-custom-format-function">Extending the Custom Format Function
+&lt;/h3>&lt;p>You can extend the function to add additional validation or formatting for specific input fields:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Apply additional functionality to field with specific ID
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;#card&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;blur&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">cardNumber&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/[^0-9]/g&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Add card number validation logic
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">cardNumber&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">16&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">alert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Please enter a valid card number.&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>📝 &lt;strong>Note&lt;/strong>: When dealing with sensitive information (e.g., credit card numbers, SSNs), be cautious about handling it on the client side. Always validate such inputs securely on the server in production environments.&lt;/p>
+&lt;br>
+&lt;h2 id="conclusion">Conclusion
+&lt;/h2>&lt;p>In this post, we explored how to automatically apply separators to various formatted inputs like phone numbers, dates, and card numbers using jQuery. This implementation is maintenance-friendly as a single function supports multiple formats, and developer-friendly as the desired format can be specified through the &lt;code>data-format&lt;/code> attribute in HTML markup.&lt;/p>
+&lt;p>Try applying this code to your projects and feel free to customize it further! If you have any improvements or alternative approaches, share them in the comments below. Your feedback helps create better code. 😊&lt;/p>
+&lt;br>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-17-auto-format/">Live Example Preview&lt;/a>
+&lt;/div></description></item><item><title>How to Auto Tab Phone Number Input with jQuery</title><link>https://ctrlcccv.github.io/code-en/2025-05-16-autofocus/</link><pubDate>Fri, 16 May 2025 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code-en/2025-05-16-autofocus/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-16-autofocus-en.webp" alt="Featured image of post How to Auto Tab Phone Number Input with jQuery
+" />&lt;p>Have you ever found it frustrating to enter a phone number split across multiple input fields? Manually tapping to move from one field to the next can disrupt the flow and slow you down. A smoother experience is to have the cursor automatically jump to the next field — saving time and making form filling feel seamless.&lt;/p>
+&lt;p>This small UX improvement can make a big difference, especially on mobile devices where precise tapping is harder. In this tutorial, I&amp;rsquo;ll show you how to implement automatic field transitions for phone number inputs using jQuery.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-structure">HTML Structure
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;phone_form&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Phone Number&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;input_container&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tel&amp;#34;&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;phone1&amp;#34;&lt;/span> &lt;span class="na">maxlength&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;3&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;phone_input&amp;#34;&lt;/span> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;123&amp;#34;&lt;/span> &lt;span class="na">inputmode&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;numeric&amp;#34;&lt;/span> &lt;span class="na">pattern&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;[0-9]*&amp;#34;&lt;/span> &lt;span class="na">aria-label&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Area code&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;separator&amp;#34;&lt;/span> &lt;span class="na">aria-hidden&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>-&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tel&amp;#34;&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;phone2&amp;#34;&lt;/span> &lt;span class="na">maxlength&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;4&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;phone_input&amp;#34;&lt;/span> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;4567&amp;#34;&lt;/span> &lt;span class="na">inputmode&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;numeric&amp;#34;&lt;/span> &lt;span class="na">pattern&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;[0-9]*&amp;#34;&lt;/span> &lt;span class="na">aria-label&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;First part of phone number&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;separator&amp;#34;&lt;/span> &lt;span class="na">aria-hidden&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>-&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tel&amp;#34;&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;phone3&amp;#34;&lt;/span> &lt;span class="na">maxlength&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;4&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;phone_input&amp;#34;&lt;/span> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;8901&amp;#34;&lt;/span> &lt;span class="na">inputmode&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;numeric&amp;#34;&lt;/span> &lt;span class="na">pattern&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;[0-9]*&amp;#34;&lt;/span> &lt;span class="na">aria-label&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Last part of phone number&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Input Fields&lt;/strong>&lt;br>
+&lt;span class="txt">
+The &lt;code>type=&amp;quot;tel&amp;quot;&lt;/code> attribute brings up the numeric keypad on mobile. &lt;code>maxlength&lt;/code> limits input length, while placeholders help guide the user.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Accessibility Enhancements&lt;/strong>&lt;br>
+&lt;span class="txt">
+Each input has an &lt;code>aria-label&lt;/code> so screen reader users understand its purpose. Separators are marked with &lt;code>aria-hidden=&amp;quot;true&amp;quot;&lt;/code> so they&amp;rsquo;re ignored by assistive tech.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Input Optimization&lt;/strong>&lt;br>
+&lt;span class="txt">
+Combining &lt;code>inputmode=&amp;quot;numeric&amp;quot;&lt;/code> with &lt;code>pattern=&amp;quot;[0-9]*&amp;quot;&lt;/code> helps ensure numeric-only input and improves the mobile experience.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="css-styling">CSS Styling
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">phone_form&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">flex-direction&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">column&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">align-items&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">gap&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">background-color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">white&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">box-shadow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="mi">12&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="nb">rgba&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mf">0.1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">phone_form&lt;/span> &lt;span class="nt">h2&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#333&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin-bottom&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">input_container&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">align-items&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">gap&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">phone_input&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">solid&lt;/span> &lt;span class="mh">#ddd&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">text-align&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">18&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">transition&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">all&lt;/span> &lt;span class="mf">0.2&lt;/span>&lt;span class="kt">s&lt;/span> &lt;span class="kc">ease&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">phone_input&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">focus&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">border-color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#8ab4f8&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">outline&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">box-shadow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="nb">rgba&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">78&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">67&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">118&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.2&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">separator&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#666&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Layout and Visuals&lt;/strong>&lt;br>
+&lt;span class="txt">
+The form uses flex layout with clean spacing and a soft shadow for a polished look.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Input Field Design&lt;/strong>&lt;br>
+&lt;span class="txt">
+Fields are large, centered, and easy to read. Focus state includes a color change and glow for better usability.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Separator Styling&lt;/strong>&lt;br>
+&lt;span class="txt">
+The dashes between fields are styled for visibility but excluded from screen readers.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="jquery-code--auto-focus-behavior">jQuery Code – Auto Focus Behavior
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">inputFocus&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Select all phone input fields
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">$phoneInputs&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.phone_input&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Function to move between fields (direction: 1=next, -1=previous)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">moveField&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">$currentField&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">direction&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">currentIndex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$phoneInputs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">$currentField&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">targetIndex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">currentIndex&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">direction&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Only move within valid index range
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">targetIndex&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">targetIndex&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">$phoneInputs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$phoneInputs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">eq&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">targetIndex&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">focus&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Handle input changes
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">$phoneInputs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;input&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Filter to allow numbers only
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">value&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/[^0-9]/g&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Auto-move to next field when max length is reached
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">maxLength&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">moveField&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Keyboard event handling (details below)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">$phoneInputs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;keydown&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Detailed code explained in the next section
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">inputFocus&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Auto-Tab Logic&lt;/strong>&lt;br>
+&lt;span class="txt">
+The &lt;code>moveField&lt;/code> function calculates where the cursor should go based on the current input&amp;rsquo;s index.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Input Validation + Auto Advance&lt;/strong>&lt;br>
+&lt;span class="txt">
+On every input, non-numeric characters are stripped out. If the input reaches its maximum length, focus jumps to the next field.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="optional-keyboard-navigation-enhancements">Optional: Keyboard Navigation Enhancements
+&lt;/h2>&lt;p>To take it a step further, let&amp;rsquo;s add some intuitive keyboard controls:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">$phoneInputs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;keydown&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">key&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">key&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">keyCode&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">$this&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Move to previous field on Backspace if field is empty
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">((&lt;/span>&lt;span class="nx">key&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s1">&amp;#39;Backspace&amp;#39;&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">key&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">preventDefault&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">moveField&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">$this&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Right Arrow to next field if cursor is at the end
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">((&lt;/span>&lt;span class="nx">key&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s1">&amp;#39;ArrowRight&amp;#39;&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">key&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">39&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">selectionStart&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">preventDefault&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">moveField&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">$this&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Left Arrow to previous field if cursor is at the start
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">((&lt;/span>&lt;span class="nx">key&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s1">&amp;#39;ArrowLeft&amp;#39;&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">key&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">37&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">selectionStart&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">preventDefault&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">moveField&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">$this&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Backspace Navigation&lt;/strong>&lt;br>
+&lt;span class="txt">
+Hitting Backspace on an empty field takes you back to the previous one—super handy for quick corrections.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Arrow Key Support&lt;/strong>&lt;br>
+&lt;span class="txt">
+Arrow right at the end of a field moves forward, and arrow left at the beginning moves back.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Cursor Detection&lt;/strong>&lt;br>
+&lt;span class="txt">
+We use &lt;code>selectionStart&lt;/code> to detect cursor position, ensuring we don&amp;rsquo;t interfere with normal editing.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>💡 &lt;strong>Pro Tip&lt;/strong>: Supporting both &lt;code>key&lt;/code> and &lt;code>keyCode&lt;/code> makes your code more robust across browsers, including legacy ones.&lt;/p>
+&lt;br>
+&lt;h2 id="conclusion">Conclusion
+&lt;/h2>&lt;p>This jQuery-powered auto-tab solution makes phone number entry faster and more user-friendly—especially on mobile. It&amp;rsquo;s a lightweight enhancement that improves form UX with just a few lines of code.&lt;/p>
+&lt;p>You can apply the same logic to other types of segmented inputs too—credit card numbers, SSNs, PIN codes, and more.&lt;/p>
+&lt;p>Have you tried something like this before? Or have a UX annoyance you want to fix? Let&amp;rsquo;s chat in the comments! 😊&lt;/p>
+&lt;br>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-05-14-autofocus/">Live Example Preview&lt;/a>
+&lt;/div></description></item><item><title>Implement Image File Upload and Preview using jQuery</title><link>https://ctrlcccv.github.io/code-en/2025-04-29-image-preview/</link><pubDate>Tue, 29 Apr 2025 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code-en/2025-04-29-image-preview/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-29-image-preview-en.webp" alt="Featured image of post Implement Image File Upload and Preview using jQuery
+" />&lt;p>Ever tried uploading a profile picture only to realize afterward that it wasn’t quite right? You’re not alone. According to UX research by NNGroup, nearly 1 in 5 user frustrations comes from confusing or limited upload experiences. That’s a big deal—especially considering how common file uploads are on the web.&lt;/p>
+&lt;p>Imagine running an online shop or setting up a profile page. Wouldn&amp;rsquo;t it be helpful if users could preview their images before submitting? A live image preview gives users instant feedback, builds confidence, and creates a smoother experience.&lt;/p>
+&lt;p>In this tutorial, we’ll walk through how to implement a clean, interactive image upload feature with live preview using jQuery. It’s beginner-friendly, reusable, and adds a polished touch to any website.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-building-the-upload-interface">HTML: Building the Upload Interface
+&lt;/h2>&lt;p>We’ll start by creating a simple HTML structure that handles image selection and preview.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="c">&amp;lt;!-- Single image upload component --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;image_file&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;upload&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;images/image_file_upload.png&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;이미지 업로드&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file_input&amp;#34;&lt;/span> &lt;span class="na">accept&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;image/*&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;preview&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;img_box&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;preview_img&amp;#34;&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;#&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Selected Image&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;delect&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;images/image_file_delect.png&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;삭제&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>What this does:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>.image_file&lt;/code>: Wraps everything into a neat upload module.&lt;/li>
+&lt;li>Clicking the label opens the file picker.&lt;/li>
+&lt;li>&lt;code>.upload&lt;/code> shows an icon to encourage users to select a file.&lt;/li>
+&lt;li>&lt;code>.file_input&lt;/code>: The hidden input that accepts image files only.&lt;/li>
+&lt;li>&lt;code>.preview&lt;/code>: Displays the selected image and a delete button.&lt;/li>
+&lt;/ul>
+&lt;p>Want to allow multiple uploads? Just duplicate the entire &lt;code>.image_file&lt;/code> block. Each one works on its own.&lt;/p>
+&lt;br>
+&lt;h2 id="css-styling-the-upload-box-and-preview">CSS: Styling the Upload Box and Preview
+&lt;/h2>&lt;p>Next, we’ll use some simple CSS to style the upload area and make it intuitive to interact with.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">relative&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">150&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">auto&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="nt">label&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">block&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">cursor&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">pointer&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">upload&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">dashed&lt;/span> &lt;span class="mh">#E5E5E5&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">justify-content&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">align-items&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#FFFFFF&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">upload&lt;/span> &lt;span class="nt">img&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">file_input&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">absolute&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">-1&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">initial&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">overflow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">hidden&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">clip&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">rect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">absolute&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">left&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">img_box&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">block&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">solid&lt;/span> &lt;span class="mh">#E5E5E5&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#FFFFFF&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">cursor&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">pointer&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview_img&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">object-fit&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">cover&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">delect&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">absolute&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">right&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">cursor&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">pointer&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">delect&lt;/span> &lt;span class="nt">img&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>Design tips:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Flexbox helps center the icon inside the box.&lt;/li>
+&lt;li>&lt;code>object-fit: cover&lt;/code> makes sure the image fills the preview box neatly.&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="jquery-bringing-the-preview-to-life">jQuery: Bringing the Preview to Life
+&lt;/h2>&lt;p>Now for the fun part. With just a few lines of jQuery, we can show a preview as soon as the user selects an image, and allow them to remove it if needed.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">document&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">ready&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">imageFileUpload&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Initialize image upload and preview functionality
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">imageFileUpload&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file .delect&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;click&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">handleDeleteClick&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Handle delete button click
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file .file_input&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;change&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">handleFileInputChange&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Handle file input change
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// When preview image is clicked, trigger file input click
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file .preview_img&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;click&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">closest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_input&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">click&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Handle file selection and update preview
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">handleFileInputChange&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">files&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">previewContainer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">closest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.preview&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">previewImage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.preview_img&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">file&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">reader&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">FileReader&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">reader&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">onload&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">previewImage&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;src&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Set preview image
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">show&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// Show preview box
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">closest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.upload&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">hide&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// Hide upload button
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">reader&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">readAsDataURL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">file&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Read file as Data URL
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resetPreview&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Reset if no file selected
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Update file count display (if in a modal with multiple file inputs)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">file_cnt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_select_pop .file_input&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="nx">file_cnt&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_select_pop .file_cnt&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">html&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">file_cnt&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Handle delete button click: reset preview and file input
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">handleDeleteClick&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">previewContainer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">closest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.preview&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resetPreview&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Update file count display
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">file_cnt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_select_pop .file_input&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="nx">file_cnt&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_select_pop .file_cnt&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">html&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">file_cnt&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Reset the preview UI and clear the selected file
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">resetPreview&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">imageFileContainer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">closest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">imageFileContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_input&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Clear file input
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">hide&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// Hide preview box
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">imageFileContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.upload&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">show&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// Show upload button again
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>How it works:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>FileReader&lt;/code> is a browser API that lets us read the file directly from the user’s device.&lt;/li>
+&lt;li>&lt;code>readAsDataURL()&lt;/code> turns the file into a base64-encoded string we can use in the &lt;code>src&lt;/code> attribute of an image tag.&lt;/li>
+&lt;li>We also add a handy trick: clicking the preview image will reopen the file picker so users can swap the image easily.&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="final-thoughts">Final Thoughts
+&lt;/h2>&lt;p>Adding a live preview to your image upload flow might seem like a small detail—but it makes a big impact. It reduces user mistakes, improves clarity, and makes your app feel polished and professional.&lt;/p>
+&lt;br>
+&lt;h3 id="want-to-take-it-to-the-next-level">Want to take it to the next level?
+&lt;/h3>&lt;ul>
+&lt;li>Add drag-and-drop support.&lt;/li>
+&lt;li>Use &lt;a class="link" href="https://fengyuanchen.github.io/cropperjs/" target="_blank" rel="noopener"
+>Cropper.js&lt;/a> to let users trim images before upload.&lt;/li>
+&lt;li>Add file size or dimension validation to prevent issues later.&lt;/li>
+&lt;/ul>
+&lt;p>Every small upgrade to your user interface builds trust and delight. Try this feature in your next project, and see how much smoother the experience feels. Got questions or want to show off what you built? Let us know in the comments!&lt;/p>
+&lt;br>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-28-image-preview/">Live Example Preview&lt;/a>
+&lt;/div></description></item></channel></rss>

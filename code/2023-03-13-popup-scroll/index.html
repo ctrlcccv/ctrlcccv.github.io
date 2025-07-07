@@ -1,0 +1,361 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="레이어 팝업 안에서만 스크롤 되도록 만들고, 배경 스크롤까지 제어하는 방법을 알려 드립니다. overscroll-behavior와 jQuery를 활용한 팝업 구현 팁을 확인해 보세요."><title>overscroll-behavior로 팝업 내부 스크롤과 body 스크롤 제어하기</title><link rel=canonical href=https://ctrlcccv.github.io/code/2023-03-13-popup-scroll/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="overscroll-behavior로 팝업 내부 스크롤과 body 스크롤 제어하기"><meta property='og:description' content="레이어 팝업 안에서만 스크롤 되도록 만들고, 배경 스크롤까지 제어하는 방법을 알려 드립니다. overscroll-behavior와 jQuery를 활용한 팝업 구현 팁을 확인해 보세요."><meta property='og:url' content='https://ctrlcccv.github.io/code/2023-03-13-popup-scroll/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='레이어 팝업'><meta property='article:published_time' content='2023-03-13T00:00:00+00:00'><meta property='article:modified_time' content='2025-06-12T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/popup-scroll.webp'><meta name=twitter:title content="overscroll-behavior로 팝업 내부 스크롤과 body 스크롤 제어하기"><meta name=twitter:description content="레이어 팝업 안에서만 스크롤 되도록 만들고, 배경 스크롤까지 제어하는 방법을 알려 드립니다. overscroll-behavior와 jQuery를 활용한 팝업 구현 팁을 확인해 보세요."><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/popup-scroll.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"overscroll-behavior로 팝업 내부 스크롤과 body 스크롤 제어하기","datePublished":"2023-03-13T00:00:00Z","dateModified":"2025-06-12T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="overscroll-behavior로 팝업 내부 스크롤과 body 스크롤 제어하기" href=https://ctrlcccv.github.io/code/2023-03-13-popup-scroll/ hreflang=ko><link rel=alternate title="Disable Body Scroll Behind Popups (overscroll-behavior)" href=https://ctrlcccv.github.io/code-en/2025-05-09-popup-scroll/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#팝업-스크롤-문제가-생기는-이유>팝업 스크롤 문제가 생기는 이유</a></li><li><a href=#overscroll-behavior-속성-완벽-이해하기>overscroll-behavior 속성 완벽 이해하기</a><ol><li><a href=#사용할-수-있는-값들>사용할 수 있는 값들</a></li><li><a href=#각-값의-차이점-비교>각 값의 차이점 비교</a></li></ol></li><li><a href=#html-구조와-기본-설정>HTML 구조와 기본 설정</a></li><li><a href=#css로-스크롤-동작-제어하기>CSS로 스크롤 동작 제어하기</a></li><li><a href=#jquery로-팝업-동작-구현하기>jQuery로 팝업 동작 구현하기</a></li><li><a href=#overscroll-behavior-vs-disable_scroll-완벽-비교>overscroll-behavior vs disable_scroll 완벽 비교</a><ol><li><a href=#상세-비교표>상세 비교표</a></li><li><a href=#실제-사용-시나리오>실제 사용 시나리오</a></li></ol></li><li><a href=#자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</a><ol><li><a href=#q1-여러-개의-팝업이-겹쳐서-뜰-때는-어떻게-관리하나요>Q1. 여러 개의 팝업이 겹쳐서 뜰 때는 어떻게 관리하나요?</a></li><li><a href=#q2-팝업-내부에-iframe이-있을-때도-스크롤-제어가-되나요>Q2. 팝업 내부에 iframe이 있을 때도 스크롤 제어가 되나요?</a></li><li><a href=#q3-접근성웹-표준은-어떻게-고려해야-하나요>Q3. 접근성(웹 표준)은 어떻게 고려해야 하나요?</a></li></ol></li><li><a href=#실무-활용-팁과-마무리>실무 활용 팁과 마무리</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2023-03-13-popup-scroll/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/popup-scroll.webp loading=lazy alt="Featured image of post overscroll-behavior로 팝업 내부 스크롤과 body 스크롤 제어하기"></a></div><div class=article-details><header class=article-category><a href=/categories/jquery/>JQuery</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2023-03-13-popup-scroll/>overscroll-behavior로 팝업 내부 스크롤과 body 스크롤 제어하기</a></h2><h3 class=article-subtitle>레이어 팝업 안에서만 스크롤 되도록 만들고, 배경 스크롤까지 제어하는 방법을 알려 드립니다. overscroll-behavior와 jQuery를 활용한 팝업 구현 팁을 확인해 보세요.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2023-03-13T00:00:00Z>3월 13, 2023</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>8 분 정도</time></div></footer></div></header><section class=article-content><p>웹사이트를 만들다 보면 레이어 팝업 구현은 피할 수 없는 기능 중 하나죠. 그런데 팝업이 떠있는 상태에서 모바일로 스크롤을 하다 보면, 팝업 뒤의 배경 화면까지 같이 움직여서 사용자가 혼란스러워하는 경험, 다들 해보셨을 거예요.</p><p>저도 처음 웹 개발을 시작했을 때는 이 문제를 <code>overflow: hidden</code>으로만 해결하려고 했는데, 정작 팝업 내부에서는 스크롤이 필요한 상황이 생기더라고요. 특히 긴 약관이나 상품 설명이 들어가는 팝업에서는 내부 스크롤은 유지하면서 배경 스크롤만 막아야 하는 딜레마가 있었죠. 그때 발견한 게 바로 <code>overscroll-behavior</code> 속성이었어요.</p><p>이 글에서는 <code>overscroll-behavior</code>와 jQuery를 활용해서 팝업 안에서만 스크롤 되고, 배경 스크롤은 완벽하게 제어하는 방법을 알려드릴게요. 기본 구현부터 모바일 터치 제어까지, 실제 프로젝트에서 바로 사용할 수 있는 완성도 높은 팝업 시스템을 만들어보겠습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=팝업-스크롤-문제가-생기는-이유>팝업 스크롤 문제가 생기는 이유</h2><p>팝업에서 스크롤 문제가 생기는 건 브라우저의 기본 동작 때문이에요. 사용자가 팝업 내부에서 스크롤을 끝까지 하고 나면, 그 스크롤 이벤트가 부모 요소(보통 body)로 전파되는 거죠.</p><p>실제 프로젝트에서는 이런 상황들이 자주 발생해요.</p><ul><li>이용약관 팝업에서 내용을 다 읽고 더 스크롤 하려고 할 때</li><li>상품 상세 정보 팝업에서 긴 설명을 보다가 배경이 움직이는 경우</li><li>모바일에서 팝업 내부를 스와이프했는데 뒤쪽 페이지가 같이 움직이는 현상</li></ul><br><h2 id=overscroll-behavior-속성-완벽-이해하기>overscroll-behavior 속성 완벽 이해하기</h2><p><code>overscroll-behavior</code>는 CSS에서 스크롤 체이닝(scroll chaining)을 제어하는 속성이에요. 쉽게 말해서, 한 요소에서 스크롤이 끝났을 때 부모 요소로 스크롤 이벤트가 전달되는 걸 막거나 허용할지를 결정해요.</p><br><h3 id=사용할-수-있는-값들>사용할 수 있는 값들</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=c>/* 기본값: 스크롤 체이닝 허용 */</span>
+</span></span><span class=line><span class=cl><span class=nt>overscroll-behavior</span><span class=o>:</span> <span class=nt>auto</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* 현재 요소에서만 스크롤, 부모로 전파 안 함 */</span>
+</span></span><span class=line><span class=cl><span class=nt>overscroll-behavior</span><span class=o>:</span> <span class=nt>contain</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* 스크롤 체이닝과 모든 오버 스크롤 효과 차단 */</span>
+</span></span><span class=line><span class=cl><span class=nt>overscroll-behavior</span><span class=o>:</span> <span class=nt>none</span><span class=o>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>실제 프로젝트에서는 주로 <code>none</code> 값을 사용해요. 이 값이 팝업 스크롤 문제를 완벽하게 해결해 줍니다.</p><br><h3 id=각-값의-차이점-비교>각 값의 차이점 비교</h3><div class=table-wrapper><table><thead><tr><th>값</th><th>스크롤 체이닝</th><th>오버 스크롤 효과</th><th>사용 시기</th></tr></thead><tbody><tr><td><code>auto</code></td><td>허용 ✅</td><td>허용 ✅</td><td>일반적인 스크롤 동작</td></tr><tr><td><code>contain</code></td><td>차단 🚫</td><td>허용 ✅</td><td>스크롤 전파만 막고 싶을 때</td></tr><tr><td><code>none</code></td><td>차단 🚫</td><td>차단 🚫</td><td>팝업처럼 완전히 격리하고 싶을 때</td></tr></tbody></table></div><p>제가 실무에서 테스트해 본 결과, 팝업에서는 <code>none</code>이 가장 안정적이었어요. <code>contain</code>도 스크롤 전파는 막아주지만, 모바일에서 바운스 효과 같은 오버 스크롤 애니메이션이 여전히 나타날 수 있어요.</p><br><h2 id=html-구조와-기본-설정>HTML 구조와 기본 설정</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;wrap ko&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;btn&#34;</span><span class=p>&gt;</span>배경(body) 스크롤 활성화<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>(overscroll-behavior:none 속성만 사용)<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;btn type_disable&#34;</span><span class=p>&gt;</span>배경(body) 스크롤 비활성화<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;pop_wrap&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;bg&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;popup&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;#&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;close&#34;</span><span class=p>&gt;&lt;</span><span class=nt>img</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;images/close.png&#34;</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;닫기&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;popup_con&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>컨텐츠
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>위 HTML 구조를 보시면, 팝업 트리거 역할을 하는 두 개의 버튼이 있어요. 첫 번째는 <code>overscroll-behavior</code>만 사용하는 버전이고, 두 번째는 배경 스크롤까지 완전히 차단하는 버전이에요.</p><p>다음으로 CSS 스타일링을 통해 어떻게 이 문제를 해결하는지 살펴보겠습니다.</p><br><h2 id=css로-스크롤-동작-제어하기>CSS로 스크롤 동작 제어하기</h2><p>CSS에서 팝업 스크롤을 제어하는 핵심은 두 가지 접근법을 조합하는 거예요. 하나는 <code>overscroll-behavior</code>로 스크롤 전파를 막는 것이고, 다른 하나는 필요에 따라 body 스크롤을 완전히 차단하는 거죠.</p><p>실제 프로젝트에서는 UX 요구사항에 따라 두 방법을 선택적으로 사용해야 해요. 예를 들어 간단한 알림 팝업이라면 첫 번째 방법으로 충분하지만, 전체 화면을 덮는 모달이라면 두 번째 방법이 더 적합해요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=p>.</span><span class=nc>wrap</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>min-height</span><span class=p>:</span> <span class=mi>200</span><span class=kt>vh</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>30</span><span class=kt>px</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>display</span><span class=p>:</span> <span class=kc>flex</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>align-items</span><span class=p>:</span> <span class=kc>flex-start</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>justify-content</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>gap</span><span class=p>:</span> <span class=mi>30</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* 스크롤 막기 CSS */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>disable_scroll</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>overflow</span><span class=p>:</span> <span class=kc>hidden</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>touch-action</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* 팝업 CSS */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>btn</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>display</span><span class=p>:</span> <span class=kc>inline-flex</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>justify-content</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>align-items</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>text-align</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>400</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>200</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=mh>#8ab4f8</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=mh>#000</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>text-decoration</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>word-break</span><span class=p>:</span> <span class=n>keep-all</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>pop_wrap</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>fixed</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>left</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>z-index</span><span class=p>:</span> <span class=mi>3</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>pop_wrap</span> <span class=p>.</span><span class=nc>bg</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>fixed</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>left</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=nb>rgba</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mf>0.8</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>z-index</span><span class=p>:</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>popup</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>absolute</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>50</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>left</span><span class=p>:</span> <span class=mi>50</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>280</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>280</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>max-width</span><span class=p>:</span> <span class=mi>90</span><span class=kt>vw</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>max-height</span><span class=p>:</span> <span class=mi>90</span><span class=kt>vh</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=mh>#fff</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>z-index</span><span class=p>:</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>translate</span><span class=p>(</span><span class=mi>-50</span><span class=kt>%</span><span class=p>,</span> <span class=mi>-50</span><span class=kt>%</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>popup</span> <span class=p>.</span><span class=nc>close</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>absolute</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>right</span><span class=p>:</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>17</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>17</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>popup</span> <span class=p>.</span><span class=nc>close</span> <span class=nt>img</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>popup</span> <span class=p>.</span><span class=nc>popup_con</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>overflow</span><span class=p>:</span> <span class=kc>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>line-height</span><span class=p>:</span> <span class=mi>24</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=mh>#000</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>overscroll-behavior</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>여기서 가장 중요한 부분은 <code>.popup_con</code>의 <code>overscroll-behavior: none</code> 속성이에요. 이 속성이 팝업 내부에서 스크롤이 끝났을 때 부모로 전파되는 걸 막아줍니다.</p><p>그리고 <code>.disable_scroll</code> 클래스를 주목해 보세요. <code>touch-action: none</code>까지 포함된 이유는 모바일에서의 터치 제스처까지 완전히 제어하기 위함이에요. 제가 모바일 최적화 프로젝트를 할 때 깨달은 건데, iOS Safari에서는 <code>overflow: hidden</code>만으로는 완전히 스크롤이 막히지 않더라고요.</p><br><p style=margin-top:0>❌ <strong>주의할 점</strong>: <code>overscroll-behavior</code>를 잘못된 요소에 적용하기</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=p>.</span><span class=nc>popup</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>overscroll-behavior</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span> <span class=c>/* 이렇게 하면 효과가 없어요 */</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>✅ <strong>올바른 적용</strong>: 실제 스크롤이 일어나는 요소에 적용하기</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=p>.</span><span class=nc>popup_con</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>overflow</span><span class=p>:</span> <span class=kc>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>overscroll-behavior</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span> <span class=c>/* 여기에 적용해야 해요 */</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>이제 jQuery로 이 CSS 클래스들을 동적으로 제어하는 방법을 알아보겠습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=jquery로-팝업-동작-구현하기>jQuery로 팝업 동작 구현하기</h2><p>jQuery 구현에서 중요한 건 팝업의 열기/닫기 상태에 따라 적절한 CSS 클래스를 추가하고 제거하는 거예요. 특히 사용자가 ESC 키를 누르거나 브라우저 뒤로 가기를 할 때도 스크롤 상태가 정상적으로 복구되어야 해요.</p><p>실제 프로젝트에서는 여러 개의 팝업이 겹쳐서 뜨는 경우도 고려해야 해요. 예를 들어 상품 상세 팝업에서 리뷰 팝업이 또 뜨는 상황 말이에요. 이때는 카운팅 방식으로 관리해야 하는데, 이 예제에서는 기본적인 단일 팝업 케이스를 다루겠습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>$</span><span class=p>(</span><span class=nb>document</span><span class=p>).</span><span class=nx>ready</span><span class=p>(</span><span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>popup</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>popup</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 팝업 열기
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.btn&#39;</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.pop_wrap&#39;</span><span class=p>).</span><span class=nx>fadeIn</span><span class=p>(</span><span class=mi>300</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>hasClass</span><span class=p>(</span><span class=s1>&#39;type_disable&#39;</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 선택사항 : 팝업이 열릴 때 배경(body) 스크롤 비활성화
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;body&#34;</span><span class=p>).</span><span class=nx>addClass</span><span class=p>(</span><span class=s1>&#39;disable_scroll&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 팝업 닫기
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.pop_wrap .bg, .pop_wrap .close&#39;</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.pop_wrap&#39;</span><span class=p>).</span><span class=nx>fadeOut</span><span class=p>(</span><span class=mi>100</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 선택사항 : 팝업이 열릴 때 배경(body) 스크롤 비활성화
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;body&#34;</span><span class=p>).</span><span class=nx>removeClass</span><span class=p>(</span><span class=s1>&#39;disable_scroll&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>코드를 자세히 보시면, 팝업을 열 때 버튼에 <code>type_disable</code> 클래스가 있는지 체크하고 있어요. 이렇게 하는 이유는 같은 팝업이라도 상황에 따라 다른 스크롤 정책을 적용할 수 있기 때문이에요.</p><p>제가 실제 커머스 프로젝트에서 경험한 사례를 예로 들어보면</p><ul><li><strong>상품 옵션 선택 팝업</strong>: 배경 스크롤 허용 (사용자가 다른 상품도 확인할 수 있게)</li><li><strong>결제 정보 입력 팝업</strong>: 배경 스크롤 차단 (집중도를 높이고 실수 방지)</li></ul><br><p style=margin-top:0>❌ <strong>흔한 실수</strong>: 팝업 닫기를 한 곳에서만 처리하기</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.close&#39;</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 배경 클릭이나 ESC 키는 처리 안 됨
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.pop_wrap&#39;</span><span class=p>).</span><span class=nx>fadeOut</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p>✅ <strong>올바른 방법</strong>: 모든 닫기 시나리오 고려하기</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 배경 클릭, 닫기 버튼 모두 처리
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.pop_wrap .bg, .pop_wrap .close&#39;</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>e</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=nx>closePopup</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ESC 키 처리 (실제 프로젝트에서는 추가하면 좋아요.)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>$</span><span class=p>(</span><span class=nb>document</span><span class=p>).</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;keyup&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>keyCode</span> <span class=o>===</span> <span class=mi>27</span><span class=p>)</span> <span class=p>{</span> <span class=c1>// ESC key
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>closePopup</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p>이제 두 가지 스크롤 제어 방법의 차이점을 비교해 보겠습니다.</p><br><h2 id=overscroll-behavior-vs-disable_scroll-완벽-비교>overscroll-behavior vs disable_scroll 완벽 비교</h2><p>두 가지 방법의 차이점을 이해하는 것은 적절한 UX를 제공하는 데 중요해요. 저도 처음엔 무조건 배경 스크롤을 막는 게 좋다고 생각했는데, 사용자 테스트를 해보니 상황에 따라 선호도가 달랐어요.</p><br><h3 id=상세-비교표>상세 비교표</h3><div class=table-wrapper><table><thead><tr><th>구분</th><th>overscroll-behavior: none</th><th>.disable_scroll</th></tr></thead><tbody><tr><td><strong>내부 스크롤이 끝났을 때 배경 스크롤 전파</strong></td><td>차단 🚫</td><td>차단 🚫</td></tr><tr><td><strong>사용자가 직접 배경을 스크롤 하려고 할 때</strong></td><td>가능 ✅</td><td>불가능 🚫</td></tr><tr><td><strong>모바일 터치 반응</strong></td><td>허용 ✅</td><td>차단 🚫</td></tr><tr><td><strong>키보드 스크롤 (↑↓ 키)</strong></td><td>부분적 허용</td><td>완전 차단</td></tr><tr><td><strong>마우스 휠 스크롤</strong></td><td>부분적 허용</td><td>완전 차단</td></tr></tbody></table></div><br><h3 id=실제-사용-시나리오>실제 사용 시나리오</h3><p><strong>overscroll-behavior만 사용하는 경우 (권장)</strong></p><ul><li>상품 상세 정보 팝업</li><li>이미지 갤러리 팝업</li><li>검색 결과 팝업</li><li>사용자가 배경 맥락을 참고해야 하는 경우</li></ul><p><strong>disable_scroll까지 사용하는 경우</strong></p><ul><li>로그인/회원가입 모달</li><li>결제 정보 입력 팝업</li><li>중요한 알림이나 경고 메시지</li><li>집중도가 중요한 작업 화면</li></ul><p>다음으로 실제 프로젝트에서 자주 받는 질문들을 정리해 보겠습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</h2><h3 id=q1-여러-개의-팝업이-겹쳐서-뜰-때는-어떻게-관리하나요>Q1. 여러 개의 팝업이 겹쳐서 뜰 때는 어떻게 관리하나요?</h3><p>A: 실제 프로젝트에서는 팝업 스택을 관리해야 해요. 카운팅 방식을 사용하는 게 가장 안전해요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>let</span> <span class=nx>popupCount</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>openPopup</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>popupCount</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>popupCount</span> <span class=o>===</span> <span class=mi>1</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;body&#34;</span><span class=p>).</span><span class=nx>addClass</span><span class=p>(</span><span class=s1>&#39;disable_scroll&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>closePopup</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>popupCount</span><span class=o>--</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>popupCount</span> <span class=o>===</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$</span><span class=p>(</span><span class=s2>&#34;body&#34;</span><span class=p>).</span><span class=nx>removeClass</span><span class=p>(</span><span class=s1>&#39;disable_scroll&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=q2-팝업-내부에-iframe이-있을-때도-스크롤-제어가-되나요>Q2. 팝업 내부에 iframe이 있을 때도 스크롤 제어가 되나요?</h3><p>A: iframe은 별도의 문서이기 때문에 부모의 CSS가 직접 적용되지 않아요. iframe 내부에도 같은 <code>overscroll-behavior</code> 속성을 적용해야 해요.</p><p>제가 유튜브 영상 임베드 팝업을 만들 때 겪은 문제인데, iframe의 src에 <code>?enablejsapi=1</code> 같은 파라미터를 추가해서 JavaScript API로 제어하거나, iframe을 감싸는 wrapper에 추가적인 스크롤 제어를 해야 했어요.</p><br><h3 id=q3-접근성웹-표준은-어떻게-고려해야-하나요>Q3. 접근성(웹 표준)은 어떻게 고려해야 하나요?</h3><p>A: 좋은 질문이에요! 팝업이 열렸을 때 포커스 관리와 키보드 내비게이션을 고려해야 해요. <code>aria-hidden</code> 속성으로 배경 콘텐츠를 숨기고, 팝업 내부에서만 Tab 키가 동작하도록 trap을 만들어야 합니다.</p><p>가장 기본적으로는 팝업이 열렸을 때 첫 번째 입력 필드에 포커스를 주고, ESC 키로 닫힐 수 있게 하는 거예요.</p><br><h2 id=실무-활용-팁과-마무리>실무 활용 팁과 마무리</h2><p>지금까지 <code>overscroll-behavior</code>를 활용한 팝업 스크롤 제어 방법을 살펴봤는데요, 핵심은 사용자 경험을 고려한 선택적 적용이에요.</p><p><strong>정리하면 이런 포인트들이 중요해요.</strong></p><ol><li><strong>기본은 overscroll-behavior로 충분</strong> - 대부분의 상황에서 내부 스크롤 전파만 막아도 UX가 크게 개선돼요.</li><li><strong>상황에 맞는 스크롤 정책 선택</strong> - 모든 팝업에 동일한 정책을 적용하지 말고, 용도에 따라 다르게 적용하세요.</li><li><strong>접근성까지 고려한 완성도</strong> - 단순히 스크롤만 막는 게 아니라 키보드 사용자와 스크린 리더 사용자까지 고려해야 해요.</li></ol><p>실습해 보세요! 지금 당장 여러분의 프로젝트에 있는 팝업에 <code>overscroll-behavior: none</code>을 적용해 보세요. 특히 모바일에서 테스트해 보시면 차이를 확실히 느끼실 거예요.</p><p>여러분만의 팝업 구현 노하우나 이슈가 있다면 댓글로 공유해주세요. 함께 더 나은 사용자 경험을 만들어가요! 😊</p><br><div class=btn_wrap><a target=_blank href=https://ctrlcccv.github.io/ctrlcccv-demo/2023-03-13-popup-scroll/>예제결과 미리보기</a></div></section><footer class=article-footer><section class=article-tags><a href=/tags/%EB%A0%88%EC%9D%B4%EC%96%B4-%ED%8C%9D%EC%97%85/>레이어 팝업</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section><section class=article-lastmod><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time datetime=2025-06-12T00:00:00Z>마지막 수정: 6월 12, 2025 00:00 UTC</time></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2024-05-12-today-close/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-05-12-today-close.webp loading=lazy data-key=2024-05-12-today-close data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2024-05-12-today-close.webp></div><div class=article-details><h2 class=article-title>jQuery - 오늘 하루 보지 않기 (체크박스 클릭 후 닫기)</h2></div></a></article><article class=has-image><a href=/code-en/2025-05-28-tab-menu/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-28-tab-menu-en.webp loading=lazy data-key=2025-05-28-tab-menu data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-28-tab-menu-en.webp></div><div class=article-details><h2 class=article-title>How to Build Multiple Tab Menus Using One jQuery Function</h2></div></a></article><article class=has-image><a href=/code/2025-05-27-tab-menu/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-27-tab-menu.webp loading=lazy data-key=2025-05-27-tab-menu data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-27-tab-menu.webp></div><div class=article-details><h2 class=article-title>jQuery - 클래스 하나로 탭메뉴 여러개 구현하기</h2></div></a></article><article class=has-image><a href=/code-en/2025-05-26-responsive-viewer/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-26-responsive-viewer-en.webp loading=lazy data-key=2025-05-26-responsive-viewer data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-26-responsive-viewer-en.webp></div><div class=article-details><h2 class=article-title>How to Build a Responsive Device Preview with jQuery</h2></div></a></article><article class=has-image><a href=/code/2025-05-23-responsive-viewer/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-23-responsive-viewer.webp loading=lazy data-key=2025-05-23-responsive-viewer data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-05-23-responsive-viewer.webp></div><div class=article-details><h2 class=article-title>jQuery - iframe 기반 반응형 웹사이트 미리보기 툴 만들기</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

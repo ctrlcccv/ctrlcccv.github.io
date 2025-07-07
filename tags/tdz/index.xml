@@ -1,0 +1,1459 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TDZ on 컨트롤 + CCCV</title><link>https://ctrlcccv.github.io/tags/tdz/</link><description>Recent content in TDZ on 컨트롤 + CCCV</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Wed, 25 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ctrlcccv.github.io/tags/tdz/index.xml" rel="self" type="application/rss+xml"/><item><title>JavaScript Hoisting: Master TDZ and Function Behavior</title><link>https://ctrlcccv.github.io/code-en/2025-06-23-javascript-hoisting/</link><pubDate>Mon, 23 Jun 2025 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code-en/2025-06-23-javascript-hoisting/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-23-javascript-hoisting-en.webp" alt="Featured image of post JavaScript Hoisting: Master TDZ and Function Behavior
+" />&lt;p>Have you ever wondered why this JavaScript code doesn&amp;rsquo;t throw an error, even though we&amp;rsquo;re using a variable before declaring it? When you&amp;rsquo;re learning JavaScript as your first step toward React development, you&amp;rsquo;ll inevitably encounter situations where variables seem to &amp;ldquo;magically&amp;rdquo; work before they&amp;rsquo;re defined, leaving you scratching your head.&lt;/p>
+&lt;p>I remember my first week learning JavaScript – I was building a simple shopping cart calculator and kept getting unexpected &lt;code>undefined&lt;/code> values instead of proper error messages. I thought my code editor was broken! But then I discovered hoisting, and suddenly everything clicked. Understanding this concept transformed how I write JavaScript and made me a much more confident developer when I eventually moved to React.&lt;/p>
+&lt;p>In this comprehensive guide, I&amp;rsquo;ll walk you through everything you need to know about JavaScript hoisting – from the basic mechanics to advanced scenarios you&amp;rsquo;ll encounter in real React projects. We&amp;rsquo;ll cover why &lt;code>var&lt;/code> behaves differently from &lt;code>let&lt;/code> and &lt;code>const&lt;/code>, what the mysterious &amp;ldquo;Temporal Dead Zone&amp;rdquo; actually means, and most importantly, how to write predictable, bug-free code.&lt;/p>
+&lt;p>We&amp;rsquo;ll start with the fundamental concept and work our way up to complex scenarios with practical, runnable code examples. By the end of this article, you&amp;rsquo;ll have the hoisting knowledge that will make your transition to React development much smoother and help you avoid the subtle bugs that often plague new JavaScript developers.&lt;/p>
+&lt;br>
+&lt;h2 id="what-is-javascript-hoisting">What is JavaScript Hoisting?
+&lt;/h2>&lt;blockquote>
+&lt;p>JavaScript hoisting is the engine&amp;rsquo;s behavior of moving variable and function declarations to the top of their containing scope during the compilation phase. This means you can reference variables and functions before their actual declaration appears in your code, though the behavior varies significantly between &lt;code>var&lt;/code>, &lt;code>let&lt;/code>, and &lt;code>const&lt;/code>.&lt;/p>&lt;/blockquote>
+&lt;br>
+&lt;h2 id="why-hoisting-knowledge-is-critical-for-react-development">Why Hoisting Knowledge is Critical for React Development
+&lt;/h2>&lt;p>Before diving into React components and hooks, you need to understand how JavaScript manages variable declarations. In React applications, you&amp;rsquo;ll often work with state variables, event handlers, and lifecycle methods where hoisting behavior can create unexpected bugs.&lt;/p>
+&lt;p>I learned this the hard way when building my first React todo app. I was declaring state updater functions using &lt;code>var&lt;/code> inside event handlers, which led to some very confusing behavior due to hoisting. Understanding hoisting principles helped me write cleaner, more predictable React code and avoid the &amp;ldquo;why is my state not updating?&amp;rdquo; debugging sessions.&lt;/p>
+&lt;p>Modern React development relies heavily on ES6+ features like &lt;code>const&lt;/code> and &lt;code>let&lt;/code>, which have different hoisting behaviors than the older &lt;code>var&lt;/code> keyword. Mastering these differences now will save you hours of debugging later.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="understanding-var-hoisting-the-foundation">Understanding var Hoisting: The Foundation
+&lt;/h2>&lt;p>The &lt;code>var&lt;/code> keyword exhibits the most straightforward hoisting behavior – declarations are moved to the top of their function scope and automatically initialized with &lt;code>undefined&lt;/code>.&lt;/p>
+&lt;br>
+&lt;h3 id="how-var-hoisting-actually-works">How var Hoisting Actually Works
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ This looks wrong but actually works
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">calculateOrderTotal&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">subtotal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined (not an error!)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">tax&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined (not an error!)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">subtotal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">99.99&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">tax&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">subtotal&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.08&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">subtotal&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">tax&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">subtotal&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">tax&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">calculateOrderTotal&lt;/span>&lt;span class="p">());&lt;/span> &lt;span class="c1">// 107.99
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Here&amp;rsquo;s what JavaScript actually does behind the scenes:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ How the JavaScript engine interprets the code
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">calculateOrderTotal&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">subtotal&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Hoisted and initialized to undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">var&lt;/span> &lt;span class="nx">tax&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Hoisted and initialized to undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">subtotal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">tax&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">subtotal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">99.99&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">tax&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">subtotal&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.08&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">subtotal&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">tax&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="function-scope-vs-block-scope-with-var">Function Scope vs Block Scope with var
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">processUserData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">users&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userCount&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined (hoisted)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">users&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">userCount&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">users&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">processedUsers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">users&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">user&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">processed&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ❌ These variables are accessible outside the if block
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userCount&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// actual length value
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">processedUsers&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// processed array
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">processedUsers&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>Key var Characteristics:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Hoisted and initialized&lt;/strong> – Always gets &lt;code>undefined&lt;/code> value at the top of scope&lt;/li>
+&lt;li>&lt;strong>Function-scoped&lt;/strong> – Ignores block boundaries like &lt;code>if&lt;/code>, &lt;code>for&lt;/code>, &lt;code>while&lt;/code>&lt;/li>
+&lt;li>&lt;strong>Allows redeclaration&lt;/strong> – You can declare the same variable multiple times&lt;/li>
+&lt;/ol>
+&lt;br>
+&lt;h2 id="the-let-and-const-revolution-introducing-tdz">The let and const Revolution: Introducing TDZ
+&lt;/h2>&lt;p>ES6 introduced &lt;code>let&lt;/code> and &lt;code>const&lt;/code> with a completely different hoisting behavior. While they are still hoisted, they remain uninitialized until their declaration is reached, creating what&amp;rsquo;s known as the Temporal Dead Zone.&lt;/p>
+&lt;br>
+&lt;h3 id="understanding-the-temporal-dead-zone">Understanding the Temporal Dead Zone
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ This will throw a ReferenceError
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">createUserProfile&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError: Cannot access &amp;#39;userName&amp;#39; before initialization
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userEmail&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError: Cannot access &amp;#39;userEmail&amp;#39; before initialization
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Sarah Johnson&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">userEmail&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;sarah@example.com&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">userName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">userEmail&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The TDZ creates a &amp;ldquo;dead zone&amp;rdquo; where variables exist but cannot be accessed:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">demonstrateTDZ&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// TDZ starts here for both variables
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span> &lt;span class="nx">productName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span> &lt;span class="nx">productPrice&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">productName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Wireless Headphones&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// TDZ ends for productName
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">productPrice&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">149.99&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// TDZ ends for productPrice
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">productName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;Wireless Headphones&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">productPrice&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 149.99
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="block-scope-behavior-in-practice">Block Scope Behavior in Practice
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">handleShoppingCart&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">cartTotal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">cartTotal&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">emptyMessage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Your cart is empty&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">suggestionText&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Browse our featured products&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">emptyMessage&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;Your cart is empty&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">suggestionText&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;Browse our featured products&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ❌ These would throw ReferenceError
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// console.log(emptyMessage);
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// console.log(suggestionText);
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>let and const Characteristics:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Hoisted but not initialized&lt;/strong> – They exist but can&amp;rsquo;t be accessed until declaration&lt;/li>
+&lt;li>&lt;strong>Block-scoped&lt;/strong> – Respect boundaries of &lt;code>{}&lt;/code>, &lt;code>if&lt;/code>, &lt;code>for&lt;/code>, etc.&lt;/li>
+&lt;li>&lt;strong>No redeclaration&lt;/strong> – Cannot declare the same name twice in the same scope&lt;/li>
+&lt;li>&lt;strong>const requires initialization&lt;/strong> – Must be assigned a value when declared&lt;/li>
+&lt;/ol>
+&lt;br>
+&lt;h2 id="function-hoisting-the-complete-picture">Function Hoisting: The Complete Picture
+&lt;/h2>&lt;p>Functions have the most complex hoisting behavior, with different rules for function declarations, function expressions, and arrow functions.&lt;/p>
+&lt;br>
+&lt;h3 id="function-declarations-fully-hoisted">Function Declarations: Fully Hoisted
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ This works perfectly - function declarations are completely hoisted
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">calculateDiscount&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.2&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 20
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">calculateDiscount&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">price&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">discountRate&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">price&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">discountRate&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="function-expressions-variable-hoisting-rules-apply">Function Expressions: Variable Hoisting Rules Apply
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ This throws TypeError: validateEmail is not a function
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">isValid&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">validateEmail&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test@example.com&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">validateEmail&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">email&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">email&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">includes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;@&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">email&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">includes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>What&amp;rsquo;s actually happening:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ How JavaScript interprets the above code
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">validateEmail&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Hoisted as undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">isValid&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">validateEmail&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test@example.com&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// TypeError!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">validateEmail&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">email&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">email&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">includes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;@&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">email&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">includes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="arrow-functions-and-modern-patterns">Arrow Functions and Modern Patterns
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ Cannot access before initialization
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">processOrder&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">order&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">shippingCost&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">calculateShipping&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">order&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">weight&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">order&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">total&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">shippingCost&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ReferenceError: Cannot access &amp;#39;calculateShipping&amp;#39; before initialization
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">calculateShipping&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">weight&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">weight&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">5&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="mi">15&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The solution for modern JavaScript development:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ Declare functions before using them
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">calculateShipping&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">weight&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">weight&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">5&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="mi">15&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">processOrder&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">order&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">shippingCost&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">calculateShipping&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">order&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">weight&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">order&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">total&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">shippingCost&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h2 id="common-hoisting-pitfalls-that-break-react-apps">Common Hoisting Pitfalls That Break React Apps
+&lt;/h2>&lt;p>Based on my experience mentoring new React developers, here are the most common hoisting-related mistakes that can break your applications.&lt;/p>
+&lt;br>
+&lt;h3 id="the-classic-loop-variable-trap">The Classic Loop Variable Trap
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ This creates a common bug in event handlers
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">attachClickHandlers&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">buttons&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelectorAll&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.product-button&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">buttons&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">buttons&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">addEventListener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;click&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Clicked button&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Always logs the final value!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ Fix with let to create block scope
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">attachClickHandlersCorrectly&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">buttons&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelectorAll&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.product-button&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">buttons&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">buttons&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">addEventListener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;click&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Clicked button&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Logs correct index
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="variable-shadowing-in-nested-scopes">Variable Shadowing in Nested Scopes
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">globalUserCount&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">processUsers&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">globalUserCount&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError! (not 100 as expected)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">globalUserCount&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// This shadows the global variable
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">globalUserCount&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 50
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="react-component-gotchas">React Component Gotchas
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ Problematic pattern that new React developers often use
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">UserProfile&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// This won&amp;#39;t work as expected due to hoisting
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userData&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">users&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setUsers&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useState&lt;/span>&lt;span class="p">([]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">useEffect&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">userData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">fetchUserData&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setUsers&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userData&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span> &lt;span class="p">[]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">userData&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Too late!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ Proper pattern for React components
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">UserProfile&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">users&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setUsers&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useState&lt;/span>&lt;span class="p">([]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">userData&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setUserData&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useState&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">null&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">useEffect&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">fetchAndSetData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">fetchUserData&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setUserData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setUsers&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">users&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fetchAndSetData&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span> &lt;span class="p">[]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">userData&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="nx">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">userData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">/div&amp;gt; : &amp;lt;div&amp;gt;Loading...&amp;lt;/div&amp;gt;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="modern-javascript-best-practices-for-hoisting">Modern JavaScript Best Practices for Hoisting
+&lt;/h2>&lt;p>Here&amp;rsquo;s how to write hoisting-safe code that will serve you well in React development:&lt;/p>
+&lt;br>
+&lt;h3 id="1-embrace-the-const-first-approach">1. Embrace the const-first Approach
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ Start with const, move to let only when needed
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">API_URL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;https://api.example.com&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">MAX_RETRY_ATTEMPTS&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">fetchUserData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userId&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">retryCount&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">userData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Only use let when the value will change
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">retryCount&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">MAX_RETRY_ATTEMPTS&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="o">!&lt;/span>&lt;span class="nx">userData&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">userData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">attemptFetch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userId&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">retryCount&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">userData&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="2-declare-variables-at-point-of-use">2. Declare Variables at Point of Use
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ Declare variables close to where they&amp;#39;re used
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">calculateShippingCosts&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">cart&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">baseShipping&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">5.99&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">cart&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">totalWeight&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">cart&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">reduce&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">sum&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">item&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">itemWeight&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">item&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">weight&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">sum&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">itemWeight&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">weightMultiplier&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">totalWeight&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">baseShipping&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">weightMultiplier&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="3-use-block-scope-strategically">3. Use Block Scope Strategically
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ Use block scope to limit variable lifetime
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">processFormData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">formData&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">errors&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Email validation block
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">email&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">formData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">email&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">emailRegex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/^[^\s@]+@[^\s@]+\.[^\s@]+$/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">emailRegex&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">email&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Invalid email format&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Password validation block
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">password&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">formData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">password&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">minLength&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">password&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">minLength&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Password must be at least 8 characters&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="hoisting-behavior-comparison-table">Hoisting Behavior Comparison Table
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Feature&lt;/th>
+&lt;th>var&lt;/th>
+&lt;th>let&lt;/th>
+&lt;th>const&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Hoisting&lt;/strong>&lt;/td>
+&lt;td>✅ Yes&lt;/td>
+&lt;td>✅ Yes&lt;/td>
+&lt;td>✅ Yes&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Initialization on Hoist&lt;/strong>&lt;/td>
+&lt;td>✅ undefined&lt;/td>
+&lt;td>❌ Uninitialized&lt;/td>
+&lt;td>❌ Uninitialized&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Temporal Dead Zone&lt;/strong>&lt;/td>
+&lt;td>❌ No&lt;/td>
+&lt;td>✅ Yes&lt;/td>
+&lt;td>✅ Yes&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Scope Type&lt;/strong>&lt;/td>
+&lt;td>Function&lt;/td>
+&lt;td>Block&lt;/td>
+&lt;td>Block&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Redeclaration Allowed&lt;/strong>&lt;/td>
+&lt;td>✅ Yes&lt;/td>
+&lt;td>❌ No&lt;/td>
+&lt;td>❌ No&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Reassignment Allowed&lt;/strong>&lt;/td>
+&lt;td>✅ Yes&lt;/td>
+&lt;td>✅ Yes&lt;/td>
+&lt;td>❌ No&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Access Before Declaration&lt;/strong>&lt;/td>
+&lt;td>Returns undefined&lt;/td>
+&lt;td>ReferenceError&lt;/td>
+&lt;td>ReferenceError&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>React Compatibility&lt;/strong>&lt;/td>
+&lt;td>⚠️ Problematic&lt;/td>
+&lt;td>✅ Good&lt;/td>
+&lt;td>✅ Best&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;br>
+&lt;h2 id="frequently-asked-questions">Frequently Asked Questions
+&lt;/h2>&lt;h3 id="q1-why-does-javascript-have-hoisting-in-the-first-place">Q1. Why does JavaScript have hoisting in the first place?
+&lt;/h3>&lt;p>Hoisting exists because of how JavaScript&amp;rsquo;s compilation phase works. When JavaScript code runs, the engine first scans through your code to identify all variable and function declarations, registering them in memory before any code execution begins. This happens during the creation of the execution context.&lt;/p>
+&lt;p>I initially thought this was a quirky design flaw, but it actually serves important purposes. Function hoisting allows you to organize your code with the main logic at the top and helper functions at the bottom, which often makes code more readable. It also enables recursive function calls and mutual recursion patterns that wouldn&amp;rsquo;t otherwise work.&lt;/p>
+&lt;p>However, the different hoisting behaviors between &lt;code>var&lt;/code>, &lt;code>let&lt;/code>, and &lt;code>const&lt;/code> reflect JavaScript&amp;rsquo;s evolution toward safer, more predictable code patterns.&lt;/p>
+&lt;br>
+&lt;h3 id="q2-how-does-the-temporal-dead-zone-actually-protect-my-code">Q2. How does the Temporal Dead Zone actually protect my code?
+&lt;/h3>&lt;p>The TDZ prevents you from accidentally using variables before they&amp;rsquo;re properly initialized, which was a common source of bugs with &lt;code>var&lt;/code>. When you try to access a &lt;code>let&lt;/code> or &lt;code>const&lt;/code> variable before its declaration, you get an immediate, clear error instead of a mysterious &lt;code>undefined&lt;/code> value.&lt;/p>
+&lt;p>In my React projects, this has saved me countless hours of debugging. Instead of wondering why a component is rendering with unexpected &lt;code>undefined&lt;/code> values, I get a clear error message pointing me to exactly where I&amp;rsquo;m trying to use a variable too early.&lt;/p>
+&lt;br>
+&lt;h3 id="q3-should-i-ever-use-var-in-modern-javascript-development">Q3. Should I ever use var in modern JavaScript development?
+&lt;/h3>&lt;p>In modern JavaScript and React development, I recommend avoiding &lt;code>var&lt;/code> entirely. The combination of function scope and automatic &lt;code>undefined&lt;/code> initialization creates too many opportunities for bugs. Every use case for &lt;code>var&lt;/code> can be better handled with &lt;code>let&lt;/code> or &lt;code>const&lt;/code>.&lt;/p>
+&lt;p>The only exception might be when working with very old codebases or specific compatibility requirements, but even then, tools like Babel can transpile &lt;code>let&lt;/code> and &lt;code>const&lt;/code> to work in older environments.&lt;/p>
+&lt;br>
+&lt;h3 id="q4-how-does-hoisting-affect-react-hooks">Q4. How does hoisting affect React hooks?
+&lt;/h3>&lt;p>React hooks must be declared at the top level of your component function, and hoisting knowledge helps you understand why. Since hooks rely on consistent call order between renders, you need to be very careful about conditional declarations or variable scope issues.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">MyComponent&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ✅ Hooks at the top level - predictable hoisting behavior
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">count&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setCount&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useState&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setName&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useState&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">useEffect&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ✅ Variables declared in proper scope
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">timer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">setInterval&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setCount&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">prev&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">prev&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">clearInterval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">timer&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span> &lt;span class="p">[]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="nx">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">count&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">/div&amp;gt;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="q5-what-tools-can-help-me-catch-hoisting-related-bugs">Q5. What tools can help me catch hoisting-related bugs?
+&lt;/h3>&lt;p>ESLint is your best friend here. Rules like &lt;code>no-var&lt;/code>, &lt;code>prefer-const&lt;/code>, and &lt;code>no-use-before-define&lt;/code> will catch most hoisting-related issues before they become bugs. TypeScript also provides excellent compile-time checking for variable usage patterns.&lt;/p>
+&lt;p>I also recommend using your browser&amp;rsquo;s developer tools debugger to step through code execution and see exactly when variables are initialized versus when they&amp;rsquo;re accessed.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="conclusion-master-hoisting-master-javascript">Conclusion: Master Hoisting, Master JavaScript
+&lt;/h2>&lt;p>&lt;strong>Key Takeaways:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Hoisting moves declarations to the top of scope, but initialization stays in place&lt;/li>
+&lt;li>&lt;code>var&lt;/code> initializes to &lt;code>undefined&lt;/code> immediately, while &lt;code>let&lt;/code>/&lt;code>const&lt;/code> remain in TDZ until declaration&lt;/li>
+&lt;li>Function declarations are fully hoisted, but function expressions follow variable rules&lt;/li>
+&lt;li>Block scope with &lt;code>let&lt;/code>/&lt;code>const&lt;/code> prevents many common bugs that plague &lt;code>var&lt;/code> usage&lt;/li>
+&lt;li>Modern best practice: prefer &lt;code>const&lt;/code>, use &lt;code>let&lt;/code> when needed, avoid &lt;code>var&lt;/code> entirely&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Practice Challenge:&lt;/strong> Build a simple user registration form validator that demonstrates proper variable scoping. Use &lt;code>const&lt;/code> for validation rules, &lt;code>let&lt;/code> for changing state, and implement proper error handling that showcases block scope benefits.&lt;/p>
+&lt;p>Next up, we&amp;rsquo;ll explore &lt;strong>&lt;a class="link" href="https://ctrlcccv.github.io/code-en/2025-06-25-function-expression/" >JavaScript Function Expressions vs Function Declarations&lt;/a>&lt;/strong> – understanding the critical differences that will make you a more confident developer. With your solid grasp of hoisting behavior, you&amp;rsquo;ll now be able to predict exactly how different function definition patterns behave in your code!&lt;/p>
+&lt;p>What&amp;rsquo;s your experience with hoisting been like? Have you encountered any tricky bugs that this article helped clarify? I&amp;rsquo;d love to hear about your &amp;ldquo;aha!&amp;rdquo; moments or any additional questions in the comments below. Your experience could help fellow developers avoid the same pitfalls! 🚀&lt;/p>
+&lt;br>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://developer.mozilla.org/en-US/docs/Glossary/Hoisting">JavaScript Hoisting - MDN Documentation&lt;/a>
+&lt;/div></description></item><item><title>자바스크립트 호이스팅, 변수 선언 전 사용 가능한 이유</title><link>https://ctrlcccv.github.io/code/2025-06-20-javascript-hoisting/</link><pubDate>Fri, 20 Jun 2025 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2025-06-20-javascript-hoisting/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-20-javascript-hoisting.webp" alt="Featured image of post 자바스크립트 호이스팅, 변수 선언 전 사용 가능한 이유
+" />&lt;blockquote>
+&lt;p>💡 &lt;a class="link" href="https://ctrlcccv.github.io/code/2025-06-16-javascript-scope/" >스코프&lt;/a>에 대해 미리 알고 계시면 이 글의 내용을 더 쉽게 이해하실 수 있습니다.&lt;/p>&lt;/blockquote>
+&lt;p>자바스크립트를 배우다 보면 변수를 선언하기 전에 사용했는데 에러가 나지 않거나, 예상과 다른 결과가 나와서 &amp;ldquo;어? 이게 왜 이렇게 동작하지?&amp;ldquo;라고 당황한 적이 있으실 거예요.&lt;/p>
+&lt;p>저도 처음 자바스크립트를 배울 때 이런 상황을 마주했는데, 특히 &lt;code>var&lt;/code>로 선언한 변수가 선언 전에도 &lt;code>undefined&lt;/code>로 출력되는 걸 보고 완전히 혼란스러웠어요. 그런데 호이스팅의 개념을 정확히 알고 나니, 자바스크립트 코드의 동작을 예측할 수 있게 되었고 더 안전한 코드를 작성할 수 있게 되었습니다.&lt;/p>
+&lt;p>이 글에서는 자바스크립트 호이스팅의 모든 것을 명확하게 알려드릴게요. &lt;code>var&lt;/code>, &lt;code>let&lt;/code>, &lt;code>const&lt;/code>의 호이스팅 차이점부터 TDZ(Temporal Dead Zone)라는 중요한 개념까지, 어려운 이론보다는 직접 손으로 따라 할 수 있는 실제 코드 예제를 중심으로 설명해 드리겠습니다.&lt;/p>
+&lt;p>호이스팅의 기본 개념부터 실무에서 자주 만나는 함정과 해결법까지, 실제 코드 예제와 함께 단계별로 살펴봅니다. 이 글을 다 읽고 나면 &amp;ldquo;왜 이 코드는 에러가 나지 않을까?&amp;ldquo;라는 의문이 완전히 해결될 거예요.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="자바스크립트-호이스팅-핵심-정의">자바스크립트 호이스팅 핵심 정의
+&lt;/h2>&lt;p>&lt;strong>자바스크립트 호이스팅이란?&lt;/strong>&lt;/p>
+&lt;p>호이스팅(Hoisting)은 변수와 함수 선언이 코드 실행 전에 해당 스코프의 맨 위로 &amp;ldquo;끌어올려지는&amp;rdquo; 것처럼 동작하는 자바스크립트의 특성입니다. 정확히는 자바스크립트 엔진이 코드를 실행하기 전에 변수와 함수의 이름을 메모리에 미리 등록하는 과정으로, 선언만 끌어올려지고 할당(값 대입)은 원래 위치에서 이루어집니다.&lt;/p>
+&lt;br>
+&lt;h2 id="왜-호이스팅을-알아야-할까요">왜 호이스팅을 알아야 할까요?
+&lt;/h2>&lt;p>실제 프로젝트에서는 코드가 수백, 수천 줄이 되는데, 호이스팅을 모르면 예상치 못한 버그가 발생할 수 있어요. 특히 React 같은 프레임워크를 배우기 전에 호이스팅을 확실히 이해해 두면, 컴포넌트 내에서 변수를 다룰 때 훨씬 안전하게 코드를 작성할 수 있습니다.&lt;/p>
+&lt;br>
+&lt;h2 id="var로-선언한-변수의-호이스팅-동작">var로 선언한 변수의 호이스팅 동작
+&lt;/h2>&lt;p>&lt;code>var&lt;/code>로 선언한 변수는 호이스팅 되면서 &lt;code>undefined&lt;/code>로 자동 초기화됩니다. 이게 다른 언어와 가장 큰 차이점이에요.&lt;/p>
+&lt;br>
+&lt;h3 id="var-호이스팅의-기본-동작">var 호이스팅의 기본 동작
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ 이렇게 쓰면 헷갈려요
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined (에러가 아님!)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;김철수&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;김철수&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>위 코드는 실제로 다음과 같이 동작합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ 실제 동작 방식 (자바스크립트 엔진이 내부적으로 처리)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">userName&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 선언이 위로 끌어올려지고 undefined로 초기화
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;김철수&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 할당은 원래 위치에서
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;김철수&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="함수-내에서-var-호이스팅">함수 내에서 var 호이스팅
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">userProfile&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;사용자 이름:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;사용자 나이:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">age&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;이영희&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">age&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;사용자 이름:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;이영희&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;사용자 나이:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">age&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 25
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">userProfile&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>var의 특징:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>선언과 초기화가 동시에 발생&lt;/strong> - 호이스팅 시점에 &lt;code>undefined&lt;/code>로 초기화됩니다.&lt;/li>
+&lt;li>&lt;strong>함수 스코프&lt;/strong> - 블록 내부에서 선언해도 함수 전체에서 접근 가능합니다.&lt;/li>
+&lt;li>&lt;strong>재선언 허용&lt;/strong> - 같은 이름으로 여러 번 선언할 수 있습니다.&lt;/li>
+&lt;/ol>
+&lt;br>
+&lt;h2 id="let과-const의-호이스팅과-tdz">let과 const의 호이스팅과 TDZ
+&lt;/h2>&lt;p>&lt;code>let&lt;/code>과 &lt;code>const&lt;/code>도 호이스팅 되지만, &lt;code>var&lt;/code>와는 다르게 TDZ(Temporal Dead Zone) 때문에 선언 전에는 접근할 수 없어요.&lt;/p>
+&lt;br>
+&lt;h3 id="let과-const의-기본-동작">let과 const의 기본 동작
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ 이렇게 하면 에러가 발생해요
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">productName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError: Cannot access &amp;#39;productName&amp;#39; before initialization
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">productName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;아이폰&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">companyName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError: Cannot access &amp;#39;companyName&amp;#39; before initialization
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">companyName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;애플&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="tdztemporal-dead-zone란">TDZ(Temporal Dead Zone)란?
+&lt;/h3>&lt;p>TDZ는 &lt;code>let&lt;/code>과 &lt;code>const&lt;/code> 변수가 선언되기 전까지 접근할 수 없는 구간을 말합니다. 이 구간에서는 변수가 마치 존재하지 않는 것처럼 동작해요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">shoppingCart&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 여기서부터 cartItems의 TDZ 시작
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">cartItems&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">cartItems&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;노트북&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;마우스&amp;#34;&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="c1">// 여기서 TDZ 끝
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">cartItems&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [&amp;#34;노트북&amp;#34;, &amp;#34;마우스&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="tdz의-범위와-섀도잉">TDZ의 범위와 섀도잉
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">globalMessage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;전역 메시지&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">testTDZ&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">globalMessage&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;전역 메시지&amp;#34; (정상 접근)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">globalMessage&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError! (블록 내 호이스팅 때문)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">globalMessage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;지역 메시지&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 여기서 TDZ 끝
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">globalMessage&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;지역 메시지&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">globalMessage&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;전역 메시지&amp;#34; (블록 벗어남)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>let과 const의 특징:&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>선언은 되지만 초기화는 안 됨&lt;/strong> - 선언문에 도달해야 초기화됩니다.&lt;/li>
+&lt;li>&lt;strong>블록 스코프&lt;/strong> - 선언된 블록 내에서만 유효합니다.&lt;/li>
+&lt;li>&lt;strong>재선언 금지&lt;/strong> - 같은 스코프에서 중복으로 선언할 수 없습니다.&lt;/li>
+&lt;/ol>
+&lt;br>
+&lt;h2 id="함수-호이스팅의-특별한-동작">함수 호이스팅의 특별한 동작
+&lt;/h2>&lt;p>함수는 변수와 다르게 호이스팅 동작이 특별해요. 함수 선언문과 함수 표현식의 차이를 알아보겠습니다.&lt;/p>
+&lt;br>
+&lt;h3 id="함수-선언문-호이스팅">함수 선언문 호이스팅
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ 함수 선언문은 완전히 호이스팅됩니다
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">sayHello&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// &amp;#34;안녕하세요!&amp;#34; - 정상 작동!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">sayHello&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;안녕하세요!&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="함수-표현식-호이스팅">함수 표현식 호이스팅
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ 함수 표현식은 변수 호이스팅 규칙을 따릅니다
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">greetUser&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">greetUser&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// TypeError: greetUser is not a function
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">greetUser&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;사용자님 환영합니다!&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="화살표-함수와-호이스팅">화살표 함수와 호이스팅
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ 화살표 함수도 변수 호이스팅 규칙을 따릅니다
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">calculateTotal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">calculateTotal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">price&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">price&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">1.1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="블록-스코프에서의-호이스팅-동작">블록 스코프에서의 호이스팅 동작
+&lt;/h2>&lt;p>&lt;code>let&lt;/code>과 &lt;code>const&lt;/code>는 자신이 선언된 블록 스코프에서만 호이스팅 됩니다. 이 부분이 가장 헷갈리는 부분인데, 실제 코드로 살펴볼게요.&lt;/p>
+&lt;br>
+&lt;h3 id="블록별-독립적-호이스팅">블록별 독립적 호이스팅
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">userCount&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">checkUserLimit&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;함수 시작:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">userCount&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 100 (정상 접근)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">userCount&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;조건문 내부:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">userCount&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">userCount&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 블록 내 새로운 변수
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;조건문 내부 (초기화 후):&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">userCount&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 200
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;함수 종료:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">userCount&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 100 (다시 전역 변수)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="실무에서-자주-하는-실수">실무에서 자주 하는 실수
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ for문에서 var 사용 시 의도치 않은 동작
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;var 사용:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 모두 3이 출력됨
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ let 사용으로 문제 해결
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;let 사용:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">j&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 0, 1, 2가 순서대로 출력
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h2 id="실무에서-주의해야-할-호이스팅-함정들">실무에서 주의해야 할 호이스팅 함정들
+&lt;/h2>&lt;p>제가 실무를 하면서 직접 겪었거나, 팀원들이 자주 하는 실수를 정리해 봤어요.&lt;/p>
+&lt;br>
+&lt;h3 id="에러-발생-시-실행-완전-중단">에러 발생 시 실행 완전 중단
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">processUserData&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;데이터 처리 시작&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">undefinedVariable&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// ReferenceError!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;이 줄은 절대 실행되지 않음&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// processUserData(); // 함수 호출 시 에러로 인해 프로그램 중단
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>ReferenceError&lt;/code>가 발생하면 그 지점에서 실행이 완전히 중단됩니다. 이는 실무에서 매우 중요한 포인트예요.&lt;/p>
+&lt;br>
+&lt;h3 id="var의-블록-스코프-무시-문제">var의 블록 스코프 무시 문제
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">handleUserLogin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">isLoggedIn&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">isLoggedIn&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">welcomeMessage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;로그인되었습니다!&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ❌ 블록 밖에서도 접근 가능 (의도치 않은 동작)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">welcomeMessage&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;로그인되었습니다!&amp;#34; 또는 undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ let을 사용하면 블록 스코프를 지킵니다
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">handleUserLogin2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">isLoggedIn&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">isLoggedIn&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">welcomeMessage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;로그인되었습니다!&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">welcomeMessage&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 블록 내에서만 사용
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// console.log(welcomeMessage); // ReferenceError!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="현대-자바스크립트-모범-사례">현대 자바스크립트 모범 사례
+&lt;/h3>&lt;ol>
+&lt;li>&lt;code>var&lt;/code> 대신 &lt;code>let&lt;/code>과 &lt;code>const&lt;/code> 사용하기&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ 피해야 할 방식
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">productPrice&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">29900&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ 권장 방식
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">productPrice&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">29900&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 변경하지 않을 값
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">userAge&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 변경 가능한 값
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>변수는 사용하기 전에 선언하기&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ 좋은 습관
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;김영수&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">userEmail&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;youngsoo@email.com&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`사용자: &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">, 이메일: &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">userEmail&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>적절한 스코프 범위 설정하기&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">calculateShippingCost&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">totalWeight&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">item&lt;/span> &lt;span class="k">of&lt;/span> &lt;span class="nx">items&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 반복문 내에서만 사용되는 변수는 블록 내 선언
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">itemWeight&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">item&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">weight&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">totalWeight&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="nx">itemWeight&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">totalWeight&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">5&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="mi">3000&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="mi">2500&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>ESLint 같은 도구로 잠재적 문제 미리 찾기&lt;/li>
+&lt;/ol>
+&lt;br>
+&lt;h2 id="var-vs-let-vs-const-호이스팅-비교표">var vs let vs const 호이스팅 비교표
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>특성&lt;/th>
+&lt;th>var&lt;/th>
+&lt;th>let&lt;/th>
+&lt;th>const&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>호이스팅 여부&lt;/strong>&lt;/td>
+&lt;td>✅ 됨&lt;/td>
+&lt;td>✅ 됨&lt;/td>
+&lt;td>✅ 됨&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>초기화 시점&lt;/strong>&lt;/td>
+&lt;td>선언과 동시 (&lt;code>undefined&lt;/code>)&lt;/td>
+&lt;td>선언문 도달 시&lt;/td>
+&lt;td>선언문 도달 시&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>TDZ 존재&lt;/strong>&lt;/td>
+&lt;td>❌ 없음&lt;/td>
+&lt;td>✅ 있음&lt;/td>
+&lt;td>✅ 있음&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>스코프&lt;/strong>&lt;/td>
+&lt;td>함수 스코프&lt;/td>
+&lt;td>블록 스코프&lt;/td>
+&lt;td>블록 스코프&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>재선언 가능&lt;/strong>&lt;/td>
+&lt;td>✅ 가능&lt;/td>
+&lt;td>❌ 불가능&lt;/td>
+&lt;td>❌ 불가능&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>재할당 가능&lt;/strong>&lt;/td>
+&lt;td>✅ 가능&lt;/td>
+&lt;td>✅ 가능&lt;/td>
+&lt;td>❌ 불가능&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>선언 전 접근&lt;/strong>&lt;/td>
+&lt;td>&lt;code>undefined&lt;/code> 반환&lt;/td>
+&lt;td>&lt;code>ReferenceError&lt;/code>&lt;/td>
+&lt;td>&lt;code>ReferenceError&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;br>
+&lt;h2 id="자주-묻는-질문들-faq">자주 묻는 질문들 (FAQ)
+&lt;/h2>&lt;h3 id="q1-호이스팅이-일어나는-이유가-뭔가요">Q1. 호이스팅이 일어나는 이유가 뭔가요?
+&lt;/h3>&lt;p>호이스팅은 자바스크립트 엔진이 코드를 실행하기 전에, &lt;strong>컴파일 단계에서 변수와 함수 선언을 미리 메모리에 등록&lt;/strong>하기 때문에 발생합니다. 이 과정은 자바스크립트의 &lt;strong>실행 컨텍스트(Execution Context, 코드가 실행되는 환경을 관리하는 영역)&lt;/strong>가 만들어질 때 함께 진행돼요.&lt;/p>
+&lt;p>저도 이 개념을 처음 배웠을 때는 &amp;ldquo;왜 굳이 이렇게 복잡하게 동작할까?&amp;ldquo;라는 생각이 들었어요. 그런데 알고 보니, &lt;strong>자바스크립트 엔진이 코드를 더 빠르게 실행하고 최적화하기 위해&lt;/strong> 이런 구조를 선택한 거더라고요.&lt;/p>
+&lt;p>특히 함수 선언문은 &lt;strong>미리 메모리에 등록되어 있기 때문에, 호출보다 나중에 선언해도 문제없이 실행&lt;/strong>할 수 있다는 장점이 있어요. 이게 바로 호이스팅 덕분입니다!&lt;/p>
+&lt;br>
+&lt;h3 id="q2-tdz는-왜-만들어졌나요">Q2. TDZ는 왜 만들어졌나요?
+&lt;/h3>&lt;p>TDZ(Temporal Dead Zone)는 &lt;code>let&lt;/code>과 &lt;code>const&lt;/code>가 ES6에서 도입되면서, &lt;strong>더 안전한 코드를 작성할 수 있도록&lt;/strong> 하기 위해 생긴 개념이에요. 기존에 쓰이던 &lt;code>var&lt;/code>는 선언 전에 접근해도 에러가 나지 않아서, 예측하기 어려운 버그가 자주 발생했거든요.&lt;/p>
+&lt;p>제 경험상, TDZ 덕분에 &lt;strong>변수를 실수로 잘못 사용하는 경우가 확실히 줄어들었어요.&lt;/strong> 선언 전에 접근하면 바로 에러가 나기 때문에, 문제를 더 빨리 찾아낼 수 있어요.&lt;/p>
+&lt;br>
+&lt;h3 id="q3-함수-선언문과-함수-표현식-중-어떤-걸-써야-하나요">Q3. 함수 선언문과 함수 표현식 중 어떤 걸 써야 하나요?
+&lt;/h3>&lt;p>상황에 따라 다르지만, 최근에는 &lt;strong>함수 표현식(특히 화살표 함수)&lt;/strong>을 더 많이 사용하는 추세예요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 함수 선언문 - 호이스팅으로 어디서든 호출 가능
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">calculatePrice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">quantity&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">unitPrice&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">quantity&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">unitPrice&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 함수 표현식 - 선언 후에만 사용 가능 (더 예측 가능)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">calculatePrice&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">quantity&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">unitPrice&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">quantity&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">unitPrice&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>저는 컴포넌트 내부의 작은 함수들은 화살표 함수를, 재사용성이 높은 유틸 함수는 함수 선언문을 사용하는 편이에요.&lt;/p>
+&lt;br>
+&lt;h3 id="q4-react에서-호이스팅은-어떻게-영향을-주나요">Q4. React에서 호이스팅은 어떻게 영향을 주나요?
+&lt;/h3>&lt;p>React 컴포넌트 내에서도 자바스크립트 호이스팅 규칙이 그대로 적용돼요. 특히 &lt;code>useState&lt;/code>나 &lt;code>useEffect&lt;/code> 같은 Hook을 사용할 때 변수 스코프를 잘 관리해야 해요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">UserProfile&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ✅ Hook은 항상 컴포넌트 최상단에 선언
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setUserName&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useState&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">useEffect&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ✅ effect 내부에서 사용할 변수는 적절한 스코프에 선언
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">fetchUserData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">getUserInfo&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setUserName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fetchUserData&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span> &lt;span class="p">[]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="nx">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">/div&amp;gt;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="q5-호이스팅을-완전히-피할-수-있는-방법이-있나요">Q5. 호이스팅을 완전히 피할 수 있는 방법이 있나요?
+&lt;/h3>&lt;p>완전히 피할 수는 없지만, &lt;strong>좋은 코딩 습관&lt;/strong>으로 호이스팅으로 인한 문제를 최소화할 수 있어요.&lt;/p>
+&lt;ol>
+&lt;li>변수는 사용하기 직전에 선언하기&lt;/li>
+&lt;li>&lt;code>const&lt;/code>를 우선 사용하고, 변경이 필요할 때만 &lt;code>let&lt;/code> 사용하기&lt;/li>
+&lt;li>&lt;code>var&lt;/code>는 사용하지 않기&lt;/li>
+&lt;li>ESLint 같은 도구로 잠재적 문제 미리 찾기&lt;/li>
+&lt;/ol>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="마무리-호이스팅으로-더-나은-자바스크립트-개발자-되기">마무리: 호이스팅으로 더 나은 자바스크립트 개발자 되기
+&lt;/h2>&lt;p>&lt;strong>핵심 요약:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>호이스팅은 선언만 끌어올리고 할당은 원래 위치에서 발생합니다.&lt;/li>
+&lt;li>&lt;code>var&lt;/code>는 &lt;code>undefined&lt;/code>로 초기화되지만, &lt;code>let&lt;/code>/&lt;code>const&lt;/code>는 TDZ로 보호됩니다.&lt;/li>
+&lt;li>함수 선언문은 완전히 호이스팅되어 어디서든 호출 가능합니다.&lt;/li>
+&lt;li>블록 스코프에서 &lt;code>let&lt;/code>/&lt;code>const&lt;/code>는 해당 블록에서만 호이스팅됩니다.&lt;/li>
+&lt;li>현대 자바스크립트에서는 &lt;code>const&lt;/code> → &lt;code>let&lt;/code> → &lt;code>var&lt;/code> 순으로 사용하는 것이 좋습니다.&lt;/li>
+&lt;/ul>
+&lt;p>오늘 배운 호이스팅 개념으로 간단한 &lt;strong>사용자 로그인 상태 관리&lt;/strong> 함수를 만들어보세요. &lt;code>const&lt;/code>와 &lt;code>let&lt;/code>을 적절히 활용하면서 블록 스코프도 고려해 보면 좋을 것 같아요. 실제로 코드를 작성하면서 호이스팅 동작을 체험해 보는 게 가장 빠른 학습 방법이거든요.&lt;/p>
+&lt;p>다음 글에서는 &lt;a class="link" href="https://ctrlcccv.github.io/code/2025-06-24-function-expression/" >자바스크립트 함수 표현식&lt;/a>에 대해 다뤄보겠습니다. 호이스팅을 이해하셨다면 함수 선언문과 함수 표현식의 호이스팅 차이점도 쉽게 이해하실 수 있을 거예요!&lt;/p>
+&lt;p>여러분의 자바스크립트 호이스팅 학습 경험은 어떠셨나요? 어려웠던 부분이나 추가로 궁금한 점이 있다면 댓글로 공유해주세요! 실무에서 호이스팅 때문에 겪었던 경험담도 환영해요. 😊&lt;/p>
+&lt;br>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://developer.mozilla.org/ko/docs/Glossary/Hoisting">JavaScript 호이스팅 - MDN 문서&lt;/a>
+&lt;/div></description></item></channel></rss>

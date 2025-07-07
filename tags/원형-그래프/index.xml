@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>원형 그래프 on 컨트롤 + CCCV</title><link>https://ctrlcccv.github.io/tags/%EC%9B%90%ED%98%95-%EA%B7%B8%EB%9E%98%ED%94%84/</link><description>Recent content in 원형 그래프 on 컨트롤 + CCCV</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Sun, 23 Jul 2023 01:00:00 +0000</lastBuildDate><atom:link href="https://ctrlcccv.github.io/tags/%EC%9B%90%ED%98%95-%EA%B7%B8%EB%9E%98%ED%94%84/index.xml" rel="self" type="application/rss+xml"/><item><title>jQuery - 원형 그래프 (Pie Chart)</title><link>https://ctrlcccv.github.io/code/2023-07-23-pie-chart/</link><pubDate>Sun, 23 Jul 2023 01:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2023-07-23-pie-chart/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/pie-chart.webp" alt="Featured image of post jQuery - 원형 그래프 (Pie Chart)" />&lt;p>SVG 공부 겸 원형 그래프를 만들어보았다.&lt;br>
+SVG &amp;lt;circle&amp;gt; 태그에 원의 반지름 크기의 선을 추가하면 선으로 원의 형태를 채울 수 있다.&lt;br>
+그래프의 부채꼴 모양은 점선을 만드는 속성인 stroke-dasharray를 사용했다.&lt;br>
+stroke-dasharray:100 40; 이라면 점선의 길이는 100, 간격은 40이다.&lt;br>
+점선의 간격에 원의 전체 둘레 값을 넣어 투명색 영역을 만든 뒤, 그래프 비율만큼 둘레 값을 계산하여 길이를 지정했다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-구조">HTML 구조
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;pie_wrap&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- 원형 그래프 --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">svg&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;pie&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">circle&lt;/span> &lt;span class="na">data-percent&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;10&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">circle&lt;/span> &lt;span class="na">data-percent&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;20&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">circle&lt;/span> &lt;span class="na">data-percent&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;30&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">circle&lt;/span> &lt;span class="na">data-percent&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;40&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">svg&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- 원형 그래프 리스트 --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ul&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;pie_info&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;color&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;txt&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>그래프 1&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;color&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;txt&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>그래프 2&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;color&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;txt&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>그래프 3&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;color&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;txt&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>그래프 4&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">ul&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>SVG &lt;circle> 태그를 사용했고, data-* 속성에 각각 몇 퍼센트인지 작성했다.&lt;/p>
+&lt;br>
+&lt;h2 id="css-스타일">CSS 스타일
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* 원형 그래프 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie_wrap&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">600&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">auto&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">300&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">300&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* 원형 그래프 비율 표시 - CSS 고정 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie&lt;/span> &lt;span class="nt">circle&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="n">r&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">25&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">cy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">fill&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">transparent&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">stroke-width&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">stroke&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mh">#ddd&lt;/span>&lt;span class="p">;;&lt;/span>&lt;span class="k">transform&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">rotate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">-90&lt;/span>&lt;span class="kt">deg&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="k">transform-origin&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">transition&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">all&lt;/span> &lt;span class="mf">0.5&lt;/span>&lt;span class="kt">s&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* 원형 그래프 리스트 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie_info&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">300&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="kt">%&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie_info&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nt">li&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie_info&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nt">li&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">color&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">inline-block&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">vertical-align&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">middle&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">margin-right&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#000&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie_info&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nt">li&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">txt&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">inline-block&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">vertical-align&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">middle&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">14&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#333&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>pie 클래스에 그래프의 크기를 지정했다.&lt;br>
+&amp;lt;circle&amp;gt; 태그에 stroke-width 속성의 크기를 반지름의 크기만큼 지정하여 선으로 채웠다.&lt;br>
+stroke-width 속성의 크기는 영역의 가장자리 중심으로 늘어나기 때문에, &amp;lt;circle&amp;gt; 태그의 크기는 그래프 크기의 절반이다.&lt;br>
+퍼센트로 작성해서 그래프의 크기에 따라 자동으로 맞춰진다.&lt;br>
+r 속성은 반지름의 크기를, cx, cy 속성은 &amp;lt;circle&amp;gt; 태그의 좌표 위치를 뜻한다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="jquery-코드">jQuery 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">document&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">ready&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">pieAct&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">pieAct&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">color&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;#60D0FD&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;#ADE7FD&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;#2F677D&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;#89B7C9&amp;#34;&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="c1">//그래프 색상
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">var&lt;/span> &lt;span class="nx">angel&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">90&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">//그래프 시작 지점
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">var&lt;/span> &lt;span class="nx">pieWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.pie&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">width&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.pie circle&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">each&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">percentData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;percent&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">//그래프 비율
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">var&lt;/span> &lt;span class="nx">perimeter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">pieWidth&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">3.14&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">//원의 둘레
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">var&lt;/span> &lt;span class="nx">percent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">percentData&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">perimeter&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">//그래프 비율만큼 원의 둘레 계산
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//그래프 비율, 색상 설정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">css&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;stroke-dasharray&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">percent&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39; &amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">perimeter&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;stroke&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">color&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;transform&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;rotate(&amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">angel&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;deg)&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.pie_info &amp;gt; li&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">eq&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.color&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">css&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;background&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">color&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//그래프 시작 지점 갱신
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">angel&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">percentData&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">3.6&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>그래프의 영역별 색상은 랜덤 색상을 넣을까 생각했지만, 실제 작업할 때에는 색상이 정해져 있는 경우가 더 많을 것 같아 배열로 직접 넣는 방법을 선택했다.&lt;br>
+원의 둘레 값을 계산하여 perimeter 변수에 넣고, data-percent 속성 값에 따라 각 부채꼴 영역의 둘레 값을 계산하여 percent 변수에 넣은 뒤 stroke-dasharray 속성에 값을 지정했다.&lt;br>
+부채꼴 영역의 시작 지점은 transform:rotate() 속성으로 각도를 맞췄다.&lt;br>
+stroke-dasharray 속성의 시작 지점이 90° 이여서, 0°에서 시작하기 위해 angel 변수의 초기값은 -90이다.&lt;br>
+그 후 그래프의 비율만큼 각도를 계산하여 angel 변수의 값을 갱신했다.&lt;br>
+&lt;br>&lt;/p>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-pie-chart/type-pc/">예제결과 미리보기&lt;/a>
+&lt;/div>
+&lt;br>
+&lt;h2 id="반응형-작업">반응형 작업
+&lt;/h2>&lt;h3 id="html-구조-1">HTML 구조
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;pie_wrap&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- 원형 그래프 --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;pie_res&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">svg&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;pie&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">circle&lt;/span> &lt;span class="na">data-percent&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;10&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">circle&lt;/span> &lt;span class="na">data-percent&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;20&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">circle&lt;/span> &lt;span class="na">data-percent&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;30&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">circle&lt;/span> &lt;span class="na">data-percent&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;40&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">svg&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- 원형 그래프 리스트 --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ul&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;pie_info&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;color&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;txt&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>그래프 1&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;color&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;txt&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>그래프 2&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;color&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;txt&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>그래프 3&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;color&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;txt&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>그래프 4&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">ul&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>반응형 작업을 위해 pie_res 클래스를 추가했다.&lt;br>
+SVG의 viewBox 속성은 SVG 요소의 위치 · 크기를 지정할 수 있는데, 이 속성을 사용하면 화면 크기에 따라 SVG 요소의 크기가 자동으로 맞춰져서 반응형 작업할 때 꼭 사용해야 한다. JS에서 viewBox 속성 값이 추가될 예정이다.&lt;/p>
+&lt;h3 id="css-스타일-1">CSS 스타일
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* 원형 그래프 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie_wrap&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">flex-wrap&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">wrap&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">600&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">max-width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">auto&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie_res&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">relative&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">padding-bottom&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">absolute&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">left&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">block&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* 원형 그래프 비율 표시 - CSS 고정 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie&lt;/span> &lt;span class="nt">circle&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="n">r&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">25&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">cx&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">cy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">fill&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">transparent&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">stroke-width&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">stroke&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mh">#ddd&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">transform&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">rotate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">-90&lt;/span>&lt;span class="kt">deg&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="k">transform-origin&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">transition&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">all&lt;/span> &lt;span class="mf">0.5&lt;/span>&lt;span class="kt">s&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* 원형 그래프 리스트 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie_info&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="kt">%&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie_info&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nt">li&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie_info&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nt">li&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">color&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">inline-block&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">vertical-align&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">middle&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">margin-right&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#000&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">pie_info&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nt">li&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">txt&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">inline-block&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">vertical-align&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">middle&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">14&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#333&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">@&lt;/span>&lt;span class="k">media&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nt">max-width&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="nt">767px&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nc">pie_wrap&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">justify-content&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nc">pie_info&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">flex-wrap&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">wrap&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">justify-content&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nc">pie_info&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nt">li&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">margin-right&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>pie_res 클래스에 width와 padding-bottom 속성에 같은 비율 값을 넣어 정사각형 영역을 만들고, 그래프 영역을 position: absolute 로 잡아 비율에 맞춰 크기가 조정되도록 만들었다.&lt;/p>
+&lt;h3 id="jquery-코드-1">jQuery 코드
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">document&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">ready&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">pieAct&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">pieAct&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//그래프 viewBox 설정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;load&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">pieWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.pie&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">width&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.pie&amp;#39;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">setAttribute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;viewBox&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;0 0 &amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">pieWidth&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39; &amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">pieWidth&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">color&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;#60D0FD&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;#ADE7FD&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;#2F677D&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;#89B7C9&amp;#34;&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="c1">//그래프 색상
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">var&lt;/span> &lt;span class="nx">angel&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">90&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">//그래프 시작 지점
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">var&lt;/span> &lt;span class="nx">pieWidth&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.pie&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">width&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.pie circle&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">each&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">percentData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;percent&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">//그래프 비율
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">var&lt;/span> &lt;span class="nx">perimeter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">pieWidth&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">3.14&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">//원의 둘레
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">var&lt;/span> &lt;span class="nx">percent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">percentData&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">perimeter&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">//그래프 비율만큼 원의 둘레 계산
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//그래프 비율, 색상 설정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">css&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;stroke-dasharray&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">percent&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39; &amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">perimeter&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;stroke&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">color&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;transform&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;rotate(&amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">angel&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;deg)&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.pie_info &amp;gt; li&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">eq&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.color&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">css&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;background&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">color&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//그래프 시작 지점 갱신
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">angel&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">percentData&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">3.6&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>그래프의 크기에 따라 viewBox 속성 값을 지정하는 코드를 추가했다.&lt;br>
+&lt;br>&lt;/p>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-07-23-pie-chart/type-responsive/">예제결과 미리보기 (반응형)&lt;/a>
+&lt;/div></description></item></channel></rss>

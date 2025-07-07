@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>파일 업로드 on 컨트롤 + CCCV</title><link>https://ctrlcccv.github.io/tags/%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C/</link><description>Recent content in 파일 업로드 on 컨트롤 + CCCV</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 28 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ctrlcccv.github.io/tags/%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C/index.xml" rel="self" type="application/rss+xml"/><item><title>jQuery - 이미지 파일 업로드 및 미리보기 기능 구현하기</title><link>https://ctrlcccv.github.io/code/2025-04-28-image-preview/</link><pubDate>Mon, 28 Apr 2025 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2025-04-28-image-preview/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-28-image-preview.webp" alt="Featured image of post jQuery - 이미지 파일 업로드 및 미리보기 기능 구현하기
+" />&lt;p>웹에서 이미지를 업로드할 때, 사용자가 실시간으로 이미지를 확인할 수 있다면 어떨까요?&lt;/p>
+&lt;p>웹 개발을 하다 보면 사용자의 파일 업로드를 처리해야 할 상황이 자주 발생합니다. 특히 이미지 파일의 경우, 업로드 후 미리보기를 제공하면 사용자 만족도를 크게 높일 수 있습니다. 이번 포스트에서는 jQuery를 활용하여 이미지 파일을 업로드하고 미리 보는 기능을 어떻게 구현하는지 알아보겠습니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-구조">HTML 구조
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;image_file&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;upload&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;images/image_file_upload.png&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;이미지 업로드&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file_input&amp;#34;&lt;/span> &lt;span class="na">accept&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;image/*&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;preview&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;img_box&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;preview_img&amp;#34;&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;#&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Selected Image&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;delect&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;images/image_file_delect.png&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;삭제&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>업로드 라벨 및 버튼&lt;/strong>&lt;br>
+&lt;span class="txt">
+label 안에 있는 span 요소가 업로드 버튼처럼 작동하며, 클릭 시 파일 선택창이 열립니다.&lt;br>
+버튼에는 직관적인 이미지가 적용되어 사용자 입장에서 사용하기 편리합니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>미리보기 영역&lt;/strong>&lt;br>
+&lt;span class="txt">
+이미지를 선택하면 .preview 영역이 나타나고, 선택한 이미지와 삭제 버튼이 함께 노출됩니다.&lt;br>
+사용자는 선택한 이미지를 바로 확인하고 원하면 다시 변경할 수 있습니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h3 id="여러-개의-이미지-업로드-필드-구성하기">여러 개의 이미지 업로드 필드 구성하기
+&lt;/h3>&lt;p>.image_file 클래스를 여러 번 사용하면, 각 필드마다 독립적으로 이미지 업로드와 미리보기 기능을 구현할 수 있습니다. 이를 활용하면 여러 장의 이미지를 업로드해야 하는 폼에서도 쉽게 적용할 수 있습니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="c">&amp;lt;!-- 첫 번째 이미지 업로드 필드 --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;image_file&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;upload&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;images/image_file_upload.png&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;이미지 업로드&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file_input&amp;#34;&lt;/span> &lt;span class="na">accept&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;image/*&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;preview&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;img_box&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;preview_img&amp;#34;&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;#&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;선택한 이미지&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;delect&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;images/image_file_delect.png&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;삭제&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&amp;lt;!-- 두 번째 이미지 업로드 필드 --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;image_file&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;upload&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;images/image_file_upload.png&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;이미지 업로드&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file_input&amp;#34;&lt;/span> &lt;span class="na">accept&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;image/*&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;preview&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;img_box&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;preview_img&amp;#34;&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;#&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;선택한 이미지&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;delect&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;&lt;/span>&lt;span class="nt">img&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;images/image_file_delect.png&amp;#34;&lt;/span> &lt;span class="na">alt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;삭제&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>이처럼 구조만 반복해서 작성하면, 자바스크립트가 각 .image_file 요소를 기준으로 동작하므로 서로 간섭 없이 각각 이미지 업로드와 삭제 기능을 사용할 수 있습니다.&lt;/p>
+&lt;br>
+&lt;h2 id="css-스타일">CSS 스타일
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">relative&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">150&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">auto&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="nt">label&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">block&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">cursor&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">pointer&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">upload&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">dashed&lt;/span> &lt;span class="mh">#E5E5E5&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">justify-content&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">align-items&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#FFFFFF&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">upload&lt;/span> &lt;span class="nt">img&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">file_input&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">absolute&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">-1&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">initial&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">overflow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">hidden&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">clip&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">rect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">absolute&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">left&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">img_box&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">block&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">solid&lt;/span> &lt;span class="mh">#E5E5E5&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#FFFFFF&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">cursor&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">pointer&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview_img&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">object-fit&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">cover&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">delect&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">absolute&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">top&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">right&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">cursor&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">pointer&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">image_file&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">preview&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">delect&lt;/span> &lt;span class="nt">img&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>전체 컨테이너&lt;/strong>&lt;br>
+&lt;span class="txt">.image_file 클래스는 업로드 UI 전체를 감싸며 크기, 위치, 정렬 등 레이아웃을 구성합니다.&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>업로드 버튼 스타일&lt;/strong>&lt;br>
+&lt;span class="txt">
+.upload 클래스는 업로드 버튼을 보기 좋게 꾸며주며, 클릭 유도에 효과적인 스타일이 적용됩니다.&lt;br>
+중앙 정렬과 테두리 스타일로 사용자가 클릭하고 싶은 요소로 만듭니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>파일 입력 숨김 처리&lt;/strong>&lt;br>
+&lt;span class="txt">
+input[type=&amp;ldquo;file&amp;rdquo;]은 기본 스타일을 완전히 숨기고, 대신 시각적인 요소가 클릭을 담당합니다.&lt;br>
+이로 인해 UI는 깔끔하게 유지되며, 기능은 그대로 유지됩니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>미리보기 스타일&lt;/strong>&lt;br>
+&lt;span class="txt">선택된 이미지를 전체 영역에 꽉 채워 보여주며, 삭제 버튼은 항상 일정 위치에 고정됩니다.&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="jquery-코드">jQuery 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">document&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">ready&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">imageFileUpload&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 이미지 파일 업로드 버튼
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">imageFileUpload&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file .delect&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;click&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">handleDeleteClick&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file .file_input&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;change&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">handleFileInputChange&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 미리보기 이미지 클릭 시 파일 입력 요소 클릭 이벤트 트리거
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file .preview_img&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;click&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">closest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_input&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">click&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 파일 입력 요소 클릭
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 파일 입력 변경 시 미리보기 이미지 업데이트
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">handleFileInputChange&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">files&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="c1">// 선택된 파일
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">previewContainer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">closest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.preview&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 미리보기 컨테이너
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">previewImage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.preview_img&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 미리보기 이미지 요소
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">file&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">reader&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">FileReader&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 파일 리더 생성
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">reader&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">onload&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">previewImage&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;src&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 미리보기 이미지 설정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">show&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 미리보기 컨테이너 표시
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">closest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.upload&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">hide&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 업로드 버튼 숨김
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">reader&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">readAsDataURL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">file&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 파일을 데이터 URL로 읽기
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resetPreview&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 파일이 선택되지 않았거나 취소된 경우 미리보기 초기화
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">file_cnt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_select_pop .file_input&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="nx">file_cnt&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_select_pop .file_cnt&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">html&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">file_cnt&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 삭제 버튼 클릭 시 미리보기 및 파일 입력 초기화
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">handleDeleteClick&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">previewContainer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">closest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.preview&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 미리보기 컨테이너
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">resetPreview&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">file_cnt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_select_pop .file_input&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="nx">file_cnt&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_select_pop .file_cnt&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">html&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">file_cnt&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 미리보기 및 파일 입력 초기화
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">resetPreview&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">imageFileContainer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">closest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.image_file&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 이미지 파일 컨테이너
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">imageFileContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.file_input&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 파일 입력 요소 초기화
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">previewContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">hide&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 미리보기 컨테이너 숨김
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">imageFileContainer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.upload&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">show&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 업로드 버튼 다시 표시
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>이벤트 리스너 설정&lt;/strong>&lt;br>
+&lt;span class="txt">
+파일 선택과 삭제 버튼에 각각 이벤트를 연결해, 상황에 따라 기능이 정확하게 작동하도록 합니다.&lt;br>
+각 기능이 명확하게 분리되어 있어 코드 구조도 깔끔합니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>미리보기 이미지 클릭&lt;/strong>&lt;br>
+&lt;span class="txt">
+미리보기 이미지를 클릭하면 다시 파일 선택창이 열려 이미지를 다시 선택할 수 있습니다.&lt;br>
+직접 input을 클릭하는 대신 자연스러운 흐름으로 기능이 실행됩니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>이미지 변경 시 처리&lt;/strong>&lt;br>
+&lt;span class="txt">
+사용자가 파일을 선택하면 FileReader를 통해 이미지를 불러와 미리보기에 표시합니다.&lt;br>
+선택 직후 업로드 버튼은 숨겨지고 미리보기 화면이 활성화됩니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>삭제 시 처리&lt;/strong>&lt;br>
+&lt;span class="txt">삭제 버튼 클릭 시 입력값과 미리보기가 모두 초기화되어, 사용자가 다시 이미지를 업로드할 수 있습니다.&lt;/span>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>초기화 함수&lt;/strong>&lt;br>
+&lt;span class="txt">
+파일 입력값과 미리보기를 모두 초기 상태로 되돌리는 역할을 합니다.&lt;br>
+업로드 영역도 다시 활성화되며, 사용자가 곧바로 새로운 이미지를 선택할 수 있습니다.
+&lt;/span>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>이번 포스트에서는 jQuery를 활용한 이미지 업로드 및 미리보기 기능을 단계별로 구현해 보았습니다.&lt;br>
+이미지를 선택하면 바로 미리보기가 표시되고, 삭제나 재선택도 간편하게 할 수 있어 누구나 쉽게 사용할 수 있습니다.&lt;br>
+클릭 몇 번만으로 필요한 기능을 빠르게 사용할 수 있다는 점도 큰 장점입니다.&lt;/p>
+&lt;p>이 포스팅이 유익하셨다면 댓글로 의견 남겨주세요!&lt;br>
+더 좋은 방향으로 함께 고민해 보면 좋겠습니다. 😊&lt;/p>
+&lt;br>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2025-04-28-image-preview/">예제결과 미리보기&lt;/a>
+&lt;a href="https://ctrlcccv.github.io/code/2023-08-09-file-custom/">[관련글] input[type="file"] 태그 커스텀 (웹 접근성 개선)&lt;/a>
+&lt;/div></description></item><item><title>jQuery - 버튼 클릭 시 input 추가, 삭제하기</title><link>https://ctrlcccv.github.io/code/2023-11-30-input-add/</link><pubDate>Thu, 30 Nov 2023 01:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2023-11-30-input-add/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-30-input-add.webp" alt="Featured image of post jQuery - 버튼 클릭 시 input 추가, 삭제하기" />&lt;p>jQuery를 사용하여 버튼 클릭 시 입력 필드(input)를 동적으로 추가하고 삭제하는 기능을 구현한 코드를 상세히 분석합니다. 이 기능은 사용자 인터페이스에서 흔히 볼 수 있는 요소로, 사용자가 필요에 따라 여러 입력 필드를 추가하고, 더 이상 필요 없는 필드는 삭제할 수 있게 해 줍니다. 특히 양식이나 설문 조사와 같은 상황에서 유용하게 사용됩니다. 이 기능을 구현하기 위해 HTML, CSS, 그리고 jQuery를 사용하며, 각각의 역할에 대해 자세히 설명하겠습니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-구조">HTML 구조
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">form&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;input_wrap&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;input_list&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text&amp;#34;&lt;/span> &lt;span class="na">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;input_array[]&amp;#34;&lt;/span> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;입력해주세요.&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;add_field&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>추가하기&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">form&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>폼 컨테이너 (&amp;lt;form&amp;gt; 태그)&lt;/strong>&lt;br>
+사용자 입력을 받기 위한 폼의 전체 구조를 정의합니다. 이 안에서 입력 필드와 버튼이 포함됩니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>입력 필드 컨테이너 (input_wrap 클래스)&lt;/strong>&lt;br>
+하나 이상의 입력 필드를 담는 컨테이너 역할을 합니다. 초기에는 하나의 입력 필드만 보여지며, 사용자가 추가 버튼을 클릭할 때마다 이 영역에 새로운 입력 필드가 추가됩니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>입력 필드 (input[type=&amp;ldquo;text&amp;rdquo;])&lt;/strong>&lt;br>
+사용자로부터 데이터를 입력받기 위한 텍스트 필드입니다. 기본적으로 하나의 입력 필드가 제공되며, 사용자가 내용을 입력할 수 있습니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>추가 버튼 (add_field 클래스)&lt;/strong>&lt;br>
+사용자가 이 버튼을 클릭하면 새로운 입력 필드가 input_wrap 내부에 추가됩니다.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="css-스타일">CSS 스타일
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">form&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">max-width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">500&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">auto&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#fff&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">box-shadow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="nb">rgba&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mf">0.1&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">input_wrap&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">margin-bottom&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">input_list&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">align-items&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">margin-bottom&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">input_list&lt;/span> &lt;span class="nt">input&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;text&amp;#34;&lt;/span>&lt;span class="o">]&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">0&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">45&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">solid&lt;/span> &lt;span class="mh">#ddd&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">flex-grow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">add_field&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">45&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">background-color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#007bff&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">white&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">cursor&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">pointer&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">transition&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="k">background-color&lt;/span> &lt;span class="mf">0.3&lt;/span>&lt;span class="kt">s&lt;/span> &lt;span class="kc">ease&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">add_field&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">hover&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">background-color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#0056b3&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">remove_field&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">flex&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">align-items&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">45&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">margin-left&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">0&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#ff4d4d&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#fff&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">cursor&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">pointer&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">text-decoration&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">remove_field&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">hover&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#ff3333&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>폼 스타일링&lt;/strong>&lt;br>
+폼에는 최대 너비, 마진, 패딩, 배경색, 테두리 반경 및 박스 그림자가 적용되어 깔끔하고 직관적인 디자인을 제공합니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>입력 필드 스타일링&lt;/strong>&lt;br>
+입력 필드는 패딩, 높이, 테두리, 반경 등을 통해 사용자 친화적인 디자인을 갖추고 있습니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>버튼 스타일링&lt;/strong>&lt;br>
+&amp;lsquo;추가하기&amp;rsquo; 버튼과 &amp;lsquo;삭제&amp;rsquo; 링크에는 배경색, 테두리, 색상, 커서 스타일 등을 적용하여 사용자가 쉽게 인식하고 클릭할 수 있도록 디자인되었습니다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>호버 효과&lt;/strong> &lt;br>
+버튼과 링크에 호버 효과를 추가하여, 사용자가 마우스를 올렸을 때 시각적인 피드백을 제공합니다.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="jquery-코드">jQuery 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">wrapper&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.input_wrap&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 입력 필드를 포함하는 컨테이너 선택
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">addButton&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.add_field&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 추가 버튼 선택
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">maxFields&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 최대 입력 필드 수 설정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">fieldCount&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 현재 입력 필드 수
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;#39;추가하기&amp;#39; 버튼 클릭 시 이벤트
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">addButton&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">click&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">preventDefault&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 페이지 리로드 방지
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">fieldCount&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">maxFields&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">// 최대 필드 수 체크
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">fieldCount&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 필드 수 증가
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 새 입력 필드 추가
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">wrapper&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sb"> &amp;lt;div class=&amp;#34;input_list&amp;#34;&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sb"> &amp;lt;input type=&amp;#34;text&amp;#34; name=&amp;#34;input_array[]&amp;#34; placeholder=&amp;#34;입력해주세요.&amp;#34; /&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sb"> &amp;lt;a href=&amp;#34;javascript:void(0);&amp;#34; class=&amp;#34;remove_field&amp;#34;&amp;gt;삭제&amp;lt;/a&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sb"> `&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;#39;삭제&amp;#39; 링크 클릭 시 이벤트
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">wrapper&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;click&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;.remove_field&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">preventDefault&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 페이지 리로드 방지
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">parent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.input_list&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">remove&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 필드 제거
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">fieldCount&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 필드 수 감소
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>변수 초기화 및 선택자 설정&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>wrapper 변수 : 입력 필드가 담긴 컨테이너(.input_wrap)를 선택합니다.&lt;/li>
+&lt;li>addButton 변수 : &amp;lsquo;추가하기&amp;rsquo; 버튼(.add_field)을 선택합니다.&lt;/li>
+&lt;li>maxFields 변수 : 최대 입력 필드 수를 설정합니다. (예시 : 10개)&lt;/li>
+&lt;li>fieldCount 변수 : 현재 페이지의 입력 필드 수를 추적합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>입력 필드 추가 로직&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&amp;lsquo;추가하기&amp;rsquo; 버튼 클릭 시, addButton.click(function(e) {&amp;hellip;})를 사용해 이벤트 리스너를 설정합니다.&lt;/li>
+&lt;li>e.preventDefault() 메서드를 사용하여 페이지 리로드를 방지합니다&lt;/li>
+&lt;li>if (fieldCount &amp;lt; maxFields)로 최대 필드 수를 넘지 않는지 확인합니다.&lt;/li>
+&lt;li>조건 충족 시 wrapper.append(&amp;hellip;)로 새 입력 필드와 &amp;lsquo;삭제&amp;rsquo; 링크를 추가합니다.&lt;/li>
+&lt;li>fieldCount++로 입력 필드 수를 업데이트합니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>입력 필드 삭제 로직&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>wrapper.on(&amp;lsquo;click&amp;rsquo;, &amp;lsquo;.remove_field&amp;rsquo;, function(e) {&amp;hellip;})를 사용해 동적 &amp;lsquo;삭제&amp;rsquo; 링크에 이벤트 리스너를 연결합니다.&lt;/li>
+&lt;li>$(this).parent(&amp;rsquo;.input_list&amp;rsquo;).remove()로 클릭 된 &amp;lsquo;삭제&amp;rsquo; 링크의 부모 요소를 제거합니다.&lt;/li>
+&lt;li>fieldCount&amp;ndash;로 입력 필드 수를 감소시킵니다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="결론">결론
+&lt;/h2>&lt;p>jQuery를 사용하여 웹 페이지에 동적인 입력 필드를 추가하고 삭제하는 기능을 상세히 분석하고 설명했습니다. 이 기능은 사용자가 인터페이스에서 입력 필드를 필요에 따라 조절할 수 있게 하여, 웹 애플리케이션의 사용성과 유연성을 크게 향상시킵니다. HTML을 통해 기본 구조를 설정하고, CSS로 사용자 친화적인 스타일링을 제공하며, jQuery를 사용하여 버튼 클릭에 따른 입력 필드의 추가 및 삭제 기능을 구현하는 방식은 매우 효율적이고 실용적입니다.&lt;/p>
+&lt;p>이러한 접근 방식은 웹 개발에서 널리 적용될 수 있으며, 특히 설문 조사, 다중 데이터 입력 양식, 동적 인터페이스 요구가 있는 다양한 웹 애플리케이션에 이상적입니다.&lt;br>
+&lt;br>&lt;/p>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-11-30-input-add/">예제결과 미리보기&lt;/a>
+&lt;/div></description></item><item><title>input[type="file"] 태그 커스텀 (웹 접근성 개선)</title><link>https://ctrlcccv.github.io/code/2023-08-09-file-custom/</link><pubDate>Wed, 09 Aug 2023 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2023-08-09-file-custom/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/file-custom.webp" alt="Featured image of post input[type="file"] 태그 커스텀 (웹 접근성 개선)" />&lt;p>input[type=&amp;lsquo;file&amp;rsquo;] 태그는 CSS 커스터마이징이 제한적이다. 원하는 디자인을 구현하려면, input[type=&amp;lsquo;file&amp;rsquo;] 태그를 IR 기법을 활용하여 숨기고 별도의 요소를 추가해야 한다.&lt;br>
+&lt;br>
+IR 기법(Image Replacement Technique)은 웹 접근성을 개선하기 위해 사용되는 방법으로, 텍스트 화면 리더(스크린 리더)나 다른 보조 기술을 사용하는 사용자가 이미지의 내용을 이해할 수 있도록 도와주는 기법이다.&lt;br>
+&lt;br>
+그리고 제이쿼리를 활용하여 파일을 선택하면 선택한 파일의 이름을 표시할 수 있도록 구현했다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="html-구조">HTML 구조
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file_cus&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file_name&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>파일을 선택해주세요.&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">span&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file_btn&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>파일선택&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>input[type=&amp;lsquo;file&amp;rsquo;] 태그 대신 추가한 요소는 사용자가 파일을 선택하고 파일 이름을 확인할 수 있는 방식으로 구성했다.&lt;br>
+이 영역을 클릭하면 파일 선택이 가능하도록 label 태그를 활용했다.&lt;br>
+&lt;br>&lt;/p>
+&lt;h2 id="css-스타일">CSS 스타일
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="o">*&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">font-family&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s1">&amp;#39;Noto Sans KR&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">sans-serif&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">box-sizing&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">border-box&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">box-sizing&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">border-box&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">ul&lt;/span>&lt;span class="o">,&lt;/span>&lt;span class="nt">ol&lt;/span>&lt;span class="o">,&lt;/span>&lt;span class="nt">li&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">list-style&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">file_cus&lt;/span> &lt;span class="nt">label&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">block&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">500&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">auto&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">cursor&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">pointer&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">input&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;file&amp;#34;&lt;/span>&lt;span class="o">]&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">overflow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">hidden&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">position&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">absolute&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">-1&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">initial&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">clip&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">rect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">file_name&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">overflow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">hidden&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">inline-block&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">vertical-align&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">middle&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">calc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="kt">%&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">108&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">padding&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">0&lt;/span> &lt;span class="mi">12&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">solid&lt;/span> &lt;span class="mh">#ddd&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">14&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">line-height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">38&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#111&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">white-space&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">nowrap&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">text-overflow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">ellipsis&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">file_btn&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">display&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">inline-block&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">vertical-align&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">middle&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">margin-left&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#8ab4f8&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">font-size&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">14&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">font-weight&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">500&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">line-height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">40&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#fff&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">text-align&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">center&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">input&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;file&amp;#34;&lt;/span>&lt;span class="o">]&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">focus-visible&lt;/span> &lt;span class="o">~&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">file_btn&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">file_cus&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">hover&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">file_btn&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mh">#3478db&lt;/span>&lt;span class="p">;}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>:focus-visible 선택자를 사용하여 사용자가 탭 키를 이용해 요소를 선택했을 때, 시각적으로 인식할 수 있도록 스타일을 추가했다. 이를 통해 웹 접근성을 개선하고, 키보드를 주요 입력 장치로 사용하는 사용자들이 웹 페이지를 더욱 편리하게 이용할 수 있다.&lt;br>
+&lt;br>
+:focus-visible 선택자는 키보드 포커스가 해당 요소에 옮겨졌을 때만 적용되며, 마우스로 인해 발생한 포커스 변화에는 영향을 주지 않는다.
+이는 불필요하게 시각적인 변화를 유발하지 않으면서도 키보드 사용자들이 요소의 포커스 상태를 확인할 수 있도록 돕는 웹 접근성 기술이다.
+이로써 웹 페이지의 내비게이션 및 상호작용이 더욱 명확하고 편리하게 이뤄질 수 있다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="jquery-코드">jQuery 코드
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;load&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fileCus&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">fileCus&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;.file_cus input[type=file]&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">on&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;change&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">fileName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;\\&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">pop&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">siblings&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;.file_name&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fileName&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="s2">&amp;#34;파일을 선택해주세요.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>파일 선택 시 선택한 파일의 이름을 화면에 표시하는 기능을 구현했다.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>$(&amp;quot;.file_cus input[type=file]&amp;quot;).on(&amp;ldquo;change&amp;rdquo;, function() { &amp;hellip; }) :&lt;br>
+.file_cus 하위에 있는 input 태그 중에서 type이 file인 요소에 대한 change 이벤트를 감지한다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>const fileName = $(this).val().split(&amp;quot;\\&amp;quot;).pop() :&lt;br>
+파일 선택이 변경되었을 때, 선택된 파일의 이름을 추출하여 fileName 변수에 저장한다. $(this).val()는 선택된 파일의 경로를 반환하며, &lt;a class="link" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/split" target="_blank" rel="noopener"
+>split()&lt;/a>를 사용하여 역슬래시 기준으로 문자열을 나눈다. 그 후 &lt;a class="link" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/pop" target="_blank" rel="noopener"
+>.pop()&lt;/a>을 사용하여 마지막 부분(파일 이름)을 추출한다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>$(this).siblings(&amp;quot;.file_name&amp;quot;).text(fileName || &amp;ldquo;파일을 선택해주세요.&amp;rdquo;) :&lt;br>
+파일 이름을 추출한 후, 해당 파일 업로드 요소의 형제 요소 중 .file_name의 내용을 업데이트한다. 만약 파일이 선택되지 않았다면 &amp;ldquo;파일을 선택해주세요.&amp;ldquo;라는 내용을 보여준다.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://ctrlcccv.github.io/ctrlcccv-demo/2023-08-09-file-custom/">예제결과 미리보기&lt;/a>
+&lt;/div></description></item></channel></rss>

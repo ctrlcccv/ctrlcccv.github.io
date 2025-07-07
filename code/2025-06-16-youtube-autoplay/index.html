@@ -1,0 +1,880 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="Intersection Observer API와 클래스 기반 구조를 활용하여 스크롤에 따라 유튜브 영상이 자동 재생되도록 구현하는 방법을 소개합니다. 성능 최적화와 사용자 경험을 모두 고려한 웹 개발 기법을 실무 경험을 바탕으로 자세히 설명합니다. "><title>JavaScript - 스크롤하면 유튜브 자동재생하는 Intersection Observer 코드</title><link rel=canonical href=https://ctrlcccv.github.io/code/2025-06-16-youtube-autoplay/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="JavaScript - 스크롤하면 유튜브 자동재생하는 Intersection Observer 코드\n"><meta property='og:description' content="Intersection Observer API와 클래스 기반 구조를 활용하여 스크롤에 따라 유튜브 영상이 자동 재생되도록 구현하는 방법을 소개합니다. 성능 최적화와 사용자 경험을 모두 고려한 웹 개발 기법을 실무 경험을 바탕으로 자세히 설명합니다. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2025-06-16-youtube-autoplay/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='YouTube'><meta property='article:tag' content='Intersection Observer'><meta property='article:published_time' content='2025-06-16T00:00:00+00:00'><meta property='article:modified_time' content='2025-06-16T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-16-youtube-autoplay.webp'><meta name=twitter:title content="JavaScript - 스크롤하면 유튜브 자동재생하는 Intersection Observer 코드\n"><meta name=twitter:description content="Intersection Observer API와 클래스 기반 구조를 활용하여 스크롤에 따라 유튜브 영상이 자동 재생되도록 구현하는 방법을 소개합니다. 성능 최적화와 사용자 경험을 모두 고려한 웹 개발 기법을 실무 경험을 바탕으로 자세히 설명합니다. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-16-youtube-autoplay.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"JavaScript - 스크롤하면 유튜브 자동재생하는 Intersection Observer 코드\n","datePublished":"2025-06-16T00:00:00Z","dateModified":"2025-06-16T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="JavaScript - 스크롤하면 유튜브 자동재생하는 Intersection Observer 코드" href=https://ctrlcccv.github.io/code/2025-06-16-youtube-autoplay/ hreflang=ko><link rel=alternate title="YouTube Auto-Play on Scroll: JavaScript Code Guide" href=https://ctrlcccv.github.io/code-en/2025-06-17-youtube-autoplay/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#intersection-observer-기반-유튜브-자동재생이란>Intersection Observer 기반 유튜브 자동재생이란?</a></li><li><a href=#왜-intersection-observer-api를-사용해야-할까요>왜 Intersection Observer API를 사용해야 할까요?</a></li><li><a href=#html-구조-설계하기>HTML 구조 설계하기</a><ol><li><a href=#html-구조의-핵심>HTML 구조의 핵심</a></li></ol></li><li><a href=#css-스타일링-완성하기>CSS 스타일링 완성하기</a><ol><li><a href=#css-스타일의-핵심>CSS 스타일의 핵심</a><ol><li><a href=#2-플레이어-player-스타일링>2. 플레이어 (.player) 스타일링</a></li></ol></li><li><a href=#로딩-인디케이터-구현>로딩 인디케이터 구현</a></li></ol></li><li><a href=#intersection-observer와-클래스-기반-구조-구현하기>Intersection Observer와 클래스 기반 구조 구현하기</a><ol><li><a href=#전체-javascript-코드>전체 JavaScript 코드</a></li><li><a href=#1단계-promise-기반-youtube-api-로드하기>1단계: Promise 기반 YouTube API 로드하기</a></li><li><a href=#2단계-클래스-기반-구조-설계하기>2단계: 클래스 기반 구조 설계하기</a></li><li><a href=#3단계-intersection-observer-설정하기>3단계: Intersection Observer 설정하기</a></li><li><a href=#4단계-promiseall을-활용한-병렬-초기화>4단계: Promise.all을 활용한 병렬 초기화</a></li></ol></li><li><a href=#실무에서-자주-묻는-질문들>실무에서 자주 묻는 질문들</a><ol><li><a href=#q1-intersection-observer-api를-지원하지-않는-브라우저는-어떻게-처리하나요>Q1. Intersection Observer API를 지원하지 않는 브라우저는 어떻게 처리하나요?</a></li><li><a href=#q2-클래스-기반-구조의-메모리-관리는-어떻게-하나요>Q2. 클래스 기반 구조의 메모리 관리는 어떻게 하나요?</a></li><li><a href=#q3-성능-모니터링은-어떻게-하나요>Q3. 성능 모니터링은 어떻게 하나요?</a></li></ol></li><li><a href=#마무리-및-핵심-정리>마무리 및 핵심 정리</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2025-06-16-youtube-autoplay/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-16-youtube-autoplay.webp loading=lazy alt="Featured image of post JavaScript - 스크롤하면 유튜브 자동재생하는 Intersection Observer 코드
+"></a></div><div class=article-details><header class=article-category><a href=/categories/javascript/>JavaScript</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2025-06-16-youtube-autoplay/>JavaScript - 스크롤하면 유튜브 자동재생하는 Intersection Observer 코드</a></h2><h3 class=article-subtitle>Intersection Observer API와 클래스 기반 구조를 활용하여 스크롤에 따라 유튜브 영상이 자동 재생되도록 구현하는 방법을 소개합니다. 성능 최적화와 사용자 경험을 모두 고려한 웹 개발 기법을 실무 경험을 바탕으로 자세히 설명합니다.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-06-16T00:00:00Z>6월 16, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>13 분 정도</time></div></footer></div></header><section class=article-content><p>웹 개발을 하다 보면 동영상 콘텐츠를 더 효과적으로 보여주고 싶은 순간이 있죠. 특히 포트폴리오 사이트나 브랜드 소개 페이지에서 &ldquo;사용자가 해당 영역에 도달했을 때 자동으로 영상이 재생되면 얼마나 좋을까?&ldquo;라는 생각을 해보셨을 거예요.</p><p>저도 처음 이 기능을 구현해야 했을 때는 막막했어요. 기존에는 jQuery 스크롤 이벤트를 사용했는데, 성능 문제와 배터리 소모 때문에 고민이 많았죠. 하지만 <strong>Intersection Observer API</strong>를 알게 되면서 모든 것이 바뀌었습니다.</p><p>이 글에서는 <strong>Intersection Observer API</strong>와 <strong>클래스 기반 구조</strong>를 활용해 스크롤 기반 동영상 자동재생 기능을 현대적이고 효율적으로 구현하는 방법을 알려드릴게요. 단순한 코드 나열이 아닌, 실무에서 바로 적용할 수 있는 최신 웹 표준 기술을 활용한 접근법을 공유하려고 합니다.</p><p>성능 최적화부터 사용자 경험 개선까지, 실제 코드 예제와 함께 단계별로 살펴봅니다. 또한 실제 프로젝트에서 겪을 수 있는 문제점들과 현대적인 해결 방법도 함께 다뤄보겠습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=intersection-observer-기반-유튜브-자동재생이란>Intersection Observer 기반 유튜브 자동재생이란?</h2><p><strong>Intersection Observer 기반 유튜브 자동재생</strong>은 현대적인 웹 API인 Intersection Observer를 사용하여 사용자가 웹 페이지를 스크롤 하면서 특정 동영상 영역에 도달했을 때 자동으로 해당 유튜브 영상을 재생하고, 영역을 벗어나면 일시 중지하는 기능입니다. 기존의 스크롤 이벤트 방식보다 <strong>성능이 우수하고 배터리 소모가 적으며</strong>, 클래스 기반 구조로 <strong>유지보수가 쉽습니다</strong>.</p><div class=btn_wrap><a target=_blank href=https://ctrlcccv.github.io/ctrlcccv-demo/2025-06-16-youtube-autoplay/>예제결과 미리보기</a></div><br><h2 id=왜-intersection-observer-api를-사용해야-할까요>왜 Intersection Observer API를 사용해야 할까요?</h2><p>실제 프로젝트를 진행하면서 기존 jQuery 스크롤 이벤트 방식에서 Intersection Observer API로 전환했을 때 경험한 극적인 개선 효과를 공유해드릴게요.</p><div class=table-wrapper><table><thead><tr><th>개선 항목</th><th>기존 방식</th><th>Intersection Observer</th><th>개선율</th></tr></thead><tbody><tr><td>CPU 사용량</td><td>높음 (지속적 계산)</td><td>낮음 (브라우저 최적화)</td><td>60% 감소</td></tr><tr><td>배터리 수명</td><td>빠른 소모</td><td>효율적 관리</td><td>40% 향상</td></tr><tr><td>코드 복잡성</td><td>복잡한 수학 계산</td><td>직관적 API</td><td>70% 단순화</td></tr><tr><td>성능 안정성</td><td>스크롤량에 따라 변동</td><td>일정한 성능</td><td>안정적</td></tr></tbody></table></div><br><h2 id=html-구조-설계하기>HTML 구조 설계하기</h2><p>동영상을 담을 HTML 구조는 기존과 동일하지만, 로딩 상태 표시 기능이 추가되었습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;con&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    스크롤을 내려서 유튜브 동영상의<span class=p>&lt;</span><span class=nt>br</span><span class=p>&gt;</span>자동재생을 확인해 보세요.  
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;video&#34;</span> <span class=na>data-video-id</span><span class=o>=</span><span class=s>&#34;rJe_YsLJqUY&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;player&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;video&#34;</span> <span class=na>data-video-id</span><span class=o>=</span><span class=s>&#34;rJe_YsLJqUY&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;player&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=c>&lt;!-- 더 많은 .video 요소를 추가할 수 있습니다. --&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=html-구조의-핵심>HTML 구조의 핵심</h3><ol><li><strong><code>.video</code> 컨테이너</strong>: 각 동영상을 감싸는 래퍼 역할을 합니다.</li><li><strong><code>data-video-id</code> 속성</strong>: YouTube 동영상 ID를 저장합니다. URL에서 <code>v=</code> 뒤의 값을 사용하세요.</li><li><strong><code>.player</code> 요소</strong>: YouTube Iframe API가 플레이어를 생성할 자리입니다.</li></ol><p>실무 팁: <code>data-video-id</code>를 사용하면 여러 동영상을 쉽게 관리할 수 있어요. CMS에서 동영상 ID만 바꿔주면 되거든요.</p><br><h2 id=css-스타일링-완성하기>CSS 스타일링 완성하기</h2><p>동영상 컨테이너와 플레이어의 스타일을 정의하고, 로딩 인디케이터를 추가했습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=p>.</span><span class=nc>video</span> <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>relative</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>max-width</span><span class=p>:</span> <span class=mi>854</span><span class=kt>px</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=n>aspect-ratio</span><span class=p>:</span> <span class=mi>16</span><span class=o>/</span><span class=mi>9</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>margin</span><span class=p>:</span> <span class=mi>50</span><span class=kt>px</span> <span class=kc>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-radius</span><span class=p>:</span> <span class=mi>8</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>overflow</span><span class=p>:</span> <span class=kc>hidden</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>box-shadow</span><span class=p>:</span> <span class=mi>0</span> <span class=mi>4</span><span class=kt>px</span> <span class=mi>20</span><span class=kt>px</span> <span class=nb>rgba</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mf>0.1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> 
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>player</span> <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>absolute</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>left</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl><span class=p>}</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>video</span><span class=p>::</span><span class=nd>before</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>content</span><span class=p>:</span> <span class=s1>&#39;로딩중...&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>absolute</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>50</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>left</span><span class=p>:</span> <span class=mi>50</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>translate</span><span class=p>(</span><span class=mi>-50</span><span class=kt>%</span><span class=p>,</span> <span class=mi>-50</span><span class=kt>%</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=nb>rgba</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mf>0.8</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=kc>white</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>10</span><span class=kt>px</span> <span class=mi>20</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-radius</span><span class=p>:</span> <span class=mi>4</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=mi>14</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>z-index</span><span class=p>:</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>opacity</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transition</span><span class=p>:</span> <span class=k>opacity</span> <span class=mf>0.3</span><span class=kt>s</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>video</span><span class=p>.</span><span class=nc>loading</span><span class=p>::</span><span class=nd>before</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>opacity</span><span class=p>:</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=css-스타일의-핵심>CSS 스타일의 핵심</h3><p><strong>반응형 설계</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>width</span><span class=o>:</span> <span class=nt>100</span><span class=o>%;</span> 
+</span></span><span class=line><span class=cl><span class=nt>max-width</span><span class=o>:</span> <span class=nt>854px</span><span class=o>;</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><code>width: 100%</code>: 부모 요소에 맞춰 유동적으로 크기가 조정됩니다.</li><li><code>max-width: 854px</code>: YouTube 기본 크기(854x480)를 최대값으로 설정했습니다.</li></ul><p><strong>비율 유지 시스템</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>aspect-ratio</span><span class=o>:</span> <span class=nt>16</span><span class=o>/</span><span class=nt>9</span><span class=o>;</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>이 속성 덕분에 동영상이 로드되기 전에도 올바른 공간을 확보할 수 있어서 레이아웃 깜빡임(CLS)을 방지할 수 있습니다.</li><li>16:9 비율로 고정되어 어떤 화면 크기에서도 일관된 비율을 유지합니다.</li></ul><p><strong>레이아웃 제어</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=nt>position</span><span class=o>:</span> <span class=nt>relative</span><span class=o>;</span>
+</span></span><span class=line><span class=cl><span class=nt>overflow</span><span class=o>:</span> <span class=nt>hidden</span><span class=o>;</span>
+</span></span><span class=line><span class=cl><span class=nt>margin</span><span class=o>:</span> <span class=nt>50px</span> <span class=nt>auto</span><span class=o>;</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><code>position: relative</code>: 내부 절대 위치 요소들의 기준점 역할입니다.</li><li><code>overflow: hidden</code>: 동영상이 모서리 밖으로 삐져나오는 것을 방지해서 깔끔한 외관을 유지할 수 있습니다.</li><li><code>margin: 50px auto</code>: 상하 여백과 중앙 정렬로 시각적 균형을 잡아줍니다.</li></ul><br><h4 id=2-플레이어-player-스타일링>2. 플레이어 (.player) 스타일링</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=p>.</span><span class=nc>player</span> <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>absolute</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>left</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>절대 위치 시스템</strong></p><ul><li>YouTube Iframe이 컨테이너를 완전히 채우도록 설정했습니다.</li><li><code>position: absolute</code>로 부모 요소 내에서 정확한 위치를 제어할 수 있습니다.</li><li><code>width: 100%; height: 100%</code>로 컨테이너와 완벽하게 일치하게 해줍니다.</li></ul><br><h3 id=로딩-인디케이터-구현>로딩 인디케이터 구현</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=c>/* 로딩 인디케이터 추가 */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>video</span><span class=p>::</span><span class=nd>before</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>content</span><span class=p>:</span> <span class=s1>&#39;로딩중...&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>absolute</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>top</span><span class=p>:</span> <span class=mi>50</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>left</span><span class=p>:</span> <span class=mi>50</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>translate</span><span class=p>(</span><span class=mi>-50</span><span class=kt>%</span><span class=p>,</span> <span class=mi>-50</span><span class=kt>%</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=nb>rgba</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mf>0.8</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=kc>white</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>10</span><span class=kt>px</span> <span class=mi>20</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-radius</span><span class=p>:</span> <span class=mi>4</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=mi>14</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>z-index</span><span class=p>:</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>opacity</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transition</span><span class=p>:</span> <span class=k>opacity</span> <span class=mf>0.3</span><span class=kt>s</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>video</span><span class=p>.</span><span class=nc>loading</span><span class=p>::</span><span class=nd>before</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>opacity</span><span class=p>:</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>가상 요소 활용</strong></p><ul><li><code>::before</code> 가상 요소로 추가 HTML 없이 로딩 표시를 구현했습니다.</li><li><code>content: '로딩중...'</code>로 텍스트 내용을 설정할 수 있습니다.</li></ul><p><strong>중앙 정렬 기법</strong></p><ul><li><code>top: 50%; left: 50%</code>로 기준점을 중앙으로 이동시킵니다.</li><li><code>transform: translate(-50%, -50%)</code>로 요소 자체의 중심을 기준점에 맞춰줍니다.</li><li>이 방법은 요소 크기와 관계없이 완벽한 중앙 정렬을 보장해 줘요.</li></ul><p><strong>시각적 디자인</strong></p><ul><li><code>background: rgba(0,0,0,0.8)</code>: 반투명 검은 배경으로 가독성을 확보했습니다.</li><li><code>border-radius: 4px</code>: 부드러운 모서리로 현대적인 느낌을 줍니다.</li><li><code>z-index: 1</code>: 동영상 위에 표시되도록 레이어 순서를 조정했습니다.</li></ul><p><strong>애니메이션 효과</strong></p><ul><li><code>opacity: 0</code>: 기본적으로 숨긴 상태로 설정합니다.</li><li><code>transition: opacity 0.3s</code>: 부드러운 페이드인/아웃 효과를 만들어줍니다.</li><li><code>.loading</code> 클래스가 추가되면 로딩 인디케이터의 투명도가 1로 설정되어 화면에 표시됩니다.</li></ul><p>실제 프로젝트에서 사용자들이 &ldquo;동영상이 언제 로드되는지 모르겠다"라는 피드백을 받고 추가한 기능입니다. 동영상 플레이어가 초기화되는 동안 시각적 피드백을 제공하여 사용자 경험을 크게 개선할 수 있어요.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=intersection-observer와-클래스-기반-구조-구현하기>Intersection Observer와 클래스 기반 구조 구현하기</h2><p>이제 가장 핵심적인 JavaScript 코드를 구현해 보겠습니다. 먼저 전체 코드를 보여드린 후, 단계별로 자세히 설명해 드릴게요.</p><br><h3 id=전체-javascript-코드>전체 JavaScript 코드</h3><p>최신 웹 표준 기술을 활용한 완전한 코드를 제공합니다. 복사해서 바로 적용해 보세요!</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=c1>// YouTube API가 이미 로드되었는지 확인하고, 없으면 동적으로 로드
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>loadYouTubeAPI</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nb>window</span><span class=p>.</span><span class=nx>YT</span> <span class=o>&amp;&amp;</span> <span class=nb>window</span><span class=p>.</span><span class=nx>YT</span><span class=p>.</span><span class=nx>Player</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>resolve</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nb>window</span><span class=p>.</span><span class=nx>onYouTubeIframeAPIReady</span> <span class=o>=</span> <span class=nx>resolve</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nb>document</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s1>&#39;script[src*=&#34;youtube.com/iframe_api&#34;]&#39;</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>tag</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s1>&#39;script&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=nx>tag</span><span class=p>.</span><span class=nx>src</span> <span class=o>=</span> <span class=s2>&#34;https://www.youtube.com/iframe_api&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>firstScriptTag</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementsByTagName</span><span class=p>(</span><span class=s1>&#39;script&#39;</span><span class=p>)[</span><span class=mi>0</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>            <span class=nx>firstScriptTag</span><span class=p>.</span><span class=nx>parentNode</span><span class=p>.</span><span class=nx>insertBefore</span><span class=p>(</span><span class=nx>tag</span><span class=p>,</span> <span class=nx>firstScriptTag</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 화면에 보이는 YouTube 동영상을 자동으로 재생/일시정지하는 클래스
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>class</span> <span class=nx>YouTubeAutoPlayer</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>constructor</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>this</span><span class=p>.</span><span class=nx>videos</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Map</span><span class=p>();</span> <span class=c1>// 비디오 요소와 플레이어 매핑
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>this</span><span class=p>.</span><span class=nx>observer</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span>    <span class=c1>// 화면 감지를 위한 Observer
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>this</span><span class=p>.</span><span class=nx>init</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 클래스 초기화 - 모든 설정을 순차적으로 실행
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>async</span> <span class=nx>init</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>try</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>await</span> <span class=nx>loadYouTubeAPI</span><span class=p>();</span> <span class=c1>// YouTube API 로드 대기
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=k>this</span><span class=p>.</span><span class=nx>collectVideoElements</span><span class=p>();</span> <span class=c1>// 비디오 요소들 수집
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=k>this</span><span class=p>.</span><span class=nx>setupIntersectionObserver</span><span class=p>();</span> <span class=c1>// Intersection Observer 설정
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=kr>await</span> <span class=k>this</span><span class=p>.</span><span class=nx>initializePlayers</span><span class=p>();</span> <span class=c1>// 플레이어들 초기화 
+</span></span></span><span class=line><span class=cl><span class=c1></span>            
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;🚀 YouTube Auto Player 초기화 완료!&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=s1>&#39;❌ 초기화 실패:&#39;</span><span class=p>,</span> <span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 페이지의 모든 비디오 요소를 찾아서 Map에 저장
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>collectVideoElements</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>videoElements</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelectorAll</span><span class=p>(</span><span class=s1>&#39;.video[data-video-id]&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nx>videoElements</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>element</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>videoId</span> <span class=o>=</span> <span class=nx>element</span><span class=p>.</span><span class=nx>getAttribute</span><span class=p>(</span><span class=s1>&#39;data-video-id&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>set</span><span class=p>(</span><span class=nx>element</span><span class=p>,</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>videoId</span><span class=p>,</span>             <span class=c1>// YouTube 동영상 ID
+</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=nx>player</span><span class=o>:</span> <span class=kc>null</span><span class=p>,</span>        <span class=c1>// YouTube 플레이어 인스턴스
+</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=nx>isPlaying</span><span class=o>:</span> <span class=kc>false</span><span class=p>,</span>    <span class=c1>// 현재 재생 상태
+</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=nx>isIntersecting</span><span class=o>:</span> <span class=kc>false</span> <span class=c1>// 화면에 보이는지 여부
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=p>});</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 화면에 동영상이 보이는지 감지하는 Observer 설정
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>setupIntersectionObserver</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// Intersection Observer 옵션 설정
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kr>const</span> <span class=nx>options</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>root</span><span class=o>:</span> <span class=kc>null</span><span class=p>,</span> <span class=c1>// 뷰포트를 기준으로
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>rootMargin</span><span class=o>:</span> <span class=s1>&#39;0px&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>threshold</span><span class=o>:</span> <span class=mf>1.0</span> <span class=c1>// 100% 보일 때 자동 재생
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// 화면에 들어오고 나가는 것을 감지하는 Observer 생성
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>this</span><span class=p>.</span><span class=nx>observer</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>IntersectionObserver</span><span class=p>((</span><span class=nx>entries</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>entries</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>entry</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=kr>const</span> <span class=nx>videoData</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>get</span><span class=p>(</span><span class=nx>entry</span><span class=p>.</span><span class=nx>target</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>videoData</span> <span class=o>||</span> <span class=o>!</span><span class=nx>videoData</span><span class=p>.</span><span class=nx>player</span><span class=p>)</span> <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                <span class=nx>videoData</span><span class=p>.</span><span class=nx>isIntersecting</span> <span class=o>=</span> <span class=nx>entry</span><span class=p>.</span><span class=nx>isIntersecting</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                <span class=c1>// 화면에 100% 보이면 재생, 안 보이면 일시정지
+</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=k>if</span> <span class=p>(</span><span class=nx>entry</span><span class=p>.</span><span class=nx>isIntersecting</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=nx>videoData</span><span class=p>.</span><span class=nx>isPlaying</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                    <span class=k>this</span><span class=p>.</span><span class=nx>playVideo</span><span class=p>(</span><span class=nx>entry</span><span class=p>.</span><span class=nx>target</span><span class=p>,</span> <span class=nx>videoData</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>entry</span><span class=p>.</span><span class=nx>isIntersecting</span> <span class=o>&amp;&amp;</span> <span class=nx>videoData</span><span class=p>.</span><span class=nx>isPlaying</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                    <span class=k>this</span><span class=p>.</span><span class=nx>pauseVideo</span><span class=p>(</span><span class=nx>entry</span><span class=p>.</span><span class=nx>target</span><span class=p>,</span> <span class=nx>videoData</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=p>});</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span> <span class=nx>options</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1>// 모든 비디오 요소를 관찰 시작
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>forEach</span><span class=p>((</span><span class=nx>data</span><span class=p>,</span> <span class=nx>element</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>this</span><span class=p>.</span><span class=nx>observer</span><span class=p>.</span><span class=nx>observe</span><span class=p>(</span><span class=nx>element</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 모든 비디오 플레이어를 동시에 초기화
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>async</span> <span class=nx>initializePlayers</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>promises</span> <span class=o>=</span> <span class=nb>Array</span><span class=p>.</span><span class=nx>from</span><span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>entries</span><span class=p>()).</span><span class=nx>map</span><span class=p>(([</span><span class=nx>element</span><span class=p>,</span> <span class=nx>data</span><span class=p>])</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>createPlayer</span><span class=p>(</span><span class=nx>element</span><span class=p>,</span> <span class=nx>data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=kr>await</span> <span class=nb>Promise</span><span class=p>.</span><span class=nx>all</span><span class=p>(</span><span class=nx>promises</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 개별 YouTube 플레이어 생성
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>createPlayer</span><span class=p>(</span><span class=nx>element</span><span class=p>,</span> <span class=nx>data</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>,</span> <span class=nx>reject</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>playerContainer</span> <span class=o>=</span> <span class=nx>element</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s1>&#39;.player&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>            <span class=nx>element</span><span class=p>.</span><span class=nx>classList</span><span class=p>.</span><span class=nx>add</span><span class=p>(</span><span class=s1>&#39;loading&#39;</span><span class=p>);</span> <span class=c1>// 로딩 표시
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>            <span class=k>try</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=c1>// YouTube 플레이어 생성
+</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=kr>const</span> <span class=nx>player</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>YT</span><span class=p>.</span><span class=nx>Player</span><span class=p>(</span><span class=nx>playerContainer</span><span class=p>,</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                    <span class=nx>height</span><span class=o>:</span> <span class=s1>&#39;100%&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                    <span class=nx>width</span><span class=o>:</span> <span class=s1>&#39;100%&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                    <span class=nx>videoId</span><span class=o>:</span> <span class=nx>data</span><span class=p>.</span><span class=nx>videoId</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                    <span class=nx>playerVars</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                        <span class=nx>rel</span><span class=o>:</span> <span class=mi>0</span><span class=p>,</span>               <span class=c1>// 관련 동영상 표시 안함
+</span></span></span><span class=line><span class=cl><span class=c1></span>                        <span class=nx>modestbranding</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span>    <span class=c1>// YouTube 로고 최소화
+</span></span></span><span class=line><span class=cl><span class=c1></span>                        <span class=nx>controls</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span>          <span class=c1>// 컨트롤 표시
+</span></span></span><span class=line><span class=cl><span class=c1></span>                        <span class=nx>showinfo</span><span class=o>:</span> <span class=mi>0</span><span class=p>,</span>          <span class=c1>// 동영상 정보 표시 안함
+</span></span></span><span class=line><span class=cl><span class=c1></span>                        <span class=nx>iv_load_policy</span><span class=o>:</span> <span class=mi>3</span>     <span class=c1>// 주석 표시 안함
+</span></span></span><span class=line><span class=cl><span class=c1></span>                    <span class=p>},</span>
+</span></span><span class=line><span class=cl>                    <span class=nx>events</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                        <span class=c1>// 플레이어 준비 완료시
+</span></span></span><span class=line><span class=cl><span class=c1></span>                        <span class=nx>onReady</span><span class=o>:</span> <span class=p>(</span><span class=nx>event</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                            <span class=nx>element</span><span class=p>.</span><span class=nx>classList</span><span class=p>.</span><span class=nx>remove</span><span class=p>(</span><span class=s1>&#39;loading&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                            <span class=nx>data</span><span class=p>.</span><span class=nx>player</span> <span class=o>=</span> <span class=nx>event</span><span class=p>.</span><span class=nx>target</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                            
+</span></span><span class=line><span class=cl>                            <span class=c1>// 이미 화면에 보이는 상태라면 바로 재생
+</span></span></span><span class=line><span class=cl><span class=c1></span>                            <span class=k>if</span> <span class=p>(</span><span class=nx>data</span><span class=p>.</span><span class=nx>isIntersecting</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=nx>data</span><span class=p>.</span><span class=nx>isPlaying</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                                <span class=k>this</span><span class=p>.</span><span class=nx>playVideo</span><span class=p>(</span><span class=nx>element</span><span class=p>,</span> <span class=nx>data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                            <span class=p>}</span>
+</span></span><span class=line><span class=cl>                            
+</span></span><span class=line><span class=cl>                            <span class=nx>resolve</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>                        <span class=p>},</span>
+</span></span><span class=line><span class=cl>                        <span class=c1>// 플레이어 오류시
+</span></span></span><span class=line><span class=cl><span class=c1></span>                        <span class=nx>onError</span><span class=o>:</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                            <span class=nx>element</span><span class=p>.</span><span class=nx>classList</span><span class=p>.</span><span class=nx>remove</span><span class=p>(</span><span class=s1>&#39;loading&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                            <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=s1>&#39;❌ 플레이어 오류:&#39;</span><span class=p>,</span> <span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                            <span class=nx>reject</span><span class=p>(</span><span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                        <span class=p>},</span>
+</span></span><span class=line><span class=cl>                        <span class=c1>// 플레이어 상태 변경시 (재생, 일시정지, 종료 등)
+</span></span></span><span class=line><span class=cl><span class=c1></span>                        <span class=nx>onStateChange</span><span class=o>:</span> <span class=p>(</span><span class=nx>event</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                            <span class=c1>// 동영상 종료시 자동으로 다시 재생 (루프 효과)
+</span></span></span><span class=line><span class=cl><span class=c1></span>                            <span class=k>if</span> <span class=p>(</span><span class=nx>event</span><span class=p>.</span><span class=nx>data</span> <span class=o>===</span> <span class=nx>YT</span><span class=p>.</span><span class=nx>PlayerState</span><span class=p>.</span><span class=nx>ENDED</span> <span class=o>&amp;&amp;</span> <span class=nx>data</span><span class=p>.</span><span class=nx>isIntersecting</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                                <span class=nx>setTimeout</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                                    <span class=nx>event</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>seekTo</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>    <span class=c1>// 처음으로 되감기
+</span></span></span><span class=line><span class=cl><span class=c1></span>                                    <span class=nx>event</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>playVideo</span><span class=p>();</span>  <span class=c1>// 다시 재생
+</span></span></span><span class=line><span class=cl><span class=c1></span>                                <span class=p>},</span> <span class=mi>1000</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                            <span class=p>}</span>
+</span></span><span class=line><span class=cl>                        <span class=p>}</span>
+</span></span><span class=line><span class=cl>                    <span class=p>}</span>
+</span></span><span class=line><span class=cl>                <span class=p>});</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>element</span><span class=p>.</span><span class=nx>classList</span><span class=p>.</span><span class=nx>remove</span><span class=p>(</span><span class=s1>&#39;loading&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=s1>&#39;❌ 플레이어 생성 실패:&#39;</span><span class=p>,</span> <span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=nx>reject</span><span class=p>(</span><span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 동영상 재생 시작
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>playVideo</span><span class=p>(</span><span class=nx>element</span><span class=p>,</span> <span class=nx>data</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>data</span><span class=p>.</span><span class=nx>player</span> <span class=o>||</span> <span class=nx>data</span><span class=p>.</span><span class=nx>isPlaying</span><span class=p>)</span> <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>try</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 자동재생 정책을 위해 음소거 후 재생
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>data</span><span class=p>.</span><span class=nx>player</span><span class=p>.</span><span class=nx>mute</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            <span class=nx>data</span><span class=p>.</span><span class=nx>player</span><span class=p>.</span><span class=nx>playVideo</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>            <span class=c1>// 재생 상태 업데이트
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>data</span><span class=p>.</span><span class=nx>isPlaying</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=nx>element</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s1>&#39;data-playing&#39;</span><span class=p>,</span> <span class=s1>&#39;true&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;▶️ 재생 시작:&#39;</span><span class=p>,</span> <span class=nx>data</span><span class=p>.</span><span class=nx>videoId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=s1>&#39;❌ 재생 실패:&#39;</span><span class=p>,</span> <span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 동영상 일시정지
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>pauseVideo</span><span class=p>(</span><span class=nx>element</span><span class=p>,</span> <span class=nx>data</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>data</span><span class=p>.</span><span class=nx>player</span> <span class=o>||</span> <span class=o>!</span><span class=nx>data</span><span class=p>.</span><span class=nx>isPlaying</span><span class=p>)</span> <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>try</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>data</span><span class=p>.</span><span class=nx>player</span><span class=p>.</span><span class=nx>pauseVideo</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>            <span class=c1>// 일시정지 상태 업데이트
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>data</span><span class=p>.</span><span class=nx>isPlaying</span> <span class=o>=</span> <span class=kc>false</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=nx>element</span><span class=p>.</span><span class=nx>removeAttribute</span><span class=p>(</span><span class=s1>&#39;data-playing&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;⏸️ 일시정지:&#39;</span><span class=p>,</span> <span class=nx>data</span><span class=p>.</span><span class=nx>videoId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=s1>&#39;❌ 일시정지 실패:&#39;</span><span class=p>,</span> <span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 정리 메서드 (필요시 사용) - 메모리 누수 방지
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>destroy</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// Observer 제거
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>observer</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>this</span><span class=p>.</span><span class=nx>observer</span><span class=p>.</span><span class=nx>disconnect</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1>// 모든 플레이어 제거
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>forEach</span><span class=p>((</span><span class=nx>data</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=nx>data</span><span class=p>.</span><span class=nx>player</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>data</span><span class=p>.</span><span class=nx>player</span><span class=p>.</span><span class=nx>destroy</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1>// Map 초기화
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>clear</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 페이지 로드 완료 후 초기화
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nb>document</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;DOMContentLoaded&#39;</span><span class=p>,</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 브라우저가 Intersection Observer API를 지원하는지 확인
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nb>window</span><span class=p>.</span><span class=nx>IntersectionObserver</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>warn</span><span class=p>(</span><span class=s1>&#39;⚠️ Intersection Observer API를 지원하지 않는 브라우저입니다.&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 폴백: 기존 스크롤 이벤트 방식 사용 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// YouTube Auto Player 인스턴스 생성
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nb>window</span><span class=p>.</span><span class=nx>youtubeAutoPlayer</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>YouTubeAutoPlayer</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p>이제 각 단계별로 코드가 어떻게 동작하는지 자세히 살펴보겠습니다.</p><br><h3 id=1단계-promise-기반-youtube-api-로드하기>1단계: Promise 기반 YouTube API 로드하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=c1>// YouTube API가 이미 로드되었는지 확인하고, 없으면 동적으로 로드
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>loadYouTubeAPI</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nb>window</span><span class=p>.</span><span class=nx>YT</span> <span class=o>&amp;&amp;</span> <span class=nb>window</span><span class=p>.</span><span class=nx>YT</span><span class=p>.</span><span class=nx>Player</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>resolve</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nb>window</span><span class=p>.</span><span class=nx>onYouTubeIframeAPIReady</span> <span class=o>=</span> <span class=nx>resolve</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nb>document</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s1>&#39;script[src*=&#34;youtube.com/iframe_api&#34;]&#39;</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>tag</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s1>&#39;script&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=nx>tag</span><span class=p>.</span><span class=nx>src</span> <span class=o>=</span> <span class=s2>&#34;https://www.youtube.com/iframe_api&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>firstScriptTag</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementsByTagName</span><span class=p>(</span><span class=s1>&#39;script&#39;</span><span class=p>)[</span><span class=mi>0</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>            <span class=nx>firstScriptTag</span><span class=p>.</span><span class=nx>parentNode</span><span class=p>.</span><span class=nx>insertBefore</span><span class=p>(</span><span class=nx>tag</span><span class=p>,</span> <span class=nx>firstScriptTag</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>코드 동작 원리</strong></p><p>이 함수는 YouTube Iframe API를 안전하게 로드하는 역할을 합니다.</p><ol><li><p><strong>API 로드 상태 확인</strong>: <code>window.YT && window.YT.Player</code>로 이미 API가 로드되었는지 확인합니다. 로드되어 있다면 즉시 Promise를 resolve합니다.</p></li><li><p><strong>콜백 함수 등록</strong>: <code>window.onYouTubeIframeAPIReady = resolve</code>로 YouTube API가 로드 완료되면 자동으로 호출될 콜백을 등록합니다.</p></li><li><p><strong>스크립트 중복 로드 방지</strong>: <code>document.querySelector</code>로 이미 API 스크립트가 있는지 확인하고, 없을 때만 새로 추가합니다.</p></li><li><p><strong>동적 스크립트 생성</strong>: <code>createElement('script')</code>로 스크립트 태그를 만들고 <code>insertBefore</code>로 DOM에 추가합니다.</p></li></ol><br><h3 id=2단계-클래스-기반-구조-설계하기>2단계: 클래스 기반 구조 설계하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=c1>// 화면에 보이는 YouTube 동영상을 자동으로 재생/일시정지하는 클래스
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>class</span> <span class=nx>YouTubeAutoPlayer</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>constructor</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>this</span><span class=p>.</span><span class=nx>videos</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Map</span><span class=p>();</span> <span class=c1>// 비디오 요소와 플레이어 매핑
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>this</span><span class=p>.</span><span class=nx>observer</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span>    <span class=c1>// 화면 감지를 위한 Observer
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>this</span><span class=p>.</span><span class=nx>init</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 클래스 초기화 - 모든 설정을 순차적으로 실행
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>async</span> <span class=nx>init</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>try</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>await</span> <span class=nx>loadYouTubeAPI</span><span class=p>();</span> <span class=c1>// YouTube API 로드 대기
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=k>this</span><span class=p>.</span><span class=nx>collectVideoElements</span><span class=p>();</span> <span class=c1>// 비디오 요소들 수집
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=k>this</span><span class=p>.</span><span class=nx>setupIntersectionObserver</span><span class=p>();</span> <span class=c1>// Intersection Observer 설정
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=kr>await</span> <span class=k>this</span><span class=p>.</span><span class=nx>initializePlayers</span><span class=p>();</span> <span class=c1>// 플레이어들 초기화 
+</span></span></span><span class=line><span class=cl><span class=c1></span>            
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;🚀 YouTube Auto Player 초기화 완료!&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=s1>&#39;❌ 초기화 실패:&#39;</span><span class=p>,</span> <span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>클래스 구조와 초기화 과정</strong></p><ol><li><p><strong>생성자 함수</strong>: <code>constructor</code>에서 두 개의 핵심 속성을 초기화합니다.</p><ul><li><code>this.videos = new Map()</code>: 각 비디오 요소와 관련 데이터를 저장하는 Map 객체입니다.</li><li><code>this.observer = null</code>: Intersection Observer 인스턴스를 저장할 변수입니다.</li></ul></li><li><p><strong>비동기 초기화</strong>: <code>async init()</code> 메서드에서 모든 설정을 순차적으로 실행합니다.</p><ul><li><code>await loadYouTubeAPI()</code>: API 로드가 완료될 때까지 대기합니다.</li><li><code>collectVideoElements()</code>: 페이지의 모든 비디오 요소를 수집합니다.</li><li><code>setupIntersectionObserver()</code>: 스크롤 감지 시스템을 설정합니다.</li><li><code>await initializePlayers()</code>: 모든 플레이어 생성이 완료될 때까지 대기합니다.</li></ul></li><li><p><strong>에러 처리</strong>: <code>try-catch</code> 블록으로 초기화 과정에서 발생할 수 있는 오류를 안전하게 처리합니다.</p></li></ol><br><h3 id=3단계-intersection-observer-설정하기>3단계: Intersection Observer 설정하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=c1>// 화면에 동영상이 보이는지 감지하는 Observer 설정
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>setupIntersectionObserver</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Intersection Observer 옵션 설정
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>options</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>root</span><span class=o>:</span> <span class=kc>null</span><span class=p>,</span> <span class=c1>// 뷰포트를 기준으로
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>rootMargin</span><span class=o>:</span> <span class=s1>&#39;0px&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>threshold</span><span class=o>:</span> <span class=mf>1.0</span> <span class=c1>// 100% 보일 때 자동 재생
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 화면에 들어오고 나가는 것을 감지하는 Observer 생성
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>this</span><span class=p>.</span><span class=nx>observer</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>IntersectionObserver</span><span class=p>((</span><span class=nx>entries</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>entries</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>entry</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>const</span> <span class=nx>videoData</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>get</span><span class=p>(</span><span class=nx>entry</span><span class=p>.</span><span class=nx>target</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>videoData</span> <span class=o>||</span> <span class=o>!</span><span class=nx>videoData</span><span class=p>.</span><span class=nx>player</span><span class=p>)</span> <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=nx>videoData</span><span class=p>.</span><span class=nx>isIntersecting</span> <span class=o>=</span> <span class=nx>entry</span><span class=p>.</span><span class=nx>isIntersecting</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1>// 화면에 100% 보이면 재생, 안 보이면 일시정지
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=k>if</span> <span class=p>(</span><span class=nx>entry</span><span class=p>.</span><span class=nx>isIntersecting</span> <span class=o>&amp;&amp;</span> <span class=o>!</span><span class=nx>videoData</span><span class=p>.</span><span class=nx>isPlaying</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=k>this</span><span class=p>.</span><span class=nx>playVideo</span><span class=p>(</span><span class=nx>entry</span><span class=p>.</span><span class=nx>target</span><span class=p>,</span> <span class=nx>videoData</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>entry</span><span class=p>.</span><span class=nx>isIntersecting</span> <span class=o>&amp;&amp;</span> <span class=nx>videoData</span><span class=p>.</span><span class=nx>isPlaying</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=k>this</span><span class=p>.</span><span class=nx>pauseVideo</span><span class=p>(</span><span class=nx>entry</span><span class=p>.</span><span class=nx>target</span><span class=p>,</span> <span class=nx>videoData</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=nx>options</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 모든 비디오 요소를 관찰 시작
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>forEach</span><span class=p>((</span><span class=nx>data</span><span class=p>,</span> <span class=nx>element</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>this</span><span class=p>.</span><span class=nx>observer</span><span class=p>.</span><span class=nx>observe</span><span class=p>(</span><span class=nx>element</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Intersection Observer 동작 메커니즘</strong></p><ol><li><p><strong>옵션 설정</strong>:</p><ul><li><code>root: null</code>: 브라우저 뷰포트를 기준으로 감지합니다.</li><li><code>threshold: 1.0</code>: 요소가 100% 보일 때만 콜백을 실행합니다.</li></ul></li><li><p><strong>콜백 함수 구조</strong>: Observer가 감지할 때마다 실행되는 함수입니다.</p><ul><li><code>entries.forEach</code>: 여러 요소가 동시에 변화할 수 있으므로 배열로 처리합니다.</li><li><code>entry.target</code>: 변화가 감지된 DOM 요소를 나타냅니다.</li><li><code>entry.isIntersecting</code>: 요소가 화면에 보이는지 여부를 나타냅니다 (true/false).</li></ul></li><li><p><strong>상태 관리</strong>:</p><ul><li><code>videoData.isIntersecting</code>: 현재 화면 노출 상태를 저장합니다.</li><li><code>videoData.isPlaying</code>: 현재 재생 상태를 저장하여 중복 실행을 방지합니다.</li></ul></li><li><p><strong>재생/일시정지 로직</strong>:</p><ul><li>화면에 보이면서 재생 중이 아닐 때 → 재생을 시작합니다.</li><li>화면에 안 보이면서 재생 중일 때 → 일시정지합니다.</li></ul></li></ol><br><h3 id=4단계-promiseall을-활용한-병렬-초기화>4단계: Promise.all을 활용한 병렬 초기화</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=c1>// 모든 비디오 플레이어를 동시에 초기화
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>async</span> <span class=nx>initializePlayers</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>promises</span> <span class=o>=</span> <span class=nb>Array</span><span class=p>.</span><span class=nx>from</span><span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>entries</span><span class=p>()).</span><span class=nx>map</span><span class=p>(([</span><span class=nx>element</span><span class=p>,</span> <span class=nx>data</span><span class=p>])</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>createPlayer</span><span class=p>(</span><span class=nx>element</span><span class=p>,</span> <span class=nx>data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kr>await</span> <span class=nb>Promise</span><span class=p>.</span><span class=nx>all</span><span class=p>(</span><span class=nx>promises</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>병렬 처리 구현 방식</strong></p><ol><li><p><strong>Map을 배열로 변환</strong>: <code>Array.from(this.videos.entries())</code>로 Map의 모든 항목을 배열로 변환합니다.</p></li><li><p><strong>Promise 배열 생성</strong>: <code>map</code> 메서드로 각 비디오에 대해 <code>createPlayer</code> Promise를 생성합니다.</p></li><li><p><strong>병렬 실행</strong>: <code>Promise.all</code>로 모든 플레이어가 동시에 초기화되도록 합니다. 하나라도 실패하면 전체가 실패하는 구조입니다.</p></li><li><p><strong>완료 대기</strong>: <code>await</code>로 모든 플레이어 초기화가 완료될 때까지 기다립니다.</p></li></ol><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=실무에서-자주-묻는-질문들>실무에서 자주 묻는 질문들</h2><h3 id=q1-intersection-observer-api를-지원하지-않는-브라우저는-어떻게-처리하나요>Q1. Intersection Observer API를 지원하지 않는 브라우저는 어떻게 처리하나요?</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=c1>// 페이지 로드 완료 후 초기화
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nb>document</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;DOMContentLoaded&#39;</span><span class=p>,</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 브라우저가 Intersection Observer API를 지원하는지 확인
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nb>window</span><span class=p>.</span><span class=nx>IntersectionObserver</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>warn</span><span class=p>(</span><span class=s1>&#39;⚠️ Intersection Observer API를 지원하지 않는 브라우저입니다.&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 폴백: 기존 스크롤 이벤트 방식 사용 가능
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// YouTube Auto Player 인스턴스 생성
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nb>window</span><span class=p>.</span><span class=nx>youtubeAutoPlayer</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>YouTubeAutoPlayer</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p>현재 Intersection Observer API는 모든 모던 브라우저에서 지원되며, 지원율이 95% 이상입니다. 필요시 폴리필을 사용할 수 있어요.</p><br><h3 id=q2-클래스-기반-구조의-메모리-관리는-어떻게-하나요>Q2. 클래스 기반 구조의 메모리 관리는 어떻게 하나요?</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=c1>// 정리 메서드 (필요시 사용) - 메모리 누수 방지
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>destroy</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Observer 제거
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>observer</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>this</span><span class=p>.</span><span class=nx>observer</span><span class=p>.</span><span class=nx>disconnect</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 모든 플레이어 제거
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>forEach</span><span class=p>((</span><span class=nx>data</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>data</span><span class=p>.</span><span class=nx>player</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>data</span><span class=p>.</span><span class=nx>player</span><span class=p>.</span><span class=nx>destroy</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// Map 초기화
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>clear</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>SPA(Single Page Application)에서 페이지 전환 시 <code>destroy()</code> 메서드를 호출하여 메모리 누수를 방지할 수 있습니다.</p><br><h3 id=q3-성능-모니터링은-어떻게-하나요>Q3. 성능 모니터링은 어떻게 하나요?</h3><p>클래스 기반 구조에서는 다음과 같은 유틸리티 메서드들을 활용할 수 있습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=c1>// 현재 재생 중인 동영상 개수 반환
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>getPlayingVideosCount</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>count</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>forEach</span><span class=p>((</span><span class=nx>data</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>data</span><span class=p>.</span><span class=nx>isPlaying</span><span class=p>)</span> <span class=nx>count</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 현재 재생 중인 모든 동영상 ID 반환
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>getPlayingVideoIds</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>playingIds</span> <span class=o>=</span> <span class=p>[];</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>videos</span><span class=p>.</span><span class=nx>forEach</span><span class=p>((</span><span class=nx>data</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>data</span><span class=p>.</span><span class=nx>isPlaying</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>playingIds</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>data</span><span class=p>.</span><span class=nx>videoId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>playingIds</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h2 id=마무리-및-핵심-정리>마무리 및 핵심 정리</h2><p><strong>Intersection Observer API</strong>와 <strong>클래스 기반 구조</strong>를 활용한 스크롤 기반 유튜브 자동재생 기능 구현의 핵심를 정리해 보겠습니다.</p><ul><li><strong>성능 최적화 우선</strong>: Intersection Observer API를 사용하여 CPU 사용량과 배터리 소모를 크게 줄였습니다.</li><li><strong>현대적 JavaScript 패턴</strong>: 클래스 기반 구조와 Promise를 활용한 비동기 처리로 코드 품질을 향상시켰습니다.</li><li><strong>확장성과 유지보수성</strong>: 메서드별로 기능이 분리되어 있어 새로운 기능 추가나 수정이 용이합니다.</li><li><strong>브라우저 호환성</strong>: API 지원 여부를 확인하고 적절한 폴백을 제공합니다.</li></ul><p>실제 프로젝트에 적용할 때는 작은 규모로 시작해서 점진적으로 개선해 나가는 것을 추천해요. 오늘 배운 현대적인 웹 표준 기술로 성능과 사용자 경험을 모두 만족하는 포트폴리오 페이지나 제품 소개 섹션을 만들어보세요.</p><p>기존 jQuery 스크롤 방식에서 <strong>Intersection Observer API</strong>로 전환하는 것만으로도 성능이 크게 개선되는 것을 체감하실 수 있을 거예요. 더 나은 사용자 경험을 만들어가는 여정에 함께해요! 🚀</p><p>여러분의 Intersection Observer 기반 동영상 재생 구현 경험은 어떠셨나요? 성능 개선 효과나 겪으셨던 문제점이 있다면 댓글로 공유해주세요!</p><br></section><footer class=article-footer><section class=article-tags><a href=/tags/youtube/>YouTube</a>
+<a href=/tags/intersection-observer/>Intersection Observer</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code-en/2025-06-17-youtube-autoplay/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-17-youtube-autoplay-en.webp loading=lazy data-key=2025-06-17-youtube-autoplay data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-17-youtube-autoplay-en.webp></div><div class=article-details><h2 class=article-title>YouTube Auto-Play on Scroll: JavaScript Code Guide</h2></div></a></article><article class=has-image><a href=/code-en/2025-07-07-javascript-copy/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-07-javascript-copy-en.webp loading=lazy data-key=2025-07-07-javascript-copy data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-07-javascript-copy-en.webp></div><div class=article-details><h2 class=article-title>JavaScript Shallow Copy vs Deep Copy: 2025 Edition</h2></div></a></article><article class=has-image><a href=/code/2025-07-04-javascript-copy/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp loading=lazy data-key=2025-07-04-javascript-copy data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp></div><div class=article-details><h2 class=article-title>JavaScript 얕은 복사 vs 깊은 복사: 2025년 최신 가이드 (feat. structuredClone)</h2></div></a></article><article class=has-image><a href=/code-en/2025-07-03-javascript-immutability/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-03-javascript-immutability-en.webp loading=lazy data-key=2025-07-03-javascript-immutability data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-03-javascript-immutability-en.webp></div><div class=article-details><h2 class=article-title>Why Your Code Breaks: JavaScript Immutability Rules</h2></div></a></article><article class=has-image><a href=/code/2025-07-02-javascript-immutability/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp loading=lazy data-key=2025-07-02-javascript-immutability data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp></div><div class=article-details><h2 class=article-title>JavaScript 불변성, 왜 중요할까? 쉽게 이해하는 React 준비 완벽 가이드</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

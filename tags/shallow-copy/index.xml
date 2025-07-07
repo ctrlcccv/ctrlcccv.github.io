@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Shallow Copy on 컨트롤 + CCCV</title><link>https://ctrlcccv.github.io/tags/shallow-copy/</link><description>Recent content in Shallow Copy on 컨트롤 + CCCV</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Mon, 07 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ctrlcccv.github.io/tags/shallow-copy/index.xml" rel="self" type="application/rss+xml"/><item><title>JavaScript Shallow Copy vs Deep Copy: 2025 Edition</title><link>https://ctrlcccv.github.io/code-en/2025-07-07-javascript-copy/</link><pubDate>Mon, 07 Jul 2025 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code-en/2025-07-07-javascript-copy/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-07-javascript-copy-en.webp" alt="Featured image of post JavaScript Shallow Copy vs Deep Copy: 2025 Edition
+" />&lt;blockquote>
+&lt;p>💡 Having some background knowledge about JavaScript &lt;a class="link" href="https://ctrlcccv.github.io/code-en/2025-07-01-primitive-reference" >Primitive vs Reference&lt;/a> will make this article much easier to follow and understand.&lt;/p>&lt;/blockquote>
+&lt;p>When working with JavaScript objects and arrays, you&amp;rsquo;ve probably encountered this frustrating scenario: &amp;ldquo;I copied my data to a new variable, but why is my original data changing too?&amp;rdquo; Sound familiar?&lt;/p>
+&lt;p>I remember struggling with this exact problem early in my development journey. I thought I was creating independent copies of my objects, but my original data kept getting modified unexpectedly. This became especially problematic when building interactive applications where user actions would accidentally overwrite important data. Then I had that &amp;ldquo;aha!&amp;rdquo; moment when I finally understood the difference between shallow and deep copying – it completely changed how I approach data manipulation in JavaScript.&lt;/p>
+&lt;p>In this comprehensive guide, I&amp;rsquo;ll walk you through everything you need to know about JavaScript copying methods. We&amp;rsquo;ll cover the fundamental concepts, explore 5 different copying techniques, and see practical examples that you&amp;rsquo;ll encounter in real-world development.&lt;/p>
+&lt;p>From basic spread operators to the latest &lt;code>structuredClone()&lt;/code> method, you&amp;rsquo;ll learn exactly when and how to use each approach to avoid those sneaky bugs that can crash your applications.&lt;/p>
+&lt;br>
+&lt;h2 id="what-is-javascript-copy">What is JavaScript Copy?
+&lt;/h2>&lt;blockquote>
+&lt;p>&lt;strong>JavaScript Copy: The Essential Definition&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>Shallow copy&lt;/strong> creates a new object but keeps references to nested objects from the original. &lt;strong>Deep copy&lt;/strong> creates a completely independent duplicate with no shared references. The choice between them depends on your data structure and whether you need complete isolation from the original object.&lt;/p>&lt;/blockquote>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="why-javascript-copy-methods-matter-in-real-development">Why JavaScript Copy Methods Matter in Real Development
+&lt;/h2>&lt;h3 id="the-root-cause-reference-vs-value-types">The Root Cause: Reference vs Value Types
+&lt;/h3>&lt;p>Understanding copying issues requires knowledge of how JavaScript stores different data types.&lt;/p>
+&lt;p>JavaScript has two fundamental data categories:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Primitive Types&lt;/strong>: &lt;code>string&lt;/code>, &lt;code>number&lt;/code>, &lt;code>boolean&lt;/code>, &lt;code>null&lt;/code>, &lt;code>undefined&lt;/code>, &lt;code>symbol&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>Stored as actual values&lt;/li>
+&lt;li>Copying always creates independent duplicates&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Reference Types&lt;/strong>: &lt;code>object&lt;/code>, &lt;code>array&lt;/code>, &lt;code>function&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>Stored as memory addresses (references)&lt;/li>
+&lt;li>Copying requires special attention&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Primitive types - no problems here
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">originalPrice&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">99.99&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">discountedPrice&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">originalPrice&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">discountedPrice&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">79.99&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">originalPrice&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 99.99 (unchanged)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Reference types - this is where things get tricky!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">originalCart&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;laptop&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;mouse&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;keyboard&amp;#39;&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">userCart&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">originalCart&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Points to the same memory location
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">userCart&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;monitor&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">originalCart&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [&amp;#39;laptop&amp;#39;, &amp;#39;mouse&amp;#39;, &amp;#39;keyboard&amp;#39;, &amp;#39;monitor&amp;#39;] (original changed!)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="why-this-matters-in-real-applications">Why This Matters in Real Applications
+&lt;/h3>&lt;p>In production environments, most data is structured as objects or arrays: user profiles, product inventories, form data, API responses. Without proper copying techniques, you risk:&lt;/p>
+&lt;ul>
+&lt;li>Accidental data corruption&lt;/li>
+&lt;li>Unexpected UI updates&lt;/li>
+&lt;li>Hard-to-debug state management issues&lt;/li>
+&lt;li>Performance problems from unwanted re-renders&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h2 id="understanding-shallow-copy">Understanding Shallow Copy
+&lt;/h2>&lt;h3 id="what-is-shallow-copy">What is Shallow Copy?
+&lt;/h3>&lt;p>Shallow copy creates a &lt;strong>new object for the top level only&lt;/strong>, but nested objects and arrays still &lt;strong>share references&lt;/strong> with the original.&lt;/p>
+&lt;p>Think of it like copying a filing cabinet. You get a new cabinet (top level), but the folders inside (nested objects) are the same ones from the original cabinet.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">productCatalog&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">title&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Electronics Store&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// Top level (gets copied)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">categories&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">// Nested object (shared reference)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">laptops&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;MacBook&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;ThinkPad&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">phones&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;iPhone&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;Samsung&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Common shallow copy methods
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">catalog1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">assign&lt;/span>&lt;span class="p">({},&lt;/span> &lt;span class="nx">productCatalog&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">catalog2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">productCatalog&lt;/span> &lt;span class="p">};&lt;/span> &lt;span class="c1">// Spread operator (most popular)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Top-level changes are independent
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">catalog1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Tech Warehouse&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">productCatalog&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">title&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;Electronics Store&amp;#34; (original intact)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">catalog1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">title&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;Tech Warehouse&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Nested changes affect both objects!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">catalog1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">categories&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">laptops&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Dell XPS&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">productCatalog&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">categories&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">laptops&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [&amp;#39;MacBook&amp;#39;, &amp;#39;ThinkPad&amp;#39;, &amp;#39;Dell XPS&amp;#39;] (original modified!)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">catalog1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">categories&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">laptops&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [&amp;#39;MacBook&amp;#39;, &amp;#39;ThinkPad&amp;#39;, &amp;#39;Dell XPS&amp;#39;]
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="when-to-use-shallow-copy">When to Use Shallow Copy
+&lt;/h3>&lt;p>Shallow copying is perfect when you need:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Simple object structures&lt;/strong> without nesting&lt;/li>
+&lt;li>&lt;strong>Performance optimization&lt;/strong> (faster than deep copy)&lt;/li>
+&lt;li>&lt;strong>Memory efficiency&lt;/strong> (shared references save space)&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ Perfect for shallow copy
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">userProfile&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">username&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;johndoe&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">email&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;john@example.com&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">isActive&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">updatedProfile&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">userProfile&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">isActive&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Simple structure means no reference issues!
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h2 id="mastering-deep-copy">Mastering Deep Copy
+&lt;/h2>&lt;h3 id="what-is-deep-copy-and-when-you-need-it">What is Deep Copy and When You Need It
+&lt;/h3>&lt;p>Deep copy creates a &lt;strong>completely independent duplicate&lt;/strong> at every level. All nested objects, arrays, and properties are newly created with no shared references.&lt;/p>
+&lt;p>This is like photocopying every single document in that filing cabinet and putting them in a brand new cabinet.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">applicationState&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">currentUser&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;alice_dev&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">preferences&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">theme&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;dark&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">notifications&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">email&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">push&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">desktop&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">recentProjects&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;weather-app&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;todo-list&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Deep copy using structuredClone (2025 recommended method!)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">backupState&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">structuredClone&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">applicationState&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Change deeply nested values
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">backupState&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">preferences&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">notifications&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">email&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">backupState&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">recentProjects&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;portfolio-site&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">applicationState&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">preferences&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">notifications&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">email&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// true (original preserved!)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">backupState&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">preferences&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">notifications&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">email&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// false
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">applicationState&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">recentProjects&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [&amp;#34;weather-app&amp;#34;, &amp;#34;todo-list&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">backupState&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">recentProjects&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [&amp;#34;weather-app&amp;#34;, &amp;#34;todo-list&amp;#34;, &amp;#34;portfolio-site&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="essential-use-cases-for-deep-copy">Essential Use Cases for Deep Copy
+&lt;/h3>&lt;p>You absolutely need deep copy when:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Working with nested data structures&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Preserving original data integrity&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Creating backup copies before modifications&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Managing application state safely&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;br>
+&lt;h2 id="5-javascript-copy-methods-compared">5 JavaScript Copy Methods Compared
+&lt;/h2>&lt;h3 id="method-1-structuredclone---the-modern-standard">Method 1: structuredClone() - The Modern Standard
+&lt;/h3>&lt;p>The newest and most reliable method, built into modern browsers.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">complexData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;user_123&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">createdAt&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;2024-01-15&amp;#39;&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">tags&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Set&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="s1">&amp;#39;developer&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;javascript&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;react&amp;#39;&lt;/span>&lt;span class="p">]),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">metadata&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Map&lt;/span>&lt;span class="p">([[&lt;/span>&lt;span class="s1">&amp;#39;version&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;1.0&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;env&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;production&amp;#39;&lt;/span>&lt;span class="p">]]),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">config&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">settings&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">autoSave&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">theme&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;dark&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">perfectCopy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">structuredClone&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">complexData&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// All complex types are properly preserved!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">perfectCopy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">createdAt&lt;/span> &lt;span class="k">instanceof&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">perfectCopy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">tags&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">has&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;developer&amp;#39;&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">perfectCopy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">metadata&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;version&amp;#39;&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// &amp;#39;1.0&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>Benefits of structuredClone():&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>No external libraries required&lt;/li>
+&lt;li>Handles Date, Map, Set, RegExp, and more&lt;/li>
+&lt;li>Manages circular references automatically&lt;/li>
+&lt;li>Excellent performance&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Limitations:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Cannot copy functions&lt;/li>
+&lt;li>Not supported in very old browsers (but widely available in 2025)&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;h3 id="method-2-json-parsestringify---simple-but-limited">Method 2: JSON Parse/Stringify - Simple but Limited
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ Problematic example
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">dataWithComplexTypes&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;DevProject&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">launchDate&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="c1">// Becomes string
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">execute&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="s2">&amp;#34;Running&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="c1">// Disappears
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">status&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">undefined&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// Disappears
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">config&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">null&lt;/span> &lt;span class="c1">// Preserved as null
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">jsonCopy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">JSON&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">parse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">JSON&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">stringify&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dataWithComplexTypes&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">jsonCopy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">launchDate&lt;/span> &lt;span class="k">instanceof&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// false - now a string!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">jsonCopy&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">execute&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// undefined - function lost!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ Safe usage example
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">basicProjectData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">projectName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;My Website&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">version&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;2.1.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">contributors&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Alice&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;Bob&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;Charlie&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">isPublic&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">safeCopy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">JSON&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">parse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">JSON&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">stringify&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">basicProjectData&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Works perfectly with basic data types
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>Why JSON Method Has Limitations:&lt;/strong>&lt;/p>
+&lt;p>JSON was designed for &lt;strong>data interchange between servers and clients&lt;/strong>, so it only supports basic, serializable data types. JavaScript-specific objects like functions, Date objects, or undefined values can&amp;rsquo;t be represented in JSON format.&lt;/p>
+&lt;br>
+&lt;h3 id="method-3-spread-operator----best-for-shallow-copy">Method 3: Spread Operator (&amp;hellip;) - Best for Shallow Copy
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Perfect for simple objects
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">taskItem&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Learn JavaScript copying&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">completed&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">priority&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;high&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">updatedTask&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">taskItem&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">completed&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Great for arrays too
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">originalTasks&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Task 1&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Task 2&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">newTaskList&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">originalTasks&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Task 3&amp;#34;&lt;/span> &lt;span class="p">}];&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="method-4-objectassign---alternative-shallow-copy">Method 4: Object.assign() - Alternative Shallow Copy
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">defaultConfig&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">apiUrl&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;https://api.example.com&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">timeout&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">5000&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">retries&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">userConfig&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">timeout&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">10000&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">debug&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Merge configurations
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">finalConfig&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">assign&lt;/span>&lt;span class="p">({},&lt;/span> &lt;span class="nx">defaultConfig&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">userConfig&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Results in: { apiUrl: &amp;#34;https://api.example.com&amp;#34;, timeout: 10000, retries: 3, debug: true }
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="method-5-lodash-clonedeep---when-you-need-functions">Method 5: Lodash cloneDeep() - When You Need Functions
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// npm install lodash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">import&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;lodash&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">moduleWithMethods&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;UserManager&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">data&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">users&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[]&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">addUser&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">users&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">getCount&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">users&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">clonedModule&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">cloneDeep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">moduleWithMethods&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">clonedModule&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addUser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toString&lt;/span>&lt;span class="p">());&lt;/span> &lt;span class="c1">// Function is preserved!
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="2025-best-practices-guide">2025 Best Practices Guide
+&lt;/h2>&lt;h3 id="choosing-the-right-method-decision-matrix">Choosing the Right Method: Decision Matrix
+&lt;/h3>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;strong>Scenario&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Recommended Method&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Why This Choice&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Simple objects + performance critical&lt;/td>
+&lt;td>Spread operator &lt;code>{...obj}&lt;/code>&lt;/td>
+&lt;td>Fastest and sufficient&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Nested objects + no special types&lt;/td>
+&lt;td>&lt;code>structuredClone()&lt;/code>&lt;/td>
+&lt;td>Safe and reliable&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Complex types (Date, Map, Set)&lt;/td>
+&lt;td>&lt;code>structuredClone()&lt;/code>&lt;/td>
+&lt;td>Preserves type integrity&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Need to copy functions&lt;/td>
+&lt;td>&lt;code>_.cloneDeep()&lt;/code>&lt;/td>
+&lt;td>Only method that handles functions&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Legacy browser support needed&lt;/td>
+&lt;td>JSON method + validation&lt;/td>
+&lt;td>Maximum compatibility&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;br>
+&lt;h3 id="real-world-implementation-examples">Real-World Implementation Examples
+&lt;/h3>&lt;p>Here&amp;rsquo;s how these copying methods solve actual development challenges:&lt;/p>
+&lt;br>
+&lt;h4 id="1-form-data-management">1. Form Data Management
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Managing form state without mutations
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">originalFormData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">personalInfo&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">firstName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;John&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">lastName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Doe&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">email&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;john@example.com&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">preferences&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">newsletter&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">notifications&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// User makes changes - create independent copy
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">formDraft&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">structuredClone&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">originalFormData&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">formDraft&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">personalInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">firstName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Jane&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">formDraft&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">preferences&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">newsletter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Original data remains untouched for reset functionality
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">originalFormData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">personalInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">firstName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;John&amp;#34; (preserved!)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h4 id="2-shopping-cart-state-management">2. Shopping Cart State Management
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">shoppingCart&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">items&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">productId&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;P1&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;Laptop&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">quantity&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">price&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">999&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">productId&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;P2&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;Mouse&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">quantity&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">price&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">25&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">discounts&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">code&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;SAVE10&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">percentage&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Add new item without affecting original cart
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">updatedCart&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">structuredClone&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">shoppingCart&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">updatedCart&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">productId&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;P3&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;Keyboard&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">quantity&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">price&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">75&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Safe to modify without side effects
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">shoppingCart&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 2 (original preserved)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">updatedCart&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 3 (new version)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h4 id="3-api-response-processing">3. API Response Processing
+&lt;/h4>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">apiResponse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">timestamp&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;2024-01-15T10:30:00Z&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// String format from API
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">userData&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">profile&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Developer&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">joinDate&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;2023-06-01T00:00:00Z&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">settings&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">theme&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;auto&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Process data while preserving original
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">processedData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">structuredClone&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">apiResponse&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">processedData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">timestamp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">processedData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">timestamp&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">processedData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">userData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">profile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">joinDate&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">processedData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">userData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">profile&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">joinDate&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">processedData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">userData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">settings&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">theme&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;dark&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Original API response stays intact for debugging
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span> &lt;span class="nx">apiResponse&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">timestamp&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;string&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">processedData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">timestamp&lt;/span> &lt;span class="k">instanceof&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// true
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h2 id="frequently-asked-questions">Frequently Asked Questions
+&lt;/h2>&lt;h3 id="how-do-i-know-when-to-use-shallow-vs-deep-copy">How do I know when to use shallow vs deep copy?
+&lt;/h3>&lt;p>Examine your object structure first. If you have nested objects or arrays that you plan to modify, use deep copy. For simple, flat objects, shallow copy is sufficient and faster. When in doubt, &lt;code>structuredClone()&lt;/code> is the safest choice. In my experience, I follow the principle: &amp;ldquo;Start with &lt;code>structuredClone()&lt;/code> and optimize only if performance becomes an issue.&amp;rdquo;&lt;/p>
+&lt;br>
+&lt;h3 id="is-structuredclone-always-better-than-json-methods">Is structuredClone() always better than JSON methods?
+&lt;/h3>&lt;p>In most cases, yes. &lt;code>structuredClone()&lt;/code> preserves data types accurately while JSON methods can transform or lose data (functions, Date objects, undefined values). The performance difference is negligible for typical use cases. However, for processing thousands of simple objects in performance-critical applications, JSON methods might have a slight speed advantage.&lt;/p>
+&lt;br>
+&lt;h3 id="can-i-copy-functions-with-structuredclone">Can I copy functions with structuredClone()?
+&lt;/h3>&lt;p>No, &lt;code>structuredClone()&lt;/code> cannot copy functions. If you need to copy functions, use Lodash&amp;rsquo;s &lt;code>cloneDeep()&lt;/code>. However, in modern JavaScript development, it&amp;rsquo;s often better to separate data from behavior—keep your data as plain objects and functions separate for better architecture and testability.&lt;/p>
+&lt;br>
+&lt;h3 id="which-method-performs-best">Which method performs best?
+&lt;/h3>&lt;p>&lt;strong>For shallow copying:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Spread operator (&lt;code>{...obj}&lt;/code>, &lt;code>[...arr]&lt;/code>) is fastest&lt;/li>
+&lt;li>Perfect balance of speed and correctness for simple structures&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>For deep copying:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Performance ranking&lt;/strong>: JSON methods &amp;gt; &lt;code>structuredClone()&lt;/code> &amp;gt; Lodash&lt;/li>
+&lt;li>&lt;strong>Reliability ranking&lt;/strong>: &lt;code>structuredClone()&lt;/code> &amp;gt; Lodash &amp;gt; JSON methods&lt;/li>
+&lt;/ul>
+&lt;p>But remember: correctness trumps performance. &lt;code>structuredClone()&lt;/code> offers:&lt;/p>
+&lt;ul>
+&lt;li>Perfect type preservation (Date, Map, Set, RegExp)&lt;/li>
+&lt;li>Circular reference handling (JSON methods throw errors)&lt;/li>
+&lt;li>Predictable results (no data transformation surprises)&lt;/li>
+&lt;li>Built-in availability (no external dependencies)&lt;/li>
+&lt;/ul>
+&lt;p>The performance difference is usually negligible (milliseconds), so prioritize safe, bug-free code with &lt;code>structuredClone()&lt;/code>!&lt;/p>
+&lt;br>
+&lt;h3 id="what-about-copying-arrays">What about copying arrays?
+&lt;/h3>&lt;p>Arrays follow the same principles as objects. Use spread operator &lt;code>[...array]&lt;/code> for shallow copying simple arrays, and &lt;code>structuredClone(array)&lt;/code> for arrays containing objects or nested arrays. Array methods like &lt;code>slice()&lt;/code> also create shallow copies but spread operator is more readable and consistent.&lt;/p>
+&lt;br>
+&lt;h2 id="key-takeaways">Key Takeaways
+&lt;/h2>&lt;p>Let&amp;rsquo;s summarize the essential points about JavaScript copying:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Shallow Copy&lt;/strong>: Copies only the top level, perfect for simple structures&lt;/li>
+&lt;li>&lt;strong>Deep Copy&lt;/strong>: Creates completely independent copies, essential for nested data&lt;/li>
+&lt;li>&lt;strong>2025 Recommendations&lt;/strong>: Spread operator for shallow, &lt;code>structuredClone()&lt;/code> for deep copying&lt;/li>
+&lt;li>&lt;strong>Golden Rule&lt;/strong>: When uncertain, choose &lt;code>structuredClone()&lt;/code> for safety&lt;/li>
+&lt;/ul>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="whats-next">What&amp;rsquo;s Next?
+&lt;/h2>&lt;p>Practice these concepts by building a simple todo list application. Create, modify, and delete tasks while ensuring your original data stays protected. Try implementing undo functionality using these copying techniques—you&amp;rsquo;ll quickly see why proper copying is crucial for robust applications.&lt;/p>
+&lt;p>Now that you understand how JavaScript manages data through copying, you might be wondering: &amp;ldquo;How does JavaScript actually find and access these variables in the first place?&amp;rdquo; The answer lies in understanding &lt;strong>JavaScript&amp;rsquo;s lexical environment&lt;/strong>—the sophisticated system that tracks where variables live and how they can be accessed.&lt;/p>
+&lt;p>In our next article, we&amp;rsquo;ll dive deep into the fascinating world of variable lookup, scope chains, and closures. You&amp;rsquo;ll discover why your variables sometimes behave unexpectedly and learn the fundamental concepts that make JavaScript&amp;rsquo;s variable management system tick. Understanding lexical environments will make you a much more confident developer when working with complex data structures and closures.&lt;/p>
+&lt;p>What&amp;rsquo;s been your experience with JavaScript copying? Have you encountered any tricky situations or discovered clever solutions? Share your stories in the comments below—let&amp;rsquo;s learn together! 🚀&lt;/p>
+&lt;br>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Window/structuredClone">MDN - structuredClone() Official Documentation&lt;/a>
+&lt;/div></description></item></channel></rss>

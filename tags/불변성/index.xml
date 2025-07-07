@@ -1,0 +1,969 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>불변성 on 컨트롤 + CCCV</title><link>https://ctrlcccv.github.io/tags/%EB%B6%88%EB%B3%80%EC%84%B1/</link><description>Recent content in 불변성 on 컨트롤 + CCCV</description><generator>Hugo -- gohugo.io</generator><language>ko-kr</language><lastBuildDate>Fri, 04 Jul 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://ctrlcccv.github.io/tags/%EB%B6%88%EB%B3%80%EC%84%B1/index.xml" rel="self" type="application/rss+xml"/><item><title>JavaScript 불변성, 왜 중요할까? 쉽게 이해하는 React 준비 완벽 가이드</title><link>https://ctrlcccv.github.io/code/2025-07-02-javascript-immutability/</link><pubDate>Wed, 02 Jul 2025 00:00:00 +0000</pubDate><guid>https://ctrlcccv.github.io/code/2025-07-02-javascript-immutability/</guid><description>&lt;img src="https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp" alt="Featured image of post JavaScript 불변성, 왜 중요할까? 쉽게 이해하는 React 준비 완벽 가이드
+" />&lt;blockquote>
+&lt;p>💡 &lt;a class="link" href="https://ctrlcccv.github.io/code/2025-06-30-primitive-reference/" >원시타입 vs 참조타입&lt;/a>에 대해 미리 알고 계시면 이 글의 내용을 더 쉽게 이해하실 수 있습니다.&lt;/p>&lt;/blockquote>
+&lt;p>객체나 배열을 다른 변수에 복사했는데, 한쪽을 수정하니까 다른 쪽도 함께 바뀌어서 당황한 적이 있으신가요? 특히 함수에서 객체를 받아서 처리한 후 원본까지 바뀌어 버려서 예상치 못한 결과가 나온 경험도 있을 거예요.&lt;/p>
+&lt;p>저도 자바스크립트를 처음 배울 때 똑같은 문제로 고생했어요. 특히 간단한 할 일 관리 프로그램을 만들었는데, 할 일을 추가하는 함수에서 배열을 수정했더니 다른 함수에서도 그 변경 사항이 반영되어서 완전히 엉망이 되더라고요. 알고 보니 배열과 객체를 직접 수정했던 게 문제였죠. 그때 비로소 자바스크립트의 불변성(Immutability) 개념이 얼마나 중요한지 깨달았어요.&lt;/p>
+&lt;p>이 글에서는 제가 자바스크립트를 배우면서 경험한 구체적인 사례들과 함께 불변성의 모든 것을 알려드릴게요. 단순히 개념만 설명하는 게 아니라, 실제 코딩에서 바로 적용할 수 있는 실전 패턴들을 중심으로 다룰 예정입니다.&lt;/p>
+&lt;p>불변성의 기본 개념부터 원시타입과 참조타입의 차이점, 나중에 React 같은 라이브러리를 배울 때 왜 이 개념이 필수인지, 그리고 얕은 복사와 깊은 복사의 실무 활용법까지 단계별로 설명하겠습니다.&lt;/p>
+&lt;br>
+&lt;p>&lt;ins class="adsbygoogle"
+style="display:block; text-align:center;"
+data-ad-layout="in-article"
+data-ad-format="fluid"
+data-ad-client="ca-pub-8535540836842352"
+data-ad-slot="2974559225">&lt;/ins>&lt;/p>
+&lt;script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+&lt;/script>
+&lt;br>
+&lt;h2 id="불변성이란-실무에서-겪는-진짜-문제들">불변성이란? 실무에서 겪는 진짜 문제들
+&lt;/h2>&lt;p>불변성(Immutability)은 &lt;strong>데이터가 생성된 후에 변경되지 않는 성질&lt;/strong>을 말합니다. 한 번 만들어진 값이나 객체는 수정할 수 없고, 변경이 필요하면 새로운 값이나 객체를 만들어야 합니다.&lt;/p>
+&lt;p>실제 코딩을 할 때 이 개념이 정말 중요해요. 제가 작년에 간단한 학생 관리 프로그램을 만들었을 때, 학생 정보를 여러 함수에서 공유해야 하는 상황이 있었어요. 처음엔 객체를 그대로 전달했다가 한 함수에서 수정한 데이터가 다른 함수에도 영향을 미쳐서 예상치 못한 버그가 발생했어요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 원본은 건드리지 않고, 새로운 것을 만드는 것이 불변성!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">originalName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;철수&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">newName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;영희&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 새로운 값 생성
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">originalName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;철수&amp;#34; (원본 그대로)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 실제 프로그래밍 예시 - 사용자 정보 처리
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">processUserInfo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ❌ 이렇게 하면 원본이 변경됨
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// user.isProcessed = true;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ✅ 새로운 객체를 만들어 반환
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">isProcessed&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>불변성을 지키면 &lt;strong>코드 흐름을 예측할 수 있고 안전하게 데이터를 다룰 수 있습니다&lt;/strong>. 원본 데이터가 언제 어디서 변경되는지 걱정할 필요가 없기 때문입니다.&lt;/p>
+&lt;p>그런데 여기서 중요한 점은, 자바스크립트의 모든 데이터 타입이 똑같이 동작하지는 않는다는 거예요. 원시타입과 참조타입의 차이를 이해해야 불변성을 제대로 활용할 수 있답니다.&lt;/p>
+&lt;br>
+&lt;h2 id="원시타입은-기본적으로-불변---걱정할-필요-없어요">원시타입은 기본적으로 불변 - 걱정할 필요 없어요!
+&lt;/h2>&lt;p>자바스크립트의 원시타입(string, number, boolean 등)은 &lt;strong>기본적으로 불변성을 가지고 있습니다&lt;/strong>. 이 부분은 정말 다행이에요, 개발자가 따로 신경 쓸 필요가 없으니까요.&lt;/p>
+&lt;p>실제 프로그래밍에서 사용자 ID나 상품 가격 같은 기본 데이터들을 처리할 때를 생각해 보세요. 이런 기본 데이터들은 안전하게 복사하고 전달할 수 있어요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">userName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;철수&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">copyName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">userName&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 값 자체가 복사됨
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">copyName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;영희&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;철수&amp;#34; (원본 안전!)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">copyName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;영희&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 실제 간단한 계산기 프로그램 예시
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">currentScore&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">85&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">bonusScore&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">currentScore&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 95 (새로운 값)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">currentScore&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 85 (원본 그대로)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">studentName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;김학생&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">displayName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">studentName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toUpperCase&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// &amp;#34;김학생&amp;#34; (새로운 문자열)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">studentName&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;김학생&amp;#34; (원본 그대로)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>원시타입이 불변인 이유는 &lt;strong>메모리에 값 자체가 저장&lt;/strong>되기 때문입니다. 변수에 새로운 값을 할당하면 완전히 새로운 값이 메모리에 생성되죠.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">num&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 새로운 값 15가 생성됨
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">num&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 10 (원본 그대로)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hello&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">upperText&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toUpperCase&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 새로운 &amp;#34;HELLO&amp;#34; 생성
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;Hello&amp;#34; (원본 그대로)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>💡 &lt;strong>실무 팁&lt;/strong>: 원시타입을 사용할 때는 불변성을 신경 쓸 필요가 없습니다. 자바스크립트 엔진이 자동으로 처리해 주니까요. 하지만 객체와 배열은 완전히 다른 이야기예요!&lt;/p>
+&lt;br>
+&lt;h2 id="참조타입은-기본적으로-가변---여기서-문제가-시작됩니다">참조타입은 기본적으로 가변 - 여기서 문제가 시작됩니다
+&lt;/h2>&lt;p>반면 참조타입(객체, 배열)은 &lt;strong>기본적으로 가변성을 가지고 있습니다&lt;/strong>. 이 부분이 바로 많은 초보자들이 헷갈리고 버그를 만들어내는 지점이에요.&lt;/p>
+&lt;p>제가 처음 자바스크립트를 배울 때 가장 많이 실수했던 부분이기도 합니다. 특히 간단한 주소록 프로그램을 만들 때 이런 코드를 짰었어요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">userInfo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;철수&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">age&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">25&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">copyInfo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">userInfo&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 주소가 복사됨!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">copyInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;영희&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">userInfo&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// { name: &amp;#34;영희&amp;#34;, age: 25 } (원본 변경됨!)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">copyInfo&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// { name: &amp;#34;영희&amp;#34;, age: 25 }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 실제 프로그래밍에서 겪었던 문제 상황
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">currentUser&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;김개발&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">skills&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;HTML&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;CSS&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;JavaScript&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">addSkill&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">skill&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">user&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">skills&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">skill&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 원본 변경! 위험!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">user&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">updatedUser&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">addSkill&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">currentUser&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;React&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">currentUser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">skills&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [&amp;#34;HTML&amp;#34;, &amp;#34;CSS&amp;#34;, &amp;#34;JavaScript&amp;#34;, &amp;#34;React&amp;#34;] (원본도 변경됨!)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>참조타입이 가변인 이유는 &lt;strong>메모리에 주소가 저장&lt;/strong>되기 때문입니다. 변수에는 실제 데이터가 아니라 데이터가 저장된 메모리 주소가 들어있어서, 같은 주소를 참조하는 모든 변수가 같은 데이터를 공유하게 됩니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">numbers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">moreNumbers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">numbers&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 같은 배열을 가리킴
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">moreNumbers&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">numbers&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [1, 2, 3, 4] (원본 변경됨!)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">moreNumbers&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [1, 2, 3, 4]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 실제 학생 성적 관리 프로그램에서 겪었던 문제
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">studentScores&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;김학생&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">score&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">85&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;이학생&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">score&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">92&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">backupScores&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">studentScores&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 위험한 복사!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">studentScores&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">score&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">90&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 원본 수정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">backupScores&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">score&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 90 (백업본도 함께 변경됨!)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>📝 &lt;strong>실무에서 주의&lt;/strong>: 이런 현상을 &amp;ldquo;참조 공유&amp;quot;라고 하며, 의도치 않은 데이터 변경의 주요 원인입니다. 특히 나중에 React 같은 라이브러리를 배울 때 이로 인해 상태 업데이트가 제대로 감지되지 않는 문제가 발생할 수 있어요.&lt;/p>
+&lt;p>이제 왜 불변성이 이렇게 중요한지, 그리고 어떤 장점들이 있는지 구체적으로 알아볼까요?&lt;/p>
+&lt;br>
+&lt;h2 id="왜-불변성이-중요할까-실제-코딩에서-겪은-진짜-이유들">왜 불변성이 중요할까? 실제 코딩에서 겪은 진짜 이유들
+&lt;/h2>&lt;p>불변성을 지키면 다음과 같은 장점들을 얻을 수 있습니다. 저도 이 원칙들을 지키기 시작한 후부터 버그가 확연히 줄어들었어요.&lt;/p>
+&lt;br>
+&lt;h3 id="1-예측할-수-있는-코드---디버깅이-훨씬-쉬워져요">1. 예측할 수 있는 코드 - 디버깅이 훨씬 쉬워져요
+&lt;/h3>&lt;p>제가 간단한 게임 점수 관리 프로그램을 만들 때 겪었던 일인데요, 여러 함수가 같은 플레이어 데이터를 다루다 보니 누가 언제 데이터를 변경했는지 추적하기가 정말 어려웠어요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">processPlayer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 원본을 변경하지 않으므로 안전
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">processedPlayer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">processed&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">processedAt&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">processedPlayer&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 실제 게임 점수 관리에서 사용한 패턴
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">updatePlayerScore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">newScore&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ❌ 이렇게 하면 원본이 변경되어 다른 함수에 영향
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// Object.assign(player, { score: newScore });
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ✅ 새로운 객체를 만들어 반환하면 안전
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">score&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">newScore&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">updatedAt&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">currentPlayer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;철수&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">score&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">level&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">updatedPlayer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">updatePlayerScore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">currentPlayer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">150&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">currentPlayer&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 원본이 안전하게 보존됨
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">updatedPlayer&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 새로운 데이터로 업데이트됨
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="2-버그-방지---사이드-이펙트-없애기">2. 버그 방지 - 사이드 이펙트 없애기
+&lt;/h3>&lt;p>공유 상태를 여러 함수에서 수정하면 예상치 못한 부작용이 발생할 수 있어요. 실제로 제가 간단한 온라인 상점 시뮬레이터를 만들 때 겪었던 문제였는데, 할인 계산 함수와 세금 계산 함수가 같은 상품 객체를 수정해서 최종 가격이 이상하게 나온 적이 있었어요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ 위험한 방식 - 공유 상태 직접 수정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">gameState&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">score&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">lives&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">items&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[]&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">addPoints&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">points&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">gameState&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">score&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="nx">points&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 위험! 다른 함수에 영향
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">gameState&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;점수아이템&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">loseLife&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">gameState&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">lives&lt;/span>&lt;span class="o">--&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 위험! 예상치 못한 부작용
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">gameState&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;생명감소&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ 안전한 방식 - 새로운 상태 반환
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">safeAddPoints&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">points&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">score&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">score&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">points&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">lives&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">lives&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">items&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;점수아이템&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">safeLoseLife&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">score&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">score&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">lives&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">lives&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">items&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">state&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">items&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;생명감소&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="3-함수의-신뢰성-높이기---언제-어디서든-안전하게-사용">3. 함수의 신뢰성 높이기 - 언제 어디서든 안전하게 사용
+&lt;/h3>&lt;p>불변성을 지키는 함수는 언제 어디서 호출해도 예상대로 동작해요. 이건 정말 중요한 장점이에요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ 위험한 함수 - 원본을 변경함
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">dangerousAddStudent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">students&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">newStudent&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">students&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">newStudent&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 원본 배열 변경!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">students&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ 안전한 함수 - 새로운 배열 반환
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">safeAddStudent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">students&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">newStudent&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">students&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">newStudent&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="c1">// 새 배열 생성
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 사용 예시
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">myStudents&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;김학생&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grade&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;A&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;이학생&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grade&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;B&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">updatedStudents&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">safeAddStudent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">myStudents&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;박학생&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grade&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;A&amp;#34;&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">myStudents&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 2 (원본 그대로)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">updatedStudents&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 3 (새로운 배열)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="4-나중에-react-배울-때-필수-개념">4. 나중에 React 배울 때 필수 개념!
+&lt;/h3>&lt;p>지금은 순수 자바스크립트를 배우고 있지만, 나중에 React를 배우게 되면 불변성이 정말 중요해요. React는 데이터 변경을 감지하기 위해 &lt;strong>참조 비교&lt;/strong>를 사용하거든요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// React에서 이런 식으로 상태를 관리해요 (미리 보기)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ React에서 잘못된 방식
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">todos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;자바스크립트 공부&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">done&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;React 공부&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">done&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 이렇게 하면 React가 변경을 감지하지 못함
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;새 할 일&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">done&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ React에서 올바른 방식
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">newTodos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;새 할 일&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">done&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="p">}];&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>💡 &lt;strong>미래를 위한 팁&lt;/strong>: 지금부터 불변성을 지키는 습관을 들이면, 나중에 React나 Vue 같은 프레임워크를 배울 때 훨씬 수월할 거예요!&lt;/p>
+&lt;p>이제 실제로 불변성을 지키는 구체적인 방법들을 알아볼까요? 이론만 알아서는 소용없으니, 바로 코딩에 적용할 수 있는 실전 패턴들을 살펴보겠습니다.&lt;/p>
+&lt;br>
+&lt;h2 id="불변성을-지키는-방법---코딩에서-바로-쓰는-패턴들">불변성을 지키는 방법 - 코딩에서 바로 쓰는 패턴들
+&lt;/h2>&lt;p>참조타입에서 불변성을 지키려면 &lt;strong>원본을 수정하지 말고, 새로운 객체나 배열을 만들어야&lt;/strong> 합니다. 저는 이 패턴들을 익히고 나서 코드 작성 속도도 빨라지고 버그도 확실히 줄어들었어요.&lt;/p>
+&lt;br>
+&lt;h3 id="객체-복사하기---사용자-정보-업데이트-실전-패턴">객체 복사하기 - 사용자 정보 업데이트 실전 패턴
+&lt;/h3>&lt;p>실제 프로그래밍에서 가장 많이 사용하는 패턴들을 소개할게요. 특히 게임 캐릭터 정보나 학생 데이터 수정에서 자주 쓰이는 방법들이에요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">player&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;철수&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">level&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">exp&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1250&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">hp&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">100&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 방법 1: 수동으로 새 객체 생성 (단순한 경우)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">leveledUpPlayer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">player&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">level&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">player&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">level&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">exp&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">player&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exp&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">hp&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">player&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">hp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 방법 2: Object.assign() 사용 (ES5 방식)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">healedPlayer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">assign&lt;/span>&lt;span class="p">({},&lt;/span> &lt;span class="nx">player&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">hp&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">100&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 방법 3: 스프레드 연산자 (가장 널리 사용)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">modernPlayer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">level&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">exp&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1500&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 원본 보존
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">modernPlayer&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 새로운 객체
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 실제 게임에서 자주 사용하는 캐릭터 업데이트 함수
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">updatePlayerStats&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">updates&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>&lt;span class="nx">updates&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">lastUpdated&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">toISOString&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 중첩된 객체 업데이트 (실제 RPG 게임 형태)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">gameCharacter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;용사김씨&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">stats&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">strength&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">intelligence&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">12&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">inventory&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">weapons&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;검&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;방패&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">potions&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 중첩된 객체의 일부만 업데이트하기
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">upgradeCharacter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>&lt;span class="nx">gameCharacter&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">stats&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>&lt;span class="nx">gameCharacter&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">stats&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">strength&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">18&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="배열-복사하기---목록-관리-실전-패턴">배열 복사하기 - 목록 관리 실전 패턴
+&lt;/h3>&lt;p>배열 관련 작업은 프로그래밍에서 정말 자주 사용해요. 제가 할 일 관리 앱과 간단한 블로그를 만들면서 가장 많이 사용했던 패턴들입니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">scores&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">85&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">92&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">78&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">students&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;김학생&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grade&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;A&amp;#34;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;이학생&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grade&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;B&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 배열에 새 요소 추가
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">newScores&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">scores&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">95&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="c1">// [85, 92, 78, 95]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">addedStudent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">students&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;박학생&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grade&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;A&amp;#34;&lt;/span> &lt;span class="p">}];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 배열 앞에 추가
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">prependedScores&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">scores&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="c1">// [100, 85, 92, 78]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 특정 위치에 삽입
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">insertedScores&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">scores&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">slice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="mi">90&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">scores&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">slice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)];&lt;/span> &lt;span class="c1">// [85, 90, 92, 78]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 배열 요소 수정 (map 활용)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">bonusScores&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">scores&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">score&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">score&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [90, 97, 83]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 실제 예시: 학생 성적 업데이트
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">updateStudentGrade&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">students&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">studentId&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">newGrade&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">students&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">student&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">student&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="nx">studentId&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">?&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">student&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grade&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">newGrade&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">:&lt;/span> &lt;span class="nx">student&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 배열에서 요소 제거
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">removeStudent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">students&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">studentId&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">students&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">filter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">student&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">student&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="nx">studentId&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 배열 정렬 (원본 보존)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">sortedStudents&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">students&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">sort&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">localeCompare&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">scores&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [85, 92, 78] (원본 보존)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">students&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 원본 배열 그대로
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;br>
+&lt;h3 id="스프레드-연산자-간단-소개">스프레드 연산자 간단 소개
+&lt;/h3>&lt;p>최신 자바스크립트에는 &lt;strong>스프레드 연산자(&amp;hellip;)&lt;/strong>라는 편리한 문법이 있습니다. 이를 사용하면 불변성을 지키면서도 코드를 간단하게 작성할 수 있어요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">player&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;철수&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">level&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">5&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">numbers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 객체 복사 + 수정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">newPlayer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">level&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">6&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 배열 복사 + 추가
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">newNumbers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">numbers&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 원본 보존
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">newPlayer&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 새로운 객체
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>스프레드 연산자는 앞서 배운 방법들보다 훨씬 간단하고 직관적이어서 현재 가장 많이 사용되는 방법입니다.&lt;/p>
+&lt;p>💡 &lt;strong>다음 글 예고&lt;/strong>: 스프레드 연산자의 고급 활용법과 성능 최적화 방법은 별도의 글에서 자세히 다룰 예정이니, 지금은 &amp;ldquo;이런 편리한 방법이 있구나&amp;rdquo; 정도로만 이해하셔도 됩니다.&lt;/p>
+&lt;p>하지만 스프레드 연산자도 주의해야 할 점이 있어요. 바로 얕은 복사와 깊은 복사의 차이인데, 이 부분을 간단히 알아보겠습니다.&lt;/p>
+&lt;br>
+&lt;h3 id="얕은-복사와-깊은-복사---개념만-간단히">얕은 복사와 깊은 복사 - 개념만 간단히
+&lt;/h3>&lt;p>스프레드 연산자를 사용할 때 주의해야 할 점이 있어요. 바로 &lt;strong>얕은 복사&lt;/strong>의 한계입니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">player&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;철수&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">skills&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;공격&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;방어&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">equipment&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">weapon&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;검&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">armor&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;갑옷&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">copyPlayer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">player&lt;/span> &lt;span class="p">};&lt;/span> &lt;span class="c1">// 얕은 복사
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">copyPlayer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">skills&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;마법&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 위험! 원본도 변경됨
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>중첩된 객체나 배열이 있을 때는 &lt;strong>깊은 복사&lt;/strong>가 필요합니다.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 안전한 방법 1: 수동으로 각 레벨 복사
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">safePlayerCopy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">skills&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">skills&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">equipment&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">equipment&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 안전한 방법 2: JSON 방식 (간단하지만 한계 있음)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">deepCopyPlayer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">JSON&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">parse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">JSON&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">stringify&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">player&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>📚 &lt;strong>자세한 내용은 다음 글에서&lt;/strong>: 깊은 복사의 다양한 방법들과 각각의 장단점은 별도 포스팅에서 자세히 다룰 예정이에요!&lt;/p>
+&lt;br>
+&lt;h3 id="함수-매개변수-주의---초보자가-자주-하는-실수">함수 매개변수 주의 - 초보자가 자주 하는 실수
+&lt;/h3>&lt;p>함수에서 매개변수로 받은 객체를 직접 수정하는 것은 정말 위험해요. 저도 초보 시절에 이런 실수를 자주 했었는데, 디버깅하기가 정말 어려웠어요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ 위험한 방식 - 매개변수 직접 수정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">processStudent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">student&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">student&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">lastAccess&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 원본 변경! 위험!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">student&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">visitCount&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">student&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">visitCount&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">student&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 실제 사용 시 문제 발생
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">currentStudent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;김학생&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grade&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;A&amp;#34;&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">processedStudent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">processStudent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">currentStudent&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">currentStudent&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 원본도 변경됨!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ 안전한 방식 - 새 객체 반환
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">safeProcessStudent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">student&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>&lt;span class="nx">student&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">lastAccess&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">(),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">visitCount&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">student&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">visitCount&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 배열 처리에서도 마찬가지
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">processStudentList&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">students&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ❌ 원본 배열 직접 수정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// students.forEach(student =&amp;gt; student.processed = true);
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ✅ 새 배열 반환
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">students&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">student&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">({&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">student&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">processed&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="p">}));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 게임 개발에서 자주 사용하는 안전한 패턴
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">calculateDamage&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">character&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">damage&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 원본 캐릭터를 변경하지 않고 새로운 상태 반환
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">newHp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">character&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">hp&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">damage&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>&lt;span class="nx">character&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">hp&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">newHp&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">isAlive&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">newHp&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>💡 &lt;strong>코딩 팁&lt;/strong>: 함수에서 매개변수를 받을 때는 항상 &amp;ldquo;이 함수가 원본 데이터를 변경해도 괜찮을까?&amp;ldquo;를 생각해 보세요. 99%의 경우 새로운 값을 반환하는 것이 더 안전합니다.&lt;/p>
+&lt;br>
+&lt;h2 id="-자주-묻는-질문-faq">💬 자주 묻는 질문 (FAQ)
+&lt;/h2>&lt;p>실무에서 불변성을 적용하면서 자주 받는 질문들을 정리해 봤어요. 저도 처음 배울 때 궁금했던 것들이 대부분이에요.&lt;/p>
+&lt;br>
+&lt;h3 id="q1-불변성을-지키면-성능이-떨어지지-않나요">Q1. 불변성을 지키면 성능이 떨어지지 않나요?
+&lt;/h3>&lt;p>&lt;strong>A&lt;/strong>: 좋은 질문이에요! 저도 처음엔 같은 걱정을 했었어요.&lt;/p>
+&lt;p>새로운 객체나 배열을 계속 만들면 메모리를 많이 사용할 것 같지만, 실제로는 그렇지 않아요. 자바스크립트 엔진과 React 같은 라이브러리들이 최적화를 잘해주거든요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 이런 경우엔 실제로는 공유하는 부분이 많아요
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">user1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;철수&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">hobbies&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;독서&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;영화&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">user2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">user1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;영희&amp;#34;&lt;/span> &lt;span class="p">};&lt;/span> &lt;span class="c1">// hobbies 배열은 공유됨
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// React에서는 오히려 성능이 더 좋아져요
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">ExpensiveComponent&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">user&lt;/span> &lt;span class="p">})&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 불변성을 지키면 React.memo가 제대로 작동
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="nx">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="cm">/* 복잡한 렌더링 로직 */&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">/div&amp;gt;;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="nx">React&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">memo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ExpensiveComponent&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 얕은 비교로 빠른 최적화
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>실무에서 제가 측정해 본 결과, 불변성을 지키는 것이 오히려 성능 최적화에 도움이 되는 경우가 더 많았어요.&lt;/p>
+&lt;br>
+&lt;h3 id="q2-깊은-복사는-언제-필요하고-어떤-방법이-가장-좋은가요">Q2. 깊은 복사는 언제 필요하고, 어떤 방법이 가장 좋은가요?
+&lt;/h3>&lt;p>&lt;strong>A&lt;/strong>: 중첩된 객체나 배열이 있을 때 필요해요. 하지만 항상 깊은 복사가 필요한 건 아니에요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 이런 경우엔 얕은 복사로 충분
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">user&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;철수&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">age&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">city&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;서울&amp;#34;&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">newUser&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">user&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">age&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">26&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 이런 경우엔 깊은 복사 필요
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">complexUser&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;철수&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">settings&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">theme&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;dark&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">notifications&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;email&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;push&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 간단한 방법
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">safeCopy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>&lt;span class="nx">complexUser&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">settings&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>&lt;span class="nx">complexUser&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">settings&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">theme&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;light&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>📚 &lt;strong>자세한 내용은 다음 글에서&lt;/strong>: 깊은 복사의 다양한 방법들과 각각의 장단점은 별도 포스팅에서 자세히 다룰 예정이에요!&lt;/p>
+&lt;br>
+&lt;h3 id="q3-자바스크립트에서-배열-업데이트할-때-자주-실수하는-부분이-있나요">Q3. 자바스크립트에서 배열 업데이트할 때 자주 실수하는 부분이 있나요?
+&lt;/h3>&lt;p>&lt;strong>A&lt;/strong>: 네, 정말 많아요! 저도 초보 시절에 이런 실수를 자주 했어요.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ❌ 자주 하는 실수들
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">todoList&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;자바스크립트 공부&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">done&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;프로젝트 만들기&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">done&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">false&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 실수 1: 원본 배열 직접 수정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">addTodoWrong&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">newTodo&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">todos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">newTodo&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 이러면 원본이 변경됨!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">todos&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 실수 2: 인덱스로 직접 수정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">todoList&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">done&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 객체 내부 직접 수정
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ✅ 올바른 방법들
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 새 할 일 추가
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">addTodo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">newTodo&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">newTodo&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="c1">// 새 배열 생성
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 할 일 완료 상태 변경
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">toggleTodo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">targetId&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">todos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todo&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">todo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="nx">targetId&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">?&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">todo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">done&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="o">!&lt;/span>&lt;span class="nx">todo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">done&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="c1">// 새 객체 생성
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="nx">todo&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 할 일 삭제
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">removeTodo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">targetId&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">todos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">filter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todo&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">todo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="nx">targetId&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 할 일 정렬 (원본 보존)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">sortTodos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">todos&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">sort&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">localeCompare&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>코딩 팁&lt;/strong>: 배열을 다룰 때는 &lt;code>push()&lt;/code>, &lt;code>pop()&lt;/code>, &lt;code>splice()&lt;/code> 같은 원본을 변경하는 메서드 대신, &lt;code>map()&lt;/code>, &lt;code>filter()&lt;/code>, &lt;code>concat()&lt;/code>, 스프레드 연산자를 사용하세요.&lt;/p>
+&lt;br>
+&lt;hr>
+&lt;p>이 글이 자바스크립트 불변성을 이해하는 데 도움이 되셨나요? 불변성은 처음에는 번거로워 보일 수 있지만, 안전하고 예측할 수 있는 코드를 작성하는 데 꼭 필요한 개념이에요.&lt;/p>
+&lt;p>특히 여러분이 코딩하면서 겪었던 비슷한 경험이나, 이 글을 읽고 해결된 문제가 있다면 댓글로 공유해주세요!&lt;/p>
+&lt;p>다음 글에서는 **&lt;a class="link" href="https://ctrlcccv.github.io/code/2025-07-04-javascript-copy/" >JavaScript 얕은 복사 vs 깊은 복사&lt;/a>**에 대해 다뤄보겠습니다. 불변성을 지키기 위해 꼭 알아야 하는 복사 방법들, 특히 2025년 최신 방법인 &lt;code>structuredClone()&lt;/code>까지 실무 예제와 함께 완벽하게 정리해 드릴게요. 중첩된 객체나 배열로 고생하셨던 분들은 꼭 놓치지 마세요!&lt;/p>
+&lt;p>함께 성장하는 개발자가 되어요! 🚀&lt;/p>
+&lt;br>
+&lt;div class="btn_wrap">
+&lt;a target="_blank" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze">MDN - Object.freeze()와 불변성&lt;/a>
+&lt;/div></description></item></channel></rss>

@@ -1,0 +1,293 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="Learn JavaScript callback functions and their role in asynchronous programming with practical examples. "><title>What is a Callback in JS: Functions That Wait</title><link rel=canonical href=https://ctrlcccv.github.io/code-en/2025-06-12-javascript-callback/><link rel=stylesheet href=/scss/style.min.f8f2ffa38007b2836bfa74b6d37bb415044d35b7fd34320b4fc7ad572ba1c09c.css><meta property='og:title' content="What is a Callback in JS: Functions That Wait\n"><meta property='og:description' content="Learn JavaScript callback functions and their role in asynchronous programming with practical examples. "><meta property='og:url' content='https://ctrlcccv.github.io/code-en/2025-06-12-javascript-callback/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code-En'><meta property='article:tag' content='Callback Functions'><meta property='article:tag' content='Asynchronous Programming'><meta property='article:tag' content='Performance Optimization'><meta property='article:published_time' content='2025-06-12T00:00:00+00:00'><meta property='article:modified_time' content='2025-06-12T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-12-javascript-callback-en.webp'><meta name=twitter:title content="What is a Callback in JS: Functions That Wait\n"><meta name=twitter:description content="Learn JavaScript callback functions and their role in asynchronous programming with practical examples. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-12-javascript-callback-en.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"What is a Callback in JS: Functions That Wait\n","datePublished":"2025-06-12T00:00:00Z","dateModified":"2025-06-12T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script><link rel=alternate title="JavaScript 콜백 함수(Callback function) 쉽게 이해하기" href=https://ctrlcccv.github.io/code/2025-06-09-javascript-callback/ hreflang=ko><link rel=alternate title="What is a Callback in JS: Functions That Wait" href=https://ctrlcccv.github.io/code-en/2025-06-12-javascript-callback/ hreflang=en></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#what-is-a-callback-function>What is a Callback Function?</a><ol><li><a href=#real-life-analogies-for-callbacks>Real-Life Analogies for Callbacks</a></li><li><a href=#basic-structure>Basic Structure</a></li></ol></li><li><a href=#simple-callback-example>Simple Callback Example</a></li><li><a href=#using-anonymous-callback-functions>Using Anonymous Callback Functions</a></li><li><a href=#common-real-world-callback-examples>Common Real-World Callback Examples</a><ol><li><a href=#1-array-methods>1. Array Methods</a></li><li><a href=#2-event-listeners>2. Event Listeners</a></li><li><a href=#3-handling-api-requests>3. Handling API Requests</a></li><li><a href=#4-timer-functions>4. Timer Functions</a></li></ol></li><li><a href=#callbacks-and-asynchronous-programming>Callbacks and Asynchronous Programming</a></li><li><a href=#the-callback-hell-problem-and-solutions>The Callback Hell Problem and Solutions</a><ol><li><a href=#modern-solutions>Modern Solutions</a></li></ol></li><li><a href=#conclusion>Conclusion</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code-en/2025-06-12-javascript-callback/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-12-javascript-callback-en.webp loading=lazy alt="Featured image of post What is a Callback in JS: Functions That Wait
+"></a></div><div class=article-details><header class=article-category><a href=/categories/javascript/>JavaScript</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code-en/2025-06-12-javascript-callback/>What is a Callback in JS: Functions That Wait</a></h2><h3 class=article-subtitle>Learn JavaScript callback functions and their role in asynchronous programming with practical examples.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-06-12T00:00:00Z>6월 12, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>5 분 정도</time></div></footer></div></header><section class=article-content><p>Ever come across the term &ldquo;callback function&rdquo; in web development and wondered what it actually means?</p><p>Callback functions are fundamental to JavaScript and incredibly powerful. They&rsquo;re the backbone of asynchronous operations and are used throughout modern web development. In this guide, I&rsquo;ll break down what callback functions are and how to use them in straightforward terms.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=what-is-a-callback-function>What is a Callback Function?</h2><p>A callback function is simply a function that you pass as an argument to another function. This function is then called at a later time when a specific task completes. Think of it as saying, &ldquo;Here&rsquo;s what I want you to do after you finish your current task.&rdquo;</p><br><h3 id=real-life-analogies-for-callbacks>Real-Life Analogies for Callbacks</h3><ol><li><p><strong>Food Delivery App</strong>:</p><ul><li>Main process: You order food through an app</li><li>Callback: &ldquo;Notify me when the delivery driver is on the way&rdquo;</li><li>Execution: The app automatically sends you a notification when your delivery starts</li></ul></li><li><p><strong>Restaurant Pager</strong>:</p><ul><li>Main process: You place your order at a counter</li><li>Callback: The staff hands you a buzzer</li><li>Execution: The buzzer vibrates when your food is ready for pickup</li></ul></li></ol><p>Callbacks create a system where certain actions happen automatically when specific conditions are met.</p><br><h3 id=basic-structure>Basic Structure</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>mainFunction</span><span class=p>(</span><span class=nx>arg1</span><span class=p>,</span> <span class=nx>arg2</span><span class=p>,</span> <span class=nx>callbackFunction</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Main function does its work first
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    <span class=c1>// When finished, it executes the callback
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>callbackFunction</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Using the function with a callback
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>mainFunction</span><span class=p>(</span><span class=nx>value1</span><span class=p>,</span> <span class=nx>value2</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Task completed!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p>In this example, <code>function() { console.log("Task completed!"); }</code> is the callback. It only runs after <code>mainFunction</code> finishes its work.</p><br><h2 id=simple-callback-example>Simple Callback Example</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// A function that accepts a callback parameter
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>greet</span><span class=p>(</span><span class=nx>name</span><span class=p>,</span> <span class=nx>callback</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Hello, &#34;</span> <span class=o>+</span> <span class=nx>name</span> <span class=o>+</span> <span class=s2>&#34;!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Execute the callback after greeting
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>callback</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// A function we&#39;ll use as a callback
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>sayGoodbye</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Goodbye!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Passing sayGoodbye as a callback to greet
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>greet</span><span class=p>(</span><span class=s2>&#34;John&#34;</span><span class=p>,</span> <span class=nx>sayGoodbye</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Output:</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Hello, John!
+</span></span><span class=line><span class=cl>Goodbye!
+</span></span></code></pre></td></tr></table></div></div><p>What&rsquo;s happening here:</p><ul><li><code>greet</code> accepts two arguments: a name and a callback function</li><li><code>sayGoodbye</code> is passed as the callback</li><li>When <code>greet("John", sayGoodbye)</code> runs, it first displays the greeting, then executes the callback</li></ul><br><h2 id=using-anonymous-callback-functions>Using Anonymous Callback Functions</h2><p>Callbacks don&rsquo;t need to be defined separately. You can create them on the spot as anonymous functions:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// Using an anonymous function as the callback
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>greet</span><span class=p>(</span><span class=s2>&#34;Jane&#34;</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;See you later!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Output:</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Hello, Jane!
+</span></span><span class=line><span class=cl>See you later!
+</span></span></code></pre></td></tr></table></div></div><p>This approach makes your code more concise, especially when the callback is only needed once.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=common-real-world-callback-examples>Common Real-World Callback Examples</h2><h3 id=1-array-methods>1. Array Methods</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>numbers</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// forEach uses a callback function for each array element
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>numbers</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=kd>function</span><span class=p>(</span><span class=nx>number</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>number</span><span class=p>);</span> <span class=c1>// Prints each number in the array
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=2-event-listeners>2. Event Listeners</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// HTML: &lt;button id=&#34;myButton&#34;&gt;Click me&lt;/button&gt;
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;myButton&#39;</span><span class=p>).</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>alert</span><span class=p>(</span><span class=s1>&#39;Button was clicked!&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p>Here, the callback function runs each time someone clicks the button.</p><br><h3 id=3-handling-api-requests>3. Handling API Requests</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>fetchData</span><span class=p>(</span><span class=nx>url</span><span class=p>,</span> <span class=nx>callback</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>xhr</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>XMLHttpRequest</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=nx>xhr</span><span class=p>.</span><span class=nx>open</span><span class=p>(</span><span class=s1>&#39;GET&#39;</span><span class=p>,</span> <span class=nx>url</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>xhr</span><span class=p>.</span><span class=nx>onload</span> <span class=o>=</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>xhr</span><span class=p>.</span><span class=nx>status</span> <span class=o>===</span> <span class=mi>200</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>callback</span><span class=p>(</span><span class=kc>null</span><span class=p>,</span> <span class=nx>xhr</span><span class=p>.</span><span class=nx>responseText</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>callback</span><span class=p>(</span><span class=k>new</span> <span class=nb>Error</span><span class=p>(</span><span class=s1>&#39;Request failed&#39;</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>    <span class=nx>xhr</span><span class=p>.</span><span class=nx>send</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Using the fetchData function
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>fetchData</span><span class=p>(</span><span class=s1>&#39;https://api.example.com/data&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>error</span><span class=p>,</span> <span class=nx>data</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;Data received:&#39;</span><span class=p>,</span> <span class=nx>data</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p>This callback handles the response after an API request completes, whether it succeeds or fails.</p><br><h3 id=4-timer-functions>4. Timer Functions</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// Run code after a delay
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>setTimeout</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;2 seconds have passed!&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=mi>2000</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Run code repeatedly at intervals
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>setInterval</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;This message appears every 3 seconds&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=mi>3000</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>These functions use callbacks to execute code after a specific time period.</p><br><h2 id=callbacks-and-asynchronous-programming>Callbacks and Asynchronous Programming</h2><p>Callbacks are essential to JavaScript&rsquo;s asynchronous programming model. They allow your code to continue running while waiting for operations like network requests or timers to complete.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Starting the coffee machine...&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Asynchronous operation with callback
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>setTimeout</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Your coffee is ready!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>},</span> <span class=mi>3000</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Getting the milk from the fridge...&#34;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>Output:</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Starting the coffee machine...
+</span></span><span class=line><span class=cl>Getting the milk from the fridge...
+</span></span><span class=line><span class=cl>(3 seconds later)
+</span></span><span class=line><span class=cl>Your coffee is ready!
+</span></span></code></pre></td></tr></table></div></div><p>The <code>setTimeout</code> callback doesn&rsquo;t block the rest of your code. This is like starting your coffee maker and then doing other kitchen tasks while waiting for the coffee to brew.</p><br><h2 id=the-callback-hell-problem-and-solutions>The Callback Hell Problem and Solutions</h2><p>When you nest multiple callbacks, you can end up with difficult-to-read code known as &ldquo;Callback Hell&rdquo; or the &ldquo;Pyramid of Doom&rdquo;:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>fetchUserData</span><span class=p>(</span><span class=nx>userId</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>userData</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fetchUserPosts</span><span class=p>(</span><span class=nx>userData</span><span class=p>.</span><span class=nx>id</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>posts</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fetchPostComments</span><span class=p>(</span><span class=nx>posts</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>id</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>comments</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>fetchCommentAuthor</span><span class=p>(</span><span class=nx>comments</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>authorId</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>author</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>author</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=c1>// Even more nested callbacks...
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=p>});</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=modern-solutions>Modern Solutions</h3><ol><li><strong>Named Functions:</strong></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>handleAuthor</span><span class=p>(</span><span class=nx>author</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>author</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>handleComments</span><span class=p>(</span><span class=nx>comments</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fetchCommentAuthor</span><span class=p>(</span><span class=nx>comments</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>authorId</span><span class=p>,</span> <span class=nx>handleAuthor</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>handlePosts</span><span class=p>(</span><span class=nx>posts</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fetchPostComments</span><span class=p>(</span><span class=nx>posts</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>id</span><span class=p>,</span> <span class=nx>handleComments</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>handleUserData</span><span class=p>(</span><span class=nx>userData</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fetchUserPosts</span><span class=p>(</span><span class=nx>userData</span><span class=p>.</span><span class=nx>id</span><span class=p>,</span> <span class=nx>handlePosts</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>fetchUserData</span><span class=p>(</span><span class=nx>userId</span><span class=p>,</span> <span class=nx>handleUserData</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li><strong>Promises:</strong></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>fetchUserData</span><span class=p>(</span><span class=nx>userId</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>userData</span> <span class=p>=&gt;</span> <span class=nx>fetchUserPosts</span><span class=p>(</span><span class=nx>userData</span><span class=p>.</span><span class=nx>id</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>posts</span> <span class=p>=&gt;</span> <span class=nx>fetchPostComments</span><span class=p>(</span><span class=nx>posts</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>id</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>comments</span> <span class=p>=&gt;</span> <span class=nx>fetchCommentAuthor</span><span class=p>(</span><span class=nx>comments</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>authorId</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>author</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>author</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>})</span>
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=k>catch</span><span class=p>(</span><span class=nx>error</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=s2>&#34;Error:&#34;</span><span class=p>,</span> <span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=3><li><strong>Async/Await:</strong></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>async</span> <span class=kd>function</span> <span class=nx>getUserAuthor</span><span class=p>(</span><span class=nx>userId</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>userData</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetchUserData</span><span class=p>(</span><span class=nx>userId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>posts</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetchUserPosts</span><span class=p>(</span><span class=nx>userData</span><span class=p>.</span><span class=nx>id</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>comments</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetchPostComments</span><span class=p>(</span><span class=nx>posts</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>id</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>author</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetchCommentAuthor</span><span class=p>(</span><span class=nx>comments</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>authorId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>author</span><span class=p>.</span><span class=nx>name</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=s2>&#34;Error:&#34;</span><span class=p>,</span> <span class=nx>error</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>getUserAuthor</span><span class=p>(</span><span class=nx>userId</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><br><h2 id=conclusion>Conclusion</h2><p>Callbacks are a core JavaScript feature that let you define what happens after certain operations complete. They&rsquo;re essential for handling asynchronous tasks and are built into many JavaScript functions and methods.</p><p>While callbacks remain fundamental to JavaScript, modern approaches like Promises and async/await have emerged to address the readability challenges of nested callbacks in complex code.</p><p>How do you use callbacks in your projects? Do you prefer traditional callbacks or newer approaches? Share your experiences in the comments!</p><br></section><footer class=article-footer><section class=article-tags><a href=/tags/callback-functions/>Callback Functions</a>
+<a href=/tags/asynchronous-programming/>Asynchronous Programming</a>
+<a href=/tags/performance-optimization/>Performance Optimization</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code-en/2025-07-07-javascript-copy/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-07-javascript-copy-en.webp loading=lazy data-key=2025-07-07-javascript-copy data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-07-javascript-copy-en.webp></div><div class=article-details><h2 class=article-title>JavaScript Shallow Copy vs Deep Copy: 2025 Edition</h2></div></a></article><article class=has-image><a href=/code/2025-07-04-javascript-copy/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp loading=lazy data-key=2025-07-04-javascript-copy data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp></div><div class=article-details><h2 class=article-title>JavaScript 얕은 복사 vs 깊은 복사: 2025년 최신 가이드 (feat. structuredClone)</h2></div></a></article><article class=has-image><a href=/code-en/2025-07-03-javascript-immutability/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-03-javascript-immutability-en.webp loading=lazy data-key=2025-07-03-javascript-immutability data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-03-javascript-immutability-en.webp></div><div class=article-details><h2 class=article-title>Why Your Code Breaks: JavaScript Immutability Rules</h2></div></a></article><article class=has-image><a href=/code/2025-07-02-javascript-immutability/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp loading=lazy data-key=2025-07-02-javascript-immutability data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp></div><div class=article-details><h2 class=article-title>JavaScript 불변성, 왜 중요할까? 쉽게 이해하는 React 준비 완벽 가이드</h2></div></a></article><article class=has-image><a href=/code-en/2025-07-01-primitive-reference/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-01-primitive-reference-en.webp loading=lazy data-key=2025-07-01-primitive-reference data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-01-primitive-reference-en.webp></div><div class=article-details><h2 class=article-title>JavaScript Primitive vs Reference: The Bug You Didn't Expect</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2025 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
