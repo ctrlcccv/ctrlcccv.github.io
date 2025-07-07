@@ -7,7 +7,7 @@ description: >
 
 slug: 2025-07-03-javascript-immutability
 date: 2025-07-03 00:00:00+0000
-lastmod: 2025-07-03 00:00:00+0000
+lastmod: 2025-07-07 00:00:00+0000
 
 image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-03-javascript-immutability-en.webp
 
