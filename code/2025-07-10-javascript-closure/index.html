@@ -1,0 +1,556 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="자바스크립트 클로저가 무엇인지, 왜 중요한지 실무 경험을 바탕으로 쉽게 설명합니다. 메모리 관리부터 실제 활용 사례까지, 단계별 예제와 함께 완벽하게 이해해 보세요. "><title>JavaScript 클로저, 메모리를 기억하는 함수의 비밀</title><link rel=canonical href=https://ctrlcccv.github.io/code/2025-07-10-javascript-closure/><link rel=stylesheet href=/scss/style.min.96116e223b2a35b100bd79680d101c94d25c58506ca5a649f4d0246e657cab47.css><meta property='og:title' content="JavaScript 클로저, 메모리를 기억하는 함수의 비밀\n"><meta property='og:description' content="자바스크립트 클로저가 무엇인지, 왜 중요한지 실무 경험을 바탕으로 쉽게 설명합니다. 메모리 관리부터 실제 활용 사례까지, 단계별 예제와 함께 완벽하게 이해해 보세요. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2025-07-10-javascript-closure/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='자바스크립트 기초'><meta property='article:tag' content='변수 관리'><meta property='article:tag' content='클로저'><meta property='article:published_time' content='2025-07-10T00:00:00+00:00'><meta property='article:modified_time' content='2025-07-10T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-10-javascript-closure.webp'><meta name=twitter:title content="JavaScript 클로저, 메모리를 기억하는 함수의 비밀\n"><meta name=twitter:description content="자바스크립트 클로저가 무엇인지, 왜 중요한지 실무 경험을 바탕으로 쉽게 설명합니다. 메모리 관리부터 실제 활용 사례까지, 단계별 예제와 함께 완벽하게 이해해 보세요. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-10-javascript-closure.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"JavaScript 클로저, 메모리를 기억하는 함수의 비밀\n","datePublished":"2025-07-10T00:00:00Z","dateModified":"2025-07-10T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#클로저란-무엇인가>클로저란 무엇인가?</a><ol><li><a href=#가장-간단한-클로저-예제>가장 간단한 클로저 예제</a></li><li><a href=#클로저-동작의-3가지-핵심-원리>클로저 동작의 3가지 핵심 원리</a></li></ol></li><li><a href=#클로저의-실무-활용-사례>클로저의 실무 활용 사례</a><ol><li><a href=#1-데이터-은닉과-캡슐화>1. 데이터 은닉과 캡슐화</a></li><li><a href=#2-함수-팩토리-패턴>2. 함수 팩토리 패턴</a></li><li><a href=#3-이벤트-핸들러와-콜백>3. 이벤트 핸들러와 콜백</a></li></ol></li><li><a href=#클로저-사용-시-주의사항>클로저 사용 시 주의사항</a><ol><li><a href=#메모리-누수-위험>메모리 누수 위험</a></li><li><a href=#반복문에서의-클로저-실수>반복문에서의 클로저 실수</a></li></ol></li><li><a href=#실제-프로젝트에서의-클로저-활용>실제 프로젝트에서의 클로저 활용</a><ol><li><a href=#설정-관리자-만들기>설정 관리자 만들기</a></li><li><a href=#디바운싱-함수-구현>디바운싱 함수 구현</a></li><li><a href=#2-참조-해제로-메모리-관리>2. 참조 해제로 메모리 관리</a></li></ol></li><li><a href=#자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</a><ol><li><a href=#q1-클로저는-언제-사용해야-하나요>Q1. 클로저는 언제 사용해야 하나요?</a></li><li><a href=#q2-클로저와-일반-함수의-차이점은-무엇인가요>Q2. 클로저와 일반 함수의 차이점은 무엇인가요?</a></li><li><a href=#q3-클로저-때문에-메모리-누수가-발생할-수-있나요>Q3. 클로저 때문에 메모리 누수가 발생할 수 있나요?</a></li><li><a href=#q4-react에서도-클로저-개념이-사용되나요>Q4. React에서도 클로저 개념이 사용되나요?</a></li><li><a href=#q5-클로저-사용-시-성능에-영향이-있나요>Q5. 클로저 사용 시 성능에 영향이 있나요?</a></li></ol></li><li><a href=#마무리>마무리</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2025-07-10-javascript-closure/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-10-javascript-closure.webp loading=lazy alt="Featured image of post JavaScript 클로저, 메모리를 기억하는 함수의 비밀
+"></a></div><div class=article-details><header class=article-category><a href=/categories/javascript/>JavaScript</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2025-07-10-javascript-closure/>JavaScript 클로저, 메모리를 기억하는 함수의 비밀</a></h2><h3 class=article-subtitle>자바스크립트 클로저가 무엇인지, 왜 중요한지 실무 경험을 바탕으로 쉽게 설명합니다. 메모리 관리부터 실제 활용 사례까지, 단계별 예제와 함께 완벽하게 이해해 보세요.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-07-10T00:00:00Z>10, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>11 분 정도</time></div></footer></div></header><section class=article-content><blockquote><p>💡 <strong>선행 학습 추천</strong><br>이 글을 더 쉽게 이해하려면 먼저 이 글들을 읽어보세요.</p><ul><li><a class=link href=/code/2025-06-16-javascript-scope/>자바스크립트 스코프 ⭐️ 필수!</a> - 변수 접근 범위의 기본 개념</li><li><a class=link href=/code/2025-07-08-lexical-environment/>자바스크립트 렉시컬 환경 ⭐️ 필수!</a> - 클로저의 핵심 동작 원리</li><li><a class=link href=/code/2025-06-26-let-const/>JS 변수 선언법: let과 const</a> - 반복문 클로저 예제 완벽 이해</li></ul></blockquote><p>자바스크립트를 배우다 보면 &ldquo;클로저(Closure)&ldquo;라는 개념에서 벽에 부딪히는 경우가 많죠. 함수가 끝났는데도 변수가 살아있다고? 도대체 왜 그럴까요?</p><p>저도 처음엔 클로저를 단순히 &ldquo;함수 안의 함수"라고만 이해했는데, 실제 프로젝트에서 메모리 누수 문제를 겪으면서 클로저의 진짜 의미를 깨달았어요. 클로저는 단순한 문법이 아니라 자바스크립트의 핵심 동작 원리였던 거죠.</p><p>이 글에서는 클로저가 정확히 무엇인지, 왜 필요한지, 그리고 어떻게 활용해야 하는지를 명확하게 알려드릴게요. 개념 설명부터 실무 활용법까지, 실제 코드 예제와 함께 단계별로 살펴봅니다.</p><br><h2 id=클로저란-무엇인가>클로저란 무엇인가?</h2><p><strong>클로저(Closure)란?</strong>
+클로저는 자바스크립트의 특성으로, 함수가 선언된 <strong>렉시컬 환경(Lexical Environment)을 &lsquo;기억&rsquo;하는</strong> 함수 또는 기능을 말합니다. 함수가 생성될 때의 <strong>스코프에 있던 변수들을 나중에도 접근할 수 있게</strong> 해주는 핵심 기능이에요.</p><p><strong>🔑 핵심 포인트</strong>: 내부 함수가 외부 변수를 <strong>참조할 때 클로저가 생성</strong>됩니다. 단순히 함수 안에 함수가 있다고 클로저가 되는 것이 아니라, <strong>외부 스코프의 변수를 실제로 사용해야</strong> 클로저가 만들어져요!</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h3 id=가장-간단한-클로저-예제>가장 간단한 클로저 예제</h3><p>먼저 가장 기본적인 예제로 클로저의 동작을 살펴볼게요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>outerFunction</span><span class=p>(</span><span class=nx>name</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 외부 함수의 변수 - 일반적으로는 함수 실행 후 사라져야 함
+</span></span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>greeting</span> <span class=o>=</span> <span class=s2>&#34;안녕하세요&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 내부 함수 (클로저) - 외부 변수를 &#39;기억&#39;함
+</span></span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>innerFunction</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 여기서 greeting과 name에 접근 가능!
+</span></span></span><span class=line><span class=cl>        <span class=c1>// 외부 함수가 끝났는데도 이 변수들이 살아있는 이유가 바로 클로저
+</span></span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>greeting</span> <span class=o>+</span> <span class=s2>&#34;, &#34;</span> <span class=o>+</span> <span class=nx>name</span> <span class=o>+</span> <span class=s2>&#34;님!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 함수를 반환 - 이 순간 클로저가 생성됨
+</span></span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>innerFunction</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// outerFunction 실행이 끝났지만...
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>sayHello</span> <span class=o>=</span> <span class=nx>outerFunction</span><span class=p>(</span><span class=s2>&#34;김철수&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c1>// 여전히 greeting과 name 변수에 접근 가능!
+</span></span></span><span class=line><span class=cl><span class=nx>sayHello</span><span class=p>();</span> <span class=c1>// &#34;안녕하세요, 김철수님!&#34;
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>왜 이런 일이 가능할까요?</strong></p><p>일반적으로 함수가 실행을 마치면 그 함수의 <strong>실행 컨텍스트(Execution Context, 함수가 실행되는 환경과 메모리 공간)</strong>가 사라지고, 지역 변수들도 메모리에서 제거됩니다. 하지만 클로저가 있으면 이야기가 달라져요.</p><ol><li><code>innerFunction</code>이 <code>greeting</code>과 <code>name</code>을 참조하고 있어요.</li><li>자바스크립트 엔진이 이를 감지하고 <strong>해당 변수들을 메모리에 보존</strong>합니다.</li><li><code>sayHello</code>가 실행될 때 보존된 변수들에 접근할 수 있게 됩니다.</li></ol><br><h3 id=클로저-동작의-3가지-핵심-원리>클로저 동작의 3가지 핵심 원리</h3><p>클로저가 어떻게 작동하는지 더 자세히 살펴보겠습니다.</p><ol><li><strong>렉시컬 스코프</strong>: 함수는 선언된 위치에서의 스코프를 &lsquo;기억&rsquo;합니다.</li><li><strong>참조 유지</strong>: 내부 함수가 외부 변수를 참조하면, 그 변수는 메모리에 유지됩니다.</li><li><strong>지연 실행</strong>: 나중에 함수를 호출해도 원래 환경의 변수에 접근할 수 있습니다.</li></ol><br><h2 id=클로저의-실무-활용-사례>클로저의 실무 활용 사례</h2><h3 id=1-데이터-은닉과-캡슐화>1. 데이터 은닉과 캡슐화</h3><p>실제 프로젝트에서는 외부에서 직접 접근하면 안 되는 데이터를 보호해야 할 때가 많아요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ 이렇게 하면 외부에서 직접 수정 가능
+</span></span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>userCount</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>incrementUser</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>userCount</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 문제: 외부에서 직접 조작 가능
+</span></span></span><span class=line><span class=cl><span class=nx>userCount</span> <span class=o>=</span> <span class=mi>1000</span><span class=p>;</span> <span class=c1>// 이건 안 돼요! 데이터 무결성 파괴
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 클로저로 데이터 보호
+</span></span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createCounter</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>count</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=c1>// private 변수 - 외부에서 직접 접근 불가
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 반환되는 객체의 메서드들만이 count에 접근 가능
+</span></span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>increment</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>count</span><span class=o>++</span><span class=p>;</span> <span class=c1>// 클로저를 통해 count 변수에 접근
+</span></span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>decrement</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>count</span><span class=o>--</span><span class=p>;</span> <span class=c1>// 같은 count 변수를 공유
+</span></span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>getCount</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>count</span><span class=p>;</span> <span class=c1>// 값을 읽기만 가능
+</span></span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// count 변수 자체는 외부에서 절대 접근 불가!
+</span></span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>counter</span> <span class=o>=</span> <span class=nx>createCounter</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>counter</span><span class=p>.</span><span class=nx>increment</span><span class=p>());</span> <span class=c1>// 1
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>counter</span><span class=p>.</span><span class=nx>increment</span><span class=p>());</span> <span class=c1>// 2
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>counter</span><span class=p>.</span><span class=nx>getCount</span><span class=p>());</span> <span class=c1>// 2
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// count 변수에 직접 접근 불가능! (보안 강화)
+</span></span></span><span class=line><span class=cl><span class=c1>// counter.count = 1000; // undefined! 접근할 수 없음
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>핵심 포인트:</strong></p><ul><li><code>count</code> 변수는 <code>createCounter</code> 함수 내부에만 존재하므로 <strong>완전히 보호됨</strong></li><li>반환된 메서드들이 모두 <strong>같은 <code>count</code> 변수를 공유</strong>하므로 상태가 일관성 있게 유지됨</li><li>이는 객체지향 프로그래밍의 <strong>캡슐화(Encapsulation)</strong> 개념을 자바스크립트에서 구현한 것</li></ul><br><h3 id=2-함수-팩토리-패턴>2. 함수 팩토리 패턴</h3><p>비슷한 기능을 하지만 설정이 다른 함수들을 만들 때 유용해요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createValidator</span><span class=p>(</span><span class=nx>minLength</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 각 검증 함수마다 고유한 minLength 값을 &#39;기억&#39;
+</span></span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kd>function</span><span class=p>(</span><span class=nx>password</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>password</span><span class=p>.</span><span class=nx>length</span> <span class=o>&lt;</span> <span class=nx>minLength</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 클로저로 인해 각자의 minLength 값에 접근
+</span></span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=sb>`비밀번호는 최소 </span><span class=si>${</span><span class=nx>minLength</span><span class=si>}</span><span class=sb>자 이상이어야 합니다.`</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s2>&#34;유효한 비밀번호입니다.&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 각기 다른 규칙의 검증 함수 생성
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>basicValidator</span> <span class=o>=</span> <span class=nx>createValidator</span><span class=p>(</span><span class=mi>6</span><span class=p>);</span>    <span class=c1>// minLength = 6을 기억
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>strongValidator</span> <span class=o>=</span> <span class=nx>createValidator</span><span class=p>(</span><span class=mi>12</span><span class=p>);</span>  <span class=c1>// minLength = 12를 기억
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>basicValidator</span><span class=p>(</span><span class=s2>&#34;123&#34;</span><span class=p>));</span> <span class=c1>// &#34;비밀번호는 최소 6자 이상이어야 합니다.&#34;
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>strongValidator</span><span class=p>(</span><span class=s2>&#34;mypassword123&#34;</span><span class=p>));</span> <span class=c1>// &#34;유효한 비밀번호입니다.&#34;
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>함수 팩토리의 장점:</strong></p><ul><li><strong>설정값을 미리 저장해서</strong> 특화된 함수를 만들 수 있음</li><li>각 함수는 <strong>독립적인 설정을 유지</strong>하므로 서로 영향을 주지 않음</li><li>코드 중복 없이 <strong>다양한 규칙의 함수들을 효율적으로 생성</strong> 가능</li></ul><br><h3 id=3-이벤트-핸들러와-콜백>3. 이벤트 핸들러와 콜백</h3><p>실제 웹 개발에서 자주 마주치는 상황이에요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>setupButton</span><span class=p>(</span><span class=nx>buttonName</span><span class=p>,</span> <span class=nx>clickCount</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>button</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=sb>`#</span><span class=si>${</span><span class=nx>buttonName</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>count</span> <span class=o>=</span> <span class=nx>clickCount</span><span class=p>;</span> <span class=c1>// 각 버튼마다 독립적인 카운터
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 이벤트 핸들러도 클로저! count와 buttonName을 기억함
+</span></span></span><span class=line><span class=cl>    <span class=nx>button</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>count</span><span class=o>++</span><span class=p>;</span> <span class=c1>// 클로저를 통해 count 변수에 접근
+</span></span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`</span><span class=si>${</span><span class=nx>buttonName</span><span class=si>}</span><span class=sb> 버튼이 </span><span class=si>${</span><span class=nx>count</span><span class=si>}</span><span class=sb>번 클릭되었습니다.`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1>// 특정 횟수 달성 시 특별 동작
+</span></span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>count</span> <span class=o>===</span> <span class=mi>10</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;축하합니다! 10번 클릭 달성!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 각 버튼마다 독립적인 카운터 생성
+</span></span></span><span class=line><span class=cl><span class=nx>setupButton</span><span class=p>(</span><span class=s2>&#34;saveBtn&#34;</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>    <span class=c1>// saveBtn은 0부터 시작
+</span></span></span><span class=line><span class=cl><span class=nx>setupButton</span><span class=p>(</span><span class=s2>&#34;deleteBtn&#34;</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>  <span class=c1>// deleteBtn도 0부터 시작 (서로 독립적)
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>이벤트 핸들러에서 클로저가 중요한 이유:</strong></p><ul><li>이벤트가 발생할 때까지 <strong>상태를 유지</strong>해야 함</li><li>각 버튼마다 <strong>독립적인 상태 관리</strong>가 필요함</li><li>함수가 등록된 후에도 <strong>원래 환경의 변수들에 접근</strong>할 수 있어야 함</li></ul><br><h2 id=클로저-사용-시-주의사항>클로저 사용 시 주의사항</h2><h3 id=메모리-누수-위험>메모리 누수 위험</h3><p>클로저는 강력하지만, 잘못 사용하면 메모리 누수가 발생할 수 있어요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ 메모리 누수 위험
+</span></span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createBigDataProcessor</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>bigData</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>1000000</span><span class=p>).</span><span class=nx>fill</span><span class=p>(</span><span class=s2>&#34;데이터&#34;</span><span class=p>);</span> <span class=c1>// 큰 데이터 (약 4MB)
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kd>function</span><span class=p>(</span><span class=nx>index</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 문제: bigData 전체가 메모리에 계속 남아있음
+</span></span></span><span class=line><span class=cl>        <span class=c1>// 클로저가 bigData를 참조하므로 가비지 컬렉션(사용하지 않는 메모리 자동 정리)되지 않음
+</span></span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>bigData</span><span class=p>[</span><span class=nx>index</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 이 함수를 여러 번 호출하면 메모리 사용량이 계속 증가!
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>processor1</span> <span class=o>=</span> <span class=nx>createBigDataProcessor</span><span class=p>();</span> <span class=c1>// 4MB 메모리 사용
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>processor2</span> <span class=o>=</span> <span class=nx>createBigDataProcessor</span><span class=p>();</span> <span class=c1>// 추가로 4MB 메모리 사용
+</span></span></span><span class=line><span class=cl><span class=c1>// bigData가 여러 개 메모리에 남아있게 됨
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 필요한 데이터만 클로저에 포함
+</span></span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createBigDataProcessor</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>bigData</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>1000000</span><span class=p>).</span><span class=nx>fill</span><span class=p>(</span><span class=s2>&#34;데이터&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kd>function</span><span class=p>(</span><span class=nx>index</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>result</span> <span class=o>=</span> <span class=nx>bigData</span><span class=p>[</span><span class=nx>index</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 지역 변수로 처리하고 bigData 참조 최소화
+</span></span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>result</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 더 나은 방법: 필요한 데이터만 미리 추출
+</span></span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createOptimizedProcessor</span><span class=p>(</span><span class=nx>indices</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>bigData</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>1000000</span><span class=p>).</span><span class=nx>fill</span><span class=p>(</span><span class=s2>&#34;데이터&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 필요한 데이터만 추출해서 클로저에 포함
+</span></span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>extractedData</span> <span class=o>=</span> <span class=nx>indices</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>i</span> <span class=p>=&gt;</span> <span class=nx>bigData</span><span class=p>[</span><span class=nx>i</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kd>function</span><span class=p>(</span><span class=nx>localIndex</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 전체 bigData 대신 필요한 부분만 참조
+</span></span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>extractedData</span><span class=p>[</span><span class=nx>localIndex</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>메모리 누수가 발생하는 이유:</strong></p><ol><li><strong>클로저가 외부 변수를 참조</strong>하면 해당 변수는 메모리에서 해제되지 않음</li><li><strong>큰 데이터를 참조</strong>하면 그 데이터 전체가 메모리에 남아있게 됨</li><li><strong>여러 개의 클로저</strong>가 생성되면 메모리 사용량이 배수로 증가</li></ol><p><strong>해결 방법:</strong></p><ul><li>클로저에서 <strong>꼭 필요한 데이터만 참조</strong>하기</li><li><strong>불필요한 참조는 <code>null</code>로 해제</strong>하기</li><li><strong>큰 객체보다는 필요한 값만 추출</strong>해서 사용하기</li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h3 id=반복문에서의-클로저-실수>반복문에서의 클로저 실수</h3><p>이건 정말 많이 하는 실수예요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ 모든 함수가 3을 출력
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>functions</span> <span class=o>=</span> <span class=p>[];</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=p>(</span><span class=kd>var</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=mi>3</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>functions</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span><span class=p>);</span> <span class=c1>// 모두 3을 출력! 왜 그럴까?
+</span></span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>functions</span><span class=p>[</span><span class=mi>0</span><span class=p>]();</span> <span class=c1>// 3 (예상: 0)
+</span></span></span><span class=line><span class=cl><span class=nx>functions</span><span class=p>[</span><span class=mi>1</span><span class=p>]();</span> <span class=c1>// 3 (예상: 1)
+</span></span></span><span class=line><span class=cl><span class=nx>functions</span><span class=p>[</span><span class=mi>2</span><span class=p>]();</span> <span class=c1>// 3 (예상: 2)
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 문제 원인: var는 함수 스코프이므로 하나의 i 변수를 모든 함수가 공유
+</span></span></span><span class=line><span class=cl><span class=c1>// 반복문이 끝난 후 i = 3이 되고, 모든 클로저가 이 값을 참조
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 올바른 방법 1: let 사용
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>functions</span> <span class=o>=</span> <span class=p>[];</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=mi>3</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span> <span class=c1>// let은 블록 스코프!
+</span></span></span><span class=line><span class=cl>    <span class=nx>functions</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span><span class=p>);</span> <span class=c1>// 각각 0, 1, 2 출력
+</span></span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// let은 반복문의 각 iteration마다 새로운 i 변수를 생성
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 올바른 방법 2: 즉시 실행 함수로 값 고정
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>functions</span> <span class=o>=</span> <span class=p>[];</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=p>(</span><span class=kd>var</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=mi>3</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>functions</span><span class=p>.</span><span class=nx>push</span><span class=p>((</span><span class=kd>function</span><span class=p>(</span><span class=nx>index</span><span class=p>)</span> <span class=p>{</span> <span class=c1>// 즉시 실행 함수
+</span></span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>index</span><span class=p>);</span> <span class=c1>// 각 함수마다 고유한 index 값 보존
+</span></span></span><span class=line><span class=cl>        <span class=p>};</span>
+</span></span><span class=line><span class=cl>    <span class=p>})(</span><span class=nx>i</span><span class=p>));</span> <span class=c1>// 현재 i 값을 index 매개변수로 전달
+</span></span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>핵심 원리:</strong></p><ul><li><strong><code>var</code>는 함수 스코프</strong>: 반복문 전체에서 하나의 <code>i</code> 변수를 공유</li><li><strong><code>let</code>은 블록 스코프</strong>: 각 반복마다 새로운 <code>i</code> 변수 생성</li><li><strong>즉시 실행 함수</strong>: 현재 값을 매개변수로 &lsquo;고정&rsquo;시켜 각 클로저가 독립적인 값을 가지도록 함</li></ul><br><h2 id=실제-프로젝트에서의-클로저-활용>실제 프로젝트에서의 클로저 활용</h2><h3 id=설정-관리자-만들기>설정 관리자 만들기</h3><p>실무에서 자주 사용하는 패턴이에요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createConfig</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// private 설정 객체 - 외부에서 직접 접근 불가
+</span></span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>settings</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>apiUrl</span><span class=o>:</span> <span class=s1>&#39;https://api.example.com&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>timeout</span><span class=o>:</span> <span class=mi>5000</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>retries</span><span class=o>:</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>get</span><span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>key</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 설정값 읽기 (안전)
+</span></span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>settings</span><span class=p>[</span><span class=nx>key</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>set</span><span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>key</span><span class=p>,</span> <span class=nx>value</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 검증 후 설정값 변경
+</span></span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=k>typeof</span> <span class=nx>settings</span><span class=p>[</span><span class=nx>key</span><span class=p>]</span> <span class=o>!==</span> <span class=s1>&#39;undefined&#39;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>settings</span><span class=p>[</span><span class=nx>key</span><span class=p>]</span> <span class=o>=</span> <span class=nx>value</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`</span><span class=si>${</span><span class=nx>key</span><span class=si>}</span><span class=sb> 설정이 </span><span class=si>${</span><span class=nx>value</span><span class=si>}</span><span class=sb>로 변경되었습니다.`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`알 수 없는 설정: </span><span class=si>${</span><span class=nx>key</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>getAll</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 중요: 원본이 아닌 복사본을 반환!
+</span></span></span><span class=line><span class=cl>            <span class=c1>// 이렇게 해야 외부에서 원본 객체를 조작할 수 없음
+</span></span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=p>{</span> <span class=p>...</span><span class=nx>settings</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>config</span> <span class=o>=</span> <span class=nx>createConfig</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>config</span><span class=p>.</span><span class=nx>set</span><span class=p>(</span><span class=s1>&#39;timeout&#39;</span><span class=p>,</span> <span class=mi>10000</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>config</span><span class=p>.</span><span class=nx>get</span><span class=p>(</span><span class=s1>&#39;timeout&#39;</span><span class=p>));</span> <span class=c1>// 10000
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 보안 테스트
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>allSettings</span> <span class=o>=</span> <span class=nx>config</span><span class=p>.</span><span class=nx>getAll</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>allSettings</span><span class=p>.</span><span class=nx>apiUrl</span> <span class=o>=</span> <span class=s1>&#39;https://malicious.com&#39;</span><span class=p>;</span> <span class=c1>// 복사본만 변경됨
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>config</span><span class=p>.</span><span class=nx>get</span><span class=p>(</span><span class=s1>&#39;apiUrl&#39;</span><span class=p>));</span> <span class=c1>// 여전히 &#39;https://api.example.com&#39;
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>이 패턴의 핵심 보안 요소:</strong></p><ol><li><strong>원본 데이터 보호</strong>: <code>settings</code> 객체는 클로저 안에서만 접근 가능</li><li><strong>복사본 반환</strong>: <code>getAll()</code>에서 <code>{ ...settings }</code>로 복사본 반환하여 원본 보호</li><li><strong>검증된 접근</strong>: <code>set()</code> 메서드를 통해서만 값 변경 가능</li><li><strong>읽기 전용 접근</strong>: <code>get()</code> 메서드로만 개별값 조회 가능</li></ol><br><h3 id=디바운싱-함수-구현>디바운싱 함수 구현</h3><p>검색창이나 버튼 클릭 제한에 활용되는 패턴이에요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>debounce</span><span class=p>(</span><span class=nx>func</span><span class=p>,</span> <span class=nx>delay</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>timeoutId</span><span class=p>;</span> <span class=c1>// 클로저로 타이머 ID를 보존
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 반환되는 함수가 클로저 - timeoutId를 기억함
+</span></span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kd>function</span><span class=p>(...</span><span class=nx>args</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 이전 타이머가 있으면 취소 (중요한 부분!)
+</span></span></span><span class=line><span class=cl>        <span class=nx>clearTimeout</span><span class=p>(</span><span class=nx>timeoutId</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1>// 새로운 타이머 설정 - timeoutId에 저장
+</span></span></span><span class=line><span class=cl>        <span class=nx>timeoutId</span> <span class=o>=</span> <span class=nx>setTimeout</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// delay 시간 후에 실제 함수 실행
+</span></span></span><span class=line><span class=cl>            <span class=nx>func</span><span class=p>.</span><span class=nx>apply</span><span class=p>(</span><span class=k>this</span><span class=p>,</span> <span class=nx>args</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span> <span class=nx>delay</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 사용 예시
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>handleSearch</span> <span class=o>=</span> <span class=nx>debounce</span><span class=p>(</span><span class=kd>function</span><span class=p>(</span><span class=nx>query</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`검색어: </span><span class=si>${</span><span class=nx>query</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 실제 검색 API 호출
+</span></span></span><span class=line><span class=cl><span class=p>},</span> <span class=mi>300</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 300ms 내에 여러 번 호출해도 마지막 호출만 실행됨
+</span></span></span><span class=line><span class=cl><span class=nx>handleSearch</span><span class=p>(</span><span class=s2>&#34;자바스크립트&#34;</span><span class=p>);</span>    <span class=c1>// 타이머 설정
+</span></span></span><span class=line><span class=cl><span class=nx>handleSearch</span><span class=p>(</span><span class=s2>&#34;자바스크립트 클로저&#34;</span><span class=p>);</span> <span class=c1>// 이전 타이머 취소 + 새 타이머 설정
+</span></span></span><span class=line><span class=cl><span class=c1>// 결과: 300ms 후 &#34;자바스크립트 클로저&#34;만 검색됨
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>디바운싱이 작동하는 원리:</strong></p><ol><li><strong>타이머 ID 보존</strong>: <code>timeoutId</code> 변수가 클로저로 보존되어 계속 접근 가능</li><li><strong>이전 요청 취소</strong>: 새 요청이 오면 <code>clearTimeout()</code>으로 이전 타이머 취소</li><li><strong>지연 실행</strong>: <code>setTimeout()</code>으로 일정 시간 후에 실제 함수 실행</li><li><strong>메모리 효율성</strong>: 하나의 <code>timeoutId</code>만 유지하므로 메모리 절약</li></ol><br><h3 id=2-참조-해제로-메모리-관리>2. 참조 해제로 메모리 관리</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createManager</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>data</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>10000</span><span class=p>).</span><span class=nx>fill</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span> <span class=c1>// 큰 데이터 배열
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>process</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 데이터 처리 작업
+</span></span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>data</span><span class=p>.</span><span class=nx>reduce</span><span class=p>((</span><span class=nx>sum</span><span class=p>,</span> <span class=nx>val</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>sum</span> <span class=o>+</span> <span class=nx>val</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>cleanup</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 중요: 메모리 해제를 위한 참조 제거
+</span></span></span><span class=line><span class=cl>            <span class=nx>data</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;메모리가 해제되었습니다.&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>getDataSize</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 데이터가 해제되었는지 확인
+</span></span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>data</span> <span class=o>?</span> <span class=nx>data</span><span class=p>.</span><span class=nx>length</span> <span class=o>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>manager</span> <span class=o>=</span> <span class=nx>createManager</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;처리 결과:&#39;</span><span class=p>,</span> <span class=nx>manager</span><span class=p>.</span><span class=nx>process</span><span class=p>());</span> <span class=c1>// 데이터 처리
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;데이터 크기:&#39;</span><span class=p>,</span> <span class=nx>manager</span><span class=p>.</span><span class=nx>getDataSize</span><span class=p>());</span> <span class=c1>// 10000
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 사용 후 정리 - 가비지 컬렉션 유도
+</span></span></span><span class=line><span class=cl><span class=nx>manager</span><span class=p>.</span><span class=nx>cleanup</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s1>&#39;정리 후 데이터 크기:&#39;</span><span class=p>,</span> <span class=nx>manager</span><span class=p>.</span><span class=nx>getDataSize</span><span class=p>());</span> <span class=c1>// 0
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 이제 data 배열이 가비지 컬렉션 대상이 됨
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>메모리 관리의 핵심:</strong></p><ol><li><strong>명시적 해제</strong>: <code>data = null</code>로 참조를 끊어 가비지 컬렉션 유도</li><li><strong>상태 확인</strong>: <code>getDataSize()</code> 같은 메서드로 해제 상태 확인 가능</li><li><strong>예방적 조치</strong>: 큰 데이터를 다룰 때는 반드시 정리 메서드 제공</li><li><strong>생명주기 관리</strong>: 언제 데이터를 해제할지 명확한 시점 설정</li></ol><br><h2 id=자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</h2><h3 id=q1-클로저는-언제-사용해야-하나요>Q1. 클로저는 언제 사용해야 하나요?</h3><p>클로저는 <strong>데이터 은닉</strong>, <strong>상태 유지</strong>, <strong>함수 팩토리</strong> 패턴이 필요할 때 사용합니다. 특히 외부에서 직접 접근하면 안 되는 변수를 보호하거나, 비슷한 기능을 하는 여러 함수를 동적으로 생성할 때 매우 유용해요. 제가 실제 프로젝트에서 가장 많이 사용하는 경우는 설정 관리자나 이벤트 핸들러를 만들 때입니다.</p><br><h3 id=q2-클로저와-일반-함수의-차이점은-무엇인가요>Q2. 클로저와 일반 함수의 차이점은 무엇인가요?</h3><p>일반 함수는 실행이 끝나면 지역 변수가 사라지지만, 클로저는 외부 함수의 변수를 계속 &lsquo;기억&rsquo;합니다. 예를 들어, 카운터 함수를 만들 때 클로저를 사용하면 카운트 값이 함수 호출 사이에도 유지되지만, 일반 함수로는 이런 상태 유지가 불가능해요.</p><br><h3 id=q3-클로저-때문에-메모리-누수가-발생할-수-있나요>Q3. 클로저 때문에 메모리 누수가 발생할 수 있나요?</h3><p>네, 가능합니다. 클로저가 큰 객체나 DOM 요소를 참조하고 있으면, 해당 객체들이 가비지 컬렉션되지 않아 메모리 누수가 발생할 수 있어요.</p><p><strong>메모리 누수가 발생하는 구체적인 상황:</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 위험한 패턴
+</span></span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createHandler</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>bigData</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>1000000</span><span class=p>).</span><span class=nx>fill</span><span class=p>(</span><span class=s1>&#39;data&#39;</span><span class=p>);</span> <span class=c1>// 4MB 정도
+</span></span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>element</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s1>&#39;button&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// bigData와 element 모두 메모리에 계속 남아있음
+</span></span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>bigData</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=nx>element</span><span class=p>.</span><span class=nx>textContent</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>이를 방지하려면:</strong></p><ul><li>필요 없어진 클로저 참조를 <code>null</code>로 설정</li><li>클로저에서 참조하는 데이터의 크기를 최소화</li><li>DOM 요소 참조 시 이벤트 리스너 해제 등 정리 작업 수행</li></ul><br><h3 id=q4-react에서도-클로저-개념이-사용되나요>Q4. React에서도 클로저 개념이 사용되나요?</h3><p>당연히 사용됩니다! React의 <code>useState</code>, <code>useEffect</code> 같은 Hook들이 모두 클로저 기반으로 동작해요. 함수 컴포넌트가 리렌더링되어도 이전 상태값을 기억할 수 있는 이유가 바로 클로저 때문입니다. 클로저를 제대로 이해하면 React Hook의 동작 원리도 훨씬 쉽게 이해할 수 있어요.</p><br><h3 id=q5-클로저-사용-시-성능에-영향이-있나요>Q5. 클로저 사용 시 성능에 영향이 있나요?</h3><p>클로저 자체는 큰 성능 오버헤드를 발생시키지 않습니다. 하지만 불필요하게 많은 클로저를 생성하거나, 클로저 내에서 큰 데이터를 참조하면 메모리 사용량이 증가할 수 있어요. 성능이 중요한 부분에서는 클로저 생성을 최소화하고, 꼭 필요한 데이터만 클로저 스코프에 포함시키는 것이 좋습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=마무리>마무리</h2><p>클로저는 자바스크립트의 핵심 개념 중 하나로, 다음과 같은 핵심 포인트를 기억해 주세요.</p><ul><li><strong>클로저는 함수가 생성된 환경을 &lsquo;기억&rsquo;하는 메커니즘</strong>입니다.</li><li><strong>데이터 은닉과 상태 유지</strong>에 매우 유용한 패턴이에요.</li><li><strong>메모리 관리</strong>에 주의하여 사용해야 합니다.</li><li><strong>React Hook의 기반</strong>이 되는 중요한 개념입니다.</li></ul><p>오늘 배운 내용으로 간단한 할 일 관리 앱을 만들어보세요. 클로저를 활용하여 할 일 목록을 관리하고, 외부에서 직접 접근할 수 없도록 데이터를 보호해보는 연습을 해보시길 추천드려요.</p><p>다음 글에서는 자바스크립트의 또 다른 핵심 개념인 <strong>프로토타입과 상속</strong>에 대해 다뤄보겠습니다.</p><p>여러분의 클로저 관련 경험은 어떠셨나요? 처음 클로저를 이해했을 때의 느낌이나, 실제 프로젝트에서 활용한 사례가 있다면 댓글로 공유해 주세요! 🚀</p><br><div class=btn_wrap><a target=_blank href=https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures>MDN Web Docs - 클로저</a></div></section><footer class=article-footer><section class=article-tags><a href=/tags/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B8%B0%EC%B4%88/>자바스크립트 기초</a>
+<a href=/tags/%EB%B3%80%EC%88%98-%EA%B4%80%EB%A6%AC/>변수 관리</a>
+<a href=/tags/%ED%81%B4%EB%A1%9C%EC%A0%80/>클로저</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2025-06-16-javascript-scope/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-16-javascript-scope.webp loading=lazy data-key=2025-06-16-javascript-scope data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-06-16-javascript-scope.webp></div><div class=article-details><h2 class=article-title>JavaScript 스코프 완벽 가이드: 변수 관리의 핵심 3가지 규칙</h2></div></a></article><article class=has-image><a href=/code/2025-07-22-javascript-this/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-22-javascript-this.webp loading=lazy data-key=2025-07-22-javascript-this data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-22-javascript-this.webp></div><div class=article-details><h2 class=article-title>JavaScript this 완벽 가이드: 헷갈리는 5가지 상황 마스터하기</h2></div></a></article><article class=has-image><a href=/code/2025-07-16-javascript-objects/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-16-javascript-objects.webp loading=lazy data-key=2025-07-16-javascript-objects data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-16-javascript-objects.webp></div><div class=article-details><h2 class=article-title>JavaScript 객체란 무엇인가? 초보자도 이해하는 쉬운 설명</h2></div></a></article><article class=has-image><a href=/code/2025-07-08-lexical-environment/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-08-lexical-environment.webp loading=lazy data-key=2025-07-08-lexical-environment data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-08-lexical-environment.webp></div><div class=article-details><h2 class=article-title>JavaScript 렉시컬 환경이란? 도서관 비유로 쉽게 이해하기</h2></div></a></article><article class=has-image><a href=/code/2025-07-04-javascript-copy/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp loading=lazy data-key=2025-07-04-javascript-copy data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp></div><div class=article-details><h2 class=article-title>JavaScript 얕은 복사 vs 깊은 복사: 2025년 최신 가이드 (feat. structuredClone)</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2026 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

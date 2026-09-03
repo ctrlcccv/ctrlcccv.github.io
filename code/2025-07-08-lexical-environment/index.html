@@ -1,0 +1,428 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="자바스크립트 렉시컬 환경의 동작 원리를 도서관 비유로 쉽게 이해해 보세요. 환경 레코드, 외부 참조, 스코프 체인부터 클로저의 기반까지 실무 예제와 함께 완벽 정리했습니다. "><title>JavaScript 렉시컬 환경이란? 도서관 비유로 쉽게 이해하기</title><link rel=canonical href=https://ctrlcccv.github.io/code/2025-07-08-lexical-environment/><link rel=stylesheet href=/scss/style.min.96116e223b2a35b100bd79680d101c94d25c58506ca5a649f4d0246e657cab47.css><meta property='og:title' content="JavaScript 렉시컬 환경이란? 도서관 비유로 쉽게 이해하기\n"><meta property='og:description' content="자바스크립트 렉시컬 환경의 동작 원리를 도서관 비유로 쉽게 이해해 보세요. 환경 레코드, 외부 참조, 스코프 체인부터 클로저의 기반까지 실무 예제와 함께 완벽 정리했습니다. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2025-07-08-lexical-environment/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='자바스크립트 기초'><meta property='article:tag' content='렉시컬 환경'><meta property='article:published_time' content='2025-07-08T00:00:00+00:00'><meta property='article:modified_time' content='2025-07-08T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-08-lexical-environment.webp'><meta name=twitter:title content="JavaScript 렉시컬 환경이란? 도서관 비유로 쉽게 이해하기\n"><meta name=twitter:description content="자바스크립트 렉시컬 환경의 동작 원리를 도서관 비유로 쉽게 이해해 보세요. 환경 레코드, 외부 참조, 스코프 체인부터 클로저의 기반까지 실무 예제와 함께 완벽 정리했습니다. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-08-lexical-environment.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"JavaScript 렉시컬 환경이란? 도서관 비유로 쉽게 이해하기\n","datePublished":"2025-07-08T00:00:00Z","dateModified":"2025-07-08T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#렉시컬-환경이란>렉시컬 환경이란?</a></li><li><a href=#도서관으로-이해하는-렉시컬-환경>도서관으로 이해하는 렉시컬 환경</a></li><li><a href=#렉시컬-환경의-구조>렉시컬 환경의 구조</a><ol><li><a href=#1-환경-레코드-environment-record>1. 환경 레코드 (Environment Record)</a></li><li><a href=#2-외부-참조-outer-lexical-environment-reference>2. 외부 참조 (Outer Lexical Environment Reference)</a></li></ol></li><li><a href=#변수-검색-과정-5단계>변수 검색 과정 5단계</a><ol><li><a href=#1-현재-렉시컬-환경에서-검색>1. 현재 렉시컬 환경에서 검색</a></li><li><a href=#2-외부-참조를-따라-이동>2. 외부 참조를 따라 이동</a></li><li><a href=#3-스코프-체인을-따라-계속-검색>3. 스코프 체인을 따라 계속 검색</a></li><li><a href=#4-변수를-찾으면-검색-중단>4. 변수를 찾으면 검색 중단</a></li><li><a href=#5-찾지-못하면-referenceerror-발생>5. 찾지 못하면 ReferenceError 발생</a></li></ol></li><li><a href=#실제-프로젝트에서의-활용>실제 프로젝트에서의 활용</a><ol><li><a href=#변수-섀도잉-variable-shadowing-이해하기>변수 섀도잉 (Variable Shadowing) 이해하기</a></li><li><a href=#클로저의-기반-이해하기>클로저의 기반 이해하기</a></li></ol></li><li><a href=#var-let-const의-렉시컬-환경-차이점>var, let, const의 렉시컬 환경 차이점</a><ol><li><a href=#var의-호이스팅과-렉시컬-환경>var의 호이스팅과 렉시컬 환경</a></li><li><a href=#letconst의-tdz와-렉시컬-환경>let/const의 TDZ와 렉시컬 환경</a></li></ol></li><li><a href=#메모리-관리와-가비지-컬렉션>메모리 관리와 가비지 컬렉션</a><ol><li><a href=#메모리-누수-방지하기>메모리 누수 방지하기</a></li></ol></li><li><a href=#자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</a><ol><li><a href=#렉시컬-환경과-실행-컨텍스트의-차이점은-무엇인가요>렉시컬 환경과 실행 컨텍스트의 차이점은 무엇인가요?</a></li><li><a href=#렉시컬-스코핑과-동적-스코핑의-차이점은-무엇인가요>렉시컬 스코핑과 동적 스코핑의 차이점은 무엇인가요?</a></li><li><a href=#클로저가-메모리-누수를-일으킬-수-있는-이유는-무엇인가요>클로저가 메모리 누수를 일으킬 수 있는 이유는 무엇인가요?</a></li><li><a href=#렉시컬-환경이-성능에-미치는-영향은-어떤가요>렉시컬 환경이 성능에 미치는 영향은 어떤가요?</a></li><li><a href=#블록-스코프와-렉시컬-환경은-어떤-관계인가요>블록 스코프와 렉시컬 환경은 어떤 관계인가요?</a></li></ol></li><li><a href=#마무리>마무리</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2025-07-08-lexical-environment/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-08-lexical-environment.webp loading=lazy alt="Featured image of post JavaScript 렉시컬 환경이란? 도서관 비유로 쉽게 이해하기
+"></a></div><div class=article-details><header class=article-category><a href=/categories/javascript/>JavaScript</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2025-07-08-lexical-environment/>JavaScript 렉시컬 환경이란? 도서관 비유로 쉽게 이해하기</a></h2><h3 class=article-subtitle>자바스크립트 렉시컬 환경의 동작 원리를 도서관 비유로 쉽게 이해해 보세요. 환경 레코드, 외부 참조, 스코프 체인부터 클로저의 기반까지 실무 예제와 함께 완벽 정리했습니다.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-07-08T00:00:00Z>08, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>9 분 정도</time></div></footer></div></header><section class=article-content><blockquote><p>💡 <strong>선행 학습 추천</strong><br>이 글을 더 쉽게 이해하려면 먼저 이 글들을 읽어보세요.</p><ul><li><a class=link href=/code/2025-06-16-javascript-scope/>자바스크립트 스코프 ⭐️ 필수!</a> - 변수 접근 범위의 기본 개념</li><li><a class=link href=/code/2025-06-20-javascript-hoisting/>자바스크립트 호이스팅</a> - 변수 선언과 초기화 과정</li><li><a class=link href=/code/2025-06-18-block-function/>블록 vs 함수 차이점</a> - 코드 그룹화 방법의 이해</li></ul></blockquote><p>자바스크립트를 배우다 보면 &ldquo;변수는 어디서 찾아오는 걸까?&ldquo;라는 궁금증이 생기죠. 특히 함수 안에서 바깥쪽 변수를 사용할 때, 어떻게 자바스크립트가 그 변수를 찾아내는지 신기하지 않으셨나요?</p><p>저도 처음엔 &ldquo;그냥 찾아지는 거 아닌가?&ldquo;라고 생각했는데, 실제로는 자바스크립트 엔진이 정교한 시스템을 사용해서 변수를 관리하고 있다는 걸 깨달았어요. 바로 <strong>렉시컬 환경(Lexical Environment)</strong>이라는 개념 때문이었죠.</p><p>이 글에서는 렉시컬 환경이 무엇인지, 어떻게 작동하는지를 도서관 비유와 함께 쉽게 알려드릴게요. 기본 개념부터 실제 코드 동작 원리까지, 실제 예제와 함께 단계별로 살펴봅니다.</p><br><h2 id=렉시컬-환경이란>렉시컬 환경이란?</h2><p><strong>렉시컬 환경</strong>은 자바스크립트에서 변수와 함수가 어디에 정의되어 있는지를 추적하는 시스템입니다. 쉽게 말해서 <strong>&ldquo;코드의 위치를 기억하는 시스템&rdquo;</strong>이라고 생각하면 됩니다. 자바스크립트 엔진이 변수를 찾을 때 사용하는 내부 구조로, 각 스코프마다 하나씩 생성되어 변수 검색의 경로를 제공합니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=도서관으로-이해하는-렉시컬-환경>도서관으로 이해하는 렉시컬 환경</h2><p>실무에서 렉시컬 환경을 이해하려면 <strong>도서관 시스템</strong>으로 생각해 보세요. 제가 이 비유를 처음 떠올렸을 때, 복잡했던 개념이 한 번에 이해되더라고요.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 전역 렉시컬 환경에 저장됨 (모든 곳에서 접근 가능)
+</span></span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>globalBook</span> <span class=o>=</span> <span class=s2>&#34;자바스크립트 완벽 가이드&#34;</span><span class=p>;</span>  <span class=c1>// 중앙도서관
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>library</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// library 함수의 렉시컬 환경에 저장됨 (library 내부에서만 접근 가능)
+</span></span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>localBook</span> <span class=o>=</span> <span class=s2>&#34;리액트 입문서&#34;</span><span class=p>;</span>  <span class=c1>// 지역도서관
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>readingRoom</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// readingRoom 함수의 렉시컬 환경에 저장됨 (readingRoom 내부에서만 접근 가능)
+</span></span></span><span class=line><span class=cl>        <span class=kd>let</span> <span class=nx>personalBook</span> <span class=o>=</span> <span class=s2>&#34;개인 노트&#34;</span><span class=p>;</span>  <span class=c1>// 개인 서재
+</span></span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1>// 변수 검색 과정:
+</span></span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>globalBook</span><span class=p>);</span>  <span class=c1>// 1. readingRoom → 2. library → 3. 전역에서 발견!
+</span></span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>localBook</span><span class=p>);</span>   <span class=c1>// 1. readingRoom → 2. library에서 발견!
+</span></span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>personalBook</span><span class=p>);</span> <span class=c1>// 1. readingRoom에서 바로 발견!
+</span></span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>readingRoom</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>library</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><p>이 코드에서 각 함수는 하나의 도서관이라고 생각해 보세요.</p><ul><li><strong>중앙도서관 (전역 스코프)</strong>: 모든 사람이 접근할 수 있는 책들</li><li><strong>지역도서관 (library 함수)</strong>: 특정 지역 사람들만 접근할 수 있는 책들</li><li><strong>개인 서재 (readingRoom 함수)</strong>: 개인만 접근할 수 있는 책들</li></ul><br><h2 id=렉시컬-환경의-구조>렉시컬 환경의 구조</h2><p>렉시컬 환경은 두 가지 핵심 요소로 구성됩니다.</p><div class=table-wrapper><table><thead><tr><th>구성 요소</th><th>역할</th><th>도서관 비유</th></tr></thead><tbody><tr><td><strong>환경 레코드</strong></td><td>변수와 함수의 실제 값을 저장하는 공간</td><td>실제 책들이 있는 책장</td></tr><tr><td><strong>외부 참조</strong></td><td>바깥쪽 렉시컬 환경을 가리키는 포인터</td><td>다른 도서관으로 가는 길</td></tr></tbody></table></div><br><h3 id=1-환경-레코드-environment-record>1. 환경 레코드 (Environment Record)</h3><p>환경 레코드는 <strong>변수와 함수들이 실제로 저장되는 공간</strong>입니다. 도서관의 책장이라고 생각하면 됩니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createProfile</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// createProfile의 렉시컬 환경에 저장되는 변수들
+</span></span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;김개발&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>userAge</span> <span class=o>=</span> <span class=mi>25</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 함수도 렉시컬 환경에 저장됨
+</span></span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>showProfile</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 외부 렉시컬 환경(createProfile)의 변수들에 접근 가능
+</span></span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`이름: </span><span class=si>${</span><span class=nx>userName</span><span class=si>}</span><span class=sb>, 나이: </span><span class=si>${</span><span class=nx>userAge</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>showProfile</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>createProfile 함수의 환경 레코드</strong>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 렉시컬 환경의 환경 레코드 구조 예시
+</span></span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>userName</span><span class=o>:</span> <span class=s2>&#34;김개발&#34;</span><span class=p>,</span>        <span class=c1>// 변수 저장
+</span></span></span><span class=line><span class=cl>    <span class=nx>userAge</span><span class=o>:</span> <span class=mi>25</span><span class=p>,</span>              <span class=c1>// 변수 저장
+</span></span></span><span class=line><span class=cl>    <span class=nx>showProfile</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span> <span class=p>...</span> <span class=p>}</span>  <span class=c1>// 함수도 저장됨
+</span></span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=2-외부-참조-outer-lexical-environment-reference>2. 외부 참조 (Outer Lexical Environment Reference)</h3><p>외부 참조는 <strong>스코프 체인의 방향을 알려주는 포인터</strong>입니다. 현재 도서관에서 책을 찾지 못했을 때, 다음에 찾아갈 도서관의 주소라고 생각하면 됩니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 전역 렉시컬 환경
+</span></span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>globalVar</span> <span class=o>=</span> <span class=s2>&#34;전역 변수&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>outer</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// outer 함수의 렉시컬 환경 (외부 참조: 전역)
+</span></span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>outerVar</span> <span class=o>=</span> <span class=s2>&#34;외부 변수&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>inner</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// inner 함수의 렉시컬 환경 (외부 참조: outer)
+</span></span></span><span class=line><span class=cl>        <span class=kd>let</span> <span class=nx>innerVar</span> <span class=o>=</span> <span class=s2>&#34;내부 변수&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=c1>// 변수 검색: inner → outer → 전역 순서로 찾음
+</span></span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>globalVar</span><span class=p>);</span>  <span class=c1>// 전역까지 올라가서 찾음
+</span></span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>inner</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>outer</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>스코프 체인 방향</strong>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>inner → outer → 전역 → null
+</span></span></code></pre></td></tr></table></div></div><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=변수-검색-과정-5단계>변수 검색 과정 5단계</h2><p>자바스크립트 엔진이 변수를 찾는 과정을 단계별로 알아보겠습니다.</p><br><h3 id=1-현재-렉시컬-환경에서-검색>1. 현재 렉시컬 환경에서 검색</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>findVariable</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>localVar</span> <span class=o>=</span> <span class=s2>&#34;지역 변수&#34;</span><span class=p>;</span>  <span class=c1>// 현재 렉시컬 환경에 저장
+</span></span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>localVar</span><span class=p>);</span>  <span class=c1>// 1단계: 현재 환경에서 바로 찾음 ✅
+</span></span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=2-외부-참조를-따라-이동>2. 외부 참조를 따라 이동</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>let</span> <span class=nx>globalVar</span> <span class=o>=</span> <span class=s2>&#34;전역 변수&#34;</span><span class=p>;</span>  <span class=c1>// 전역 렉시컬 환경
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>outer</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>outerVar</span> <span class=o>=</span> <span class=s2>&#34;외부 변수&#34;</span><span class=p>;</span>  <span class=c1>// outer의 렉시컬 환경
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>inner</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// inner의 렉시컬 환경 (outerVar가 없음)
+</span></span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>outerVar</span><span class=p>);</span>  <span class=c1>// 2단계: outer 환경으로 이동해서 찾음 ✅
+</span></span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>inner</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=3-스코프-체인을-따라-계속-검색>3. 스코프 체인을 따라 계속 검색</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>let</span> <span class=nx>global</span> <span class=o>=</span> <span class=s2>&#34;전역&#34;</span><span class=p>;</span>  <span class=c1>// 전역 렉시컬 환경
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>first</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>firstVar</span> <span class=o>=</span> <span class=s2>&#34;첫번째&#34;</span><span class=p>;</span>  <span class=c1>// first의 렉시컬 환경
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>second</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kd>let</span> <span class=nx>secondVar</span> <span class=o>=</span> <span class=s2>&#34;두번째&#34;</span><span class=p>;</span>  <span class=c1>// second의 렉시컬 환경
+</span></span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=kd>function</span> <span class=nx>third</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// third의 렉시컬 환경 (변수들이 없음)
+</span></span></span><span class=line><span class=cl>            <span class=c1>// 스코프 체인: third → second → first → 전역
+</span></span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>global</span><span class=p>);</span>     <span class=c1>// third → second → first → 전역에서 발견 ✅
+</span></span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>firstVar</span><span class=p>);</span>   <span class=c1>// third → second → first에서 발견 ✅
+</span></span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>secondVar</span><span class=p>);</span>  <span class=c1>// third → second에서 발견 ✅
+</span></span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nx>third</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>second</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>first</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=4-변수를-찾으면-검색-중단>4. 변수를 찾으면 검색 중단</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>let</span> <span class=nx>name</span> <span class=o>=</span> <span class=s2>&#34;전역 김철수&#34;</span><span class=p>;</span>  <span class=c1>// 전역 렉시컬 환경
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>test</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>name</span> <span class=o>=</span> <span class=s2>&#34;지역 이영희&#34;</span><span class=p>;</span>  <span class=c1>// test의 렉시컬 환경 (전역 name을 가림)
+</span></span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>name</span><span class=p>);</span>  <span class=c1>// &#34;지역 이영희&#34; - 가장 가까운 곳에서 찾으면 중단 ✅
+</span></span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>test</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=5-찾지-못하면-referenceerror-발생>5. 찾지 못하면 ReferenceError 발생</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>errorExample</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// undefinedVar는 어떤 렉시컬 환경에도 없음
+</span></span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>undefinedVar</span><span class=p>);</span>  <span class=c1>// 전역까지 찾아도 없음 → ReferenceError ❌
+</span></span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h2 id=실제-프로젝트에서의-활용>실제 프로젝트에서의 활용</h2><p>실무에서 렉시컬 환경을 이해하면 이런 상황들을 쉽게 해결할 수 있어요.</p><br><h3 id=변수-섀도잉-variable-shadowing-이해하기>변수 섀도잉 (Variable Shadowing) 이해하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ 의도하지 않은 변수 섀도잉
+</span></span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;전역 사용자&#34;</span><span class=p>;</span>  <span class=c1>// 전역 렉시컬 환경
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>processUser</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 같은 이름의 변수가 지역 렉시컬 환경에 생성됨 (전역 변수를 가림)
+</span></span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>userName</span> <span class=o>=</span> <span class=s2>&#34;지역 사용자&#34;</span><span class=p>;</span>  <span class=c1>// 전역 변수를 가림
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>displayUser</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 가장 가까운 렉시컬 환경에서 userName을 찾음
+</span></span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>userName</span><span class=p>);</span>  <span class=c1>// &#34;지역 사용자&#34; 출력 (전역 변수에 접근 불가)
+</span></span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>displayUser</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>processUser</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>userName</span><span class=p>);</span>  <span class=c1>// &#34;전역 사용자&#34; 출력 (전역 변수는 그대로 유지)
+</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ 의도적인 변수 섀도잉 활용
+</span></span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createCalculator</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>  <span class=c1>// 계산기의 내부 상태 (외부에서 직접 접근 불가)
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>add</span><span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>num</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 클로저를 통해 외부 함수의 result 변수에 접근
+</span></span></span><span class=line><span class=cl>            <span class=nx>result</span> <span class=o>+=</span> <span class=nx>num</span><span class=p>;</span>  <span class=c1>// 외부의 result 변수에 접근
+</span></span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>result</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>reset</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=c1>// 같은 렉시컬 환경의 result 변수를 초기화
+</span></span></span><span class=line><span class=cl>            <span class=nx>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>     <span class=c1>// 내부 상태 초기화
+</span></span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nx>result</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>calc</span> <span class=o>=</span> <span class=nx>createCalculator</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>calc</span><span class=p>.</span><span class=nx>add</span><span class=p>(</span><span class=mi>5</span><span class=p>));</span>   <span class=c1>// 5 (result = 0 + 5)
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>calc</span><span class=p>.</span><span class=nx>add</span><span class=p>(</span><span class=mi>3</span><span class=p>));</span>   <span class=c1>// 8 (result = 5 + 3)
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>calc</span><span class=p>.</span><span class=nx>reset</span><span class=p>());</span>  <span class=c1>// 0 (result = 0으로 초기화)
+</span></span></span></code></pre></td></tr></table></div></div><br><h3 id=클로저의-기반-이해하기>클로저의 기반 이해하기</h3><p>렉시컬 환경은 클로저가 작동하는 핵심 원리입니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createCounter</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>count</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>  <span class=c1>// 이 변수가 createCounter의 렉시컬 환경에 저장됨
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 반환되는 함수는 외부 렉시컬 환경(createCounter)을 기억함
+</span></span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>count</span><span class=o>++</span><span class=p>;</span>    <span class=c1>// 외부 함수의 렉시컬 환경에 있는 count에 접근
+</span></span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 각각 독립적인 렉시컬 환경을 가짐
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>counter1</span> <span class=o>=</span> <span class=nx>createCounter</span><span class=p>();</span>  <span class=c1>// counter1만의 count 변수 (렉시컬 환경 1)
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>counter2</span> <span class=o>=</span> <span class=nx>createCounter</span><span class=p>();</span>  <span class=c1>// counter2만의 count 변수 (렉시컬 환경 2)
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>counter1</span><span class=p>());</span>  <span class=c1>// 1 (렉시컬 환경 1의 count: 0 → 1)
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>counter1</span><span class=p>());</span>  <span class=c1>// 2 (렉시컬 환경 1의 count: 1 → 2)
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>counter2</span><span class=p>());</span>  <span class=c1>// 1 (렉시컬 환경 2의 count: 0 → 1, 독립적임)
+</span></span></span></code></pre></td></tr></table></div></div><br><h2 id=var-let-const의-렉시컬-환경-차이점>var, let, const의 렉시컬 환경 차이점</h2><p>각 변수 선언 방식이 렉시컬 환경에서 어떻게 다르게 작동하는지 알아보겠습니다.</p><br><h3 id=var의-호이스팅과-렉시컬-환경>var의 호이스팅과 렉시컬 환경</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ var의 호이스팅으로 인한 혼란
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>varVariable</span><span class=p>);</span>  <span class=c1>// undefined (에러가 아님!)
+</span></span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>varVariable</span> <span class=o>=</span> <span class=s2>&#34;var 변수&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 실제로는 이렇게 동작함 (렉시컬 환경에서의 처리)
+</span></span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>varVariable</span><span class=p>;</span>  <span class=c1>// 선언과 동시에 렉시컬 환경에 undefined로 저장됨
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>varVariable</span><span class=p>);</span>  <span class=c1>// undefined (렉시컬 환경에서 찾음)
+</span></span></span><span class=line><span class=cl><span class=nx>varVariable</span> <span class=o>=</span> <span class=s2>&#34;var 변수&#34;</span><span class=p>;</span>  <span class=c1>// 값 할당
+</span></span></span></code></pre></td></tr></table></div></div><br><h3 id=letconst의-tdz와-렉시컬-환경>let/const의 TDZ와 렉시컬 환경</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ let/const의 TDZ (Temporal Dead Zone)
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>letVariable</span><span class=p>);</span>  <span class=c1>// ReferenceError! (렉시컬 환경에 있지만 접근 불가)
+</span></span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>letVariable</span> <span class=o>=</span> <span class=s2>&#34;let 변수&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 올바른 사용법
+</span></span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>letVariable</span> <span class=o>=</span> <span class=s2>&#34;let 변수&#34;</span><span class=p>;</span>  <span class=c1>// 렉시컬 환경에 저장되고 접근 가능해짐
+</span></span></span><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>letVariable</span><span class=p>);</span>  <span class=c1>// &#34;let 변수&#34; (렉시컬 환경에서 정상 접근)
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>렉시컬 환경에서의 차이점</strong>:</p><div class=table-wrapper><table><thead><tr><th>선언 방식</th><th>초기화 시점</th><th>호이스팅</th><th>스코프</th></tr></thead><tbody><tr><td><strong>var</strong></td><td>선언과 동시에 undefined</td><td>함수 스코프 최상단</td><td>함수 스코프</td></tr><tr><td><strong>let</strong></td><td>값 할당 시점</td><td>TDZ 상태</td><td>블록 스코프</td></tr><tr><td><strong>const</strong></td><td>값 할당 시점</td><td>TDZ 상태</td><td>블록 스코프</td></tr></tbody></table></div><br><h2 id=메모리-관리와-가비지-컬렉션>메모리 관리와 가비지 컬렉션</h2><p>렉시컬 환경은 메모리 관리와도 밀접한 관련이 있습니다.</p><br><h3 id=메모리-누수-방지하기>메모리 누수 방지하기</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ❌ 메모리 누수 가능성
+</span></span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createLeak</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 큰 데이터가 렉시컬 환경에 저장됨
+</span></span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>largeData</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>1000000</span><span class=p>).</span><span class=nx>fill</span><span class=p>(</span><span class=s2>&#34;데이터&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;함수 실행&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// largeData를 사용하지 않지만 클로저로 인해 렉시컬 환경에 계속 유지됨
+</span></span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// ✅ 메모리 효율적인 방법
+</span></span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createEfficient</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>largeData</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>Array</span><span class=p>(</span><span class=mi>1000000</span><span class=p>).</span><span class=nx>fill</span><span class=p>(</span><span class=s2>&#34;데이터&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>processedData</span> <span class=o>=</span> <span class=nx>largeData</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>  <span class=c1>// 필요한 부분만 추출해서 렉시컬 환경에 저장
+</span></span></span><span class=line><span class=cl>    <span class=nx>largeData</span> <span class=o>=</span> <span class=kc>null</span><span class=p>;</span>  <span class=c1>// 큰 데이터 해제 (가비지 컬렉션(메모리 자동 정리) 대상이 됨)
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// 작은 데이터만 렉시컬 환경에 유지됨
+</span></span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=sb>`처리된 데이터 크기: </span><span class=si>${</span><span class=nx>processedData</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h2 id=자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</h2><h3 id=렉시컬-환경과-실행-컨텍스트의-차이점은-무엇인가요>렉시컬 환경과 실행 컨텍스트의 차이점은 무엇인가요?</h3><p>렉시컬 환경은 실행 컨텍스트의 일부입니다. 실행 컨텍스트는 렉시컬 환경뿐만 아니라 <code>this</code> 바인딩, 외부 환경 참조 등을 포함하는 더 큰 개념이에요. 저는 처음에 이 둘을 헷갈렸는데, 렉시컬 환경을 &ldquo;변수 저장소"로, 실행 컨텍스트를 &ldquo;함수 실행에 필요한 모든 정보"로 구분해서 생각하니까 이해가 쉬워졌어요.</p><br><h3 id=렉시컬-스코핑과-동적-스코핑의-차이점은-무엇인가요>렉시컬 스코핑과 동적 스코핑의 차이점은 무엇인가요?</h3><p>렉시컬 스코핑은 <strong>코드가 작성된 위치</strong>에 따라 스코프가 결정되는 방식이고, 동적 스코핑은 <strong>함수가 호출된 위치</strong>에 따라 스코프가 결정되는 방식입니다. 자바스크립트는 렉시컬 스코핑을 사용해요. 실제 프로젝트에서는 이 덕분에 코드를 예측하기 쉽고 디버깅하기 편합니다.</p><br><h3 id=클로저가-메모리-누수를-일으킬-수-있는-이유는-무엇인가요>클로저가 메모리 누수를 일으킬 수 있는 이유는 무엇인가요?</h3><p>클로저는 외부 함수의 렉시컬 환경을 참조하고 있기 때문에, 해당 환경의 모든 변수가 가비지 컬렉션(사용하지 않는 메모리를 자동으로 정리하는 기능)되지 않습니다. 특히 큰 데이터를 가진 변수가 있다면 메모리에 계속 남아있게 되죠. 저는 이벤트 리스너에서 클로저를 사용할 때 이런 문제를 겪었는데, 사용이 끝나면 <code>removeEventListener</code>로 정리하는 습관을 들이니까 해결됐어요.</p><br><h3 id=렉시컬-환경이-성능에-미치는-영향은-어떤가요>렉시컬 환경이 성능에 미치는 영향은 어떤가요?</h3><p>스코프 체인을 따라 변수를 검색하는 과정에서 약간의 성능 비용이 발생할 수 있습니다. 하지만 현대 자바스크립트 엔진들이 매우 최적화되어 있어서 일반적인 사용에서는 성능 문제를 걱정할 필요가 없어요. 오히려 코드의 가독성과 유지보수성이 더 중요하다고 생각합니다.</p><br><h3 id=블록-스코프와-렉시컬-환경은-어떤-관계인가요>블록 스코프와 렉시컬 환경은 어떤 관계인가요?</h3><p><code>let</code>과 <code>const</code>로 선언된 변수들은 블록 스코프를 가지며, 각 블록마다 새로운 렉시컬 환경이 생성됩니다. 이는 <code>var</code>와 다른 점이에요. 예를 들어, <code>for</code> 루프에서 <code>let</code>을 사용하면 각 반복마다 새로운 렉시컬 환경이 만들어져서 클로저 관련 문제를 방지할 수 있습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=마무리>마무리</h2><p>렉시컬 환경에 대해 알아보았는데, 핵심 포인트를 정리해보면</p><ul><li><strong>렉시컬 환경</strong>은 변수와 함수의 위치를 추적하는 자바스크립트의 내부 시스템입니다.</li><li><strong>환경 레코드</strong>는 실제 값들이 저장되는 공간이고, <strong>외부 참조</strong>는 스코프 체인의 방향을 알려줍니다.</li><li><strong>클로저와 메모리 관리</strong>의 기반이 되는 중요한 개념입니다.</li></ul><p>오늘 배운 내용으로 간단한 카운터나 계산기를 만들어보세요. 렉시컬 환경이 어떻게 작동하는지 직접 체험해볼 수 있을 거예요.</p><p>다음 글에서는 렉시컬 환경을 기반으로 한 <strong>클로저</strong>에 대해 자세히 다뤄보겠습니다. 클로저를 이해하면 더 고급 자바스크립트 패턴을 사용할 수 있게 될 거예요!</p><p>여러분의 렉시컬 환경 학습 경험은 어떠셨나요? 어려웠던 부분이나 궁금한 점이 있다면 댓글로 공유해주세요! 함께 배워나가요 🚀</p><br><div class=btn_wrap><a target=_blank href=https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures>MDN Web Docs - 클로저</a></div></section><footer class=article-footer><section class=article-tags><a href=/tags/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EA%B8%B0%EC%B4%88/>자바스크립트 기초</a>
+<a href=/tags/%EB%A0%89%EC%8B%9C%EC%BB%AC-%ED%99%98%EA%B2%BD/>렉시컬 환경</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2025-07-22-javascript-this/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-22-javascript-this.webp loading=lazy data-key=2025-07-22-javascript-this data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-22-javascript-this.webp></div><div class=article-details><h2 class=article-title>JavaScript this 완벽 가이드: 헷갈리는 5가지 상황 마스터하기</h2></div></a></article><article class=has-image><a href=/code/2025-07-16-javascript-objects/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-16-javascript-objects.webp loading=lazy data-key=2025-07-16-javascript-objects data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-16-javascript-objects.webp></div><div class=article-details><h2 class=article-title>JavaScript 객체란 무엇인가? 초보자도 이해하는 쉬운 설명</h2></div></a></article><article class=has-image><a href=/code/2025-07-10-javascript-closure/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-10-javascript-closure.webp loading=lazy data-key=2025-07-10-javascript-closure data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-10-javascript-closure.webp></div><div class=article-details><h2 class=article-title>JavaScript 클로저, 메모리를 기억하는 함수의 비밀</h2></div></a></article><article class=has-image><a href=/code/2025-07-04-javascript-copy/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp loading=lazy data-key=2025-07-04-javascript-copy data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-04-javascript-copy.webp></div><div class=article-details><h2 class=article-title>JavaScript 얕은 복사 vs 깊은 복사: 2025년 최신 가이드 (feat. structuredClone)</h2></div></a></article><article class=has-image><a href=/code/2025-07-02-javascript-immutability/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp loading=lazy data-key=2025-07-02-javascript-immutability data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-02-javascript-immutability.webp></div><div class=article-details><h2 class=article-title>JavaScript 불변성, 왜 중요할까? 쉽게 이해하는 React 준비 완벽 가이드</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2026 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

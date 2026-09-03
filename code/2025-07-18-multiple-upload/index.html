@@ -1,0 +1,783 @@
+<!doctype html><html lang=ko-kr dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="jQuery로 다중 파일 업로드를 구현하는 실전 가이드입니다. 파일 선택부터 삭제까지, 반응형 디자인과 사용자 친화적 UI가 적용된 완성도 높은 예제로 한 번에 배워보세요. "><title>jQuery 다중 파일 업로드, 삭제 기능까지 완벽 구현하기</title><link rel=canonical href=https://ctrlcccv.github.io/code/2025-07-18-multiple-upload/><link rel=stylesheet href=/scss/style.min.96116e223b2a35b100bd79680d101c94d25c58506ca5a649f4d0246e657cab47.css><meta property='og:title' content="jQuery 다중 파일 업로드, 삭제 기능까지 완벽 구현하기\n"><meta property='og:description' content="jQuery로 다중 파일 업로드를 구현하는 실전 가이드입니다. 파일 선택부터 삭제까지, 반응형 디자인과 사용자 친화적 UI가 적용된 완성도 높은 예제로 한 번에 배워보세요. "><meta property='og:url' content='https://ctrlcccv.github.io/code/2025-07-18-multiple-upload/'><meta property='og:site_name' content='컨트롤 + CCCV'><meta property='og:type' content='article'><meta property='article:section' content='Code'><meta property='article:tag' content='파일 업로드'><meta property='article:published_time' content='2025-07-18T00:00:00+00:00'><meta property='article:modified_time' content='2025-07-18T00:00:00+00:00'><meta property='og:image' content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-18-multiple-upload.webp'><meta name=twitter:title content="jQuery 다중 파일 업로드, 삭제 기능까지 완벽 구현하기\n"><meta name=twitter:description content="jQuery로 다중 파일 업로드를 구현하는 실전 가이드입니다. 파일 선택부터 삭제까지, 반응형 디자인과 사용자 친화적 UI가 적용된 완성도 높은 예제로 한 번에 배워보세요. "><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-18-multiple-upload.webp'><link rel="shortcut icon" href=/favicon.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-51LVT1KPFF"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-51LVT1KPFF")</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8535540836842352" crossorigin=anonymous></script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","rit02y637k")</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"jQuery 다중 파일 업로드, 삭제 기능까지 완벽 구현하기\n","datePublished":"2025-07-18T00:00:00Z","dateModified":"2025-07-18T00:00:00Z","author":{"@type":"Person","name":"컨트롤 + CCCV"}}</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="메뉴 여닫기">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>컨트롤 + CCCV</a></h1><h2 class=site-description>웹 퍼블리싱 정보 블로그</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/contact/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Contact</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>다크 모드</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">목차</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#jquery-다중-파일-업로드란>jQuery 다중 파일 업로드란?</a><ol><li><a href=#주요-구성-요소>주요 구성 요소</a></li></ol></li><li><a href=#1단계-html-구조-설계>1단계: HTML 구조 설계</a><ol><li><a href=#html-구조-핵심-포인트>HTML 구조 핵심 포인트</a></li></ol></li><li><a href=#2단계-css-스타일링-완벽-구현>2단계: CSS 스타일링 완벽 구현</a><ol><li><a href=#메인-컨테이너-스타일>메인 컨테이너 스타일</a></li><li><a href=#파일-입력-필드-숨김-처리>파일 입력 필드 숨김 처리</a></li><li><a href=#파일-업로드-버튼-스타일링>파일 업로드 버튼 스타일링</a></li><li><a href=#파일-목록-영역-스타일>파일 목록 영역 스타일</a></li><li><a href=#애니메이션-효과>애니메이션 효과</a></li><li><a href=#반응형-디자인>반응형 디자인</a></li><li><a href=#성능-최적화-css>성능 최적화 CSS</a></li></ol></li><li><a href=#3단계-jquery-기능-구현>3단계: jQuery 기능 구현</a><ol><li><a href=#전체-jquery-코드>전체 jQuery 코드</a></li><li><a href=#jquery-코드-핵심-포인트-상세-설명>jQuery 코드 핵심 포인트 상세 설명</a><ol><li><a href=#1-상수-정의와-dom-캐싱>1. 상수 정의와 DOM 캐싱</a></li><li><a href=#2-이벤트-바인딩-전략>2. 이벤트 바인딩 전략</a></li><li><a href=#3-파일-선택-처리-로직>3. 파일 선택 처리 로직</a></li><li><a href=#4-파일-삭제-처리>4. 파일 삭제 처리</a></li><li><a href=#5-중복-파일-검사>5. 중복 파일 검사</a></li><li><a href=#6-동적-요소-생성>6. 동적 요소 생성</a></li></ol></li></ol></li><li><a href=#자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</a><ol><li><a href=#q1-다중-파일-업로드에서-파일-개수-제한은-어떻게-설정하나요>Q1. 다중 파일 업로드에서 파일 개수 제한은 어떻게 설정하나요?</a></li><li><a href=#q2-이미지-파일만-선택하도록-제한하려면>Q2. 이미지 파일만 선택하도록 제한하려면?</a></li><li><a href=#q3-모바일에서-카메라로-직접-촬영한-사진을-업로드하려면>Q3. 모바일에서 카메라로 직접 촬영한 사진을 업로드하려면?</a></li><li><a href=#q4-파일-크기-제한은-어떻게-구현하나요>Q4. 파일 크기 제한은 어떻게 구현하나요?</a></li></ol></li><li><a href=#마무리>마무리</a><ol><li><a href=#핵심-포인트-정리>핵심 포인트 정리</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/code/2025-07-18-multiple-upload/><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-18-multiple-upload.webp loading=lazy alt="Featured image of post jQuery 다중 파일 업로드, 삭제 기능까지 완벽 구현하기
+"></a></div><div class=article-details><header class=article-category><a href=/categories/jquery/>JQuery</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/code/2025-07-18-multiple-upload/>jQuery 다중 파일 업로드, 삭제 기능까지 완벽 구현하기</a></h2><h3 class=article-subtitle>jQuery로 다중 파일 업로드를 구현하는 실전 가이드입니다. 파일 선택부터 삭제까지, 반응형 디자인과 사용자 친화적 UI가 적용된 완성도 높은 예제로 한 번에 배워보세요.</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2025-07-18T00:00:00Z>18, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>10 분 정도</time></div></footer></div></header><section class=article-content><p>웹 개발을 하다 보면 사용자가 여러 파일을 한 번에 업로드할 수 있는 기능이 필요할 때가 많죠. 특히 이미지 갤러리나 문서 관리 시스템을 만들 때 &ldquo;파일을 하나씩 선택하는 게 너무 번거롭다"는 사용자 피드백을 받곤 해요.</p><p>저도 처음엔 HTML의 기본 <code>&lt;input type="file"></code> 태그만 사용해서 단순한 파일 업로드만 구현했는데, 사용자 경험이 정말 아쉬웠어요. 파일을 선택한 후 어떤 파일들이 선택되었는지 확인할 수 없고, 실수로 선택한 파일을 삭제하는 것도 불가능했거든요.</p><p>이 글에서는 jQuery를 활용해서 다중 파일 업로드부터 개별 파일 삭제, 반응형 디자인까지 완벽하게 구현하는 방법을 3단계로 나누어 설명드리겠습니다. 파일 선택부터 개별 삭제, 반응형 디자인까지 실무에서 바로 활용할 수 있는 완성도 높은 예제로 준비했어요.</p><div class=btn_wrap><a target=_blank href=https://ctrlcccv.github.io/ctrlcccv-demo/2025-07-18-multiple-upload/>예제결과 미리보기</a></div><br><h2 id=jquery-다중-파일-업로드란>jQuery 다중 파일 업로드란?</h2><p><strong>jQuery 다중 파일 업로드</strong>는 사용자가 여러 개의 파일을 한 번에 선택하고, 업로드 전에 선택된 파일 목록을 확인하며, 필요에 따라 개별 파일을 삭제할 수 있는 웹 인터페이스 기능입니다.</p><p>기본 HTML <code>&lt;input type="file" multiple></code> 태그만으로는 다음과 같은 한계가 있어요.</p><ul><li>선택된 파일 목록을 시각적으로 확인 불가</li><li>개별 파일 삭제 기능 없음</li><li>모바일 환경에서 사용성 저하</li><li>커스텀 디자인 적용 어려움</li></ul><p>jQuery를 활용하면 이러한 문제점들을 모두 해결하고, 사용자 친화적인 파일 업로드 인터페이스를 만들 수 있습니다.</p><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h3 id=주요-구성-요소>주요 구성 요소</h3><div class=table-wrapper><table><thead><tr><th>구성 요소</th><th>역할</th><th>특징</th></tr></thead><tbody><tr><td><strong>file input</strong></td><td>파일 선택</td><td><code>multiple</code> 속성으로 다중 선택 지원</td></tr><tr><td><strong>파일 목록 영역</strong></td><td>선택된 파일 표시</td><td>동적으로 파일 정보 렌더링</td></tr><tr><td><strong>삭제 버튼</strong></td><td>개별 파일 제거</td><td>클릭 시 목록에서 즉시 삭제</td></tr><tr><td><strong>반응형 레이아웃</strong></td><td>모바일 최적화</td><td>화면 크기별 최적화된 UI</td></tr></tbody></table></div><br><h2 id=1단계-html-구조-설계>1단계: HTML 구조 설계</h2><p>먼저 파일 업로드에 필요한 기본 HTML 구조를 만들어보겠습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;file_upload_wrap&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;file&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;fileInput&#34;</span> <span class=na>name</span><span class=o>=</span><span class=s>&#34;attachments[]&#34;</span> <span class=na>multiple</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>button</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;button&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;file_upload_btn&#34;</span><span class=p>&gt;</span>파일추가<span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;file_list&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;fileList&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=html-구조-핵심-포인트>HTML 구조 핵심 포인트</h3><p><strong>1. 접근성 고려한 설계</strong></p><ul><li><code>input[type="file"]</code>을 숨기고 버튼으로 트리거 하는 방식</li><li><code>name="attachments[]"</code> 배열 형태로 서버 전송 준비</li></ul><p><strong>2. 시맨틱 마크업</strong></p><ul><li><code>file_upload_wrap</code>: 전체 영역을 감싸는 컨테이너</li><li><code>file_upload_btn</code>: 파일 선택을 유도하는 버튼</li><li><code>file_list</code>: 선택된 파일 목록이 표시될 영역</li></ul><p><strong>3. 확장성 고려</strong></p><ul><li>명확한 클래스명으로 CSS와 JavaScript 연동 용이</li><li>ID와 클래스 분리로 재사용성 향상</li></ul><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=2단계-css-스타일링-완벽-구현>2단계: CSS 스타일링 완벽 구현</h2><h3 id=메인-컨테이너-스타일>메인 컨테이너 스타일</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=c>/* 파일 업로드 메인 컨테이너 */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_upload_wrap</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>max-width</span><span class=p>:</span> <span class=mi>500</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>margin</span><span class=p>:</span> <span class=mi>0</span> <span class=kc>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>24</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=kc>white</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border</span><span class=p>:</span> <span class=mi>2</span><span class=kt>px</span> <span class=kc>solid</span> <span class=mh>#e2e8f0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-radius</span><span class=p>:</span> <span class=mi>12</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>box-shadow</span><span class=p>:</span> <span class=mi>0</span> <span class=mi>4</span><span class=kt>px</span> <span class=mi>6</span><span class=kt>px</span> <span class=mi>-1</span><span class=kt>px</span> <span class=nb>rgba</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mf>0.1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>transition</span><span class=p>:</span> <span class=kc>all</span> <span class=mf>0.3</span><span class=kt>s</span> <span class=kc>ease</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=파일-입력-필드-숨김-처리>파일 입력 필드 숨김 처리</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=c>/* 파일 입력 필드 숨김 - 접근성을 고려한 완전한 숨김 */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_upload_wrap</span> <span class=nt>input</span><span class=o>[</span><span class=nt>type</span><span class=o>=</span><span class=s2>&#34;file&#34;</span><span class=o>]</span> <span class=p>{</span> 
+</span></span><span class=line><span class=cl>    <span class=k>position</span><span class=p>:</span> <span class=kc>absolute</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>1</span><span class=kt>px</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>height</span><span class=p>:</span> <span class=mi>1</span><span class=kt>px</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>margin</span><span class=p>:</span> <span class=mi>-1</span><span class=kt>px</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=kc>initial</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>overflow</span><span class=p>:</span> <span class=kc>hidden</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>    <span class=k>clip</span><span class=p>:</span> <span class=nb>rect</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>white-space</span><span class=p>:</span> <span class=kc>nowrap</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>왜 이렇게 복잡하게 숨길까요?</strong></p><ul><li><code>display: none</code>이나 <code>visibility: hidden</code>을 사용하면 스크린 리더에서 접근할 수 없어요.</li><li>위 방법은 화면에서는 보이지 않지만, 접근성 도구로는 접근할 수 있어요.</li></ul><br><h3 id=파일-업로드-버튼-스타일링>파일 업로드 버튼 스타일링</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=c>/* 파일 업로드 버튼 */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_upload_btn</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>display</span><span class=p>:</span> <span class=kc>flex</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>justify-content</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>align-items</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>gap</span><span class=p>:</span> <span class=mi>8</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>16</span><span class=kt>px</span> <span class=mi>20</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=mh>#3b82f6</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-radius</span><span class=p>:</span> <span class=mi>8</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-family</span><span class=p>:</span> <span class=kc>inherit</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-weight</span><span class=p>:</span> <span class=mi>600</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=kc>white</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>cursor</span><span class=p>:</span> <span class=kc>pointer</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transition</span><span class=p>:</span> <span class=kc>all</span> <span class=mf>0.2</span><span class=kt>s</span> <span class=nb>cubic-bezier</span><span class=p>(</span><span class=mf>0.4</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>will-change</span><span class=p>:</span> <span class=k>transform</span><span class=p>,</span> <span class=k>background-color</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>translateZ</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_upload_btn</span><span class=p>:</span><span class=nd>hover</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=mh>#2563eb</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>translateY</span><span class=p>(</span><span class=mi>-1</span><span class=kt>px</span><span class=p>)</span> <span class=nb>translateZ</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_upload_btn</span><span class=p>:</span><span class=nd>active</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>translateY</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span> <span class=nb>translateZ</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_upload_btn</span><span class=p>:</span><span class=nd>focus</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>outline</span><span class=p>:</span> <span class=mi>2</span><span class=kt>px</span> <span class=kc>solid</span> <span class=mh>#3b82f6</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>outline-offset</span><span class=p>:</span> <span class=mi>2</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=파일-목록-영역-스타일>파일 목록 영역 스타일</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=c>/* 파일 목록 컨테이너 */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_list</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>margin-top</span><span class=p>:</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* 개별 파일 아이템 */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_item</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>display</span><span class=p>:</span> <span class=kc>flex</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>justify-content</span><span class=p>:</span> <span class=kc>space-between</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>align-items</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>margin-bottom</span><span class=p>:</span> <span class=mi>8</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>12</span><span class=kt>px</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=mh>#f1f5f9</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border</span><span class=p>:</span> <span class=mi>1</span><span class=kt>px</span> <span class=kc>solid</span> <span class=mh>#e2e8f0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-radius</span><span class=p>:</span> <span class=mi>8</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transition</span><span class=p>:</span> <span class=kc>all</span> <span class=mf>0.2</span><span class=kt>s</span> <span class=nb>cubic-bezier</span><span class=p>(</span><span class=mf>0.4</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>will-change</span><span class=p>:</span> <span class=k>transform</span><span class=p>,</span> <span class=k>background-color</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>translateZ</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_item</span><span class=p>:</span><span class=nd>last-child</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>margin-bottom</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_item</span><span class=p>:</span><span class=nd>hover</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=mh>#e2e8f0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-color</span><span class=p>:</span> <span class=mh>#cbd5e1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>translateX</span><span class=p>(</span><span class=mi>2</span><span class=kt>px</span><span class=p>)</span> <span class=nb>translateZ</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* 파일명 표시 */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_name</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>flex</span><span class=p>:</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>margin-right</span><span class=p>:</span> <span class=mi>12</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=mi>14</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-weight</span><span class=p>:</span> <span class=mi>500</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=mh>#334155</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>word-break</span><span class=p>:</span> <span class=n>break-all</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>line-height</span><span class=p>:</span> <span class=mf>1.4</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* 파일 삭제 버튼 */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_delete_btn</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>flex-shrink</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>6</span><span class=kt>px</span> <span class=mi>12</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=mh>#ef4444</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-radius</span><span class=p>:</span> <span class=mi>6</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=mi>12</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-weight</span><span class=p>:</span> <span class=mi>500</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=kc>white</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>cursor</span><span class=p>:</span> <span class=kc>pointer</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transition</span><span class=p>:</span> <span class=kc>all</span> <span class=mf>0.2</span><span class=kt>s</span> <span class=nb>cubic-bezier</span><span class=p>(</span><span class=mf>0.4</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>will-change</span><span class=p>:</span> <span class=k>transform</span><span class=p>,</span> <span class=k>background-color</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>translateZ</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_delete_btn</span><span class=p>:</span><span class=nd>hover</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=mh>#dc2626</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>scale</span><span class=p>(</span><span class=mf>1.05</span><span class=p>)</span> <span class=nb>translateZ</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_delete_btn</span><span class=p>:</span><span class=nd>active</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>transform</span><span class=p>:</span> <span class=nb>scale</span><span class=p>(</span><span class=mf>0.95</span><span class=p>)</span> <span class=nb>translateZ</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_delete_btn</span><span class=p>:</span><span class=nd>focus</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>outline</span><span class=p>:</span> <span class=mi>2</span><span class=kt>px</span> <span class=kc>solid</span> <span class=mh>#ef4444</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>outline-offset</span><span class=p>:</span> <span class=mi>2</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=애니메이션-효과>애니메이션 효과</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=c>/* 파일 아이템 등장 애니메이션 */</span>
+</span></span><span class=line><span class=cl><span class=p>@</span><span class=k>keyframes</span> <span class=nt>slideIn</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>from</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>opacity</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>transform</span><span class=p>:</span> <span class=nb>translateY</span><span class=p>(</span><span class=mi>10</span><span class=kt>px</span><span class=p>)</span> <span class=nb>translateZ</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nt>to</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>opacity</span><span class=p>:</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>transform</span><span class=p>:</span> <span class=nb>translateY</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span> <span class=nb>translateZ</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_item</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>animation</span><span class=p>:</span> <span class=n>slideIn</span> <span class=mf>0.3</span><span class=kt>s</span> <span class=nb>cubic-bezier</span><span class=p>(</span><span class=mf>0.4</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mf>0.2</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>/* 파일 없을 때 안내 메시지 */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_list</span><span class=p>:</span><span class=nd>empty</span><span class=p>::</span><span class=nd>after</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>content</span><span class=p>:</span> <span class=s1>&#39;업로드할 파일을 선택해주세요.&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>display</span><span class=p>:</span> <span class=kc>block</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>margin-top</span><span class=p>:</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>20</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=mh>#f8fafc</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border</span><span class=p>:</span> <span class=mi>2</span><span class=kt>px</span> <span class=kc>dashed</span> <span class=mh>#cbd5e1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-radius</span><span class=p>:</span> <span class=mi>8</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>font-size</span><span class=p>:</span> <span class=mi>14</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=mh>#64748b</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>text-align</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>transition</span><span class=p>:</span> <span class=kc>all</span> <span class=mf>0.3</span><span class=kt>s</span> <span class=kc>ease</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=반응형-디자인>반응형 디자인</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=c>/* 모바일 반응형 */</span>
+</span></span><span class=line><span class=cl><span class=p>@</span><span class=k>media</span> <span class=o>(</span><span class=nt>max-width</span><span class=o>:</span> <span class=nt>480px</span><span class=o>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nc>file_upload_wrap</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>padding</span><span class=p>:</span> <span class=mi>20</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>margin</span><span class=p>:</span> <span class=mi>0</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nc>file_upload_btn</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>padding</span><span class=p>:</span> <span class=mi>14</span><span class=kt>px</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>font-size</span><span class=p>:</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nc>file_item</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>flex-direction</span><span class=p>:</span> <span class=kc>column</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>align-items</span><span class=p>:</span> <span class=kc>flex-start</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>gap</span><span class=p>:</span> <span class=mi>8</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>padding</span><span class=p>:</span> <span class=mi>14</span><span class=kt>px</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nc>file_name</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>margin-right</span><span class=p>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>margin-bottom</span><span class=p>:</span> <span class=mi>4</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nc>file_delete_btn</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>align-self</span><span class=p>:</span> <span class=kc>flex-end</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nc>file_item</span><span class=p>:</span><span class=nd>hover</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>transform</span><span class=p>:</span> <span class=kc>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>background</span><span class=p>:</span> <span class=mh>#f1f5f9</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>border-color</span><span class=p>:</span> <span class=mh>#e2e8f0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=성능-최적화-css>성능 최적화 CSS</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=c>/* 성능 최적화 */</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_list</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>scroll-behavior</span><span class=p>:</span> <span class=kc>smooth</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_upload_btn</span><span class=o>,</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_item</span><span class=o>,</span>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_delete_btn</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>backface-visibility</span><span class=p>:</span> <span class=kc>hidden</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>perspective</span><span class=p>:</span> <span class=mi>1000</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_item</span> <span class=o>*</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>box-sizing</span><span class=p>:</span> <span class=kc>border-box</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>file_upload_wrap</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>contain</span><span class=p>:</span> <span class=n>layout</span> <span class=kc>style</span> <span class=n>paint</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><p><ins class=adsbygoogle style=display:block;text-align:center data-ad-layout=in-article data-ad-format=fluid data-ad-client=ca-pub-8535540836842352 data-ad-slot=2974559225></ins></p><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script><br><h2 id=3단계-jquery-기능-구현>3단계: jQuery 기능 구현</h2><h3 id=전체-jquery-코드>전체 jQuery 코드</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>initFileUpload</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 상수 정의
+</span></span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>DELETE_BTN</span> <span class=o>=</span> <span class=s1>&#39;file_delete_btn&#39;</span><span class=p>;</span>  <span class=c1>// 삭제 버튼 클래스
+</span></span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>FILE_ITEM</span> <span class=o>=</span> <span class=s1>&#39;file_item&#39;</span><span class=p>;</span>         <span class=c1>// 파일 아이템 클래스
+</span></span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>FILE_NAME</span> <span class=o>=</span> <span class=s1>&#39;file_name&#39;</span><span class=p>;</span>         <span class=c1>// 파일명 클래스
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// DOM 요소 캐싱
+</span></span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>$input</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;#fileInput&#39;</span><span class=p>);</span>         <span class=c1>// 파일 입력 필드
+</span></span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>$list</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;#fileList&#39;</span><span class=p>);</span>          <span class=c1>// 파일 목록 컨테이너
+</span></span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>$button</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.file_upload_btn&#39;</span><span class=p>);</span> <span class=c1>// 업로드 버튼
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 파일 저장 배열
+</span></span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>files</span> <span class=o>=</span> <span class=p>[];</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 이벤트 바인딩
+</span></span></span><span class=line><span class=cl>    <span class=nx>$button</span><span class=p>.</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>$input</span><span class=p>.</span><span class=nx>trigger</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>    <span class=nx>$input</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;change&#39;</span><span class=p>,</span> <span class=nx>handleChange</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>$list</span><span class=p>.</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=sb>`.</span><span class=si>${</span><span class=nx>DELETE_BTN</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span> <span class=nx>handleDelete</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 파일 선택 처리
+</span></span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>handleChange</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>selectedFiles</span> <span class=o>=</span> <span class=nb>Array</span><span class=p>.</span><span class=nx>from</span><span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>files</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>$fragment</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=nb>document</span><span class=p>.</span><span class=nx>createDocumentFragment</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nx>selectedFiles</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>file</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>isDuplicate</span><span class=p>(</span><span class=nx>file</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>files</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>file</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=nx>$fragment</span><span class=p>.</span><span class=nx>append</span><span class=p>(</span><span class=nx>createItem</span><span class=p>(</span><span class=nx>file</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>$fragment</span><span class=p>.</span><span class=nx>children</span><span class=p>().</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>$list</span><span class=p>.</span><span class=nx>append</span><span class=p>(</span><span class=nx>$fragment</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=nx>$input</span><span class=p>.</span><span class=nx>val</span><span class=p>(</span><span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 파일 삭제 처리
+</span></span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>handleDelete</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>$item</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>closest</span><span class=p>(</span><span class=sb>`.</span><span class=si>${</span><span class=nx>FILE_ITEM</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>fileName</span> <span class=o>=</span> <span class=nx>$item</span><span class=p>.</span><span class=nx>find</span><span class=p>(</span><span class=sb>`.</span><span class=si>${</span><span class=nx>FILE_NAME</span><span class=si>}</span><span class=sb>`</span><span class=p>).</span><span class=nx>text</span><span class=p>().</span><span class=nx>trim</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=kr>const</span> <span class=nx>index</span> <span class=o>=</span> <span class=nx>files</span><span class=p>.</span><span class=nx>findIndex</span><span class=p>(</span><span class=nx>file</span> <span class=p>=&gt;</span> <span class=nx>file</span><span class=p>.</span><span class=nx>name</span> <span class=o>===</span> <span class=nx>fileName</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>index</span> <span class=o>!==</span> <span class=o>-</span><span class=mi>1</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>files</span><span class=p>.</span><span class=nx>splice</span><span class=p>(</span><span class=nx>index</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=nx>$item</span><span class=p>.</span><span class=nx>fadeOut</span><span class=p>(</span><span class=mi>200</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>remove</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>            <span class=p>});</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 중복 파일 검사
+</span></span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>isDuplicate</span><span class=p>(</span><span class=nx>file</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>files</span><span class=p>.</span><span class=nx>some</span><span class=p>(</span><span class=nx>f</span> <span class=p>=&gt;</span> 
+</span></span><span class=line><span class=cl>            <span class=nx>f</span><span class=p>.</span><span class=nx>name</span> <span class=o>===</span> <span class=nx>file</span><span class=p>.</span><span class=nx>name</span> <span class=o>&amp;&amp;</span> 
+</span></span><span class=line><span class=cl>            <span class=nx>f</span><span class=p>.</span><span class=nx>size</span> <span class=o>===</span> <span class=nx>file</span><span class=p>.</span><span class=nx>size</span> <span class=o>&amp;&amp;</span> 
+</span></span><span class=line><span class=cl>            <span class=nx>f</span><span class=p>.</span><span class=nx>lastModified</span> <span class=o>===</span> <span class=nx>file</span><span class=p>.</span><span class=nx>lastModified</span>
+</span></span><span class=line><span class=cl>        <span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 파일 아이템 생성
+</span></span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>createItem</span><span class=p>(</span><span class=nx>file</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;&lt;div&gt;&#39;</span><span class=p>,</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kr>class</span><span class=o>:</span> <span class=nx>FILE_ITEM</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>html</span><span class=o>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>                <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;&lt;span&gt;&#39;</span><span class=p>,</span> <span class=p>{</span> <span class=kr>class</span><span class=o>:</span> <span class=nx>FILE_NAME</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=nx>file</span><span class=p>.</span><span class=nx>name</span> <span class=p>}),</span>
+</span></span><span class=line><span class=cl>                <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;&lt;button&gt;&#39;</span><span class=p>,</span> <span class=p>{</span> <span class=nx>type</span><span class=o>:</span> <span class=s1>&#39;button&#39;</span><span class=p>,</span> <span class=kr>class</span><span class=o>:</span> <span class=nx>DELETE_BTN</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=s1>&#39;삭제&#39;</span> <span class=p>})</span>
+</span></span><span class=line><span class=cl>            <span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 초기화
+</span></span></span><span class=line><span class=cl><span class=nx>$</span><span class=p>(</span><span class=nb>document</span><span class=p>).</span><span class=nx>ready</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>initFileUpload</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=jquery-코드-핵심-포인트-상세-설명>jQuery 코드 핵심 포인트 상세 설명</h3><h4 id=1-상수-정의와-dom-캐싱>1. 상수 정의와 DOM 캐싱</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 상수 정의 - 유지보수성을 위한 클래스명 관리
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>DELETE_BTN</span> <span class=o>=</span> <span class=s1>&#39;file_delete_btn&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>FILE_ITEM</span> <span class=o>=</span> <span class=s1>&#39;file_item&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>FILE_NAME</span> <span class=o>=</span> <span class=s1>&#39;file_name&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// DOM 요소 캐싱 - 성능 최적화
+</span></span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>$input</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;#fileInput&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>$list</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;#fileList&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>$button</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;.file_upload_btn&#39;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>왜 이렇게 할까요?</strong></p><ul><li><strong>유지보수성</strong>: 클래스명이 변경되면 상수만 수정하면 돼요.</li><li><strong>성능 최적화</strong>: DOM 요소를 한 번만 찾아서 캐싱해두면 반복 접근 시 빨라져요.</li></ul><br><h4 id=2-이벤트-바인딩-전략>2. 이벤트 바인딩 전략</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 이벤트 바인딩
+</span></span></span><span class=line><span class=cl><span class=nx>$button</span><span class=p>.</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>$input</span><span class=p>.</span><span class=nx>trigger</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>));</span>
+</span></span><span class=line><span class=cl><span class=nx>$input</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;change&#39;</span><span class=p>,</span> <span class=nx>handleChange</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=nx>$list</span><span class=p>.</span><span class=nx>on</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=sb>`.</span><span class=si>${</span><span class=nx>DELETE_BTN</span><span class=si>}</span><span class=sb>`</span><span class=p>,</span> <span class=nx>handleDelete</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>핵심 포인트:</strong></p><ul><li><strong>버튼 클릭 → 파일 입력 트리거</strong>: 사용자 친화적 인터페이스</li><li><strong>네이티브 이벤트 사용</strong>: <code>change</code> 이벤트는 성능상 네이티브가 더 좋아요.</li><li><strong>이벤트 위임</strong>: 동적으로 추가되는 삭제 버튼에 대해 부모 요소에 이벤트 위임</li></ul><br><h4 id=3-파일-선택-처리-로직>3. 파일 선택 처리 로직</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>handleChange</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>selectedFiles</span> <span class=o>=</span> <span class=nb>Array</span><span class=p>.</span><span class=nx>from</span><span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>files</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>$fragment</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=nb>document</span><span class=p>.</span><span class=nx>createDocumentFragment</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>selectedFiles</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>file</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>isDuplicate</span><span class=p>(</span><span class=nx>file</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>files</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>file</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=nx>$fragment</span><span class=p>.</span><span class=nx>append</span><span class=p>(</span><span class=nx>createItem</span><span class=p>(</span><span class=nx>file</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>$fragment</span><span class=p>.</span><span class=nx>children</span><span class=p>().</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$list</span><span class=p>.</span><span class=nx>append</span><span class=p>(</span><span class=nx>$fragment</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=nx>$input</span><span class=p>.</span><span class=nx>val</span><span class=p>(</span><span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>핵심 최적화 기법:</strong></p><ul><li><strong>DocumentFragment 활용</strong>: DOM 조작을 일괄 처리해서 리플로우 최소화</li><li><strong>중복 체크</strong>: 같은 파일을 여러 번 추가하는 것 방지</li><li><strong>input 초기화</strong>: 같은 파일을 다시 선택할 수 있도록 초기화</li></ul><br><h4 id=4-파일-삭제-처리>4. 파일 삭제 처리</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>handleDelete</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>$item</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>closest</span><span class=p>(</span><span class=sb>`.</span><span class=si>${</span><span class=nx>FILE_ITEM</span><span class=si>}</span><span class=sb>`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>fileName</span> <span class=o>=</span> <span class=nx>$item</span><span class=p>.</span><span class=nx>find</span><span class=p>(</span><span class=sb>`.</span><span class=si>${</span><span class=nx>FILE_NAME</span><span class=si>}</span><span class=sb>`</span><span class=p>).</span><span class=nx>text</span><span class=p>().</span><span class=nx>trim</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>index</span> <span class=o>=</span> <span class=nx>files</span><span class=p>.</span><span class=nx>findIndex</span><span class=p>(</span><span class=nx>file</span> <span class=p>=&gt;</span> <span class=nx>file</span><span class=p>.</span><span class=nx>name</span> <span class=o>===</span> <span class=nx>fileName</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>index</span> <span class=o>!==</span> <span class=o>-</span><span class=mi>1</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>files</span><span class=p>.</span><span class=nx>splice</span><span class=p>(</span><span class=nx>index</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>$item</span><span class=p>.</span><span class=nx>fadeOut</span><span class=p>(</span><span class=mi>200</span><span class=p>,</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>remove</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>        <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>중요한 고려사항:</strong></p><ul><li><strong>파일명으로 식별</strong>: 배열에서 해당 파일을 찾아서 삭제</li><li><strong>애니메이션 효과</strong>: <code>fadeOut</code>으로 자연스러운 삭제 효과</li><li><strong>콜백 처리</strong>: 애니메이션 완료 후 DOM에서 완전 제거</li></ul><br><h4 id=5-중복-파일-검사>5. 중복 파일 검사</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// ✅ 올바른 방법: 이름, 크기, 수정일 모두 비교
+</span></span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>isDuplicate</span><span class=p>(</span><span class=nx>file</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>files</span><span class=p>.</span><span class=nx>some</span><span class=p>(</span><span class=nx>f</span> <span class=p>=&gt;</span> 
+</span></span><span class=line><span class=cl>        <span class=nx>f</span><span class=p>.</span><span class=nx>name</span> <span class=o>===</span> <span class=nx>file</span><span class=p>.</span><span class=nx>name</span> <span class=o>&amp;&amp;</span> 
+</span></span><span class=line><span class=cl>        <span class=nx>f</span><span class=p>.</span><span class=nx>size</span> <span class=o>===</span> <span class=nx>file</span><span class=p>.</span><span class=nx>size</span> <span class=o>&amp;&amp;</span> 
+</span></span><span class=line><span class=cl>        <span class=nx>f</span><span class=p>.</span><span class=nx>lastModified</span> <span class=o>===</span> <span class=nx>file</span><span class=p>.</span><span class=nx>lastModified</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>왜 파일 크기와 수정일까지 비교해야 할까요?</strong></p><ul><li>같은 이름이지만 다른 내용의 파일이 있을 수 있어요.</li><li>파일 크기와 수정일까지 비교하면 더 정확한 중복 파일 검사를 할 수 있어요.</li></ul><br><h4 id=6-동적-요소-생성>6. 동적 요소 생성</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createItem</span><span class=p>(</span><span class=nx>file</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;&lt;div&gt;&#39;</span><span class=p>,</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kr>class</span><span class=o>:</span> <span class=nx>FILE_ITEM</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>html</span><span class=o>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>            <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;&lt;span&gt;&#39;</span><span class=p>,</span> <span class=p>{</span> <span class=kr>class</span><span class=o>:</span> <span class=nx>FILE_NAME</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=nx>file</span><span class=p>.</span><span class=nx>name</span> <span class=p>}),</span>
+</span></span><span class=line><span class=cl>            <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;&lt;button&gt;&#39;</span><span class=p>,</span> <span class=p>{</span> <span class=nx>type</span><span class=o>:</span> <span class=s1>&#39;button&#39;</span><span class=p>,</span> <span class=kr>class</span><span class=o>:</span> <span class=nx>DELETE_BTN</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=s1>&#39;삭제&#39;</span> <span class=p>})</span>
+</span></span><span class=line><span class=cl>        <span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>jQuery 객체 생성의 효율적 방법:</strong></p><ul><li>한 번에 요소와 속성을 모두 설정</li><li>배열 형태로 자식 요소들을 한 번에 추가</li><li>XSS 방지를 위해 <code>text()</code> 메서드 사용</li></ul><br><h2 id=자주-묻는-질문-faq>자주 묻는 질문 (FAQ)</h2><h3 id=q1-다중-파일-업로드에서-파일-개수-제한은-어떻게-설정하나요>Q1. 다중 파일 업로드에서 파일 개수 제한은 어떻게 설정하나요?</h3><p>A1. 파일 선택 시 배열 길이를 체크하여 제한할 수 있습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>handleChange</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>selectedFiles</span> <span class=o>=</span> <span class=nb>Array</span><span class=p>.</span><span class=nx>from</span><span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>files</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>maxFiles</span> <span class=o>=</span> <span class=mi>5</span><span class=p>;</span> <span class=c1>// 최대 5개 파일
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>files</span><span class=p>.</span><span class=nx>length</span> <span class=o>+</span> <span class=nx>selectedFiles</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=nx>maxFiles</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>alert</span><span class=p>(</span><span class=sb>`최대 </span><span class=si>${</span><span class=nx>maxFiles</span><span class=si>}</span><span class=sb>개 파일까지만 선택할 수 있습니다.`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 기존 로직 계속...
+</span></span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=q2-이미지-파일만-선택하도록-제한하려면>Q2. 이미지 파일만 선택하도록 제한하려면?</h3><p>A2. <code>accept</code> 속성을 사용하면 파일 선택 다이얼로그에서 특정 형식만 표시됩니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=c>&lt;!-- 이미지 파일만 허용 --&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;file&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;fileInput&#34;</span> <span class=na>accept</span><span class=o>=</span><span class=s>&#34;image/*&#34;</span> <span class=na>multiple</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c>&lt;!-- 특정 확장자만 허용 --&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;file&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;fileInput&#34;</span> <span class=na>accept</span><span class=o>=</span><span class=s>&#34;.jpg,.jpeg,.png,.pdf&#34;</span> <span class=na>multiple</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><br><h3 id=q3-모바일에서-카메라로-직접-촬영한-사진을-업로드하려면>Q3. 모바일에서 카메라로 직접 촬영한 사진을 업로드하려면?</h3><p>A3. <code>capture</code> 속성을 추가하면 모바일에서 카메라 직접 접근이 가능합니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;file&#34;</span> <span class=na>accept</span><span class=o>=</span><span class=s>&#34;image/*&#34;</span> <span class=na>capture</span><span class=o>=</span><span class=s>&#34;environment&#34;</span> <span class=na>multiple</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><code>capture="user"</code>: 전면 카메라</li><li><code>capture="environment"</code>: 후면 카메라</li></ul><br><h3 id=q4-파일-크기-제한은-어떻게-구현하나요>Q4. 파일 크기 제한은 어떻게 구현하나요?</h3><p>A4. 파일 선택 시 각 파일의 size 속성을 확인하여 제한할 수 있습니다.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>function</span> <span class=nx>handleChange</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>selectedFiles</span> <span class=o>=</span> <span class=nb>Array</span><span class=p>.</span><span class=nx>from</span><span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>files</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>maxSize</span> <span class=o>=</span> <span class=mi>5</span> <span class=o>*</span> <span class=mi>1024</span> <span class=o>*</span> <span class=mi>1024</span><span class=p>;</span> <span class=c1>// 5MB
+</span></span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>file</span> <span class=k>of</span> <span class=nx>selectedFiles</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>file</span><span class=p>.</span><span class=nx>size</span> <span class=o>&gt;</span> <span class=nx>maxSize</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>alert</span><span class=p>(</span><span class=sb>`파일 크기가 너무 큽니다: </span><span class=si>${</span><span class=nx>file</span><span class=p>.</span><span class=nx>name</span><span class=si>}</span><span class=sb> (최대 5MB)`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// 기존 로직 계속...
+</span></span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><br><h2 id=마무리>마무리</h2><p>jQuery를 활용한 다중 파일 업로드 기능 구현을 3단계로 나누어 살펴보았습니다. 단순한 파일 선택부터 <strong>파일 업로드 삭제 기능</strong>, <strong>반응형 파일 업로드</strong>, <strong>모바일 파일 업로드</strong> 최적화까지 실무에서 바로 활용할 수 있는 완성도 높은 예제를 만들어보았어요.</p><br><h3 id=핵심-포인트-정리>핵심 포인트 정리</h3><ol><li><strong>접근성 고려</strong>: 파일 input 숨김과 버튼 연동으로 사용자 친화적 인터페이스</li><li><strong>성능 최적화</strong>: DocumentFragment, 이벤트 위임, DOM 캐싱 활용</li><li><strong>사용자 경험</strong>: 직관적인 UI, 애니메이션 효과, 반응형 디자인</li><li><strong>확장성</strong>: 파일 개수 제한, 파일 형식 제한 등 실무 요구사항 대응</li><li><strong>호환성</strong>: 다양한 브라우저 환경 대응과 IE 폴리필</li></ol><p>특히 <strong>HTML 파일 업로드 예제</strong>를 통해 보셨듯이, 단순해 보이는 기능도 사용자 친화적으로 만들려면 많은 세심한 배려가 필요해요. 이번 예제가 여러분의 프로젝트에서 더 나은 <strong>파일 업로드 구현</strong>에 도움이 되었기를 바랍니다.</p><p>혹시 구현 과정에서 궁금한 점이나 개선 아이디어가 있으시면 댓글로 공유해 주세요. 함께 더 나은 사용자 경험을 만들어 나가요! 🚀</p><p>다음에는 <strong>파일 업로드 진행바 구현</strong>이나 <strong>드래그 앤 드롭 파일 업로드</strong> 등의 고급 기능들을 별도 글로 더 자세히 다뤄보겠습니다.</p><br></section><footer class=article-footer><section class=article-tags><a href=/tags/%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C/>파일 업로드</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>관련 글</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/code/2025-04-28-image-preview/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-28-image-preview.webp loading=lazy data-key=2025-04-28-image-preview data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-04-28-image-preview.webp></div><div class=article-details><h2 class=article-title>jQuery - 이미지 파일 업로드 및 미리보기 기능 구현하기</h2></div></a></article><article class=has-image><a href=/code/2023-11-30-input-add/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-30-input-add.webp loading=lazy data-key=2023-11-30-input-add data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2023-11-30-input-add.webp></div><div class=article-details><h2 class=article-title>jQuery - 버튼 클릭 시 input 추가, 삭제하기</h2></div></a></article><article class=has-image><a href=/code/2023-08-09-file-custom/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/file-custom.webp loading=lazy data-key=2023-08-09-file-custom data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/file-custom.webp></div><div class=article-details><h2 class=article-title>input[type="file"] 태그 커스텀 (웹 접근성 개선)</h2></div></a></article><article class=has-image><a href=/code-en/2025-07-21-multiple-upload/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-21-multiple-upload-en.webp loading=lazy data-key=2025-07-21-multiple-upload data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-21-multiple-upload-en.webp></div><div class=article-details><h2 class=article-title>jQuery Multiple File Upload Tutorial: Master File Upload Systems</h2></div></a></article><article class=has-image><a href=/code-en/2025-07-15-bottom-sticky/><div class=article-image><img src=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-15-bottom-sticky-en.webp loading=lazy data-key=2025-07-15-bottom-sticky data-hash=https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-15-bottom-sticky-en.webp></div><div class=article-details><h2 class=article-title>How to Build Sticky Bottom Banner with jQuery (No Footer Overlap)</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=ctrlcccv/ctrlcccv.github.io issue-term=url label=comment crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>let utterancesLoaded=!1;function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;utterancesLoaded=!0,setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{if(!utterancesLoaded)return;setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2023 -
+2026 컨트롤 + CCCV</section><section class=powerby><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>로 만듦<br><a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>의 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 테마 사용 중</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
