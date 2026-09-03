@@ -7,6 +7,8 @@ slug: 2026-09-03-claude-fable-51-token-usage
 date: 2026-09-03 00:00:00+0900
 lastmod: 2026-09-03 00:00:00+0900
 
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2026-09-03-claude-fable-51-token-usage.webp
+
 categories:
     - AI 개발
 tags:
