@@ -9,7 +9,7 @@ slug: 2025-07-22-javascript-this
 date: 2025-07-22 00:00:00+0000
 lastmod: 2025-07-22 00:00:00+0000
 
-image: https://raw.githubusercontent.com/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-22-javascript-this.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-22-javascript-this.webp
 
 categories:
     - JavaScript

@@ -7,7 +7,7 @@ slug: 2025-07-21-multiple-upload
 date: 2025-07-21 00:00:00+0000
 lastmod: 2025-07-21 00:00:00+0000
 
-image: https://raw.githubusercontent.com/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-21-multiple-upload-en.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-21-multiple-upload-en.webp
 
 alternates:
   - title: "jQuery 다중 파일 업로드, 삭제 기능까지 완벽 구현하기"

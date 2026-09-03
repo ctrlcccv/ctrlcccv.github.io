@@ -7,7 +7,7 @@ slug: 2025-07-18-multiple-upload
 date: 2025-07-18 00:00:00+0000
 lastmod: 2025-07-18 00:00:00+0000
 
-image: https://raw.githubusercontent.com/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-18-multiple-upload.webp
+image: https://media.githubusercontent.com/media/ctrlcccv/ctrlcccv.github.io/master/assets/img/post/2025-07-18-multiple-upload.webp
 categories:
     - jQuery
 tags:
